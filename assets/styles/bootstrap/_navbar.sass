@@ -1,0 +1,79 @@
+.navbar
+  border-bottom: $navbar-border-size solid transparent
+  border-color: $navbar-border-color
+  margin-bottom: 0
+  min-height: $navbar-height-mobile
+
+  .brand-link
+    +align-items(center)
+    +justify-content(center)
+    +flexbox()
+    height: $navbar-height
+    float: right
+    line-height: 1
+
+    &:hover
+      text-decoration: none
+
+    +respond-to(mobile)
+      float: initial
+      height: 50px
+
+      img
+        width: 130px
+        height: auto
+
+      .navbar-brand-subtitle
+        font-size: 20px
+        margin-top: 0
+        margin-left: 4px
+
+  .navbar-brand-subtitle
+    color: $brand-primary
+    font-family: $bariol-bold-font-family
+    font-size: 38px
+    margin-top: -5px
+    margin-left: 10px
+
+  .navbar-nav > li > a
+    font-family: $bariol-regular-font-family
+    font-size: 16px
+
+    &.dropdown-user
+      +align-items(center)
+      +flexbox()
+      +justify-content(center)
+      height: $navbar-height
+      padding: 0 18px
+
+      img
+        height: 30px
+        width: auto
+        margin-right: 10px
+
+        +respond-to(mobile)
+          display: none
+
+      .caret
+        margin-left: 5px
+
+  .navbar-toggle
+    border: none
+    float: left
+    margin-top: 8px
+    margin-right: 0
+    margin-bottom: 9px
+    margin-left: 15px
+    padding: 8px 10px
+    position: absolute
+
+    &:hover,
+    &:focus
+      background-color: transparent
+
+      .icon-bar
+        background-color: $link-hover-color
+
+    .icon-bar
+      background-color: $brand-primary
+      height: 3px

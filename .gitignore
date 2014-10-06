@@ -116,3 +116,7 @@ npm-debug.log
 nbproject
 .idea
 .node_history
+.sass-cache
+assets/js/main.js
+assets/js/app/config/local.js
+assets/vendor/*

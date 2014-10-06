@@ -1,0 +1,25 @@
+{
+  "name": "gapminder-go-desktop",
+  "version": "0.0.0",
+  "authors": [
+    "Eric Nishio <eric.nishio@nordsoftware.com>"
+  ],
+  "description": "The desktop version of the Gapminder Go application.",
+  "license": "Proprietary License",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "bootstrap-sass-official": "~3.2.0",
+    "angular": "~1.2.24",
+    "angular-route": "~1.2.24",
+    "angular-mocks": "~1.2.25",
+    "angular-resource": "~1.2.25",
+    "lodash": "~2.4.1",
+    "font-awesome": "~4.2.0",
+    "jquery": "~2.1.1"
+  }
+}
