@@ -31,7 +31,7 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/eric/gapminder-go-desktop.git"
+    "url": "git://github.com/Gapminder/gapminder-go-desktop.git"
   },
   "author": "Eric Nishio <eric.nishio@nordsoftware.com>",
   "contributors": [
