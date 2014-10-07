@@ -6,7 +6,8 @@ angular.module('Gapminder').factory('MainConfig', function() {
         apiMocks: {
             // API URIs that are mocked for development purposes.
             GET: [
-                '/user/info'
+                '/user/info',
+                '/language/list'
             ],
             POST: [
                 '/user/login',

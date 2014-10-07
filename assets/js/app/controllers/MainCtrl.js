@@ -1,3 +1,16 @@
-angular.module('Gapminder').controller('MainCtrl', ['$scope', 'UserService', function($scope, UserService) {
+angular.module('Gapminder').controller('MainCtrl', [
+    '$scope',
+    '$http',
+    'UserService',
+    'ApiService',
+    'LocaleService',
+function(
+    $scope,
+    $http,
+    UserService,
+    ApiService,
+    LocaleService
+) {
     $scope.user = UserService;
+    $scope.locale = LocaleService;
 }]);

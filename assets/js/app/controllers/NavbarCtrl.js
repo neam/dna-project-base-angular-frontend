@@ -1,4 +1,14 @@
-angular.module('Gapminder').controller('NavbarCtrl', ['$scope', 'UserService', 'NavigationService', function($scope, UserService, NavigationService) {
+angular.module('Gapminder').controller('NavbarCtrl', [
+    '$scope',
+    'UserService',
+    'NavigationService',
+    'LocaleService',
+function(
+    $scope,
+    UserService,
+    NavigationService,
+    LocaleService
+) {
     /**
      * Logs out the user.
      */
@@ -13,5 +23,13 @@ angular.module('Gapminder').controller('NavbarCtrl', ['$scope', 'UserService', '
      */
     $scope.getUsername = function() {
         return UserService.info ? UserService.info.username : '';
+    };
+
+    /**
+     * Sets the current locale.
+     * @param {string} locale
+     */
+    $scope.setLocale = function(locale) {
+        LocaleService.setLocale(locale);
     };
 }]);
