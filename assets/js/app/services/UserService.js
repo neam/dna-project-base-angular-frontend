@@ -110,14 +110,14 @@ angular.module('Gapminder').factory('UserService', function($http, $q, $window, 
          * @returns {boolean}
          */
         hasAuthToken: function() {
-            return typeof this.getAuthToken() !== 'undefined';
+            return angular.isDefined(this.getAuthToken());
         },
 
         /**
          * Deletes the authentication storage.
          */
         deleteAuthToken: function() {
-            if (typeof $window.sessionStorage.authToken !== 'undefined') {
+            if (angular.isDefined($window.sessionStorage.authToken)) {
                 delete $window.sessionStorage.authToken;
             } else {
                 console.info('Authentication token has not been saved.');

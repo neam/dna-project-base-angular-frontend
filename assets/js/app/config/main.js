@@ -5,8 +5,13 @@ angular.module('Gapminder').factory('MainConfig', function() {
         baseMockApiUrl: 'http://localhost:1338/api',
         apiMocks: {
             // API URIs that are mocked for development purposes.
-            GET: [],
-            POST: [],
+            GET: [
+                '/user/info'
+            ],
+            POST: [
+                '/user/login',
+                '/user/authenticate'
+            ],
             PUT: [],
             DELETE: []
         },

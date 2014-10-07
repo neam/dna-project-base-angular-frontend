@@ -23,5 +23,8 @@
 module.exports.routes = {
     '/': {
         view: 'index'
+    },
+    '/login': {
+        view: 'index'
     }
 };

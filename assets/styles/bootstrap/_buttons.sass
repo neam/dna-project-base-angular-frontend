@@ -1,0 +1,39 @@
+.btn
+  border-radius: 0
+  font-family: $bariol-thin-font-family
+  font-size: 20px
+  line-height: 36px
+  padding: 6px 36px
+
+  +respond-to(mobile)
+    font-family: $bariol-regular-font-family
+
+  &.btn-responsive
+    +respond-to(mobile)
+      height: $input-height-small
+
+.btn-primary
+  font-family: $bariol-regular-font-family
+
+.btn-unsaved-changes
+  @extend .animation-pulse
+  @extend .animation-infinite
+  +animation-duration(0.8s)
+
+.button-group
+  +respond-to(not-mobile)
+    display: inline
+
+  .button-container
+    display: inline-block
+
+  +respond-to(mobile)
+    +make-row()
+
+    .button-container
+      +make-xs-column(6)
+
+      .btn
+        font-size: 14px
+        padding: 0 10px
+        width: 100%

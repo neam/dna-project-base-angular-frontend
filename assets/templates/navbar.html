@@ -12,8 +12,6 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right visible-xs">
-                <li ng-show="user.isAuthenticated"><a href="/myTasks">My Tasks</a></li>
-                <li ng-show="user.isAuthenticated"><a href="/profile/edit">Profile</a></li>
                 <li ng-show="user.isAuthenticated"><a ng-click="logout()" href="#" id="logout">Logout</a></li>
                 <li ng-show="!user.isAuthenticated"><a href="/login">Login</a></li>
             </ul>
@@ -23,8 +21,6 @@
                         <img src="/images/dummy/ola-small.png">{{ getUsername() }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="/myTasks">My Tasks</a></li>
-                        <li><a href="/profile/edit">Profile</a></li>
                         <li><a ng-click="logout()" href="#" id="logout">Logout</a></li>
                     </ul>
                 </li>

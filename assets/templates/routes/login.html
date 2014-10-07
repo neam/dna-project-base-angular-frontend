@@ -1,0 +1,26 @@
+<section class="section section-narrow section-centered">
+    <div class="section-inner">
+        <a class="heading-logo" href="/">
+            <img src="/images/logo.png" class="responsive centered">
+            <span>friends</span>
+        </a>
+        <div class="section">
+            <div class="section-inner">
+                <h1 class="lead-small">Please login with your account credentials</h1>
+                <p class="lead-small">(This site uses cookies)</p>
+            </div>
+        </div>
+        <ul ng-show="errors" class="errors">
+            <li ng-repeat="error in errors">{{ error }}</li>
+        </ul>
+        <form role="form">
+            <div class="form-group">
+                <input ng-model="username" type="text" class="form-control" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input ng-model="password" type="password" class="form-control" placeholder="Password">
+            </div>
+            <button ng-click="login()" type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+    </div>
+</section>

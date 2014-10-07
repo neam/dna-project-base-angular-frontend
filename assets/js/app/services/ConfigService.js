@@ -6,7 +6,7 @@ angular.module('Gapminder').factory('ConfigService', function(MainConfig, LocalC
          * @returns {*}
          */
         get: function(key) {
-            if (typeof LocalConfig[key] !== 'undefined') {
+            if (angular.isDefined(LocalConfig[key])) {
                 return LocalConfig[key];
             } else {
                 return MainConfig[key];

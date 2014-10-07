@@ -1,0 +1,51 @@
+.section
+  box-sizing: border-box
+
+  &.section-secondary
+    background-color: $gray-lightest
+
+  &.section-centered
+    text-align: center
+
+  &.section-container
+    .section-inner
+      @extend .container
+
+  &.section-narrow
+    .section-inner
+      +respond-to(not-mobile)
+        width: $screen-xs-min
+        margin: 0 auto
+
+  &.section-shallow
+    .section-inner
+      padding-top: $section-padding / 2
+      padding-bottom: $section-padding / 2
+
+  .section-condensed
+    padding-bottom: 10px !important
+    padding-top: 10px !important
+
+  .section-inner
+    padding: $section-padding
+
+    .section-inner-slim
+      +make-row()
+      +make-md-column(8)
+      +make-md-column-offset(2)
+
+    // Nested sections
+    .section
+      &:not(.section-container)
+        .section-inner
+          padding-left: 0
+          padding-right: 0
+          width: 100%
+
+  // TODO: class-names might not make too much sense
+  .section-divided
+    +make-row()
+    .section-sidebar
+      +make-sm-column(3)
+    .section-main
+      +make-sm-column(9)

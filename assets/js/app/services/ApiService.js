@@ -7,7 +7,7 @@ angular.module('Gapminder').factory('ApiService', function(ConfigService) {
      */
     function mockApiUriExists(method, uri) {
         var apiMocks = ConfigService.get('apiMocks');
-        return typeof apiMocks[method] !== 'undefined' && apiMocks[method].indexOf(uri) > -1;
+        return angular.isDefined(apiMocks[method]) && apiMocks[method].indexOf(uri) > -1;
     }
 
     /**
