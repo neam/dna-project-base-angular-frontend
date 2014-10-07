@@ -12,7 +12,7 @@ angular.module('Gapminder').controller('LoginCtrl', ['$scope', '$q', 'UserServic
                 NavigationService.redirect('/');
                 dfd.resolve(res);
             }, function(err, status) {
-                $scope.errors = err.errors;
+                $scope.errors = err.data.errors;
                 dfd.reject(err);
             });
 
