@@ -15,7 +15,7 @@
                 <li ng-show="!user.isAuthenticated"><a href="/login">Login</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right hidden-xs">
-                <li class="dropdown">
+                <li class="dropdown locale-dropdown">
                     <a href="#" class="dropdown-toggle dropdown-user" data-toggle="dropdown">{{ locale.getCurrentLocaleLabel() }} <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li ng-repeat="(code, localeOption) in locale.getLocaleOptions()"><a ng-click="locale.setCurrentLocale(code)" href="#">{{ localeOption.name }}</a></li>
