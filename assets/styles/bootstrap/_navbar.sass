@@ -49,6 +49,7 @@
 
     .nav-expanded
       background-color: $gray-lightest
+      border-top: $navbar-border-size solid $navbar-border-color
       border-bottom: $navbar-border-size solid $navbar-border-color
       box-sizing: border-box
       display: none
@@ -58,6 +59,7 @@
       width: 700px
 
       .nav-expanded-heading
+        +make-md-column(12)
         display: block
         font-family: $bariol-bold-font-family
         font-size: 17px
@@ -68,6 +70,8 @@
 
         &.nav-expanded-columns-bordered
           border-bottom: 1px solid $gray-light
+          margin-bottom: 20px
+          padding-bottom: 20px
 
         .expanded-column
           +make-md-column(6)
