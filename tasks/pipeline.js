@@ -30,7 +30,10 @@ var jsFilesToInject = [
     'js/dependencies/**/*.js',
 
     // jQuery
-    'vendor/jquery//dist/jquery.js',
+    'vendor/jquery/dist/jquery.js',
+
+    // i18next
+    'vendor/i18next/i18next.js',
 
     // Bootstrap
     'vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js',

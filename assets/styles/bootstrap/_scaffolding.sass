@@ -1,0 +1,11 @@
+a,
+.btn
+  &:focus,
+  &:active:focus
+    outline: none
+
+.page
+  margin-top: $navbar-height + $navbar-border-size
+
+  +respond-to(mobile)
+    margin-top: $navbar-height-mobile + $navbar-border-size
