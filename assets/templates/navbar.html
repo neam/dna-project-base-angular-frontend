@@ -10,6 +10,23 @@
             <a class="brand-link" href="/"><img src="/images/logo.png"><span class="navbar-brand-subtitle"></span></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="nav-expandable">
+                    <a class="nav-toggle-expanded" href="#">Learn</a>
+                    <div class="nav-expanded">
+                        <div class="nav-expanded-columns nav-expanded-columns-bordered">
+                            <span class="nav-expanded-heading">Realize</span>
+                            <div class="expanded-column">Foo</div>
+                            <div class="expanded-column">Bar</div>
+                        </div>
+                        <div class="nav-expanded-columns">
+                            <span class="nav-expanded-heading">Realize</span>
+                            <div class="expanded-column">Foo</div>
+                            <div class="expanded-column">Bar</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right visible-xs">
                 <li ng-show="user.isAuthenticated"><a ng-click="logout()" href="#" id="logout">Logout</a></li>
                 <li ng-show="!user.isAuthenticated"><a href="/login">Login</a></li>

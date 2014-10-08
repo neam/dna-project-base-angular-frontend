@@ -28,6 +28,50 @@
         margin-top: 0
         margin-left: 4px
 
+  .nav-expandable
+    position: relative
+
+    .nav-expanded:hover + .nav-toggle-expanded
+      border-left-color: $brand-primary
+      border-right-color: $brand-primary
+
+    .nav-toggle-expanded
+      border-left: $navbar-border-size solid transparent
+      border-right: $navbar-border-size solid transparent
+
+      &:hover
+        border-left-color: $brand-primary
+        border-right-color: $brand-primary
+
+      &:hover + .nav-expanded,
+      & + .nav-expanded:hover
+        display: block
+
+    .nav-expanded
+      background-color: $gray-lightest
+      border-bottom: $navbar-border-size solid $navbar-border-color
+      box-sizing: border-box
+      display: none
+      padding: 30px 40px
+      position: absolute
+      left: -200px
+      width: 700px
+
+      .nav-expanded-heading
+        display: block
+        font-family: $bariol-bold-font-family
+        font-size: 17px
+        text-transform: uppercase
+
+      .nav-expanded-columns
+        +make-row()
+
+        &.nav-expanded-columns-bordered
+          border-bottom: 1px solid $gray-light
+
+        .expanded-column
+          +make-md-column(6)
+
   .locale-dropdown
     font-family: $bariol-regular-font-family
 
