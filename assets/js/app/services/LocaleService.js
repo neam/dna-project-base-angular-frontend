@@ -1,32 +1,44 @@
-angular.module('Gapminder').factory('LocaleService', function($http, ApiService) {
-    var locales = {};
+angular.module('Gapminder').factory('LocaleService', function($http, $window, ApiService) {
+    var localeOptions = {},
+        currentLocale = getLocaleFromStorage() || 'en_us'; // default
 
-    // Get locales
+    // Get locale options
     $http.get(ApiService.getApiUrl('GET', '/language/list'))
         .then(function(res) {
-            locales = res.data;
+            localeOptions = res.data;
         });
+
+    /**
+     * Returns the current locale from local storage.
+     * @returns {string}
+     */
+    function getLocaleFromStorage() {
+        return $window.localStorage.locale;
+    }
+
+    /**
+     * Saves a locale to local storage.
+     * @param {string} locale
+     */
+    function saveLocaleToStorage(locale) {
+        $window.localStorage.locale = locale;
+    }
+
+    /**
+     * Sets the current locale.
+     * @param {string} locale
+     */
+    function setCurrentLocale(locale) {
+        currentLocale = locale;
+    }
 
     return {
         /**
-         * @type {string} currently selected locale (UI language)
+         * Returns the current locale.
+         * @returns {string}
          */
-        currentLocale: 'en_us',
-
-        /**
-         * Returns all available locales.
-         * @returns {*}
-         */
-        getLocales: function() {
-            return locales;
-        },
-
-        /**
-         * Sets the current locale.
-         * @param {string} locale
-         */
-        setLocale: function(locale) {
-            this.currentLocale = locale;
+        getCurrentLocale: function() {
+            return currentLocale;
         },
 
         /**
@@ -34,7 +46,24 @@ angular.module('Gapminder').factory('LocaleService', function($http, ApiService)
          * @returns {string}
          */
         getCurrentLocaleLabel: function() {
-            return angular.isDefined(locales[this.currentLocale]) ? locales[this.currentLocale].name : null;
+            return angular.isDefined(localeOptions[currentLocale]) ? localeOptions[currentLocale].name : null;
+        },
+
+        /**
+         * Returns all available locales.
+         * @returns {*}
+         */
+        getLocaleOptions: function() {
+            return localeOptions;
+        },
+
+        /**
+         * Sets the current locale.
+         * @param {string} locale
+         */
+        setCurrentLocale: function(locale) {
+            setCurrentLocale(locale);
+            saveLocaleToStorage(locale);
         }
     };
 });
