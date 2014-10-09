@@ -1,6 +1,6 @@
 angular.module('Gapminder').factory('LocaleService', function($http, $window, ApiService) {
     var localeOptions = {},
-        currentLocale = getLocaleFromStorage() || 'en-US'; // default
+        currentLocale = determineLocale();
 
     // Get locale options
     $http.get(ApiService.getApiUrl('GET', '/language/list'))
@@ -14,6 +14,33 @@ angular.module('Gapminder').factory('LocaleService', function($http, $window, Ap
      */
     function getLocaleFromStorage() {
         return $window.localStorage.locale;
+    }
+
+    /**
+     * Determines and returns the locale.
+     * @returns {string}
+     */
+    function determineLocale() {
+        var locale = 'en-US', // default
+            localeFromStorage = getLocaleFromStorage(),
+            localeFromDetector = detectUserLocale();
+
+        if (angular.isDefined(localeFromStorage)) {
+            locale = localeFromStorage;
+        } else if (angular.isDefined(localeFromDetector)) {
+            locale = localeFromDetector;
+        }
+
+        return locale;
+    }
+
+    /**
+     * Attempts to detect the user's locale.
+     * @returns {string}
+     */
+    function detectUserLocale() {
+        // TODO: Use a GeoIP service, and fallback to navigator.language.
+        return $window.navigator.language;
     }
 
     /**
