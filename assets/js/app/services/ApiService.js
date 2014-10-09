@@ -33,11 +33,12 @@ angular.module('Gapminder').factory('ApiService', function(ConfigService) {
     return {
         /**
          * Resolves and returns an API URL.
-         * @param {string} method ('GET', 'POST', 'PUT', 'DELETE')
          * @param {string} uri
+         * @param {string} method ('GET', 'POST', 'PUT', 'DELETE') defaults to 'GET'.
          * @returns {string}
          */
-        getApiUrl: function(method, uri) {
+        getApiUrl: function(uri, method) {
+            var method = method || 'GET';
             return mockApiUriExists(method, uri) ? getMockApiUrl(uri) : getRealApiUrl(uri);
         }
     }

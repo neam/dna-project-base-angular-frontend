@@ -3,7 +3,7 @@ angular.module('Gapminder').factory('LocaleService', function($http, $window, Ap
         currentLocale = determineLocale();
 
     // Get locale options
-    $http.get(ApiService.getApiUrl('GET', '/language/list'))
+    $http.get(ApiService.getApiUrl('/language/list', 'GET'))
         .then(function(res) {
             localeOptions = res.data;
         });
