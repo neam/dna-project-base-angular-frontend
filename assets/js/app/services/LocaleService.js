@@ -1,6 +1,6 @@
 angular.module('Gapminder').factory('LocaleService', function($http, $window, ApiService) {
     var localeOptions = {},
-        currentLocale = getLocaleFromStorage() || 'en_us'; // default
+        currentLocale = getLocaleFromStorage() || 'en-US'; // default
 
     // Get locale options
     $http.get(ApiService.getApiUrl('GET', '/language/list'))
