@@ -4,6 +4,9 @@
   margin-bottom: 0
   min-height: $navbar-height-mobile
 
+  .navbar-nav-left
+    margin-left: 20px
+
   .brand-link
     +align-items(center)
     +justify-content(center)
@@ -30,6 +33,24 @@
 
   .nav-expandable
     position: relative
+
+    .nav-expandable-item
+      display: inline-block
+
+      a
+        color: $navbar-default-link-color
+        display: block
+        font-family: $bariol-regular-font-family
+        font-size: 16px
+        line-height: 28px
+        padding: 10px 15px
+        padding-top: 18px
+        padding-bottom: 18px
+        position: relative
+
+        &:hover
+          color: $navbar-default-link-hover-color
+          text-decoration: none
 
     .nav-expanded:hover + .nav-toggle-expanded
       border-left-color: $brand-primary
@@ -60,6 +81,7 @@
 
       .nav-expanded-heading
         +make-md-column(12)
+        color: $gray-light
         display: block
         font-family: $bariol-bold-font-family
         font-size: 17px
@@ -75,6 +97,28 @@
 
         .expanded-column
           +make-md-column(6)
+
+          .expanded-column-item
+            +make-row()
+            +make-md-column(12)
+            margin-bottom: 20px
+
+            .column-item-icon
+              color: $brand-primary
+              font-size: 32px
+              position: absolute
+
+            .column-item-heading,
+            .column-item-description
+              margin-left: 50px
+              font-family: $bariol-regular-font-family
+              font-size: 17px
+
+            .column-item-heading
+              font-family: $bariol-bold-font-family
+
+            .column-item-description
+              color: $gray-light
 
   .locale-dropdown
     font-family: $bariol-regular-font-family

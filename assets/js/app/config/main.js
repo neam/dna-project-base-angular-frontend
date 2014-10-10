@@ -7,7 +7,8 @@ angular.module('Gapminder').factory('MainConfig', function() {
             // API URIs that are mocked for development purposes.
             GET: [
                 '/user/info',
-                '/language/list'
+                '/language/list',
+                '/navbar/items'
             ],
             POST: [
                 '/user/login',
