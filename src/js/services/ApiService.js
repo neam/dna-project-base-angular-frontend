@@ -3,10 +3,9 @@ angular.module('Gapminder').factory('ApiService', function(ConfigService, baseAp
         /**
          * Resolves and returns an API URL.
          * @param {string} uri
-         * @param {string} method ('GET', 'POST', 'PUT', 'DELETE')
          * @returns {string}
          */
-        getApiUrl: function(uri, method) {
+        getApiUrl: function(uri) {
             return baseApiUrl + uri;
         }
     }

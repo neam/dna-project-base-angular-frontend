@@ -24,7 +24,7 @@ angular.module('Gapminder').factory('UserService', function($http, $q, $window, 
             var dfd = $q.defer(),
                 self = this;
 
-            $http.post(ApiService.getApiUrl('/user/login', 'POST'), {
+            $http.post(ApiService.getApiUrl('/user/login'), {
                 grant_type: 'password',
                 client_id: clientId,
                 username: username,
@@ -50,7 +50,7 @@ angular.module('Gapminder').factory('UserService', function($http, $q, $window, 
                 dfd = $q.defer();
 
             if (!self.isAuthenticated && self.hasAuthToken()) {
-                $http.post(ApiService.getApiUrl('/user/authenticate', 'POST'), {})
+                $http.post(ApiService.getApiUrl('/user/authenticate'), {})
                     .then(function(res) {
                         self.isAuthenticated = true;
                         self.ensureInfo();
@@ -75,7 +75,7 @@ angular.module('Gapminder').factory('UserService', function($http, $q, $window, 
                 dfd = $q.defer();
 
             if (!this.username) {
-                $http.get(ApiService.getApiUrl('/user/info', 'GET'))
+                $http.get(ApiService.getApiUrl('/user/info'))
                     .then(function(res) {
                         self.info = res.data;
                         dfd.resolve();
