@@ -9,14 +9,9 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'assets/vendor/jquery/dist/jquery.js',
-            'assets/vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js',
-            'assets/vendor/lodash/dist/lodash.js',
-            'assets/vendor/angular/angular.js',
-            'assets/vendor/angular-route/angular-route.js',
-            'assets/vendor/angular-resource/angular-resource.js',
-            'assets/vendor/angular-mocks/angular-mocks.js',
-            'assets/js/main.js',
+            'dist/assets/js/vendor.js',
+            'vendor/angular-mocks/angular-mocks.js',
+            'dist/assets/js/main.js',
             'tests/unit/**/*.js'
         ],
 
