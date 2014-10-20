@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('ConfigService', function(MainConfig, LocalConfig) {
+angular.module('Gapminder').factory('ConfigService', function(MainConfig, EnvironmentConfig) {
     return {
         /**
          * Fetches and returns a configuration value by key.
@@ -6,8 +6,8 @@ angular.module('Gapminder').factory('ConfigService', function(MainConfig, LocalC
          * @returns {*}
          */
         get: function(key) {
-            if (angular.isDefined(LocalConfig[key])) {
-                return LocalConfig[key];
+            if (angular.isDefined(EnvironmentConfig[key])) {
+                return EnvironmentConfig[key];
             } else {
                 return MainConfig[key];
             }
