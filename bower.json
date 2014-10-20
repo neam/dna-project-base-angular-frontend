@@ -1,10 +1,10 @@
 {
-  "name": "gapminder-go-desktop",
+  "name": "gapminder-pages-desktop",
   "version": "0.0.0",
   "authors": [
     "Eric Nishio <eric.nishio@nordsoftware.com>"
   ],
-  "description": "The desktop version of the Gapminder Go application.",
+  "description": "The desktop version of the Gapminder Pages application.",
   "license": "Proprietary License",
   "private": true,
   "ignore": [

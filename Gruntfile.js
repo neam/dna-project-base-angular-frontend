@@ -1,81 +1,371 @@
-/**
- * Gruntfile
- *
- * This Node script is executed when you run `grunt` or `sails lift`.
- * It's purpose is to load the Grunt tasks in your project's `tasks`
- * folder, and allow you to add and remove tasks as you see fit.
- * For more information on how this works, check out the `README.md`
- * file that was generated in your `tasks` folder.
- *
- * WARNING:
- * Unless you know what you're doing, you shouldn't change this file.
- * Check out the `tasks` directory instead.
- */
-
 module.exports = function(grunt) {
+    require('jit-grunt')(grunt);
 
+    var baseApiUrlDevelopment = grunt.option('api') || 'http://localhost:1338/api',
+        baseApiUrlProduction = grunt.option('api') || 'http://develop-cms.gapminderdev.org/api/v1',
+        baseApiUrlStage = grunt.option('api') || 'http://cmsext.gapminderdev.org:1338/api',
+        developmentGaKey = grunt.option('ga') || '',
+        productionGaKey = grunt.option('ga') || '';
 
-	// Load the include-all library in order to require all of our grunt
-	// configurations and task registrations dynamically.
-	var includeAll;
-	try {
-		includeAll = require('include-all');
-	} catch (e0) {
-		try {
-			includeAll = require('sails/node_modules/include-all');
-		}
-		catch(e1) {
-			console.error('Could not find `include-all` module.');
-			console.error('Skipping grunt tasks...');
-			console.error('To fix this, please run:');
-			console.error('npm install include-all --save`');
-			console.error();
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        paths: {
+            js: 'src/js',
+            sass: 'src/sass',
+            src: 'src',
+            dist: 'dist',
+            distAssets: 'dist/assets',
+            vendor: 'vendor',
+            tmp: '.tmp',
+            tmpCompile: '.tmp/compile',
+            tmpDist: '.tmp/dist'
+        },
+        concat: {
+            options: {
+                separator: "\n\n"
+            },
+            development: {
+                src: [
+                    '<%= paths.js %>/app.js',
+                    '<%= paths.js %>/base/**/*.js',
+                    '<%= paths.js %>/config/environments/development.js',
+                    '<%= paths.js %>/config/interceptors.js',
+                    '<%= paths.js %>/config/local.js',
+                    '<%= paths.js %>/config/main.js',
+                    '<%= paths.js %>/config/routes.js',
+                    '<%= paths.js %>/controllers/**/*.js',
+                    '<%= paths.js %>/directives/**/*.js',
+                    '<%= paths.js %>/filters/**/*.js',
+                    '<%= paths.js %>/helpers/**/*.js',
+                    '<%= paths.js %>/resources/**/*.js',
+                    '<%= paths.js %>/services/**/*.js'
+                ],
+                dest: '<%= paths.tmpCompile %>/assets/js/main.js'
+            },
+            production: {
+                src: [
+                    '<%= paths.js %>/app.js',
+                    '<%= paths.js %>/base/**/*.js',
+                    '<%= paths.js %>/config/environments/production.js',
+                    '<%= paths.js %>/config/interceptors.js',
+                    '<%= paths.js %>/config/local.js',
+                    '<%= paths.js %>/config/main.js',
+                    '<%= paths.js %>/config/routes.js',
+                    '<%= paths.js %>/controllers/**/*.js',
+                    '<%= paths.js %>/directives/**/*.js',
+                    '<%= paths.js %>/filters/**/*.js',
+                    '<%= paths.js %>/helpers/**/*.js',
+                    '<%= paths.js %>/resources/**/*.js',
+                    '<%= paths.js %>/services/**/*.js'
+                ],
+                dest: '<%= paths.tmpCompile %>/assets/js/main.js'
+            },
+            stage: {
+                src: [
+                    '<%= paths.js %>/app.js',
+                    '<%= paths.js %>/base/**/*.js',
+                    '<%= paths.js %>/config/environments/stage.js',
+                    '<%= paths.js %>/config/interceptors.js',
+                    '<%= paths.js %>/config/local.js',
+                    '<%= paths.js %>/config/main.js',
+                    '<%= paths.js %>/config/routes.js',
+                    '<%= paths.js %>/controllers/**/*.js',
+                    '<%= paths.js %>/directives/**/*.js',
+                    '<%= paths.js %>/filters/**/*.js',
+                    '<%= paths.js %>/helpers/**/*.js',
+                    '<%= paths.js %>/resources/**/*.js',
+                    '<%= paths.js %>/services/**/*.js'
+                ],
+                dest: '<%= paths.tmpCompile %>/assets/js/main.js'
+            },
+            vendor: {
+                src: [
+                    '<%= paths.vendor %>/jquery/dist/jquery.js',
+                    '<%= paths.vendor %>/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+                    '<%= paths.vendor %>/lodash/dist/lodash.js',
+                    '<%= paths.tmpCompile %>/vendor/js/angular.js',
+                    '<%= paths.tmpCompile %>/vendor/js/**/*.js'
+                ],
+                dest: '<%= paths.tmpDist %>/assets/js/vendor.js'
+            }
+        },
+        bower: {
+            main: {
+                dest: '<%= paths.tmpDist %>/vendor/',
+                js_dest: '<%= paths.tmpCompile %>/vendor/js',
+                scss_dest: '<%= paths.tmpCompile %>/vendor/scss',
+                css_dest: '<%= paths.tmpCompile %>/vendor/css',
+                eot_dest: '<%= paths.tmpDist %>/vendor/fonts',
+                ttf_dest: '<%= paths.tmpDist %>/vendor/fonts',
+                woff_dest: '<%= paths.tmpDist %>/vendor/fonts',
+                options: {
+                    stripAffix: true,
+                    packageSpecific: {
+                        'bootstrap-sass-official': {
+                            svg_dest: '<%= paths.tmpDist %>/vendor/fonts'
+                        }
+                    },
+                    ignorePackages: ['underscore']
+                }
+            }
+        },
+        uglify: {
+            production: {
+                options: {
+                    mangle: false
+                },
+                files: {
+                    '<%= paths.tmpDist %>/assets/js/main.js': ['<%= paths.tmpCompile %>/assets/js/main.js'],
+                    '<%= paths.tmpDist %>/assets/js/vendor.js': ['<%= paths.tmpDist %>/assets/js/vendor.js']
+                }
+            }
+        },
+        sass: {
+            development: {
+                options: {
+                    style: 'expanded',
+                    compass: true
+                },
+                files: {
+                    '<%= paths.tmpDist %>/assets/css/main.css': '<%= paths.sass %>/main.sass'
+                }
+            },
+            production: {
+                options: {
+                    style: 'compressed',
+                    compass: true
+                },
+                files: {
+                    '<%= paths.tmpDist %>/assets/css/main.css': '<%= paths.sass %>/main.sass'
+                }
+            }
+        },
+        template: {
+            development: {
+                options: {
+                    data: {
+                        baseApiUrl: baseApiUrlDevelopment,
+                        gaTrackingId: developmentGaKey
+                    }
+                },
+                files: {
+                    '<%= paths.tmpDist %>/index.html': ['<%= paths.src %>/index.html']
+                }
+            },
+            production: {
+                options: {
+                    data: {
+                        baseApiUrl: baseApiUrlProduction,
+                        gaTrackingId: productionGaKey
+                    }
+                },
+                files: {
+                    '<%= paths.tmpDist %>/index.html': ['<%= paths.src %>/index.html']
+                }
+            },
+            stage: {
+                options: {
+                    data: {
+                        baseApiUrl: baseApiUrlStage,
+                        gaTrackingId: developmentGaKey
+                    }
+                },
+                files: {
+                    '<%= paths.tmpDist %>/index.html': ['<%= paths.src %>/index.html']
+                }
+            }
+        },
+        copy: {
+            dist: {
+                files: [
+                    {
+                        cwd: '<%= paths.tmpDist %>/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: [
+                            '**',
+                            '!.gitkeep'
+                        ],
+                        dest: '<%= paths.dist %>/'
+                    }
+                ]
+            },
+            assetsDevelopment: {
+                files: [
+                    {
+                        // JavaScript
+                        cwd: '<%= paths.tmpCompile %>/assets/js/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: ['**/*.js'],
+                        dest: '<%= paths.tmpDist %>/assets/js/'
+                    },
+                    {
+                        // Root
+                        cwd: '<%= paths.src %>/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: ['favicon.ico'],
+                        dest: '<%= paths.tmpDist %>/'
+                    }
+                ]
+            },
+            assetsProduction: {
+                files: [
+                    {
+                        // Root
+                        cwd: '<%= paths.src %>/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: ['favicon.ico'],
+                        dest: '<%= paths.tmpDist %>/'
+                    }
+                ]
+            },
+            other: {
+                files: [
+                    {
+                        cwd: '<%= paths.src %>/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: ['images/**', 'templates/**'],
+                        dest: '<%= paths.tmpDist %>/'
+                    },
+                    {
+                        // Fonts
+                        cwd: '<%= paths.src %>/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: ['fonts/**'],
+                        dest: '<%= paths.tmpDist %>/assets/'
+                    }
+                ]
+            }
+        },
+        sync: {
+            main: {
+                files: [
+                    {
+                        cwd: '<%= paths.tmpDist %>',
+                        src: ['**'],
+                        dest: '<%= paths.dist %>'
+                    }
+                ],
+                verbose: true
+            }
+        },
+        clean: {
+            dist: [
+                '<%= paths.dist %>'
+            ],
+            tmp: [
+                '<%= paths.tmp %>'
+            ]
+        },
+        watch: {
+            sass: {
+                files: ['<%= paths.sass %>/**/*.{scss,sass,css}'],
+                tasks: [
+                    'sass:development',
+                    'sync:main'
+                ]
+            },
+            js: {
+                files: [
+                    '<%= paths.js %>/**/*.js'
+                ],
+                tasks: [
+                    'concat:development',
+                    'copy:assetsDevelopment',
+                    'sync:main'
+                ]
+            },
+            other: {
+                files: [
+                    '<%= paths.src %>/index.html',
+                    '<%= paths.src %>/fonts/**',
+                    '<%= paths.src %>/images/**',
+                    '<%= paths.src %>/templates/**',
+                    '<%= paths.vendor %>/**'
+                ],
+                tasks: [
+                    'sync:main'
+                ]
+            }
+        },
+        concurrent: {
+            options: {
+                logConcurrentOutput: true
+            },
+            development: ['watch', 'serve']
+        },
+        'http-server': {
+            development: {
+                root: './dist',
+                port: 1337,
+                host: '127.0.0.1',
+                cache: 1,
+                showDir : true,
+                autoIndex: true,
+                ext: 'html',
+                runInBackground: false
+            }
+        }
+    });
 
-			grunt.registerTask('default', []);
-			return;
-		}
-	}
+    // Builds the app for development
+    grunt.registerTask('build-development', [
+        'clean:dist',
+        'sass:development',
+        'concat:development',
+        'bower:main',
+        'concat:vendor',
+        'template:development',
+        'copy:assetsDevelopment',
+        'copy:other',
+        'copy:dist',
+        'sync:main'
+    ]);
 
+    // Builds the app for production
+    grunt.registerTask('build-production', [
+        'clean:dist',
+        'sass:production',
+        'concat:production',
+        'bower:main',
+        'concat:vendor',
+        'uglify:production',
+        'template:production',
+        'copy:assetsProduction',
+        'copy:other',
+        'copy:dist',
+        'sync:main'
+    ]);
 
-	/**
-	 * Loads Grunt configuration modules from the specified
-	 * relative path. These modules should export a function
-	 * that, when run, should either load/configure or register
-	 * a Grunt task.
-	 */
-	function loadTasks(relPath) {
-		return includeAll({
-			dirname: require('path').resolve(__dirname, relPath),
-			filter: /(.+)\.js$/
-		}) || {};
-	}
+    // Builds the app for stage
+    grunt.registerTask('build-stage', [
+        'clean:dist',
+        'sass:production',
+        'concat:stage',
+        'bower:main',
+        'concat:vendor',
+        'uglify:production',
+        'template:stage',
+        'copy:assetsProduction',
+        'copy:other',
+        'copy:dist',
+        'sync:main'
+    ]);
 
-	/**
-	 * Invokes the function from a Grunt configuration module with
-	 * a single argument - the `grunt` object.
-	 */
-	function invokeConfigFn(tasks) {
-		for (var taskName in tasks) {
-			if (tasks.hasOwnProperty(taskName)) {
-				tasks[taskName](grunt);
-			}
-		}
-	}
+    // Runs the HTTP server
+    grunt.registerTask('serve', [
+        'http-server:development'
+    ]);
 
-
-
-
-	// Load task functions
-	var taskConfigurations = loadTasks('./tasks/config'),
-		registerDefinitions = loadTasks('./tasks/register');
-
-	// (ensure that a default task exists)
-	if (!registerDefinitions.default) {
-		registerDefinitions.default = function (grunt) { grunt.registerTask('default', []); };
-	}
-
-	// Run task functions to configure Grunt.
-	invokeConfigFn(taskConfigurations);
-	invokeConfigFn(registerDefinitions);
-
+    // Default task
+    grunt.registerTask('default', [
+        'build-development',
+        'concurrent:development',
+        'serve'
+    ]);
 };
