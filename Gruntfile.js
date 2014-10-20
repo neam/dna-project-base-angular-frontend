@@ -103,6 +103,11 @@ module.exports = function(grunt) {
                     packageSpecific: {
                         'bootstrap-sass-official': {
                             svg_dest: '<%= paths.tmpDist %>/vendor/fonts'
+                        },
+                        'font-awesome': {
+                            // TODO: Copy FontAwesome.otf and fontawesome-webfont.svg into the correct directory.
+                            otf_dest: '<%= paths.tmpDist %>/vendor/fonts/fonts',
+                            svg_dest: '<%= paths.tmpDist %>/vendor/fonts/fonts'
                         }
                     },
                     ignorePackages: ['underscore']

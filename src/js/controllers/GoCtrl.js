@@ -1,12 +1,26 @@
 angular.module('Gapminder').controller('GoCtrl', ['$rootScope', '$scope', '$routeParams', 'GoItem', function($rootScope, $scope, $routeParams, GoItem) {
-    function init() {
+    // Initialize controller
+    (function() {
         GoItem.get({itemType: $routeParams.itemType, permalink: $routeParams.permalink, lang: $routeParams.lang}, function(item) {
             $rootScope.pageTitle = item.title;
             $scope.item = item;
+            $scope.itemCategory = getItemCategory($routeParams.itemType);
         });
-    };
+    })();
 
-    init();
+    /**
+     * Returns an item category.
+     * @param {string} itemType item type machine name
+     * @returns {string}
+     */
+    function getItemCategory(itemType) {
+        var labels = {
+            video: 'Videos',
+            presentation: 'Presentations'
+        };
+
+        return angular.isDefined(labels[itemType]) ? labels[itemType] : '';
+    }
 
     /**
      * Creates a link to a related item.

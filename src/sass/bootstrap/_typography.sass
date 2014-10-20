@@ -1,9 +1,17 @@
-.lead-small
+.lead-base
   font-family: $bariol-regular-font-family
-  font-size: 12px
   line-height: 1.4
   margin: 0
   text-transform: uppercase
+
+.lead-small
+  @extend .lead-base
+  font-size: 12px
+
+.lead-large
+  @extend .lead-base
+  font-family: $bariol-light-font-family
+  font-size: 16px
 
 .heading-base
   font-family: $bariol-thin-font-family
@@ -32,7 +40,7 @@
     font-size: $font-size-h3 * 0.7
 
 .heading-4
-  @extend .lead-small
+  @extend .lead-large
   margin-bottom: 10px
 
 a.heading-logo

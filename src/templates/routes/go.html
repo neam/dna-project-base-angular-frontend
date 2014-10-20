@@ -3,8 +3,9 @@
         <div class="section-inner">
             <div class="columns">
                 <div class="column-primary">
-                    <h1 class="heading-h1">{{ item.title }}</h1>
-                    <span>{{ item.subheading }}</span>
+                    <div class="item-type">{{ itemCategory }} <span class="glyphicon glyphicon-chevron-right"></span> #{{ item.id }}</div>
+                    <h1 class="item-title">{{ item.title }}</h1>
+                    <span class="item-subheading">{{ item.subheading }}</span>
                     <div class="item-video youtube-container">
                         <youtube-video video-id="item.youtubeId"></youtube-video>
                     </div>
