@@ -1,1 +1,1 @@
-angular.module('Gapminder', ['ngRoute', 'ngResource']);
+angular.module('Gapminder', ['ngRoute', 'ngResource', 'ngSanitize', 'youtube-embed']);

@@ -1,12 +1,13 @@
 angular.module('Gapminder').config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-    var routeTemplateBasePath = '/templates/routes/';
+    var routeTemplateBasePath = 'templates/routes/';
 
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(false);
 
     // Define routes
     var routes = [
         {path: '/', templateFile: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}, title: 'Home'},
-        {path: '/login', templateFile: 'login.html', layout: 'layout-minimal', controller: 'LoginCtrl', access: {requiredLogin: false}, title: 'Login'}
+        {path: '/login', templateFile: 'login.html', layout: 'layout-minimal', controller: 'LoginCtrl', access: {requiredLogin: false}, title: 'Login'},
+        {path: '/go/:itemType/:permalink/:lang', templateFile: 'go.html', controller: 'GoCtrl', access: {requiredLogin: false}, title: 'Item'}
     ];
 
     // Register routes

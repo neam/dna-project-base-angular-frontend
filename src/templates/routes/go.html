@@ -1,0 +1,24 @@
+<div class="page-go">
+    <section class="section section-container">
+        <div class="section-inner">
+            <div class="columns">
+                <div class="column-primary">
+                    <h1 class="heading-h1">{{ item.title }}</h1>
+                    <span>{{ item.subheading }}</span>
+                    <div class="item-video youtube-container">
+                        <youtube-video video-id="item.youtubeId"></youtube-video>
+                    </div>
+                    <h2 class="heading-4">Sobre este vídeo</h2>
+                    <div class="item-about" ng-bind-html="item.about">
+                    </div>
+                </div>
+                <aside class="column-secondary">
+                    <h2 class="heading-4">Related</h2>
+                    <ul class="item-related-items" ng-repeat="relatedItem in item.related">
+                        <li><a ng-href="{{ createRelatedItemUrl(relatedItem.itemType, relatedItem.itemPermalink, relatedItem.itemLang) }}">{{ relatedItem.title }}</a></li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </section>
+</div>

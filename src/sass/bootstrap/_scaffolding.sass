@@ -9,3 +9,14 @@ a,
 
   +respond-to(mobile)
     margin-top: $navbar-height-mobile + $navbar-border-size
+
+.columns
+  +make-row()
+
+  .column-primary
+    +make-md-column(8)
+    padding-right: 30px
+
+  .column-secondary
+    +make-md-column(4)
+    padding-left: 30px

@@ -222,6 +222,17 @@ module.exports = function(grunt) {
                     }
                 ]
             },
+            templates: {
+                files: [
+                    {
+                        cwd: '<%= paths.src %>/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: ['templates/**/**.html'],
+                        dest: '<%= paths.tmpDist %>/'
+                    }
+                ]
+            },
             other: {
                 files: [
                     {
@@ -277,6 +288,15 @@ module.exports = function(grunt) {
                 tasks: [
                     'concat:development',
                     'copy:assetsDevelopment',
+                    'sync:main'
+                ]
+            },
+            templates: {
+                files: [
+                    '<%= paths.src %>/templates/**'
+                ],
+                tasks: [
+                    'copy:templates',
                     'sync:main'
                 ]
             },

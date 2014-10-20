@@ -1,3 +1,10 @@
+.lead-small
+  font-family: $bariol-regular-font-family
+  font-size: 12px
+  line-height: 1.4
+  margin: 0
+  text-transform: uppercase
+
 .heading-base
   font-family: $bariol-thin-font-family
   margin-top: 0
@@ -24,12 +31,9 @@
   +respond-to(mobile)
     font-size: $font-size-h3 * 0.7
 
-.lead-small
-  font-family: $bariol-regular-font-family
-  font-size: 12px
-  line-height: 1.4
-  margin: 0
-  text-transform: uppercase
+.heading-4
+  @extend .lead-small
+  margin-bottom: 10px
 
 a.heading-logo
   display: block
