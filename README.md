@@ -4,6 +4,8 @@ Gapminder Go for Desktop
 This is the desktop version of the Gapminder Pages project. The app is built with AngularJS and utilizes
 the *Gapminder Mock API* for simulating real API calls in development and testing environments.
 
+Stage URL: [http://static.gapminder.org/pages-desktop-stage](http://static.gapminder.org/pages-desktop-stage)
+
 ## Setup
 
 Requirements: *Node*, *Ruby*, *Gapminder Mock API*
@@ -28,6 +30,10 @@ To install the app, run:
     grunt
 
 Now launch your web browser and navigate to `http://localhost:1337`.
+
+## Deploy to stage
+
+    ./deploy_to_stage.sh <S3 ACCESS KEY> <S3 SECRET>
 
 ## Run the tests
 
