@@ -1,9 +1,10 @@
 angular.module('Gapminder').factory('GoItem', function($resource, ApiService) {
     return $resource(
-        ApiService.getApiUrl('/:itemType/:permalink'),
+        ApiService.getApiUrl('/:itemType/:permalink/:lang'),
         {
             itemType: '@itemType',
-            permalink: '@permalink'
+            permalink: '@permalink',
+            lang: '@lang'
         },
         {
             get: {method: 'GET'}
