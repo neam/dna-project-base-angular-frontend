@@ -15,8 +15,16 @@
                 </div>
                 <aside class="column-secondary">
                     <h2 class="heading-4">Related</h2>
-                    <ul class="item-related-items" ng-repeat="relatedItem in item.related">
-                        <li><a ng-href="{{ createRelatedItemUrl(relatedItem.itemType, relatedItem.itemPermalink, relatedItem.itemLang) }}">{{ relatedItem.title }}</a></li>
+                    <ul class="related-items">
+                        <a ng-href="{{ createRelatedItemUrl(relatedItem.itemType, relatedItem.itemPermalink, relatedItem.itemLang) }}">
+                            <li class="related-item" ng-repeat="relatedItem in item.related">
+                                <img class="related-item-thumbnail" ng-src="{{ relatedItem.thumbnailUrl }}">
+                                <div class="related-item-info">
+                                    <span class="related-item-title">{{ relatedItem.title }}</span>
+                                    <span class="related-item-subheading">{{ relatedItem.subheading }}</span>
+                                </div>
+                            </li>
+                        </a>
                     </ul>
                 </aside>
             </div>
