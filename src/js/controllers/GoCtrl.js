@@ -2,18 +2,22 @@ angular.module('Gapminder').controller('GoCtrl', [
     '$rootScope',
     '$scope',
     '$routeParams',
+    'ApiService',
     'baseRoute',
     'GoItem',
 function(
     $rootScope,
     $scope,
     $routeParams,
+    ApiService,
     baseRoute,
     GoItem)
 {
     // Initialize controller
     (function() {
-        GoItem.get({itemType: $routeParams.itemType, permalink: $routeParams.permalink, lang: $routeParams.lang}, function(item) {
+        var itemResourceName = ApiService.getItemApiResourceName($routeParams.itemType);
+
+        GoItem.get({itemType: itemResourceName, permalink: $routeParams.permalink, lang: $routeParams.lang}, function(item) {
             $rootScope.pageTitle = item.title;
             $scope.item = item;
             $scope.itemCategory = getItemCategory($routeParams.itemType);
