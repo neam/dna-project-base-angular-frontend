@@ -3,17 +3,20 @@
 <head>
     <title ng-bind="pageTitle + ' - Gapminder'"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="<%- baseRoute %>/assets/css/main.css">
+    <base href="<%- baseRoute %>">
 </head>
 <body ng-controller="MainCtrl" class="{{ layout }}">
-    <div ng-include="'templates/navbar.html'"></div>
+    <div ng-include="'<%- baseRoute %>/templates/navbar.html'"></div>
     <div ng-view class="page"></div>
-    <footer ng-include="'templates/footer.html'"></footer>
-    <script src="assets/js/vendor.js"></script>
-    <script src="assets/js/main.js"></script>
+    <footer ng-include="'<%- baseRoute %>/templates/footer.html'"></footer>
+    <script src="<%- baseRoute %>/assets/js/vendor.js"></script>
+    <script src="<%- baseRoute %>/assets/js/main.js"></script>
     <script>
         // Environment-specific configurations
+        angular.module('Gapminder').constant('baseRoute', '<%- baseRoute %>');
         angular.module('Gapminder').constant('baseApiUrl', '<%- baseApiUrl %>');
+        angular.module('Gapminder').constant('html5Mode', <%- html5Mode %>);
     </script>
 </body>
 </html>

@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand-link" ng-href="/#/"><img src="/images/logo.png"><span class="navbar-brand-subtitle"></span></a>
+            <a class="brand-link" ng-href="{{ baseRoute }}/#/"><img ng-src="{{ baseRoute }}/images/logo.png"><span class="navbar-brand-subtitle"></span></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <!--
@@ -15,7 +15,7 @@
             -->
             <ul class="nav navbar-nav navbar-right visible-xs">
                 <li ng-show="user.isAuthenticated"><a ng-click="logout()" ng-href="" id="logout">Logout</a></li>
-                <li ng-show="!user.isAuthenticated"><a ng-href="/#/login">Login</a></li>
+                <li ng-show="!user.isAuthenticated"><a ng-href="{{ baseRoute }}/#/login">Login</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right hidden-xs">
                 <li class="dropdown locale-dropdown">
@@ -26,13 +26,13 @@
                 </li>
                 <li class="dropdown" ng-show="user.isAuthenticated">
                     <a ng-href="" class="dropdown-toggle dropdown-user" data-toggle="dropdown">
-                        <img src="/images/dummy/ola-small.png">{{ getUsername() }} <span class="caret"></span>
+                        <img src="{{ baseRoute }}/images/dummy/ola-small.png">{{ getUsername() }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a ng-click="logout()" ng-href="">Logout</a></li>
                     </ul>
                 </li>
-                <li><a class="hidden-xs" ng-href="/#/login" ng-show="!user.isAuthenticated">Login</a></li>
+                <li><a class="hidden-xs" ng-href="{{ baseRoute }}/#/login" ng-show="!user.isAuthenticated">Login</a></li>
             </ul>
         </div>
     </div>

@@ -4,6 +4,12 @@ module.exports = function(grunt) {
     var baseApiUrlDevelopment = grunt.option('api') || 'http://localhost:1338/api',
         baseApiUrlProduction = grunt.option('api') || 'http://develop-cms.gapminderdev.org/api/v1',
         baseApiUrlStage = grunt.option('api') || 'http://cmsext.gapminderdev.org:1338/api',
+        baseRouteDevelopment = grunt.option('baseRoute') || '',
+        baseRouteProduction = grunt.option('baseRoute') || '',
+        baseRouteStage = grunt.option('baseRoute') || '/pages',
+        html5ModeDevelopment = grunt.option('html5Mode') || false,
+        html5ModeProduction = grunt.option('html5Mode') || false,
+        html5ModeStage = grunt.option('html5Mode') || false,
         developmentGaKey = grunt.option('ga') || '',
         productionGaKey = grunt.option('ga') || '';
 
@@ -149,7 +155,9 @@ module.exports = function(grunt) {
             development: {
                 options: {
                     data: {
+                        baseRoute: baseRouteDevelopment,
                         baseApiUrl: baseApiUrlDevelopment,
+                        html5Mode: html5ModeDevelopment,
                         gaTrackingId: developmentGaKey
                     }
                 },
@@ -160,7 +168,9 @@ module.exports = function(grunt) {
             production: {
                 options: {
                     data: {
+                        baseRoute: baseRouteProduction,
                         baseApiUrl: baseApiUrlProduction,
+                        html5Mode: html5ModeProduction,
                         gaTrackingId: productionGaKey
                     }
                 },
@@ -171,7 +181,9 @@ module.exports = function(grunt) {
             stage: {
                 options: {
                     data: {
+                        baseRoute: baseRouteStage,
                         baseApiUrl: baseApiUrlStage,
+                        html5Mode: html5ModeStage,
                         gaTrackingId: developmentGaKey
                     }
                 },
