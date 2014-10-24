@@ -19,6 +19,7 @@
 
     .related-item-info
       display: inline-block
+      line-height: 1.2
       padding-right: 15px
       position: absolute
       margin-left: 20px
@@ -28,9 +29,16 @@
         display: block
         font-family: $bariol-regular-font-family
         font-size: 18px
-        line-height: 1.2
+        margin-bottom: 5px
+
+        +respond-to(tablet-landscape)
+          font-size: 15px
 
       .related-item-subheading
         color: $gray-light
+        display: block
         font-size: 14px
         font-style: italic
+
+        +respond-to(tablet-landscape)
+          font-size: 11px
