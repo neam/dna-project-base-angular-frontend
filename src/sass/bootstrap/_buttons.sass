@@ -8,11 +8,22 @@
   +respond-to(mobile)
     font-family: $bariol-regular-font-family
 
+  &.btn-sm
+    @extend .btn-sm
+    border-radius: 0
+    font-size: $btn-sm-font-size
+
   &.btn-responsive
     +respond-to(mobile)
       height: $input-height-small
 
 .btn-primary
+  font-family: $bariol-regular-font-family
+
+.btn-accented
+  background-color: $pink-lighter
+  border-color: $pink-lighter
+  color: $pink
   font-family: $bariol-regular-font-family
 
 .btn-unsaved-changes

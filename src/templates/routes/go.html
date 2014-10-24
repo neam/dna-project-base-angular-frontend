@@ -9,8 +9,36 @@
                     <div class="item-video youtube-container">
                         <youtube-video video-id="item.youtubeId"></youtube-video>
                     </div>
-                    <h2 class="heading-4">Sobre este vídeo</h2>
-                    <div class="item-about" ng-bind-html="item.about">
+                    <div class="item-info">
+                        <div class="item-info-primary">
+                            <h2 class="heading-4">About this video</h2>
+                            <div class="item-about" ng-bind-html="item.about"></div>
+                        </div>
+                        <div class="item-info-secondary">
+                            <div class="info-segment">
+                                <h2 class="heading-4">Share</h2>
+                                <ul class="item-share">
+                                    <li><span class="fa fa-envelope-o"></span></li>
+                                    <li><span class="fa fa-facebook"></span></li>
+                                    <li><span class="fa fa-twitter"></span></li>
+                                    <li><span class="fa fa-ellipsis-h"></span></li>
+                                </ul>
+                            </div>
+                            <div class="info-segment">
+                                <h2 class="heading-4">Contribute</h2>
+                                <a class="btn btn-sm btn-accented btn-block" href="createUrl('/')">Translate into Spanish</a>
+                                <a class="btn btn-sm btn-accented btn-block" href="createUrl('/')">Translate into Japanese</a>
+                            </div>
+                            <div class="info-segment">
+                                <h2 class="heading-4">Thanks to</h2>
+                                <div class="item-contributors">
+                                    <a ng-repeat="contributor in item.contributors" ng-href="{{ createUserProfileUrl(contributor.userId) }}">
+                                        <img class="item-contributor" ng-src="{{ contributor.thumbnailUrl }}">
+                                    </a>
+                                </div>
+                                <a class="item-participate-link" ng-href="{{ createUrl('/') }}">Participate</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <aside class="column-secondary">

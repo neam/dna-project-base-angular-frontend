@@ -44,4 +44,14 @@ function(
     $scope.createRelatedItemUrl = function(itemType, permalink, lang) {
         return baseRoute + '/#/go/' + itemType + '/' + permalink + '/' + lang;
     };
+
+    /**
+     * Creates a link to a user profile page.
+     * @param {number} userId
+     * @returns {string}
+     */
+    $scope.createUserProfileUrl = function(userId) {
+        // TODO: Use a real profile URL or make it configurable per environment.
+        return 'http://www.gapminder.org/profiles/#/profiles/' + userId;
+    };
 }]);

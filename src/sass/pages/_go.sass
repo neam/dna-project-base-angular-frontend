@@ -13,6 +13,9 @@
     margin-top: 0
     margin-bottom: 0
 
+  .item-about
+    font-size: 18px
+
   .item-subheading
     color: $gray-light
     display: block
@@ -21,3 +24,53 @@
 
   .item-video
     margin-bottom: 20px
+
+  .item-share
+    border-collapse: separate
+    border-spacing: 5px 0
+    display: table
+    list-style: none
+    margin: 0
+    padding: 0
+
+    li
+      background-color: $yellow
+      border-radius: 50%
+      color: #fff
+      display: table-cell
+      font-size: 14px
+      width: 34px
+      height: 34px
+      text-align: center
+      vertical-align: middle
+      margin-right: 5px
+
+      &:last-child
+        margin-right: 0
+
+  .item-contributors
+    .item-contributor
+      width: 28px
+      height: 28px
+      margin-bottom: 4px
+
+      &:nth-child(5)
+        margin-right: 0
+
+  .item-participate-link
+    color: $pink
+    display: block
+    font-family: $bariol-regular-font-family
+    font-size: $btn-sm-font-size
+
+  .item-info
+    +make-row()
+
+    .item-info-primary
+      +make-sm-column(9)
+
+    .item-info-secondary
+      +make-sm-column(3)
+
+      .info-segment
+        margin-bottom: 25px
