@@ -1,7 +1,7 @@
 angular.module('Gapminder').controller('GoCtrl', ['$rootScope', '$scope', '$routeParams', 'GoItem', function($rootScope, $scope, $routeParams, GoItem) {
     // Initialize controller
     (function() {
-        GoItem.get({itemType: $routeParams.itemType, permalink: $routeParams.permalink, lang: $routeParams.lang}, function(item) {
+        GoItem.get({itemType: $routeParams.itemType, permalink: $routeParams.permalink}, function(item) {
             $rootScope.pageTitle = item.title;
             $scope.item = item;
             $scope.itemCategory = getItemCategory($routeParams.itemType);
@@ -26,10 +26,9 @@ angular.module('Gapminder').controller('GoCtrl', ['$rootScope', '$scope', '$rout
      * Creates a link to a related item.
      * @param {string} itemType
      * @param {string} permalink
-     * @param {string} lang
      * @returns {string}
      */
-    $scope.createRelatedItemUrl = function(itemType, permalink, lang) {
-        return '/#/go/' + itemType + '/' + permalink + '/' + lang;
+    $scope.createRelatedItemUrl = function(itemType, permalink) {
+        return '/#/go/' + itemType + '/' + permalink;
     };
 }]);
