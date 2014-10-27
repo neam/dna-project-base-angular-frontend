@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="<%- baseRoute %>/assets/css/main.css">
     <base href="<%- baseRoute %>">
 </head>
-<body ng-controller="MainCtrl" class="{{ layout }}">
+<body ng-controller="MainCtrl" class="{{ layout }}" ng-init="init()">
     <div ng-include="'<%- baseRoute %>/templates/navbar.html'"></div>
     <div ng-view class="page"></div>
     <footer ng-include="'<%- baseRoute %>/templates/footer.html'"></footer>

@@ -2,12 +2,6 @@ angular.module('Gapminder').factory('LocaleService', function($http, $window, Ap
     var localeOptions = {},
         currentLocale = determineLocale();
 
-    // Get locale options
-    $http.get(ApiService.getApiUrl('/language/list'))
-        .then(function(res) {
-            localeOptions = res.data;
-        });
-
     /**
      * Returns the current locale from local storage.
      * @returns {string}
@@ -60,6 +54,16 @@ angular.module('Gapminder').factory('LocaleService', function($http, $window, Ap
     }
 
     return {
+        /**
+         * Loads the locale options.
+         */
+        loadLocaleOptions: function() {
+            $http.get(ApiService.getApiUrl('/language/list'))
+                .then(function(res) {
+                    localeOptions = res.data;
+                });
+        },
+
         /**
          * Returns the current locale.
          * @returns {string}

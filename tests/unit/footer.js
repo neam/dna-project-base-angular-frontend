@@ -27,15 +27,6 @@ describe('footer', function() {
         FooterCtrl = $controller('FooterCtrl', {
             $scope: $scope
         });
-
-        $httpBackend.expectGET(ApiService.getApiUrl('/language/list')).respond({
-            "en-US": {
-                "name": "English (United States)",
-                "direction": "ltr"
-            }
-        });
-
-        $httpBackend.flush();
     });
 
     afterEach(function() {

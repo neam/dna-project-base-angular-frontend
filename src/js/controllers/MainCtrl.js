@@ -22,6 +22,13 @@ function(
     $scope.baseRoute = baseRoute;
 
     /**
+     * Initializes the controller.
+     */
+    $scope.init = function() {
+        LocaleService.loadLocaleOptions();
+    },
+
+    /**
      * @see NavigationService#createUrl
      */
     $scope.createUrl = function(route) {
