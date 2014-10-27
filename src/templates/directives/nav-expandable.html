@@ -1,60 +1,20 @@
 <li class="nav-expandable">
     <div class="nav-expandable-item" ng-repeat="item in items">
         <a class="nav-toggle-expanded" href="#" ng-href="{{ item.url }}">{{ item.title }}</a>
-        <div class="nav-expanded" style="/*display: block;*/">
-            <div ng-repeat="category in item.categories" class="nav-expanded-columns">
-                {{ category.category }}
-            </div>
-        </div>
-    </div>
-
-    <!--
-    <a class="nav-toggle-expanded" href="#">Learn</a>
-    <div class="nav-expanded" style="display: block;">
-        <div class="nav-expanded-columns nav-expanded-columns-bordered">
-            <span class="nav-expanded-heading">Realize</span>
-            <div class="expanded-column">
-                <div class="expanded-column-item">
-                    <div class="column-item-icon"><span class="fa fa-question-circle"></span></div>
-                    <div class="column-item-heading">Massive global ignorance</div>
-                    <div class="column-item-description">Among humans</div>
-                </div>
-                <div class="expanded-column-item">
-                    <div class="column-item-icon"><span class="fa fa-money"></span></div>
-                    <div class="column-item-heading">Important money</div>
-                    <div class="column-item-description">Most people need more money to lead a good life</div>
-                </div>
-            </div>
-            <div class="expanded-column">
-                <div class="expanded-column-item">
-                    <div class="column-item-icon"><span class="fa fa-line-chart"></span></div>
-                    <div class="column-item-heading">Snail trends</div>
-                    <div class="column-item-description">What "could never happen" has already happened</div>
-                </div>
-                <div class="expanded-column-item">
-                    <div class="column-item-icon"><span class="fa fa-globe"></span></div>
-                    <div class="column-item-heading">Global proportions</div>
-                    <div class="column-item-description">Get the billions right before you get an opinion</div>
-                </div>
-            </div>
-        </div>
-        <div class="nav-expanded-columns">
-            <span class="nav-expanded-heading">Explore</span>
-            <div class="expanded-column">
-                <div class="expanded-column-item">
-                    <div class="column-item-icon"><span class="fa fa-dollar"></span></div>
-                    <div class="column-item-heading">Dollar Street</div>
-                    <div class="column-item-description">The world sorted by income</div>
-                </div>
-            </div>
-            <div class="expanded-column">
-                <div class="expanded-column-item">
-                    <div class="column-item-icon"><span class="fa fa-area-chart"></span></div>
-                    <div class="column-item-heading">Visual Tools</div>
-                    <div class="column-item-description">Explore global and local statistics</div>
+        <div class="nav-expanded" ng-show="item.categories">
+            <div ng-repeat="category in item.categories" class="nav-expanded-columns nav-expanded-columns-{{ category.columnCount }} nav-expanded-columns-{{ category.type }}">
+                <div class="nav-expanded-columns-inner">
+                    <span class="nav-expanded-heading">{{ category.category }}</span>
+                    <div class="expanded-column-item" ng-repeat="item in category.items">
+                        <a ng-href="{{ item.url }}">
+                            <div class="column-item-icon"><span class="fa fa-question-circle"></span></div>
+                            <div class="column-item-heading">{{ item.title }}</div>
+                            <div class="column-item-description">{{ item.description }}</div>
+                        </a>
+                    </div>
+                    <span class="nav-expanded-more" ng-show="category.more"><a href="{{ category.more.url }}">{{ category.more.title }}</a></span>
                 </div>
             </div>
         </div>
     </div>
-    -->
 </li>

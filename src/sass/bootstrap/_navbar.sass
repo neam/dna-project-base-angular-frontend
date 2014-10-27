@@ -39,6 +39,7 @@
 
       a
         color: $navbar-default-link-color
+        cursor: pointer
         display: block
         font-family: $bariol-regular-font-family
         font-size: 16px
@@ -74,7 +75,7 @@
       border-bottom: $navbar-border-size solid $navbar-border-color
       box-sizing: border-box
       display: none
-      padding: 30px 40px
+      padding: 30px 25px
       position: absolute
       left: -200px
       width: 700px
@@ -85,22 +86,39 @@
         display: block
         font-family: $bariol-bold-font-family
         font-size: 17px
+        margin-bottom: 10px
+        text-transform: uppercase
+
+      .nav-expanded-more
+        +make-md-column(12)
+        text-align: right
         text-transform: uppercase
 
       .nav-expanded-columns
-        +make-row()
+        a
+          padding: 0
+
+        &.nav-expanded-columns-1
+          +make-md-column(6)
+
+          .expanded-column-item
+            +make-md-column(12)
+
+        &.nav-expanded-columns-2
+          +make-md-column(12)
+
+          .expanded-column-item
+            +make-md-column(6)
 
         &.nav-expanded-columns-bordered
           border-bottom: 1px solid $gray-light
           margin-bottom: 20px
           padding-bottom: 20px
 
-        .expanded-column
-          +make-md-column(6)
+        .nav-expanded-columns-inner
+          +make-row()
 
           .expanded-column-item
-            +make-row()
-            +make-md-column(12)
             margin-bottom: 20px
 
             .column-item-icon

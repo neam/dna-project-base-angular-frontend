@@ -10,9 +10,7 @@
             <a class="brand-link" ng-href="{{ createUrl('/') }}"><img ng-src="{{ createRawUrl('/images/logo.png') }}"><span class="navbar-brand-subtitle"></span></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <!--
             <ul nav-expandable class="nav navbar-nav navbar-nav-left"></ul>
-            -->
             <ul class="nav navbar-nav navbar-right visible-xs">
                 <li ng-show="user.isAuthenticated"><a ng-click="logout()" ng-href="" id="logout">Logout</a></li>
                 <li ng-show="!user.isAuthenticated"><a ng-href="{{ createUrl('/login') }}">Login</a></li>
