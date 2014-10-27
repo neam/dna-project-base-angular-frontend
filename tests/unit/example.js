@@ -9,10 +9,6 @@ describe('login', function() {
         NavigationService,
         HomeCtrl;
 
-    beforeEach(module('Gapminder', function($provide) {
-        $provide.constant('baseApiUrl', 'http://localhost:1338/api');
-    }));
-
     beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _ConfigService_, _UserService_, _NavigationService_) {
         $rootScope = _$rootScope_;
         $controller = _$controller_;

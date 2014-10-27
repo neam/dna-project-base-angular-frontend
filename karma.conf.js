@@ -12,6 +12,7 @@ module.exports = function (config) {
             'dist/assets/js/vendor.js',
             'vendor/angular-mocks/angular-mocks.js',
             'dist/assets/js/main.js',
+            'tests/unit/_config.js',
             'tests/unit/**/*.js'
         ],
 
