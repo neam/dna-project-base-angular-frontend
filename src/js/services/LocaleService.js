@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('LocaleService', function($http, $window, ApiService) {
+angular.module('Gapminder').factory('LocaleService', function($http, $q, $window, ApiService) {
     var localeOptions = {},
         currentLocale = determineLocale();
 
@@ -56,12 +56,20 @@ angular.module('Gapminder').factory('LocaleService', function($http, $window, Ap
     return {
         /**
          * Loads the locale options.
+         * @returns {Deferred.Promise}
          */
         loadLocaleOptions: function() {
+            var dfd = $q.defer();
+
             $http.get(ApiService.getApiUrl('/language/list'))
                 .then(function(res) {
                     localeOptions = res.data;
+                    dfd.resolve(res.data);
+                }, function(err) {
+                    dfd.reject(err);
                 });
+
+            return dfd.promise;
         },
 
         /**

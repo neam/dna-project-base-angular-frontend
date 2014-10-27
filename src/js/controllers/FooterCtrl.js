@@ -13,6 +13,7 @@ function(
 ) {
     /**
      * Initializes the controller.
+     * @returns {Deferred.Promise}
      */
     $scope.init = function() {
         var dfd = $q.defer(),
