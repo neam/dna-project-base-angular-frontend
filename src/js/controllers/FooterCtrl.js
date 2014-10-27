@@ -1,22 +1,33 @@
 angular.module('Gapminder').controller('FooterCtrl', [
     '$scope',
     '$http',
+    '$q',
     'ApiService',
     'LocaleService',
 function(
     $scope,
     $http,
+    $q,
     ApiService,
     LocaleService
 ) {
-    (function() {
-        var lang = LocaleService.getCurrentLocale();
+    /**
+     * Initializes the controller.
+     */
+    $scope.init = function() {
+        var dfd = $q.defer(),
+            lang = LocaleService.getCurrentLocale();
 
         $http.get(ApiService.getApiUrl('/footer/' + lang))
             .then(function(res) {
                 $scope.footerItems = res.data;
+                dfd.resolve(res);
+            }, function(err) {
+                dfd.reject(err);
             });
-    })();
+
+        return dfd.promise;
+    };
 
     /**
      * Returns a Font-Awesome social icon for the given social network.

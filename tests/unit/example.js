@@ -1,4 +1,4 @@
-describe('login', function() {
+describe('example', function() {
     var $rootScope,
         $controller,
         $httpBackend,
@@ -8,6 +8,8 @@ describe('login', function() {
         UserService,
         NavigationService,
         HomeCtrl;
+
+    beforeEach(module('Gapminder'));
 
     beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _ConfigService_, _UserService_, _NavigationService_) {
         $rootScope = _$rootScope_;
