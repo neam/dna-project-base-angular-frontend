@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:ng="http://angularjs.org" ng-app="Gapminder">
+<html xmlns:ng="http://angularjs.org" ng-app="Gapminder" lang="{{ locale.getCurrentLocale() }}" dir="{{ locale.getTextDirection() }}">
 <head>
     <title ng-bind="pageTitle + ' - Gapminder'"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="utf-8">
     <link rel="stylesheet" href="<%- baseRoute %>/assets/css/main.css">
     <base href="<%- baseRoute %>">
 </head>

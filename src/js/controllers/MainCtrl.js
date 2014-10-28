@@ -1,5 +1,6 @@
 angular.module('Gapminder').controller('MainCtrl', [
     '$scope',
+    '$rootScope',
     '$http',
     'UserService',
     'ApiService',
@@ -9,6 +10,7 @@ angular.module('Gapminder').controller('MainCtrl', [
     'NavigationService',
 function(
     $scope,
+    $rootScope,
     $http,
     UserService,
     ApiService,
@@ -17,8 +19,8 @@ function(
     baseRoute,
     NavigationService
 ) {
+    $rootScope.locale = LocaleService;
     $scope.user = UserService;
-    $scope.locale = LocaleService;
     $scope.baseRoute = baseRoute;
 
     /**

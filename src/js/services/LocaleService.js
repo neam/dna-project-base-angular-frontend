@@ -1,6 +1,7 @@
 angular.module('Gapminder').factory('LocaleService', function($http, $q, $window, ApiService) {
     var localeOptions = {},
-        currentLocale = determineLocale();
+        currentLocale = determineLocale(),
+        currentTextDirection;
 
     /**
      * Returns the current locale from local storage.
@@ -53,6 +54,34 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
         currentLocale = locale;
     }
 
+    /**
+     * Sets the current text direction.
+     * @param {string} locale
+     */
+    function setTextDirectionByLocale(locale) {
+        var rtlLocales = [
+            'ar',  // Arabic
+            'arc', // Aramaic
+            'bcc', // Southern Balochi
+            'bqi', // Bakthiari
+            'ckb', // Sorani
+            'db',  // Dhivehi
+            'fa',  // Farsi
+            'glk', // Gilaki
+            'he',  // Hebrew
+            'ku',  // Kurdish
+            'mzn', // Mazanderani
+            'pnb', // Western Punjabi
+            'ps',  // Pashto
+            'sd',  // Sindhi
+            'ug',  // Uyghur
+            'ur',  // Urdu
+            'yi'   // Yiddish
+        ];
+
+        currentTextDirection = _.contains(rtlLocales, locale) ? 'rtl' : 'ltr';
+    }
+
     return {
         /**
          * Loads the locale options.
@@ -103,6 +132,20 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
         setCurrentLocale: function(locale) {
             setCurrentLocale(locale);
             saveLocaleToStorage(locale);
+
+            setTextDirectionByLocale(locale);
+        },
+
+        /**
+         * Returns the current text direction.
+         * @returns {string}
+         */
+        getTextDirection: function() {
+            if (angular.isUndefined(currentTextDirection)) {
+                setTextDirectionByLocale(this.getCurrentLocale());
+            }
+
+            return currentTextDirection;
         }
     };
 });
