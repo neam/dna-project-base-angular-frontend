@@ -91,6 +91,11 @@
           margin-bottom: 0
 
       &.nav-expanded-columns-bulletpoints
+        margin-bottom: 7px
+
+        .nav-expanded-columns-inner .expanded-column-item
+          margin-bottom: 5px
+
         .column-item-icon
           background-color: $brand-primary
           border-radius: 50%
@@ -108,6 +113,16 @@
             .column-item-heading,
             .column-item-description
               display: inline
+              margin-left: 0
+
+      &.nav-expanded-columns-plain
+        .nav-expanded-columns-inner .expanded-column-item
+          .column-item-icon
+            display: none
+
+          .column-item-info
+            .column-item-heading,
+            .column-item-description
               margin-left: 0
 
       .nav-expanded-columns-inner

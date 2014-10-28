@@ -5,7 +5,6 @@ angular.module('Gapminder').directive('navExpandable', [function() {
             $http.get(ApiService.getApiUrl('/navbar/items'))
                 .then(function(res) {
                     $scope.items = res.data;
-                    console.log($scope.items);
                 });
         },
         templateUrl: '/templates/directives/nav-expandable.html'
