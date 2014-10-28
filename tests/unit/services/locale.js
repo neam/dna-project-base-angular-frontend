@@ -50,5 +50,5 @@ describe('locale', function() {
     it('should determine text direction', function() {
         LocaleService.setCurrentLocale('fa');
         expect(LocaleService.getTextDirection()).toBe('rtl');
-    })
+    });
 });
