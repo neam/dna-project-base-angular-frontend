@@ -46,4 +46,9 @@ describe('locale', function() {
 
         $httpBackend.flush();
     });
+
+    it('should determine text direction', function() {
+        LocaleService.setCurrentLocale('fa');
+        expect(LocaleService.getTextDirection()).toBe('rtl');
+    })
 });
