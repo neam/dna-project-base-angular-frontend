@@ -1,0 +1,135 @@
+.nav-expandable
+  position: relative
+
+  .nav-expandable-item
+    display: inline-block
+
+    a
+      color: $navbar-default-link-color
+      cursor: pointer
+      display: block
+      font-family: $bariol-regular-font-family
+      font-size: 16px
+      line-height: 28px
+      padding: 10px 15px
+      padding-top: 18px
+      padding-bottom: 18px
+      position: relative
+
+      &:hover
+        color: $navbar-default-link-hover-color
+        text-decoration: none
+
+  .nav-expanded:hover + .nav-toggle-expanded
+    border-left-color: $brand-primary
+    border-right-color: $brand-primary
+
+  .nav-toggle-expanded
+    border-left: $navbar-border-size solid transparent
+    border-right: $navbar-border-size solid transparent
+
+    &:hover
+      border-left-color: $brand-primary
+      border-right-color: $brand-primary
+
+    &:hover + .nav-expanded,
+    & + .nav-expanded:hover
+      display: block
+
+  .nav-expanded
+    background-color: $gray-lightest
+    border-top: $navbar-border-size solid $navbar-border-color
+    border-bottom: $navbar-border-size solid $navbar-border-color
+    box-sizing: border-box
+    display: none
+    padding: 30px 25px
+    position: absolute
+    left: -200px
+    width: 700px
+
+    .nav-expanded-heading
+      +make-md-column(12)
+      color: $gray-light
+      display: block
+      font-family: $bariol-bold-font-family
+      font-size: 17px
+      margin-bottom: 10px
+      text-transform: uppercase
+
+    .nav-expanded-more
+      +make-md-column(12)
+      text-align: right
+      text-transform: uppercase
+
+    .nav-expanded-columns
+      a
+        padding: 0
+
+      ul
+        padding: 0
+        list-style: none
+
+      &.nav-expanded-columns-1
+        +make-md-column(6)
+
+        .expanded-column-item
+          +make-md-column(12)
+
+      &.nav-expanded-columns-2
+        +make-md-column(12)
+
+        .expanded-column-item
+          +make-md-column(6)
+
+      &.nav-expanded-columns-icons
+        border-bottom: 1px solid $gray-light
+        margin-bottom: 20px
+        padding-bottom: 20px
+
+        &:last-child
+          border: none
+          margin-bottom: 0
+
+      &.nav-expanded-columns-bulletpoints
+        .column-item-icon
+          background-color: $brand-primary
+          border-radius: 50%
+          width: 11px
+          height: 11px
+          top: 8px
+
+          span
+            display: none
+
+        .nav-expanded-columns-inner .expanded-column-item
+          .column-item-info
+            margin-left: 21px
+
+            .column-item-heading,
+            .column-item-description
+              display: inline
+              margin-left: 0
+
+      .nav-expanded-columns-inner
+        +make-row()
+
+        .expanded-column-item
+          margin-bottom: 20px
+
+          .column-item-icon
+            color: $brand-primary
+            font-size: 32px
+            position: absolute
+
+          .column-item-info
+            .column-item-heading,
+            .column-item-description
+              margin-left: 50px
+              font-family: $bariol-regular-font-family
+              font-size: 17px
+
+            .column-item-heading
+              font-family: $bariol-bold-font-family
+
+            .column-item-description
+              color: $gray-light

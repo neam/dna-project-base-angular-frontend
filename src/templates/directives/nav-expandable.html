@@ -5,13 +5,17 @@
             <div ng-repeat="category in item.categories" class="nav-expanded-columns nav-expanded-columns-{{ category.columnCount }} nav-expanded-columns-{{ category.type }}">
                 <div class="nav-expanded-columns-inner">
                     <span class="nav-expanded-heading">{{ category.category }}</span>
-                    <div class="expanded-column-item" ng-repeat="item in category.items">
-                        <a ng-href="{{ item.url }}">
-                            <div class="column-item-icon"><span class="fa fa-question-circle"></span></div>
-                            <div class="column-item-heading">{{ item.title }}</div>
-                            <div class="column-item-description">{{ item.description }}</div>
-                        </a>
-                    </div>
+                    <ul>
+                        <li class="expanded-column-item" ng-repeat="item in category.items">
+                            <a ng-href="{{ item.url }}">
+                                <div class="column-item-icon"><span class="fa fa-question-circle"></span></div>
+                                <div class="column-item-info">
+                                    <div class="column-item-heading">{{ item.title }}</div>
+                                    <div class="column-item-description">{{ item.description }}</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                     <span class="nav-expanded-more" ng-show="category.more"><a href="{{ category.more.url }}">{{ category.more.title }}</a></span>
                 </div>
             </div>
