@@ -1,24 +1,27 @@
-angular.module('Gapminder').directive('loader', ['$rootScope', function($rootScope) {
+angular.module('Gapminder').directive('loader', ['$rootScope', '$compile', function($rootScope, $compile) {
     return {
         restrict: 'AE',
         link: function($scope, element, attrs) {
-            if (angular.isDefined(attrs['showWhenLoading'])) {
-                $scope.$on('startedLoading', function() {
-                    return element.show();
-                });
+            // TODO: Clean up and remove else-if conditions.
+            var loading = true;
 
-                $scope.$on('finishedLoading', function() {
-                    return element.hide();
-                });
-            } else if (angular.isDefined(attrs['hideWhenLoading'])) {
-                $scope.$on('startedLoading', function() {
-                    return element.hide();
-                });
+            $scope.$on('startedLoading', function() {
+                loading = false;
+            });
 
-                $scope.$on('finishedLoading', function() {
-                    return element.show();
-                });
-            }
-        }
+            $scope.$on('finishedLoading', function() {
+                loading = false;
+            });
+
+            /**
+             * Checks if the spinner should be shown.
+             * @returns {boolean}
+             */
+            $scope.showSpinner = function() {
+                return angular.isDefined(attrs['spinner']) && loading;
+            };
+        },
+        templateUrl: '/templates/directives/loader.html',
+        transclude: true
     };
 }]);
