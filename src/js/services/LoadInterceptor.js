@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('LoadingInterceptor', function($q, $rootScope) {
+angular.module('Gapminder').factory('LoadInterceptor', function($q, $rootScope) {
     var loadCount = 0;
 
     return {

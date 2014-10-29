@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="<%- baseRoute %>/assets/css/main.css">
     <base href="<%- baseRoute %>">
 </head>
-<body ng-controller="MainCtrl" class="{{ layout }}" ng-init="init()" ng-cloak>
+<body ng-controller="MainCtrl" class="{{ layout }}" ng-init="init()" ng-show="load.pageFullyLoaded()" ng-cloak>
     <div ng-include="'<%- baseRoute %>/templates/navbar.html'"></div>
     <div ng-view class="page"></div>
     <footer ng-include="'<%- baseRoute %>/templates/footer.html'"></footer>
@@ -15,9 +15,10 @@
     <script src="<%- baseRoute %>/assets/js/main.js"></script>
     <script>
         // Environment-specific configurations
-        angular.module('Gapminder').constant('baseRoute', '<%- baseRoute %>');
-        angular.module('Gapminder').constant('baseApiUrl', '<%- baseApiUrl %>');
-        angular.module('Gapminder').constant('html5Mode', <%- html5Mode %>);
+        angular.module('Gapminder')
+            .constant('baseRoute', '<%- baseRoute %>')
+            .constant('baseApiUrl', '<%- baseApiUrl %>')
+            .constant('html5Mode', <%- html5Mode %>);
     </script>
 </body>
 </html>
