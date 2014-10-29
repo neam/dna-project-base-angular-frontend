@@ -1,14 +1,23 @@
 angular.module('Gapminder').controller('NavbarCtrl', [
     '$scope',
+    '$http',
     'UserService',
     'NavigationService',
     'LocaleService',
+    'ApiService',
 function(
     $scope,
+    $http,
     UserService,
     NavigationService,
-    LocaleService
+    LocaleService,
+    ApiService
 ) {
+    $http.get(ApiService.getApiUrl('/navbar/items'))
+        .then(function(res) {
+            $scope.expandedItems = res.data;
+        });
+
     /**
      * Logs out the user.
      */
