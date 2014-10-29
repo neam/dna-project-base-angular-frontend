@@ -329,6 +329,8 @@ module.exports = function(grunt) {
                     '<%= paths.vendor %>/**'
                 ],
                 tasks: [
+                    'template:development',
+                    'copy:other',
                     'sync:main'
                 ]
             }
