@@ -1,4 +1,4 @@
-angular.module('Gapminder').directive('navExpandable', [function() {
+angular.module('Gapminder').directive('navExpandable', ['NavigationService', function(NavigationService) {
     return {
         restrict: 'A',
         controller: function($rootScope, $scope, $http, ApiService) {
@@ -7,6 +7,6 @@ angular.module('Gapminder').directive('navExpandable', [function() {
                     $scope.items = res.data;
                 });
         },
-        templateUrl: '/templates/directives/nav-expandable.html'
+        templateUrl: NavigationService.createRawUrl('/templates/directives/nav-expandable.html')
     };
 }]);

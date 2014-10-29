@@ -1,4 +1,4 @@
-angular.module('Gapminder').directive('loader', [function() {
+angular.module('Gapminder').directive('loader', ['NavigationService', function(NavigationService) {
     return {
         restrict: 'AE',
         link: function($scope, element, attrs) {
@@ -20,7 +20,7 @@ angular.module('Gapminder').directive('loader', [function() {
                 return loading;
             };
         },
-        templateUrl: '/templates/directives/loader.html',
+        templateUrl: NavigationService.createRawUrl('/templates/directives/loader.html'),
         transclude: true
     };
 }]);
