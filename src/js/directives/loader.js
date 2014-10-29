@@ -1,8 +1,7 @@
-angular.module('Gapminder').directive('loader', ['$rootScope', '$compile', function($rootScope, $compile) {
+angular.module('Gapminder').directive('loader', [function() {
     return {
         restrict: 'AE',
         link: function($scope, element, attrs) {
-            // TODO: Clean up and remove else-if conditions.
             var loading = true;
 
             $scope.$on('startedLoading', function() {
@@ -18,7 +17,7 @@ angular.module('Gapminder').directive('loader', ['$rootScope', '$compile', funct
              * @returns {boolean}
              */
             $scope.showSpinner = function() {
-                return angular.isDefined(attrs['spinner']) && loading;
+                return loading;
             };
         },
         templateUrl: '/templates/directives/loader.html',
