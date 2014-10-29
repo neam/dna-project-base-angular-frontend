@@ -4,8 +4,15 @@
   margin-bottom: 0
   min-height: $navbar-height-mobile
 
+  +respond-to(tablet-portrait)
+    .navbar-header
+      +make-sm-column(12)
+
   .navbar-nav-left
     margin-left: 20px
+
+    +respond-to(tablet-portrait)
+      margin-left: 0
 
   .brand-link
     +align-items(center)
@@ -30,6 +37,10 @@
         font-size: 20px
         margin-top: 0
         margin-left: 4px
+
+    +respond-to(tablet-portrait)
+      +justify-content(left)
+      float: initial
 
   .locale-dropdown
     font-family: $bariol-regular-font-family
