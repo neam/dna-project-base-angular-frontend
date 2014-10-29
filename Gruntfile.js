@@ -44,7 +44,8 @@ module.exports = function(grunt) {
                     '<%= paths.js %>/filters/**/*.js',
                     '<%= paths.js %>/helpers/**/*.js',
                     '<%= paths.js %>/resources/**/*.js',
-                    '<%= paths.js %>/services/**/*.js'
+                    '<%= paths.js %>/services/**/*.js',
+                    '<%= paths.js %>/interceptors/**/*.js'
                 ],
                 dest: '<%= paths.tmpCompile %>/assets/js/main.js'
             },
@@ -62,7 +63,8 @@ module.exports = function(grunt) {
                     '<%= paths.js %>/filters/**/*.js',
                     '<%= paths.js %>/helpers/**/*.js',
                     '<%= paths.js %>/resources/**/*.js',
-                    '<%= paths.js %>/services/**/*.js'
+                    '<%= paths.js %>/services/**/*.js',
+                    '<%= paths.js %>/interceptors/**/*.js'
                 ],
                 dest: '<%= paths.tmpCompile %>/assets/js/main.js'
             },
@@ -80,7 +82,8 @@ module.exports = function(grunt) {
                     '<%= paths.js %>/filters/**/*.js',
                     '<%= paths.js %>/helpers/**/*.js',
                     '<%= paths.js %>/resources/**/*.js',
-                    '<%= paths.js %>/services/**/*.js'
+                    '<%= paths.js %>/services/**/*.js',
+                    '<%= paths.js %>/interceptors/**/*.js'
                 ],
                 dest: '<%= paths.tmpCompile %>/assets/js/main.js'
             },
