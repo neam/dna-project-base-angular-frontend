@@ -24,4 +24,6 @@ angular.module('Gapminder').factory('TokenInterceptor', function($q, $window) {
             return response || $q.when(response);
         }
     };
+}).config(function($httpProvider) {
+    $httpProvider.interceptors.push('TokenInterceptor');
 });

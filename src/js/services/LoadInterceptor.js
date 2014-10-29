@@ -28,4 +28,6 @@ angular.module('Gapminder').factory('LoadInterceptor', function($q, $rootScope) 
             return $q.reject(response);
         }
     };
+}).config(function($httpProvider) {
+    $httpProvider.interceptors.push('LoadInterceptor');
 });
