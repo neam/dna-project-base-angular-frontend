@@ -90,7 +90,7 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
         loadLocaleOptions: function() {
             var dfd = $q.defer();
 
-            $http.get(ApiService.getApiUrl('/language/list'))
+            $http.get(ApiService.getApiUrl('/language'))
                 .then(function(res) {
                     localeOptions = res.data;
                     dfd.resolve(res.data);
