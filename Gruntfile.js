@@ -2,8 +2,8 @@ module.exports = function(grunt) {
     require('jit-grunt')(grunt);
 
     var baseApiUrlDevelopment = grunt.option('api') || 'http://localhost:1338/api',
-        baseApiUrlProduction = grunt.option('api') || 'http://develop-cms.gapminderdev.org/api/v1',
-        baseApiUrlStage = grunt.option('api') || 'http://feature_cmsapi-20-read-composite-it-cms.gapminderdev.org/api/v1',
+        baseApiUrlProduction = grunt.option('api') || 'http://release_pages-dec-1-2014-cms.gapminder.org/api/v1',
+        baseApiUrlStage = grunt.option('api') || 'http://release_pages-dec-1-2014-cms.gapminder.org/api/v1',
         baseRouteDevelopment = grunt.option('baseRoute') || '',
         baseRouteProduction = grunt.option('baseRoute') || '/pages-desktop',
         baseRouteStage = grunt.option('baseRoute') || '/pages-desktop-stage',
