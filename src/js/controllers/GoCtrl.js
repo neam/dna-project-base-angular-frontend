@@ -24,7 +24,7 @@ function(
     GoItem.get({itemType: itemApiResourceName, permalink: $routeParams.permalink, lang: $routeParams.lang}, function(item) {
         $rootScope.pageTitle = item.title;
         $scope.item = item;
-        $scope.itemCategory = getItemCategory($routeParams.itemType);
+        $scope.itemCategory = getItemCategory(itemType);
     });
 
     /**
