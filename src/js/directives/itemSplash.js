@@ -7,17 +7,18 @@ angular.module('Gapminder').directive('itemSplash', ['NavigationService', 'SirTr
         link: function(scope, element, attrs) {
             scope.$watch('blocks', function() {
                 if (angular.isObject(scope.blocks)) {
-                    var html = '',
+                    var validSplashBlockTypes = ['image', 'video', 'slideshare'],
+                        html = '',
                         firstBlock = scope.blocks[0];
 
-                    if (SirTrevorService.isBlockTypeSupported(firstBlock.type)) {
+                    if (_.contains(validSplashBlockTypes, firstBlock.type) && SirTrevorService.isBlockTypeSupported(firstBlock.type)) {
                         html += '<div class="block block-{{type}}">'.replace('{{type}}', firstBlock.type);
                         html += SirTrevorService.render(firstBlock);
                         html += '</div>';
-                    }
 
-                    // Prevent re-rendering
-                    _.remove(scope.blocks, firstBlock); // TODO: Improve this.
+                        // Prevent re-rendering
+                        _.remove(scope.blocks, firstBlock); // TODO: Improve this.
+                    }
 
                     element.html(html).find('a').attr('target', '_blank');
                 }
