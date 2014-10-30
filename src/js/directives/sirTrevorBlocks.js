@@ -12,9 +12,14 @@ angular.module('Gapminder').directive('sirTrevorBlocks', ['SirTrevorService', fu
 
                     angular.forEach(scope.blocks, function(block) {
                         if (SirTrevorService.isBlockTypeSupported(block.type)) {
-                            html += '<div class="block block-{{type}}">'.replace('{{type}}', block.type);
-                            html += SirTrevorService.render(block);
-                            html += '</div>';
+                            // TODO: Try to get rid of this if-else statement.
+                            if (block.type === 'about') {
+                                html += scope.about;
+                            } else {
+                                html += '<div class="block block-{{type}}">'.replace('{{type}}', block.type);
+                                html += SirTrevorService.render(block);
+                                html += '</div>';
+                            }
                         }
                     });
 
