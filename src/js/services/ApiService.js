@@ -1,6 +1,6 @@
 angular.module('Gapminder').factory('ApiService', function(ConfigService, baseApiUrl) {
-    var itemTypeToApiResourceNameMap = {
-        video: 'videoFile'
+    var compositionTypeToItemPathNameMap = {
+        exercise: 'exercises'
     };
 
     return {
@@ -12,13 +12,16 @@ angular.module('Gapminder').factory('ApiService', function(ConfigService, baseAp
         getApiUrl: function(uri) {
             return baseApiUrl + uri;
         },
+
         /**
-         * Returns an item type's resource name in the API.
-         * @param {string} itemType (e.g. 'video')
+         * Returns a composition item path name by type.
+         * @param {string} compositionType
          * @returns {string}
          */
-        getItemApiResourceName: function(itemType) {
-            return angular.isDefined(itemTypeToApiResourceNameMap[itemType]) ? itemTypeToApiResourceNameMap[itemType] : null;
+        getCompositionItemPathName: function(compositionType) {
+            return angular.isDefined(compositionTypeToItemPathNameMap[compositionType])
+                ? compositionTypeToItemPathNameMap[compositionType]
+                : compositionType;
         }
     }
 });

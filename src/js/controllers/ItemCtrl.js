@@ -43,13 +43,12 @@ function(
 
     /**
      * Creates a link to a related item.
-     * @param {string} itemType
-     * @param {string} permalink
-     * @param {string} lang
+     * @param {string} compositionType
+     * @param {string} slug
      * @returns {string}
      */
-    $scope.createRelatedItemUrl = function(itemType, permalink, lang) {
-        return baseRoute + '/#/go/' + itemType + '/' + permalink + '/' + lang;
+    $scope.createRelatedItemUrl = function(compositionType, slug) {
+        return NavigationService.createUrl('/' + ApiService.getCompositionItemPathName(compositionType) + '/' + slug);
     };
 
     /**
