@@ -13,7 +13,9 @@ function(
     LocaleService,
     ApiService
 ) {
-    $http.get(ApiService.getApiUrl('/navbar/items'))
+    var lang = LocaleService.getCurrentLocale();
+
+    $http.get(ApiService.getApiUrl('/navbar/' + lang))
         .then(function(res) {
             $scope.expandedItems = res.data;
         });
