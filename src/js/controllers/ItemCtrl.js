@@ -1,4 +1,4 @@
-angular.module('Gapminder').controller('GoCtrl', [
+angular.module('Gapminder').controller('ItemCtrl', [
     '$rootScope',
     '$scope',
     '$routeParams',
@@ -6,7 +6,7 @@ angular.module('Gapminder').controller('GoCtrl', [
     'ApiService',
     'NavigationService',
     'baseRoute',
-    'GoItem',
+    'Item',
 function(
     $rootScope,
     $scope,
@@ -15,14 +15,13 @@ function(
     ApiService,
     NavigationService,
     baseRoute,
-    GoItem)
+    Item)
 {
-    var itemType = NavigationService.getPartOfPath($location.path(), 0),
-        itemApiResourceName = ApiService.getItemApiResourceName(itemType);
+    var itemType = NavigationService.getPartOfPath($location.path(), 0);
 
     // Get item
-    GoItem.get({itemType: itemApiResourceName, permalink: $routeParams.permalink, lang: $routeParams.lang}, function(item) {
-        $rootScope.pageTitle = item.title;
+    Item.get({id: $routeParams.id}, function(item) {
+        $rootScope.pageTitle = item.heading;
         $scope.item = item;
         $scope.itemCategory = getItemCategory(itemType);
     });
@@ -33,9 +32,10 @@ function(
      * @returns {string}
      */
     function getItemCategory(itemType) {
+        // TODO: Replace with translated strings.
         var labels = {
-            video: 'Videos',
-            presentation: 'Presentations'
+            exercises: 'Exercises',
+            presentations: 'Presentations'
         };
 
         return angular.isDefined(labels[itemType]) ? labels[itemType] : '';

@@ -7,7 +7,7 @@ angular.module('Gapminder').config(['$routeProvider', '$locationProvider', 'html
     var routes = [
         {path: '/', templateFile: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}, title: 'Home'},
         {path: '/login', templateFile: 'login.html', layout: 'layout-minimal', controller: 'LoginCtrl', access: {requiredLogin: false}, title: 'Login'},
-        {path: '/video/:permalink/:lang', templateFile: 'go.html', controller: 'GoCtrl', access: {requiredLogin: false}, title: 'Item'}
+        {path: '/exercises/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}, title: 'Item'}
     ];
 
     // Register routes

@@ -1,18 +1,15 @@
-<div class="page-go" loader>
+<div class="page-item" loader>
     <section class="section section-container">
         <div class="section-inner">
             <div class="columns">
                 <div class="column-primary">
                     <div class="item-type">{{ itemCategory }} <span class="glyphicon glyphicon-chevron-right"></span> #{{ item.id }}</div>
-                    <h1 class="item-title">{{ item.title }}</h1>
+                    <h1 class="item-title">{{ item.heading }}</h1>
                     <span class="item-subheading">{{ item.subheading }}</span>
-                    <div class="item-video youtube-container">
-                        <youtube-video video-id="item.youtubeId"></youtube-video>
-                    </div>
+                    <item-splash blocks="item.composition"></item-splash>
                     <div class="item-info">
                         <div class="item-info-primary">
-                            <h2 class="heading-4">About this video</h2>
-                            <div class="item-about" ng-bind-html="item.about"></div>
+                            <sir-trevor-blocks blocks="item.composition" about="item.about"></sir-trevor-blocks>
                         </div>
                         <div class="item-info-secondary">
                             <div class="info-segment">
