@@ -9,8 +9,8 @@ set -x
 #sudo wget -O/etc/apt/sources.list.d/s3tools.list http://s3tools.org/repo/deb-all/stable/s3tools.list
 #sudo apt-get update && sudo apt-get install -y -q s3cmd
 
-if [ $# -lt 7 ]; then
-    echo "Invalid arguments: dest_folder, access_key, secret, baseRoute, api, html5Mode, GA"
+if [ $# -lt 2 ]; then
+    echo "Invalid arguments: access_key, secret"
     exit 1
 fi
 
@@ -24,8 +24,8 @@ grunt build-production --baseRoute=$4 --api=$5 --html5Mode=$6 --ga=$5
 
 # OUR SECRET KEYS
 # THIS IS SECRET AND SHOULD NOT BE IN THE SAME FILE OR IN THE REPO
-export PUBLIC_FILE_UPLOADERS_ACCESS_KEY=$2
-export PUBLIC_FILE_UPLOADERS_SECRET=$3
+export PUBLIC_FILE_UPLOADERS_ACCESS_KEY=$1
+export PUBLIC_FILE_UPLOADERS_SECRET=$2
 # END OF SECRET
 
 # generate s3 configuration file
@@ -35,7 +35,7 @@ secret_key = $PUBLIC_FILE_UPLOADERS_SECRET
 acl_public = True" > /tmp/.gapminder-s3.s3cfg
 
 # export gapminder-pages target
-export PAGES_S3_TARGET="s3://static.gapminder.org/pages-desktop"
+export PAGES_S3_TARGET="s3://static.gapminder.org/pages-desktop/master-go"
 
 # send to s3
 s3cmd -v --config=/tmp/.gapminder-s3.s3cfg --acl-public --recursive put dist/ "$PAGES_S3_TARGET/"
