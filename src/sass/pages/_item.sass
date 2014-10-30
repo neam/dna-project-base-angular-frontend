@@ -71,6 +71,13 @@
   .item-info
     +make-row()
 
+    h1, h2, h3, h4, h5, h6
+      @extend .heading-4
+      margin-top: 10px
+
+      &:first-child
+        margin-top: 0
+
     .item-info-primary
       +make-sm-column(9)
 

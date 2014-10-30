@@ -14,7 +14,7 @@ angular.module('Gapminder').directive('sirTrevorBlocks', ['SirTrevorService', fu
                         if (SirTrevorService.isBlockTypeSupported(block.type)) {
                             // TODO: Try to get rid of this if-else statement.
                             if (block.type === 'about') {
-                                html += scope.about;
+                                html += '<div class="item-about">' + scope.about + '</div>';
                             } else {
                                 html += '<div class="block block-{{type}}">'.replace('{{type}}', block.type);
                                 html += SirTrevorService.render(block);
