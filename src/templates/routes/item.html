@@ -41,18 +41,20 @@
                     </div>
                 </div>
                 <aside class="column-secondary">
-                    <h2 class="heading-4">Related</h2>
-                    <ul class="related-items">
-                        <li class="related-item" ng-repeat="relatedItem in item.related">
-                            <a ng-href="{{ createRelatedItemUrl(relatedItem.composition_type, relatedItem.slug) }}">
-                                <img class="related-item-thumbnail" ng-src="{{ relatedItem.thumbnailUrl }}">
-                                <div class="related-item-info">
-                                    <span class="related-item-title">{{ relatedItem.title }}</span>
-                                    <span class="related-item-subheading">{{ relatedItem.subheading }}</span>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+                    <div ng-show="item.related">
+                        <h2 class="heading-4">Related</h2>
+                        <ul class="related-items">
+                            <li class="related-item" ng-repeat="relatedItem in item.related">
+                                <a ng-href="{{ createRelatedItemUrl(relatedItem.composition_type, relatedItem.slug) }}">
+                                    <img class="related-item-thumbnail" ng-src="{{ relatedItem.thumbnailUrl }}">
+                                    <div class="related-item-info">
+                                        <span class="related-item-title">{{ relatedItem.title }}</span>
+                                        <span class="related-item-subheading">{{ relatedItem.subheading }}</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </aside>
             </div>
         </div>
