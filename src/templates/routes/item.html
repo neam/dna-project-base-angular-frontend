@@ -1,0 +1,62 @@
+<div class="page-item" loader>
+    <section class="section section-container">
+        <div class="section-inner">
+            <div class="columns">
+                <div class="column-primary">
+                    <div class="item-type">{{ itemCategory }} <span class="glyphicon glyphicon-chevron-right"></span> #{{ item.id }}</div>
+                    <h1 class="item-title">{{ item.heading }}</h1>
+                    <span class="item-subheading">{{ item.subheading }}</span>
+                    <item-splash blocks="item.composition"></item-splash>
+                    <div class="item-info">
+                        <div class="item-info-primary">
+                            <sir-trevor-blocks blocks="item.composition" about="item.about"></sir-trevor-blocks>
+                        </div>
+                        <div class="item-info-secondary">
+                            <div class="info-segment">
+                                <h2 class="heading-4">Share</h2>
+                                <ul class="item-share">
+                                    <li><span class="fa fa-envelope-o"></span></li>
+                                    <li><span class="fa fa-facebook"></span></li>
+                                    <li><span class="fa fa-twitter"></span></li>
+                                    <li><span class="fa fa-ellipsis-h"></span></li>
+                                </ul>
+                            </div>
+                            <!-- TODO: Get contribution actions based on user role (e.g. translator).
+                            <div class="info-segment">
+                                <h2 class="heading-4">Contribute</h2>
+                                <a class="btn btn-sm btn-accented btn-block" ng-href="{{ createUrl('/') }}">Translate into Spanish</a>
+                                <a class="btn btn-sm btn-accented btn-block" ng-href="{{ createUrl('/') }}">Translate into Japanese</a>
+                            </div>
+                            -->
+                            <div class="info-segment">
+                                <h2 class="heading-4">Thanks to</h2>
+                                <div class="item-contributors">
+                                    <a ng-repeat="contributor in item.contributors" ng-href="{{ createUserProfileUrl(contributor.userId) }}">
+                                        <img class="item-contributor" ng-src="{{ contributor.thumbnailUrl }}">
+                                    </a>
+                                </div>
+                                <a class="item-participate-link" ng-href="{{ createUrl('/') }}">Participate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="column-secondary">
+                    <div ng-show="item.related">
+                        <h2 class="heading-4">Related</h2>
+                        <ul class="related-items">
+                            <li class="related-item" ng-repeat="relatedItem in item.related">
+                                <a ng-href="{{ createRelatedItemUrl(relatedItem.composition_type, relatedItem.slug) }}">
+                                    <img class="related-item-thumbnail" ng-src="{{ relatedItem.thumbnailUrl }}">
+                                    <div class="related-item-info">
+                                        <span class="related-item-title">{{ relatedItem.title }}</span>
+                                        <span class="related-item-subheading">{{ relatedItem.subheading }}</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+</div>

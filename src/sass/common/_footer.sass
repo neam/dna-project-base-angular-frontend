@@ -1,0 +1,66 @@
+.footer
+  background-color: $gray-medium
+  color: #fff
+
+  ul
+    list-style: none
+    margin: 0
+    padding: 0
+
+    li
+      display: inline-block
+
+      a
+        color: #fff
+
+  .footer-social-icon
+    font-size: 48px
+    margin-left: 15px
+
+  .footer-top
+    +make-row()
+
+    a
+      color: #fff
+
+    .top-primary
+      +make-md-column(6)
+
+    .top-secondary
+      +make-md-column(6)
+      text-align: right
+
+      +respond-to(mobile)
+        text-align: left
+        margin-top: 15px
+        margin-bottom: 10px
+
+  .footer-group-links
+    text-transform: uppercase
+    font-family: $bariol-regular-font-family
+    font-size: 21px
+    margin-bottom: 10px
+
+    li
+      margin-right: 10px
+
+      &:after
+        content: "\2013"
+        margin-left: 6px
+
+      &:last-child:after
+        display: none
+
+  .footer-brand-links
+    color: $footer-text-gray
+
+    li a
+      color: $footer-text-gray
+      margin-right: 20px
+
+  .footer-bottom
+    text-align: right
+    color: $footer-text-gray
+
+    .copyright
+      font-size: 12px

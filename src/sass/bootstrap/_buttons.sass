@@ -1,0 +1,55 @@
+.btn
+  border-radius: 0
+  font-family: $bariol-thin-font-family
+  font-size: 20px
+  line-height: 36px
+  padding: 6px 36px
+
+  +respond-to(mobile)
+    font-family: $bariol-regular-font-family
+
+  &.btn-sm
+    @extend .btn-sm
+    border-radius: 0
+    font-size: $btn-sm-font-size
+
+  &.btn-responsive
+    +respond-to(mobile)
+      height: $input-height-small
+
+.btn-primary
+  font-family: $bariol-regular-font-family
+
+  &:hover,
+  &:focus,
+  &:active
+    border-color: $brand-primary
+
+.btn-accented
+  background-color: $pink-lighter
+  border-color: $pink-lighter
+  color: $pink
+  font-family: $bariol-regular-font-family
+
+.btn-unsaved-changes
+  @extend .animation-pulse
+  @extend .animation-infinite
+  +animation-duration(0.8s)
+
+.button-group
+  +respond-to(not-mobile)
+    display: inline
+
+  .button-container
+    display: inline-block
+
+  +respond-to(mobile)
+    +make-row()
+
+    .button-container
+      +make-xs-column(6)
+
+      .btn
+        font-size: 14px
+        padding: 0 10px
+        width: 100%

@@ -1,0 +1,35 @@
+<footer ng-controller="FooterCtrl" ng-init="init()" class="footer section section-container">
+    <div class="section-inner">
+        <div class="footer-top">
+            <div class="top-primary">
+                <a href="http://www.gapminder.org"><img ng-src="{{ createRawUrl('/images/logo-gray.png') }}"></a>
+            </div>
+            <div class="top-secondary">
+                <ul>
+                    <li ng-repeat="link in footerItems.socialLinks">
+                        <a ng-href="{{ link.url }}" target="_blank">
+                            <span class="footer-social-icon fa {{ getSocialLinkIconClass(link.label) }}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-group-links">
+            <ul>
+                <li ng-repeat="link in footerItems.groupLinks">
+                    <a ng-href="{{ link.url }}">{{ link.label }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-brand-links">
+            <ul>
+                <li ng-repeat="link in footerItems.brandLinks">
+                    <a ng-href="{{ link.url }}">{{ link.label }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <span class="copyright">&copy; Gapminder Foundation 2014</span>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,87 @@
+.lead-base
+  font-family: $bariol-regular-font-family
+  line-height: 1.4
+  margin: 0
+  text-transform: uppercase
+
+.lead-small
+  @extend .lead-base
+  font-size: 12px
+
+.lead-large
+  @extend .lead-base
+  font-family: $bariol-light-font-family
+  font-size: 16px
+
+.heading-base
+  font-family: $bariol-thin-font-family
+  margin-top: 0
+  margin-bottom: 20px
+
+.heading-1
+  @extend .heading-base
+  font-size: $font-size-h1
+
+  +respond-to(mobile)
+    font-size: $font-size-h1 * 0.7
+
+.heading-2
+  @extend .heading-base
+  font-size: $font-size-h2
+
+  +respond-to(mobile)
+    font-size: $font-size-h2 * 0.7
+
+.heading-3
+  @extend .heading-base
+  font-size: $font-size-h3
+
+  +respond-to(mobile)
+    font-size: $font-size-h3 * 0.7
+
+.heading-4
+  @extend .lead-large
+  margin-bottom: 10px
+
+a.heading-logo
+  display: block
+
+  &:hover
+    color: $link-color
+    text-decoration: none
+
+  span
+    display: block
+    font-family: $bariol-bold-font-family
+    font-size: 38px
+    line-height: 1
+
+.prominent
+  font-family: $bariol-regular-font-family
+
+.thin
+  font-family: $bariol-thin-font-family
+
+.regular
+  font-family: $bariol-regular-font-family
+
+.bold
+  font-family: $bariol-bold-font-family
+
+.bold-italic
+  font-family: $bariol-bold-italic-font-family
+
+.italic
+  font-family: $bariol-regular-italic-font-family
+
+.light-italic
+  font-family: $bariol-light-italic-font-family
+
+.thin-italic
+  font-family: $bariol-thin-italic-font-family
+
+b, strong
+  @extend .bold
+
+i, em
+  @extend .italic
