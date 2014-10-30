@@ -16,6 +16,9 @@ angular.module('Gapminder').directive('itemSplash', ['NavigationService', 'SirTr
                         html += '</div>';
                     }
 
+                    // Prevent re-rendering
+                    _.remove(scope.blocks, firstBlock); // TODO: Improve this.
+
                     element.html(html).find('a').attr('target', '_blank');
                 }
             });
