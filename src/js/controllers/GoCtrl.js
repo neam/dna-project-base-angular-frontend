@@ -2,27 +2,30 @@ angular.module('Gapminder').controller('GoCtrl', [
     '$rootScope',
     '$scope',
     '$routeParams',
+    '$location',
     'ApiService',
+    'NavigationService',
     'baseRoute',
     'GoItem',
 function(
     $rootScope,
     $scope,
     $routeParams,
+    $location,
     ApiService,
+    NavigationService,
     baseRoute,
     GoItem)
 {
-    // Initialize controller
-    (function() {
-        var itemResourceName = ApiService.getItemApiResourceName($routeParams.itemType);
+    var itemType = NavigationService.getPartOfPath($location.path(), 0),
+        itemApiResourceName = ApiService.getItemApiResourceName(itemType);
 
-        GoItem.get({itemType: itemResourceName, permalink: $routeParams.permalink, lang: $routeParams.lang}, function(item) {
-            $rootScope.pageTitle = item.title;
-            $scope.item = item;
-            $scope.itemCategory = getItemCategory($routeParams.itemType);
-        });
-    })();
+    // Get item
+    GoItem.get({itemType: itemApiResourceName, permalink: $routeParams.permalink, lang: $routeParams.lang}, function(item) {
+        $rootScope.pageTitle = item.title;
+        $scope.item = item;
+        $scope.itemCategory = getItemCategory($routeParams.itemType);
+    });
 
     /**
      * Returns an item category.
