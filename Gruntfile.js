@@ -3,13 +3,13 @@ module.exports = function(grunt) {
 
     var baseApiUrlDevelopment = grunt.option('api') || 'http://localhost:1338/api',
         baseApiUrlProduction = grunt.option('api') || 'http://cms.gapminder.org/api/v1',
-        baseApiUrlStage = grunt.option('api') || 'http://release_pages-dec-1-2014-cms.gapminder.org/api/v1',
+        baseApiUrlStage = grunt.option('api') || 'http://cmsext.gapminderdev.org:1338/api',
         baseRouteDevelopment = grunt.option('baseRoute') || '',
-        baseRouteProduction = grunt.option('baseRoute') || '/stage-pages-desktop/master',
+        baseRouteProduction = grunt.option('baseRoute') || '',
         baseRouteStage = grunt.option('baseRoute') || '/pages-desktop-stage',
         html5ModeDevelopment = grunt.option('html5Mode') || false,
-        html5ModeProduction = grunt.option('html5Mode') || false,
-        html5ModeStage = grunt.option('html5Mode') || false,
+        html5ModeProduction = grunt.option('html5Mode') || true,
+        html5ModeStage = grunt.option('html5Mode') || true,
         developmentGaKey = grunt.option('ga') || '',
         productionGaKey = grunt.option('ga') || '';
 
@@ -158,6 +158,7 @@ module.exports = function(grunt) {
             development: {
                 options: {
                     data: {
+                        environment: 'development',
                         baseRoute: baseRouteDevelopment,
                         baseApiUrl: baseApiUrlDevelopment,
                         html5Mode: html5ModeDevelopment,
@@ -171,6 +172,7 @@ module.exports = function(grunt) {
             production: {
                 options: {
                     data: {
+                        environment: 'production',
                         baseRoute: baseRouteProduction,
                         baseApiUrl: baseApiUrlProduction,
                         html5Mode: html5ModeProduction,
@@ -184,6 +186,7 @@ module.exports = function(grunt) {
             stage: {
                 options: {
                     data: {
+                        environment: 'stage',
                         baseRoute: baseRouteStage,
                         baseApiUrl: baseApiUrlStage,
                         html5Mode: html5ModeStage,

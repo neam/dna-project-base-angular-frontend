@@ -1,5 +1,5 @@
-angular.module('Gapminder').config(['$routeProvider', '$locationProvider', 'html5Mode', 'baseRoute', function($routeProvider, $locationProvider, html5Mode, baseRoute) {
-    var routeTemplateBasePath = baseRoute + '/templates/routes/';
+angular.module('Gapminder').config(['$routeProvider', '$locationProvider', 'html5Mode', function($routeProvider, $locationProvider, html5Mode) {
+    var routeTemplateBasePath = 'templates/routes/';
 
     $locationProvider.html5Mode(html5Mode);
 

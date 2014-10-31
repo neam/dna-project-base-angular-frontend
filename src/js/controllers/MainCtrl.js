@@ -2,36 +2,38 @@ angular.module('Gapminder').controller('MainCtrl', [
     '$scope',
     '$rootScope',
     '$http',
+    '$location',
     'UserService',
     'ApiService',
     'LocaleService',
     'i18nService',
-    'baseRoute',
     'NavigationService',
     'LoadService',
+    'environment',
 function(
     $scope,
     $rootScope,
     $http,
+    $location,
     UserService,
     ApiService,
     LocaleService,
     i18nService,
-    baseRoute,
     NavigationService,
-    LoadService
+    LoadService,
+    environment
 ) {
     $rootScope.locale = LocaleService;
     $rootScope.load = LoadService;
     $scope.user = UserService;
-    $scope.baseRoute = baseRoute;
 
     /**
-     * Initializes the controller.
+     * Returns the base route.
+     * @returns {string}
      */
-    $scope.init = function() {
-        LocaleService.loadLocaleOptions();
-    },
+    $rootScope.getBaseRoute = function() {
+        return environment === 'production' ? '/' + NavigationService.getPartOfPath($location.path(), 0) + '/' : '/';
+    };
 
     /**
      * @see NavigationService#createUrl
@@ -41,11 +43,11 @@ function(
     };
 
     /**
-     * @see NavigationService#createRawUrl
+     * Initializes the controller.
      */
-    $scope.createRawUrl = function(route) {
-        return NavigationService.createRawUrl(route);
-    };
+    $scope.init = function() {
+        LocaleService.loadLocaleOptions();
+    },
 
     $scope.$$postDigest(function() {
         // TODO: Get translations.

@@ -5,7 +5,6 @@ angular.module('Gapminder').controller('ItemCtrl', [
     '$location',
     'ApiService',
     'NavigationService',
-    'baseRoute',
     'Item',
 function(
     $rootScope,
@@ -14,7 +13,6 @@ function(
     $location,
     ApiService,
     NavigationService,
-    baseRoute,
     Item)
 {
     var itemType = NavigationService.getPartOfPath($location.path(), 0);
@@ -24,6 +22,8 @@ function(
         $rootScope.pageTitle = item.heading;
         $scope.item = item;
         $scope.itemCategory = getItemCategory(itemType);
+    }, function(err) {
+        console.log(err);
     });
 
     /**
@@ -48,7 +48,7 @@ function(
      * @returns {string}
      */
     $scope.createRelatedItemUrl = function(compositionType, slug) {
-        return NavigationService.createUrl('/' + ApiService.getCompositionItemPathName(compositionType) + '/' + slug);
+        return ApiService.getCompositionItemPathName(compositionType) + '/' + slug;
     };
 
     /**
