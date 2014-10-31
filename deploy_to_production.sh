@@ -17,7 +17,11 @@ fi
 # =================================================
 # BUILD PROJECT
 
-grunt build-production --baseRoute=$4 --api=$5 --html5Mode=$6 --ga=$5
+if [ $# -eq 3 ]; then
+    grunt build-production --api=$3
+else
+    grunt build-production
+fi
 
 # =================================================
 # DEPLOY TO S3

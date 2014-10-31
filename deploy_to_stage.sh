@@ -17,7 +17,11 @@ fi
 # =================================================
 # BUILD PROJECT
 
-grunt build-stage
+if [ $# -eq 3 ]; then
+    grunt build-stage --api=$3
+else
+    grunt build-stage
+fi
 
 # =================================================
 # DEPLOY TO S3

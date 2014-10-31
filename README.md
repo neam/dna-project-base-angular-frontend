@@ -35,6 +35,18 @@ Now launch your web browser and navigate to `http://localhost:1337`.
 
     ./deploy_to_stage.sh <S3 ACCESS KEY> <S3 SECRET>
 
+Specify a different API base URL (e.g. http://stage.gapminder.org/api/v2):
+
+    ./deploy_to_production.sh <S3 ACCESS KEY> <S3 SECRET> <API BASE PATH>
+
+## Deploy to production
+
+    ./deploy_to_production.sh <S3 ACCESS KEY> <S3 SECRET>
+
+Specify a different API base URL (e.g. http://www.gapminder.org/api/v2):
+
+    ./deploy_to_production.sh <S3 ACCESS KEY> <S3 SECRET> <API BASE PATH>
+
 ## Run the tests
 
 You will need to have Google Chrome installed in order to run the tests.
