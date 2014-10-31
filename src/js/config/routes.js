@@ -9,7 +9,9 @@ angular.module('Gapminder').config(['$routeProvider', '$locationProvider', 'html
         {path: '/login', templateFile: 'login.html', layout: 'layout-minimal', controller: 'LoginCtrl', access: {requiredLogin: false}, title: 'Login'},
         {path: '/exercises', templateFile: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}, title: 'Exercises'},
         {path: '/exercises/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}, title: 'Item'},
+        {path: '/presentations/', templateFile: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}, title: 'Presentations'},
         {path: '/presentations/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}, title: 'Item'},
+        {path: '/qna', templateFile: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}, title: 'Questions & Answers'},
         {path: '/qna/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}, title: 'Item'}
     ];
 
