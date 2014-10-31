@@ -2,10 +2,10 @@ module.exports = function(grunt) {
     require('jit-grunt')(grunt);
 
     var baseApiUrlDevelopment = grunt.option('api') || 'http://localhost:1338/api',
-        baseApiUrlProduction = grunt.option('api') || 'http://release_pages-dec-1-2014-cms.gapminder.org/api/v1',
+        baseApiUrlProduction = grunt.option('api') || 'http://cms.gapminder.org/api/v1',
         baseApiUrlStage = grunt.option('api') || 'http://release_pages-dec-1-2014-cms.gapminder.org/api/v1',
         baseRouteDevelopment = grunt.option('baseRoute') || '',
-        baseRouteProduction = grunt.option('baseRoute') || '/pages-desktop',
+        baseRouteProduction = grunt.option('baseRoute') || '/stage-pages-desktop/master',
         baseRouteStage = grunt.option('baseRoute') || '/pages-desktop-stage',
         html5ModeDevelopment = grunt.option('html5Mode') || false,
         html5ModeProduction = grunt.option('html5Mode') || false,
