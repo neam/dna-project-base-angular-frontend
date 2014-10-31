@@ -16,7 +16,7 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
      * @returns {string}
      */
     function determineLocale() {
-        var locale = 'en-US', // default
+        var locale = 'en_us', // default
             localeFromStorage = getLocaleFromStorage(),
             localeFromDetector = detectUserLocale();
 
@@ -35,7 +35,17 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
      */
     function detectUserLocale() {
         // TODO: Use a GeoIP service, and fallback to navigator.language.
-        return $window.navigator.language;
+        return convertLocale($window.navigator.language);
+    }
+
+    /**
+     * Converts a locale string into a standard format.
+     * @param {string} locale
+     * @returns {string}
+     */
+    function convertLocale(locale) {
+        var standardized = locale.replace('-', '_').toLowerCase();
+        return standardized;
     }
 
     /**

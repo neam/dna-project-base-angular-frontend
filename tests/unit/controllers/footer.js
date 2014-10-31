@@ -35,8 +35,8 @@ describe('footer', function() {
     });
 
     it('should load footer items', function() {
-        $httpBackend.expectGET(ApiService.getApiUrl('/footer/en-US')).respond({
-            "en-US": {
+        $httpBackend.expectGET(ApiService.getApiUrl('/footer/en_us')).respond({
+            "en_us": {
                 "socialLinks": [
                     {
                         "label": "Twitter",
@@ -52,7 +52,7 @@ describe('footer', function() {
 
         $scope.init()
             .then(function() {
-                expect($scope.footerItems['en-US']).toBeDefined();
+                expect($scope.footerItems['en_us']).toBeDefined();
             });
 
         $httpBackend.flush();
