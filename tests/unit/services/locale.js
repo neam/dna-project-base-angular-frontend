@@ -5,7 +5,15 @@ describe('locale', function() {
         $q,
         ConfigService,
         ApiService,
-        LocaleService;
+        LocaleService,
+        languageApiPath = '/language',
+        /**
+         * @type {} mock locale options
+         */
+        localeOptions = {
+            "es": {"name": "Español", "direction": "ltr"},
+            "ja": {"name": "日本語", "direction": "ltr"}
+        };
 
     beforeEach(module('Gapminder'));
 
@@ -25,18 +33,7 @@ describe('locale', function() {
     });
 
     it('should load locale options', function() {
-        var locales = {
-            "es": {
-                "name": "Español",
-                "direction": "ltr"
-            },
-            "ja": {
-                "name": "日本語",
-                "direction": "ltr"
-            }
-        };
-
-        $httpBackend.expectGET(ApiService.getApiUrl('/language/list')).respond(locales);
+        $httpBackend.expectGET(ApiService.getApiUrl(languageApiPath)).respond(localeOptions);
 
         LocaleService.loadLocaleOptions()
             .then(function() {
@@ -50,5 +47,22 @@ describe('locale', function() {
     it('should determine text direction', function() {
         LocaleService.setCurrentLocale('fa');
         expect(LocaleService.getTextDirection()).toBe('rtl');
+    });
+
+    it('should set and get current locale', function() {
+        LocaleService.setCurrentLocale('es');
+        expect(LocaleService.getCurrentLocale()).toBe('es');
+    });
+
+    it('should return current locale label', function() {
+        $httpBackend.expectGET(ApiService.getApiUrl(languageApiPath)).respond(localeOptions);
+
+        LocaleService.loadLocaleOptions()
+            .then(function() {
+                LocaleService.setCurrentLocale('es');
+                expect(LocaleService.getCurrentLocaleLabel()).toBe('Español');
+            });
+
+        $httpBackend.flush();
     });
 });

@@ -6,6 +6,7 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
     /**
      * Returns the current locale from local storage.
      * @returns {string}
+     * @private
      */
     function getLocaleFromStorage() {
         return $window.localStorage.locale;
@@ -14,6 +15,7 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
     /**
      * Determines and returns the locale.
      * @returns {string}
+     * @private
      */
     function determineLocale() {
         var locale = 'en_us', // default
@@ -32,6 +34,7 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
     /**
      * Attempts to detect the user's locale.
      * @returns {string}
+     * @private
      */
     function detectUserLocale() {
         // TODO: Use a GeoIP service, and fallback to navigator.language.
@@ -42,6 +45,7 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
      * Converts a locale string into a standard format.
      * @param {string} locale
      * @returns {string}
+     * @private
      */
     function convertLocale(locale) {
         var standardized = locale.replace('-', '_').toLowerCase();
@@ -51,6 +55,7 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
     /**
      * Saves a locale to local storage.
      * @param {string} locale
+     * @private
      */
     function saveLocaleToStorage(locale) {
         $window.localStorage.locale = locale;
@@ -59,6 +64,7 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
     /**
      * Sets the current locale.
      * @param {string} locale
+     * @private
      */
     function setCurrentLocale(locale) {
         currentLocale = locale;
@@ -67,6 +73,7 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
     /**
      * Sets the current text direction.
      * @param {string} locale
+     * @private
      */
     function setTextDirectionByLocale(locale) {
         var rtlLocales = [
