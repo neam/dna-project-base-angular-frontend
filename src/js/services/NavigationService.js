@@ -33,13 +33,12 @@ angular.module('Gapminder').factory('NavigationService', function($location, env
         },
 
         /**
-         * Returns the given part of a URL path by array index.
-         * @param {string} path
+         * Returns the given part of the URL path by array index.
          * @param {number} index
          * @returns {string}
          */
-        getPartOfPath: function(path, index) {
-            var path = this.splitPath(path);
+        getPartOfPath: function(index) {
+            var path = this.splitPath($location.path());
             return angular.isDefined(path[index]) ? path[index] : null;
         }
     }

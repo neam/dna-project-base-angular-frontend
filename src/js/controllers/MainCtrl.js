@@ -28,11 +28,27 @@ function(
     $scope.user = UserService;
 
     /**
+     * Initializes the controller.
+     */
+    $scope.init = function() {
+        LocaleService.loadLocaleOptions();
+    };
+
+    /**
      * Returns the base route.
      * @returns {string}
      */
     $rootScope.getBaseRoute = function() {
-        return environment === 'production' ? '/' + NavigationService.getPartOfPath($location.path(), 0) + '/' : '/';
+        switch(environment) {
+            case 'production':
+                return '/' + NavigationService.getPartOfPath(0) + '/';
+
+            case 'stage':
+                return '/pages-desktop-stage/';
+
+            default:
+                return '/';
+        }
     };
 
     /**
@@ -41,13 +57,6 @@ function(
     $scope.createUrl = function(route) {
         return NavigationService.createUrl(route);
     };
-
-    /**
-     * Initializes the controller.
-     */
-    $scope.init = function() {
-        LocaleService.loadLocaleOptions();
-    },
 
     $scope.$$postDigest(function() {
         // TODO: Get translations.

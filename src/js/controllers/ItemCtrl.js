@@ -15,7 +15,7 @@ function(
     NavigationService,
     Item)
 {
-    var itemType = NavigationService.getPartOfPath($location.path(), 0);
+    var itemType = NavigationService.getPartOfPath(0);
 
     // Get item
     Item.get({id: $routeParams.id}, function(item) {
@@ -23,6 +23,7 @@ function(
         $scope.item = item;
         $scope.itemCategory = getItemCategory(itemType);
     }, function(err) {
+        // TODO: Handle 404.
         console.log(err);
     });
 
