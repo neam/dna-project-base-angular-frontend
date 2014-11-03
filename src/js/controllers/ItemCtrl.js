@@ -13,8 +13,8 @@ function(
     $location,
     ApiService,
     NavigationService,
-    Item)
-{
+    Item
+) {
     var itemUrlParam = NavigationService.getPartOfPath(0);
 
     // Get item
