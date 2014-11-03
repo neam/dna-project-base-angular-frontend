@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('TokenInterceptor', function($q, $window) {
+angular.module('Gapminder').factory('TokenInterceptor', ['$q', '$window', function($q, $window) {
     return {
         /**
          * Manipulates a request config.
@@ -24,6 +24,6 @@ angular.module('Gapminder').factory('TokenInterceptor', function($q, $window) {
             return response || $q.when(response);
         }
     };
-}).config(function($httpProvider) {
+}]).config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('TokenInterceptor');
-});
+}]);

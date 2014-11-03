@@ -1,4 +1,12 @@
-angular.module('Gapminder').factory('ApiService', function(ConfigService, Utils, baseApiUrl) {
+angular.module('Gapminder').factory('ApiService', [
+    'ConfigService',
+    'Utils',
+    'baseApiUrl',
+function(
+    ConfigService,
+    Utils,
+    baseApiUrl
+) {
     var compositionTypeToItemPathNameMap = {
         exercise: 'exercises'
     };
@@ -24,4 +32,4 @@ angular.module('Gapminder').factory('ApiService', function(ConfigService, Utils,
                 : compositionType;
         }
     }
-});
+}]);

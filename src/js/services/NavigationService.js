@@ -1,4 +1,14 @@
-angular.module('Gapminder').factory('NavigationService', function($location, Utils, environment, html5Mode) {
+angular.module('Gapminder').factory('NavigationService', [
+    '$location',
+    'Utils',
+    'environment',
+    'html5Mode',
+function(
+    $location,
+    Utils,
+    environment,
+    html5Mode
+) {
     return {
         /**
          * Redirects to the given route.
@@ -47,4 +57,4 @@ angular.module('Gapminder').factory('NavigationService', function($location, Uti
             return angular.isDefined(path[index]) ? path[index] : null;
         }
     }
-});
+}]);

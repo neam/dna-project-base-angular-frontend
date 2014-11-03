@@ -1,4 +1,14 @@
-angular.module('Gapminder').run(function($rootScope, $location, $window, UserService) {
+angular.module('Gapminder').run([
+    '$rootScope',
+    '$location',
+    '$window',
+    'UserService',
+function(
+    $rootScope,
+    $location,
+    $window,
+    UserService
+) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
         // Attempt to auto-login
         UserService.autoLogin()
@@ -31,4 +41,4 @@ angular.module('Gapminder').run(function($rootScope, $location, $window, UserSer
             $rootScope.layout = 'layout-minimal';
         }
     });
-});
+}]);

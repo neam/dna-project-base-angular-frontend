@@ -1,4 +1,4 @@
-angular.module('Gapminder').directive('navExpandable', ['NavigationService', function(NavigationService) {
+angular.module('Gapminder').directive('navExpandable', [function() {
     return {
         restrict: 'A',
         scope: {

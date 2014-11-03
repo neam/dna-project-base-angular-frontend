@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('SirTrevorService', function($location) {
+angular.module('Gapminder').factory('SirTrevorService', ['$location', function($location) {
     var service = {
         /**
          * Renders a text block and returns the HTML.
@@ -145,4 +145,4 @@ angular.module('Gapminder').factory('SirTrevorService', function($location) {
     };
 
     return service;
-});
+}]);

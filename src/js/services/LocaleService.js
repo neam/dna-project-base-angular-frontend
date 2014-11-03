@@ -1,4 +1,14 @@
-angular.module('Gapminder').factory('LocaleService', function($http, $q, $window, ApiService) {
+angular.module('Gapminder').factory('LocaleService', [
+    '$http',
+    '$q',
+    '$window',
+    'ApiService',
+function(
+    $http,
+    $q,
+    $window,
+    ApiService
+) {
     var localeOptions = {},
         currentLocale = determineLocale(),
         currentTextDirection;
@@ -165,4 +175,4 @@ angular.module('Gapminder').factory('LocaleService', function($http, $q, $window
             return currentTextDirection;
         }
     };
-});
+}]);
