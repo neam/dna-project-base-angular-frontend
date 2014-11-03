@@ -23,6 +23,20 @@ angular.module('Gapminder').factory('NavigationService', function($location, env
         },
 
         /**
+         * Creates an asset URL.
+         * @param {string} path
+         * @returns {string}
+         */
+        createAssetUrl: function(path) {
+            // Remove leading slash
+            if (path.charAt(0) === '/') {
+                path = path.replace('/', '');
+            }
+
+            return path;
+        },
+
+        /**
          * Splits a URL path into parts.
          * @param {string} path
          * @returns {Array}

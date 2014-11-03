@@ -58,6 +58,13 @@ function(
         return NavigationService.createUrl(route);
     };
 
+    /**
+     * @see NavigationService#createAssetUrl
+     */
+    $scope.createAssetUrl = function(path) {
+        return NavigationService.createAssetUrl(path);
+    };
+
     $scope.$$postDigest(function() {
         // TODO: Get translations.
     });
