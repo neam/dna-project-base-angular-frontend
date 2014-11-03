@@ -92,6 +92,6 @@ function(
      */
     $scope.createUserProfileUrl = function(userId) {
         // TODO: Use a real profile URL or make it configurable per environment.
-        return 'http://www.gapminder.org/profiles/#/profiles/' + userId;
+        return 'http://www.gapminder.org/profiles/' + userId;
     };
 }]);
