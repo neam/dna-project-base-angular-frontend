@@ -1,43 +1,39 @@
-angular.module('Gapminder').factory('NavigationService', function($location, html5Mode, baseRoute) {
+angular.module('Gapminder').factory('NavigationService', function($location, environment, html5Mode) {
     return {
-        /**
-         * Creates a URL while taking the baseRoute into account.
-         * @param {string} route
-         * @returns {string}
-         */
-        createUrl: function(route) {
-            if (route.charAt(0) !== '/') {
-                // Ensure leading slash
-                route = '/' + route;
-            }
-
-            if (!html5Mode) {
-                route = '/#' + route;
-            }
-
-            return baseRoute + route;
-        },
-
-        /**
-         * Creates a raw URL while taking the baseRoute into account but always without a hashbang (e.g. with links to images, files, etc.)
-         * @param {string} route
-         * @returns {string}
-         */
-        createRawUrl: function(route) {
-            if (route.charAt(0) !== '/') {
-                // Ensure leading slash
-                route = '/' + route;
-            }
-
-            return baseRoute + route;
-        },
-
         /**
          * Redirects to the given route.
          * @param {string} route
          */
         redirect: function(route) {
             $location.path(route);
+        },
+
+        /**
+         * Creates a URL.
+         * @param {string} route
+         * @returns {string}
+         */
+        createUrl: function(route) {
+            // Ensure leading slash
+            if (route.charAt(0) !== '/') {
+                route = '/' + route;
+            }
+
+            return html5Mode ? route : '#' + route;
+        },
+
+        /**
+         * Creates an asset URL.
+         * @param {string} path
+         * @returns {string}
+         */
+        createAssetUrl: function(path) {
+            // Remove leading slash
+            if (path.charAt(0) === '/') {
+                path = path.replace('/', '');
+            }
+
+            return path;
         },
 
         /**
@@ -51,13 +47,12 @@ angular.module('Gapminder').factory('NavigationService', function($location, htm
         },
 
         /**
-         * Returns the given part of a URL path by array index.
-         * @param {string} path
+         * Returns the given part of the URL path by array index.
          * @param {number} index
          * @returns {string}
          */
-        getPartOfPath: function(path, index) {
-            var path = this.splitPath(path);
+        getPartOfPath: function(index) {
+            var path = this.splitPath($location.path());
             return angular.isDefined(path[index]) ? path[index] : null;
         }
     }

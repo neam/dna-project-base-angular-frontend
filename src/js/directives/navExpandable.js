@@ -4,6 +4,6 @@ angular.module('Gapminder').directive('navExpandable', ['NavigationService', fun
         scope: {
             items: '='
         },
-        templateUrl: NavigationService.createRawUrl('/templates/directives/nav-expandable.html')
+        templateUrl: 'templates/directives/nav-expandable.html'
     };
 }]);
