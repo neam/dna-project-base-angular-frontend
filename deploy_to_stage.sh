@@ -17,7 +17,11 @@ fi
 # =================================================
 # BUILD PROJECT
 
-grunt build-stage
+if [ $# -eq 3 ]; then
+    grunt build-stage --api=$3
+else
+    grunt build-stage
+fi
 
 # =================================================
 # DEPLOY TO S3
@@ -39,5 +43,3 @@ export PAGES_S3_TARGET="s3://static.gapminder.org/pages-desktop-stage"
 
 # send to s3
 s3cmd -v --config=/tmp/.gapminder-s3.s3cfg --acl-public --recursive put dist/ "$PAGES_S3_TARGET/"
-
-# =================================================

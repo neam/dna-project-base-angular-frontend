@@ -17,7 +17,11 @@ fi
 # =================================================
 # BUILD PROJECT
 
-grunt build-production --baseRoute=$4 --api=$5 --html5Mode=$6 --ga=$5
+if [ $# -eq 3 ]; then
+    grunt build-production --api=$3
+else
+    grunt build-production
+fi
 
 # =================================================
 # DEPLOY TO S3
@@ -35,9 +39,7 @@ secret_key = $PUBLIC_FILE_UPLOADERS_SECRET
 acl_public = True" > /tmp/.gapminder-s3.s3cfg
 
 # export gapminder-pages target
-export PAGES_S3_TARGET="s3://static.gapminder.org/pages-desktop/master-go"
+export PAGES_S3_TARGET="s3://static.gapminder.org/pages-desktop/master"
 
 # send to s3
 s3cmd -v --config=/tmp/.gapminder-s3.s3cfg --acl-public --recursive put dist/ "$PAGES_S3_TARGET/"
-
-# =================================================

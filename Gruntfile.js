@@ -2,13 +2,10 @@ module.exports = function(grunt) {
     require('jit-grunt')(grunt);
 
     var baseApiUrlDevelopment = grunt.option('api') || 'http://localhost:1338/api',
-        baseApiUrlProduction = grunt.option('api') || 'http://release_pages-dec-1-2014-cms.gapminder.org/api/v1',
-        baseApiUrlStage = grunt.option('api') || 'http://release_pages-dec-1-2014-cms.gapminder.org/api/v1',
-        baseRouteDevelopment = grunt.option('baseRoute') || '',
-        baseRouteProduction = grunt.option('baseRoute') || '/pages-desktop',
-        baseRouteStage = grunt.option('baseRoute') || '/pages-desktop-stage',
+        baseApiUrlProduction = grunt.option('api') || 'http://cms.gapminder.org/api/v1',
+        baseApiUrlStage = grunt.option('api') || 'http://cmsext.gapminderdev.org:1338/api',
         html5ModeDevelopment = grunt.option('html5Mode') || false,
-        html5ModeProduction = grunt.option('html5Mode') || false,
+        html5ModeProduction = grunt.option('html5Mode') || true,
         html5ModeStage = grunt.option('html5Mode') || false,
         developmentGaKey = grunt.option('ga') || '',
         productionGaKey = grunt.option('ga') || '';
@@ -158,7 +155,7 @@ module.exports = function(grunt) {
             development: {
                 options: {
                     data: {
-                        baseRoute: baseRouteDevelopment,
+                        environment: 'development',
                         baseApiUrl: baseApiUrlDevelopment,
                         html5Mode: html5ModeDevelopment,
                         gaTrackingId: developmentGaKey
@@ -171,7 +168,7 @@ module.exports = function(grunt) {
             production: {
                 options: {
                     data: {
-                        baseRoute: baseRouteProduction,
+                        environment: 'production',
                         baseApiUrl: baseApiUrlProduction,
                         html5Mode: html5ModeProduction,
                         gaTrackingId: productionGaKey
@@ -184,7 +181,7 @@ module.exports = function(grunt) {
             stage: {
                 options: {
                     data: {
-                        baseRoute: baseRouteStage,
+                        environment: 'stage',
                         baseApiUrl: baseApiUrlStage,
                         html5Mode: html5ModeStage,
                         gaTrackingId: developmentGaKey

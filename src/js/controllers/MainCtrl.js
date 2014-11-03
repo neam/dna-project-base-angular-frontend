@@ -2,36 +2,54 @@ angular.module('Gapminder').controller('MainCtrl', [
     '$scope',
     '$rootScope',
     '$http',
+    '$location',
     'UserService',
     'ApiService',
     'LocaleService',
     'i18nService',
-    'baseRoute',
     'NavigationService',
     'LoadService',
+    'environment',
 function(
     $scope,
     $rootScope,
     $http,
+    $location,
     UserService,
     ApiService,
     LocaleService,
     i18nService,
-    baseRoute,
     NavigationService,
-    LoadService
+    LoadService,
+    environment
 ) {
     $rootScope.locale = LocaleService;
     $rootScope.load = LoadService;
     $scope.user = UserService;
-    $scope.baseRoute = baseRoute;
 
     /**
      * Initializes the controller.
      */
     $scope.init = function() {
         LocaleService.loadLocaleOptions();
-    },
+    };
+
+    /**
+     * Returns the base route.
+     * @returns {string}
+     */
+    $rootScope.getBaseRoute = function() {
+        switch(environment) {
+            case 'production':
+                return '/' + NavigationService.getPartOfPath(0) + '/';
+
+            case 'stage':
+                return '/pages-desktop-stage/';
+
+            default:
+                return '/';
+        }
+    };
 
     /**
      * @see NavigationService#createUrl
@@ -41,10 +59,10 @@ function(
     };
 
     /**
-     * @see NavigationService#createRawUrl
+     * @see NavigationService#createAssetUrl
      */
-    $scope.createRawUrl = function(route) {
-        return NavigationService.createRawUrl(route);
+    $scope.createAssetUrl = function(path) {
+        return NavigationService.createAssetUrl(path);
     };
 
     $scope.$$postDigest(function() {
