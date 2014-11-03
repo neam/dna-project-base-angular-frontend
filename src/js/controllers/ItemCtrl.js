@@ -15,31 +15,64 @@ function(
     NavigationService,
     Item)
 {
-    var itemType = NavigationService.getPartOfPath(0);
+    var itemUrlParam = NavigationService.getPartOfPath(0);
 
     // Get item
     Item.get({id: $routeParams.id}, function(item) {
-        $rootScope.pageTitle = item.heading;
-        $scope.item = item;
-        $scope.itemCategory = getItemCategory(itemType);
+        if (validateItemType(item)) {
+            $rootScope.pageTitle = item.heading;
+            $scope.item = item;
+            $scope.itemCategory = getItemCategory(itemUrlParam);
+        } else {
+            whenItemNotFound();
+        }
     }, function(err) {
-        // TODO: Handle 404.
-        console.log(err);
+        whenItemNotFound();
     });
 
     /**
-     * Returns an item category.
-     * @param {string} itemType item type machine name
+     * Process 404 logic.
+     */
+    function whenItemNotFound() {
+        $rootScope.pageTitle = 'Not Found';
+        $scope.itemNotFound = true;
+    }
+
+    /**
+     * Checks if the item type matches the item type URL param.
+     * @param {} item
+     * @returns {boolean}
+     */
+    function validateItemType(item) {
+        return item.composition_type === getItemType(itemUrlParam);
+    }
+
+    /**
+     * Returns an item category by URL param.
+     * @param {string} urlParam (e.g. 'exercises')
      * @returns {string}
      */
-    function getItemCategory(itemType) {
-        // TODO: Replace with translated strings.
-        var labels = {
+    function getItemCategory(urlParam) {
+        var paramToItemCategory = {
             exercises: 'Exercises',
             presentations: 'Presentations'
         };
 
-        return angular.isDefined(labels[itemType]) ? labels[itemType] : '';
+        return angular.isDefined(paramToItemCategory[urlParam]) ? paramToItemCategory[urlParam] : '';
+    }
+
+    /**
+     * Returns an item type by URL param.
+     * @param {string} urlParam (e.g. 'exercises')
+     * @returns {string}
+     */
+    function getItemType(urlParam) {
+        var paramToItemTypeMap = {
+            exercises: 'exercise',
+            presentations: 'presentation'
+        };
+
+        return angular.isDefined(paramToItemTypeMap[urlParam]) ? paramToItemTypeMap[urlParam] : '';
     }
 
     /**
