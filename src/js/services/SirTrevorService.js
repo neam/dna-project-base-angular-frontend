@@ -99,6 +99,36 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
         },
 
         /**
+         * Renders an HTML block.
+         * @param {} block
+         * @returns {string}
+         */
+        renderHtml: function(block) {
+            return block.data.src;
+        },
+
+        /**
+         * Renders a linked image block.
+         * @param {} block
+         * @returns {string}
+         */
+        renderLinkedImage: function(block) {
+            var html = '';
+
+            // Template
+            html += '<a href="{{link_url}}">';
+            html += '<img src="{{image_url}}" alt="{{title}}">';
+            html += '</a>';
+
+            // Replace placeholders
+            html = html.replace('{{link_url}}', block.data.link_url);
+            html = html.replace('{{image_url}}', block.data.image_url);
+            html = html.replace('{{title}}', block.data.title);
+
+            return html;
+        },
+
+        /**
          * Checks if the block type is supported.
          * @param {string} blockType
          * @returns {boolean}
@@ -141,7 +171,9 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
 
         // Custom blocks
         slideshare: service.renderSlideShare,
-        about: service.renderAbout
+        about: service.renderAbout,
+        html: service.renderHtml,
+        'linked-image': service.renderLinkedImage
     };
 
     return service;
