@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('NavigationService', function($location, environment, html5Mode) {
+angular.module('Gapminder').factory('NavigationService', function($location, Utils, environment, html5Mode) {
     return {
         /**
          * Redirects to the given route.
@@ -14,11 +14,7 @@ angular.module('Gapminder').factory('NavigationService', function($location, env
          * @returns {string}
          */
         createUrl: function(route) {
-            // Ensure leading slash
-            if (route.charAt(0) !== '/') {
-                route = '/' + route;
-            }
-
+            route = Utils.ensureLeadingSlash(route);
             return html5Mode ? route : '#' + route;
         },
 
@@ -28,12 +24,7 @@ angular.module('Gapminder').factory('NavigationService', function($location, env
          * @returns {string}
          */
         createAssetUrl: function(path) {
-            // Remove leading slash
-            if (path.charAt(0) === '/') {
-                path = path.replace('/', '');
-            }
-
-            return path;
+            return Utils.stripLeadingSlash(path);
         },
 
         /**
