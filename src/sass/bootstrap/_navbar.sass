@@ -4,6 +4,19 @@
   margin-bottom: 0
   min-height: $navbar-height-mobile
 
+  +respond-to(mobile)
+    .navbar-toggle .icon-bar
+      background-color: #fff !important
+
+    .navbar-header
+      background-color: $brand-primary
+
+    .gapminder-logo
+      width: 170px !important
+
+      path
+        fill: #fff !important
+
   +respond-to(tablet-portrait)
     .navbar-header
       +make-sm-column(12)
@@ -37,6 +50,13 @@
         font-size: 20px
         margin-top: 0
         margin-left: 4px
+
+    .gapminder-logo
+      width: 232px
+      height: auto
+
+      path
+        fill: $brand-primary
 
     +respond-to(tablet-portrait)
       +justify-content(left)
