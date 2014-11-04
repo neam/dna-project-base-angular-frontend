@@ -6,9 +6,7 @@ module.exports = function(grunt) {
         baseApiUrlStage = grunt.option('api') || 'http://cmsext.gapminderdev.org:1338/api',
         html5ModeDevelopment = grunt.option('html5Mode') || false,
         html5ModeProduction = grunt.option('html5Mode') || true,
-        html5ModeStage = grunt.option('html5Mode') || false,
-        developmentGaKey = grunt.option('ga') || '',
-        productionGaKey = grunt.option('ga') || '';
+        html5ModeStage = grunt.option('html5Mode') || false;
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -157,8 +155,7 @@ module.exports = function(grunt) {
                     data: {
                         environment: 'development',
                         baseApiUrl: baseApiUrlDevelopment,
-                        html5Mode: html5ModeDevelopment,
-                        gaTrackingId: developmentGaKey
+                        html5Mode: html5ModeDevelopment
                     }
                 },
                 files: {
@@ -170,8 +167,7 @@ module.exports = function(grunt) {
                     data: {
                         environment: 'production',
                         baseApiUrl: baseApiUrlProduction,
-                        html5Mode: html5ModeProduction,
-                        gaTrackingId: productionGaKey
+                        html5Mode: html5ModeProduction
                     }
                 },
                 files: {
@@ -183,8 +179,7 @@ module.exports = function(grunt) {
                     data: {
                         environment: 'stage',
                         baseApiUrl: baseApiUrlStage,
-                        html5Mode: html5ModeStage,
-                        gaTrackingId: developmentGaKey
+                        html5Mode: html5ModeStage
                     }
                 },
                 files: {
