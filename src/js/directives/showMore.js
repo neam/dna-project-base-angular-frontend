@@ -29,7 +29,7 @@ angular.module('Gapminder').directive('showMore', ['$compile', '$timeout', funct
              * @returns {boolean}
              */
             scope.tooLong = function() {
-                return contentElement.height() > 130;
+                return contentElement.height() > 129;
             };
 
             /**
