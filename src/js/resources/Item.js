@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('Item', function($resource, ApiService) {
+angular.module('Gapminder').factory('Item', ['$resource', 'ApiService', function($resource, ApiService) {
     return $resource(
         ApiService.getApiUrl('/item/:id'),
         {
@@ -8,4 +8,4 @@ angular.module('Gapminder').factory('Item', function($resource, ApiService) {
             get: {method: 'GET'}
         }
     );
-});
+}]);

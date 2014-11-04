@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('ConfigService', function(MainConfig, EnvironmentConfig) {
+angular.module('Gapminder').factory('ConfigService', ['MainConfig', 'EnvironmentConfig', function(MainConfig, EnvironmentConfig) {
     return {
         /**
          * Fetches and returns a configuration value by key.
@@ -13,4 +13,4 @@ angular.module('Gapminder').factory('ConfigService', function(MainConfig, Enviro
             }
         }
     };
-});
+}]);

@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('EnvironmentConfig', function() {
+angular.module('Gapminder').factory('EnvironmentConfig', [function() {
     return {
     };
-});
+}]);

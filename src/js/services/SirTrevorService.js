@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('SirTrevorService', function($location) {
+angular.module('Gapminder').factory('SirTrevorService', ['$location', function($location) {
     var service = {
         /**
          * Renders a text block and returns the HTML.
@@ -82,9 +82,8 @@ angular.module('Gapminder').factory('SirTrevorService', function($location) {
          * @returns {string}
          */
         renderSlideShare: function(block) {
-            var html = "<iframe src=\"http://www.slideshare.net/slideshow/embed_code/{{remote_id}}?rel=0\" width=\"425\" height=\"355\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;\" allowfullscreen> </iframe>"
-                .replace('{{remote_id}}', block.data.remote_id);
-
+            var html = '<iframe src="http://www.slideshare.net/slideshow/embed_code/{{remote_id}}?rel=0" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>';
+            html = html.replace('{{remote_id}}', block.data.remote_id);
             return html;
         },
 
@@ -96,6 +95,36 @@ angular.module('Gapminder').factory('SirTrevorService', function($location) {
         renderAbout: function(block) {
             // TODO: Render the item.about property.
             return 'foo';
+        },
+
+        /**
+         * Renders an HTML block.
+         * @param {} block
+         * @returns {string}
+         */
+        renderHtml: function(block) {
+            return block.data.src;
+        },
+
+        /**
+         * Renders a linked image block.
+         * @param {} block
+         * @returns {string}
+         */
+        renderLinkedImage: function(block) {
+            var html = '';
+
+            // Template
+            html += '<a href="{{link_url}}">';
+            html += '<img src="{{image_url}}" alt="{{title}}">';
+            html += '</a>';
+
+            // Replace placeholders
+            html = html.replace('{{link_url}}', block.data.link_url);
+            html = html.replace('{{image_url}}', block.data.image_url);
+            html = html.replace('{{title}}', block.data.title);
+
+            return html;
         },
 
         /**
@@ -141,8 +170,10 @@ angular.module('Gapminder').factory('SirTrevorService', function($location) {
 
         // Custom blocks
         slideshare: service.renderSlideShare,
-        about: service.renderAbout
+        about: service.renderAbout,
+        html: service.renderHtml,
+        'linked-image': service.renderLinkedImage
     };
 
     return service;
-});
+}]);

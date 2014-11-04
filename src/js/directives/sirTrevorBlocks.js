@@ -1,4 +1,4 @@
-angular.module('Gapminder').directive('sirTrevorBlocks', ['SirTrevorService', function(SirTrevorService) {
+angular.module('Gapminder').directive('sirTrevorBlocks', ['$compile', 'SirTrevorService', function($compile, SirTrevorService) {
     return {
         restrict: 'AE',
         scope: {
@@ -14,7 +14,9 @@ angular.module('Gapminder').directive('sirTrevorBlocks', ['SirTrevorService', fu
                         if (SirTrevorService.isBlockTypeSupported(block.type)) {
                             // TODO: Try to get rid of this if-else statement.
                             if (block.type === 'about') {
+                                html += '<show-more>';
                                 html += '<div class="item-about">' + scope.about + '</div>';
+                                html += '</show-more>';
                             } else {
                                 html += '<div class="block block-{{type}}">'.replace('{{type}}', block.type);
                                 html += SirTrevorService.render(block);
@@ -23,6 +25,9 @@ angular.module('Gapminder').directive('sirTrevorBlocks', ['SirTrevorService', fu
                         }
                     });
 
+                    html = angular.element(html);
+
+                    $compile(html)(scope);
                     element.html(html).find('a').attr('target', '_blank');
                 }
             });

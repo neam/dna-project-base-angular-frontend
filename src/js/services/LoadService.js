@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('LoadService', function($rootScope) {
+angular.module('Gapminder').factory('LoadService', ['$rootScope', function($rootScope) {
     var initialPageLoadComplete = false,
         contentLoadComplete = false;
 
@@ -23,4 +23,4 @@ angular.module('Gapminder').factory('LoadService', function($rootScope) {
             return initialPageLoadComplete && contentLoadComplete;
         }
     };
-});
+}]);

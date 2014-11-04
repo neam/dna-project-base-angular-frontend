@@ -1,4 +1,14 @@
-angular.module('Gapminder').run(function($rootScope, $location, $window, UserService) {
+angular.module('Gapminder').run([
+    '$rootScope',
+    '$location',
+    '$window',
+    'UserService',
+function(
+    $rootScope,
+    $location,
+    $window,
+    UserService
+) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
         // Attempt to auto-login
         UserService.autoLogin()
@@ -15,7 +25,7 @@ angular.module('Gapminder').run(function($rootScope, $location, $window, UserSer
     });
 
     $rootScope.$on('$routeChangeSuccess', function(event, nextRoute, currentRoute) {
-        if (typeof nextRoute !== 'undefined') {
+        if (angular.isDefined(nextRoute) && angular.isDefined(nextRoute.$$route)) {
             // Update current controller
             $rootScope.controller = nextRoute.$$route.controller;
 
@@ -24,6 +34,11 @@ angular.module('Gapminder').run(function($rootScope, $location, $window, UserSer
 
             // Update page layout
             $rootScope.layout = nextRoute.$$route.layout;
+        } else {
+            // 404
+            $rootScope.controller = 'PageNotFoundCtrl';
+            $rootScope.pageTitle = 'Page Not Found';
+            $rootScope.layout = 'layout-minimal';
         }
     });
-});
+}]);

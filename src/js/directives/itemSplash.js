@@ -7,7 +7,7 @@ angular.module('Gapminder').directive('itemSplash', ['NavigationService', 'SirTr
         link: function(scope, element, attrs) {
             scope.$watch('blocks', function() {
                 if (angular.isObject(scope.blocks)) {
-                    var validSplashBlockTypes = ['image', 'video', 'slideshare'],
+                    var validSplashBlockTypes = ['image', 'linked-image', 'video', 'slideshare'],
                         html = '',
                         firstBlock = scope.blocks[0];
 

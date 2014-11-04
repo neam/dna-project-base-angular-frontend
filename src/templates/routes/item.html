@@ -1,7 +1,12 @@
 <div class="page-item" loader>
     <section class="section section-container">
         <div class="section-inner">
-            <div class="columns">
+            <div class="columns" ng-show="itemNotFound">
+                <div class="column-primary">
+                    <h1 class="item-title">Item Not Found</h1>
+                </div>
+            </div>
+            <div class="columns" ng-hide="itemNotFound">
                 <div class="column-primary">
                     <div class="item-type">{{ itemCategory }} <!-- <span class="glyphicon glyphicon-chevron-right"></span> #{{ item.id }} --></div>
                     <h1 class="item-title">{{ item.heading }}</h1>

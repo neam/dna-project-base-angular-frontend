@@ -1,4 +1,12 @@
-angular.module('Gapminder').factory('ApiService', function(ConfigService, baseApiUrl) {
+angular.module('Gapminder').factory('ApiService', [
+    'ConfigService',
+    'Utils',
+    'baseApiUrl',
+function(
+    ConfigService,
+    Utils,
+    baseApiUrl
+) {
     var compositionTypeToItemPathNameMap = {
         exercise: 'exercises'
     };
@@ -10,7 +18,7 @@ angular.module('Gapminder').factory('ApiService', function(ConfigService, baseAp
          * @returns {string}
          */
         getApiUrl: function(uri) {
-            return baseApiUrl + uri;
+            return Utils.stripTrailingSlash(baseApiUrl + uri)
         },
 
         /**
@@ -24,4 +32,4 @@ angular.module('Gapminder').factory('ApiService', function(ConfigService, baseAp
                 : compositionType;
         }
     }
-});
+}]);

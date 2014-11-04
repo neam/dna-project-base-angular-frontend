@@ -1,5 +1,14 @@
-angular.module('Gapminder').config(['$routeProvider', '$locationProvider', 'html5Mode', function($routeProvider, $locationProvider, html5Mode) {
-    var routeTemplateBasePath = 'templates/routes/';
+angular.module('Gapminder').config([
+    '$routeProvider',
+    '$locationProvider',
+    'html5Mode',
+function(
+    $routeProvider,
+    $locationProvider,
+    html5Mode
+) {
+    var templateBasePath = 'templates/',
+        routeTemplateBasePath = templateBasePath + 'routes/';
 
     $locationProvider.html5Mode(html5Mode);
 
@@ -17,12 +26,14 @@ angular.module('Gapminder').config(['$routeProvider', '$locationProvider', 'html
 
     // Register routes
     angular.forEach(routes, function(route) {
-        $routeProvider.when(route.path, {
-            templateUrl: routeTemplateBasePath + route.templateFile,
-            layout: typeof route.layout !== 'undefined' ? route.layout : 'layout-regular',
-            controller: route.controller,
-            access: route.access,
-            title: route.title
-        });
+        $routeProvider
+            .when(route.path, {
+                templateUrl: routeTemplateBasePath + route.templateFile,
+                layout: typeof route.layout !== 'undefined' ? route.layout : 'layout-regular',
+                controller: route.controller,
+                access: route.access,
+                title: route.title
+            })
+            .otherwise({templateUrl: templateBasePath + '404.html'});
     });
 }]);

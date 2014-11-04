@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('i18nService', function($q, $rootScope) {
+angular.module('Gapminder').factory('i18nService', ['$q', function($q) {
     var translatables = [],
         translations = [];
 
@@ -83,4 +83,4 @@ angular.module('Gapminder').factory('i18nService', function($q, $rootScope) {
             return dfd.promise;
         }
     };
-});
+}]);
