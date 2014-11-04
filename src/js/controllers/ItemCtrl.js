@@ -55,7 +55,8 @@ function(
     function getItemCategory(urlParam) {
         var paramToItemCategory = {
             exercises: 'Exercises',
-            presentations: 'Presentations'
+            presentations: 'Presentations',
+            qna: 'Questions & Answers'
         };
 
         return angular.isDefined(paramToItemCategory[urlParam]) ? paramToItemCategory[urlParam] : '';
@@ -69,7 +70,8 @@ function(
     function getItemType(urlParam) {
         var paramToItemTypeMap = {
             exercises: 'exercise',
-            presentations: 'presentation'
+            presentations: 'presentation',
+            qna: 'qna'
         };
 
         return angular.isDefined(paramToItemTypeMap[urlParam]) ? paramToItemTypeMap[urlParam] : '';
