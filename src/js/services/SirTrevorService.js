@@ -135,15 +135,22 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
         renderDownloadLinks: function(block) {
             var html = '';
 
-            html += block.data.title;
-
-            html += '<ul>';
-            angular.forEach(block.data.links, function(link) {
-                html += '<li><a href="{{url}}">{{title}}</a></li>'
-                    .replace('{{url}}', link.url)
-                    .replace('{{title}}', link.title);
-            });
-            html += '</ul>';
+            if (block.data.links.length > 1) {
+                // Multiple download links
+                html += block.data.title;
+                html += '<ul>';
+                angular.forEach(block.data.links, function(link) {
+                    html += '<li><a href="{{url}}">{{title}}</a></li>'
+                        .replace('{{url}}', link.url)
+                        .replace('{{title}}', link.title);
+                });
+                html += '</ul>';
+            } else {
+                // Single link
+                html += html += '<a href="{{url}}">{{title}}</a>'
+                    .replace('{{url}}', block.data.links[0].url)
+                    .replace('{{title}}', block.data.links[0].title);
+            }
 
             return html;
         },
