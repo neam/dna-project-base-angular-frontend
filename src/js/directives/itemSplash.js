@@ -9,9 +9,14 @@ angular.module('Gapminder').directive('itemSplash', ['NavigationService', 'SirTr
                 if (angular.isObject(scope.blocks)) {
                     var validSplashBlockTypes = ['image', 'linked-image', 'video', 'slideshare'],
                         html = '',
-                        firstBlock = scope.blocks[0];
+                        firstBlock = scope.blocks[0],
+                        containsSlideShare = false;
 
                     if (_.contains(validSplashBlockTypes, firstBlock.type) && SirTrevorService.isBlockTypeSupported(firstBlock.type)) {
+                        if (firstBlock.type === 'slideshare') {
+                            containsSlideShare = true;
+                        }
+
                         html += '<div class="block block-{{type}}">'.replace('{{type}}', firstBlock.type);
                         html += SirTrevorService.render(firstBlock);
                         html += '</div>';
@@ -21,6 +26,11 @@ angular.module('Gapminder').directive('itemSplash', ['NavigationService', 'SirTr
                     }
 
                     element.html(html).find('a').attr('target', '_blank');
+
+                    // TODO: Run FitVids elsewhere. Refactor and clean up.
+                    if (containsSlideShare) {
+                        $('.block-slideshare').fitVids({ customSelector: 'iframe'});
+                    }
                 }
             });
         }
