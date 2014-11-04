@@ -13,7 +13,7 @@
             <ul class="nav navbar-nav navbar-nav-left hidden-xs" nav-expandable items="expandedItems"></ul>
             <ul class="nav navbar-nav navbar-right visible-xs">
                 <li ng-show="user.isAuthenticated"><a ng-click="logout()" ng-href="" id="logout">Logout</a></li>
-                <li ng-show="!user.isAuthenticated"><a ng-href="{{ createUrl('/') }}">Login</a></li>
+                <li ng-show="!user.isAuthenticated"><a ng-href="{{ createUrl('/login') }}">Login</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right hidden-xs">
                 <li class="dropdown locale-dropdown">
