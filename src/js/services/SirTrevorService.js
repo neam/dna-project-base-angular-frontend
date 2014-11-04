@@ -128,6 +128,27 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
         },
 
         /**
+         * Renders a download links block.
+         * @param {} block
+         * @returns {string}
+         */
+        renderDownloadLinks: function(block) {
+            var html = '';
+
+            html += block.data.title;
+
+            html += '<ul>';
+            angular.forEach(block.data.links, function(link) {
+                html += '<li><a href="{{url}}">{{title}}</a></li>'
+                    .replace('{{url}}', link.url)
+                    .replace('{{title}}', link.title);
+            });
+            html += '</ul>';
+
+            return html;
+        },
+
+        /**
          * Checks if the block type is supported.
          * @param {string} blockType
          * @returns {boolean}
@@ -172,7 +193,8 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
         slideshare: service.renderSlideShare,
         about: service.renderAbout,
         html: service.renderHtml,
-        'linked-image': service.renderLinkedImage
+        'linked-image': service.renderLinkedImage,
+        'download-links': service.renderDownloadLinks
     };
 
     return service;
