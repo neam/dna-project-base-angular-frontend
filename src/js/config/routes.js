@@ -7,8 +7,7 @@ function(
     $locationProvider,
     html5Mode
 ) {
-    var templateBasePath = 'templates/',
-        routeTemplateBasePath = templateBasePath + 'routes/';
+    var routeTemplateBasePath = 'templates/routes/';
 
     $locationProvider.html5Mode(html5Mode);
 
@@ -34,6 +33,6 @@ function(
                 access: route.access,
                 title: route.title
             })
-            .otherwise({templateUrl: templateBasePath + '404.html'});
+            .otherwise({templateUrl: routeTemplateBasePath + '404.html'});
     });
 }]);
