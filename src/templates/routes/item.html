@@ -3,7 +3,7 @@
         <div class="section-inner">
             <div class="columns" ng-show="itemNotFound">
                 <div class="column-primary">
-                    <h1 class="item-title">Item Not Found</h1>
+                    <h1 class="item-title" i18n="item-page:item-not-found|Item Not Found|html"></h1>
                 </div>
             </div>
             <div class="columns" ng-hide="itemNotFound">
@@ -18,7 +18,7 @@
                         </div>
                         <div class="item-info-secondary">
                             <div class="info-segment">
-                                <h2 class="heading-4">Share</h2>
+                                <h2 class="heading-4" i18n="item-page:share-heading|Share|html"></h2>
                                 <ul class="item-share">
                                     <li><span class="fa fa-envelope-o"></span></li>
                                     <li><span class="fa fa-facebook"></span></li>
@@ -34,20 +34,20 @@
                             </div>
                             -->
                             <div class="info-segment">
-                                <h2 class="heading-4">Thanks to</h2>
+                                <h2 class="heading-4" i18n="item-page:thanks-to-heading|Thanks to|html"></h2>
                                 <div class="item-contributors">
                                     <a ng-repeat="contributor in item.contributors" ng-href="{{ createUserProfileUrl(contributor.userId) }}">
                                         <img class="item-contributor" ng-src="{{ contributor.thumbnailUrl }}">
                                     </a>
                                 </div>
-                                <a class="item-participate-link" ng-href="{{ createUrl('/') }}">Participate</a>
+                                <a class="item-participate-link" ng-href="{{ createUrl('/') }}" i18n="item-page:participate-link-label|Participate|html"></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <aside class="column-secondary">
                     <div ng-show="item.related">
-                        <h2 class="heading-4">Related</h2>
+                        <h2 class="heading-4" i18n="item-page:related-heading|Related|html"></h2>
                         <ul class="related-items">
                             <li class="related-item" ng-repeat="relatedItem in item.related">
                                 <a ng-href="{{ createRelatedItemUrl(relatedItem.composition_type, relatedItem.slug) }}">
