@@ -5,8 +5,8 @@
         </a>
         <div class="section">
             <div class="section-inner">
-                <h1 class="lead-small" i18n="login-page:please-login-help|Please login with your account credentials|html"></h1>
-                <p class="lead-small" i18n="login-page:site-uses-cookies|(This site uses cookies)|html"></p>
+                <h1 class="lead-small" i18n="login-page:please-login-help|html">Please login with your account credentials</h1>
+                <p class="lead-small" i18n="login-page:site-uses-cookies|html">(This site uses cookies)</p>
             </div>
         </div>
         <ul ng-show="errors" class="errors">
@@ -14,12 +14,12 @@
         </ul>
         <form role="form">
             <div class="form-group">
-                <input ng-model="username" type="text" class="form-control" i18n="login-page:username-placeholder|Username|placeholder">
+                <input ng-model="username" type="text" class="form-control" placeholder="Username" i18n="login-page:username-placeholder|placeholder">
             </div>
             <div class="form-group">
-                <input ng-model="password" type="password" class="form-control" i18n="login-page:password-placeholder|Password|placeholder">
+                <input ng-model="password" type="password" class="form-control" placeholder="Password" i18n="login-page:password-placeholder|placeholder">
             </div>
-            <button ng-click="login()" type="submit" class="btn btn-primary btn-block" i18n="login-page:login-button-label|Login|html">Login</button>
+            <button ng-click="login()" type="submit" class="btn btn-primary btn-block" i18n="login-page:login-button-label|html">Login</button>
         </form>
     </div>
 </section>

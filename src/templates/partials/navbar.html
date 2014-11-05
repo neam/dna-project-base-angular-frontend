@@ -12,8 +12,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-nav-left hidden-xs" nav-expandable items="expandedItems"></ul>
             <ul class="nav navbar-nav navbar-right visible-xs">
-                <li ng-show="user.isAuthenticated"><a ng-click="logout()" ng-href="" id="logout" i18n="navbar:logout|Logout|html"></a></li>
-                <li ng-show="!user.isAuthenticated"><a ng-href="{{ createUrl('/login') }}" i18n="navbar:login|Login|html"></a></li>
+                <li ng-show="user.isAuthenticated"><a ng-click="logout()" ng-href="" id="logout" i18n="navbar:logout|html">Logout</a></li>
+                <li ng-show="!user.isAuthenticated"><a ng-href="{{ createUrl('/login') }}" i18n="navbar:login|html">Login</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right hidden-xs">
                 <li class="dropdown locale-dropdown">
@@ -27,10 +27,10 @@
                         <img ng-src="{{ createAssetUrl('images/dummy/ola-small.png') }}">{{ getUsername() }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a ng-click="logout()" ng-href="" i18n="navbar:logout|Logout|html"></a></li>
+                        <li><a ng-click="logout()" ng-href="" i18n="navbar:logout|html">Logout</a></li>
                     </ul>
                 </li>
-                <li><a class="hidden-xs" ng-href=" {{ createUrl('/login') }}" ng-show="!user.isAuthenticated" i18n="navbar:login|Login|html"></a></li>
+                <li><a class="hidden-xs" ng-href=" {{ createUrl('/login') }}" ng-show="!user.isAuthenticated" i18n="navbar:login|html">Login</a></li>
             </ul>
         </div>
     </div>

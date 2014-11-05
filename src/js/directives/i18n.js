@@ -23,13 +23,10 @@ angular.module('Gapminder').directive('i18n', ['i18nService', function(i18nServi
         var translationString = params.namespace + ':' + params.key,
             translation = t(translationString);
 
-        // Use fallback
-        if (translation === translationString) {
-            translation = params.fallback;
-        }
-
         return translation;
     };
+
+    // TODO: Move translation functions to i18nService.
 
     /**
      * Renders a translation.
@@ -82,16 +79,10 @@ angular.module('Gapminder').directive('i18n', ['i18nService', function(i18nServi
             throw Error("i18n directive syntax error: You must provide a translation message as 'namespace:key'.");
         }
 
-        if (angular.isDefined(parts[2])) {
-            params.target = parts[2];
+        if (angular.isDefined(parts[1])) {
+            params.target = parts[1];
         } else {
             throw Error('i18n directive syntax error: You must provide a target (e.g. html or placeholder).');
-        }
-
-        if (angular.isDefined(parts[1])) {
-            params.fallback = parts[1];
-        } else {
-            throw Error('i18n directive syntax error: You must provide a fallback value in en_us.');
         }
 
         return params;
