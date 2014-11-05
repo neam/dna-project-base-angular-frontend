@@ -30,7 +30,7 @@
                         <li><a ng-click="logout()" ng-href="">Logout</a></li>
                     </ul>
                 </li>
-                <li><a class="hidden-xs" ng-href=" {{ createUrl('/login') }}" ng-show="!user.isAuthenticated">Login</a></li>
+                <li><a class="hidden-xs" ng-href=" {{ createUrl('/login') }}" ng-show="!user.isAuthenticated" i18n message="navbar:login" fallback="Login"></a></li>
             </ul>
         </div>
     </div>
