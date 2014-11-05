@@ -38,9 +38,10 @@ angular.module('Gapminder').directive('i18n', ['i18nService', function(i18nServi
      * @param {} element
      */
     function renderTranslation(translation, target, element) {
-        switch (target) {
-            default:
-                renderAsHtml(translation, element);
+        if (target === 'html') {
+            renderAsHtml(translation, element);
+        } else {
+            renderAsAttribute(translation, element, target);
         }
     }
 
@@ -51,6 +52,16 @@ angular.module('Gapminder').directive('i18n', ['i18nService', function(i18nServi
      */
     function renderAsHtml(translation, element) {
         element.html(translation);
+    }
+
+    /**
+     * Renders a translation as an HTML attribute.
+     * @param {string} translation
+     * @param {} element
+     * @param {string} attribute
+     */
+    function renderAsAttribute(translation, element, attribute) {
+        element.attr(attribute, translation);
     }
 
     /**
@@ -68,15 +79,19 @@ angular.module('Gapminder').directive('i18n', ['i18nService', function(i18nServi
             params.namespace = messageParts[0];
             params.key = messageParts[1];
         } else {
-            throw Error("You must provide a translation message as 'namespace:key'.");
+            throw Error("i18n directive syntax error: You must provide a translation message as 'namespace:key'.");
         }
 
         if (angular.isDefined(parts[2])) {
             params.target = parts[2];
+        } else {
+            throw Error('i18n directive syntax error: You must provide a target (e.g. html or placeholder).');
         }
 
         if (angular.isDefined(parts[1])) {
             params.fallback = parts[1];
+        } else {
+            throw Error('i18n directive syntax error: You must provide a fallback value in en_us.');
         }
 
         return params;
