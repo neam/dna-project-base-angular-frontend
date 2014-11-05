@@ -60,7 +60,7 @@ function(
         init: function() {
             var dfd = $q.defer();
 
-            // TODO: Find a way to translate strings without passing around the t function. Otherwise, it will render nothing if there is no API response.
+            // TODO: Find a way to translate strings without passing around the t function.
 
             loadTranslations().then(function(t) {
                 dfd.resolve(t);
