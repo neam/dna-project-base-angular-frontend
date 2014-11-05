@@ -39,7 +39,7 @@ function(
     function loadTranslations() {
         var dfd = $q.defer();
 
-        $http.get(ApiService.getApiUrl('/translateui/pages/' + currentLocale))
+        $http.get(ApiService.getApiUrl('/translateui/pages/' + currentLocale), {cache: true})
             .success(function(translations) {
                 i18nextInit(translations).then(function(t) {
                     dfd.resolve(t);
