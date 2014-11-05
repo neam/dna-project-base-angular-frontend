@@ -62,13 +62,9 @@
       +justify-content(left)
       float: initial
 
-  .locale-dropdown
-    font-family: $bariol-regular-font-family
-
-    .locale-menu
-      font-size: 16px
-      height: 400px
-      overflow-y: auto
+  .locale-dropdown .locale-menu
+    height: 400px
+    overflow-y: auto
 
   .navbar-brand-subtitle
     color: $brand-primary
@@ -77,28 +73,33 @@
     margin-top: -5px
     margin-left: 10px
 
-  .navbar-nav > li > a
-    cursor: pointer
-    font-family: $bariol-regular-font-family
-    font-size: 16px
+  .navbar-nav
+    .dropdown-menu
+      font-family: $bariol-regular-font-family
+      font-size: 16px
 
-    &.dropdown-user
-      +align-items(center)
-      +flexbox()
-      +justify-content(center)
-      height: $navbar-height
-      padding: 0 18px
+    > li > a
+      cursor: pointer
+      font-family: $bariol-regular-font-family
+      font-size: 16px
 
-      img
-        height: 30px
-        width: auto
-        margin-right: 10px
+      &.dropdown-user
+        +align-items(center)
+        +flexbox()
+        +justify-content(center)
+        height: $navbar-height
+        padding: 0 18px
 
-        +respond-to(mobile)
-          display: none
+        img
+          height: 30px
+          width: auto
+          margin-right: 10px
 
-      .caret
-        margin-left: 5px
+          +respond-to(mobile)
+            display: none
+
+        .caret
+          margin-left: 5px
 
   .navbar-toggle
     border: none
