@@ -1,86 +1,47 @@
-angular.module('Gapminder').factory('i18nService', ['$q', function($q) {
-    var translatables = [],
-        translations = [];
+angular.module('Gapminder').factory('i18nService', [
+    '$http',
+    '$window',
+    'ApiService',
+    'LocaleService',
+function(
+    $http,
+    $window,
+    ApiService,
+    LocaleService
+) {
+    var currentLocale = LocaleService.getCurrentLocale(),
+        tFunc;
 
-    function fetchTranslations() {
-        var dfd = $q.defer();
-
-        setTimeout(function() {
-            translations.push({
-                text: 'foo',
-                context: 'bar',
-                count: 1,
-                translation: 'FOOOO'
-            });
-
-            dfd.resolve();
-        }, 1000);
-
-        return dfd.promise;
-    }
-
-    function getTranslation(translatable) {
-        var result = '';
-
-        translations.forEach(function(translation) {
-            if (translation.text === translatable.text && translation.context === translatable.context && translation.count === parseInt(translatable.count)) {
-                result = translation;
-            }
+    $http.get(ApiService.getApiUrl('/translateui/pages/' + currentLocale))
+        .success(function(translations) {
+            i18nextInit(translations);
+        }, function() {
+            console.log('Failed to retrieve UI translations.');
         });
 
-        return result.translation;
+    /**
+     * Initializes i18next.
+     * @param {Array} translations
+     */
+    function i18nextInit(translations) {
+        var i18nextConfig = {};
+
+        i18nextConfig.resStore = {};
+        i18nextConfig.resStore[currentLocale] = translations;
+
+        $window.i18n.init(i18nextConfig);
+        $window.i18n.setLng(currentLocale, function(t) {
+            tFunc = t;
+        });
     }
 
     return {
         /**
-         * Returns all translatables.
-         * @returns {Array}
+         * Translates a term.
+         * @returns {string}
          */
-        getTranslatables: function() {
-            return translatables;
-        },
-        /**
-         * Adds a translation.
-         * @param {string} text
-         * @param {string} context
-         * @param {number} count
-         * @returns {Deferred.promise}
-         */
-        addTranslatable: function(text, context, count) {
-            var dfd = $q.defer();
-
-            if (angular.isUndefined(text)) {
-                dfd.reject();
-                throw Error('Translation text must be specified.');
-            }
-
-            var isDuplicate = false,
-                context = context || null,
-                count = count || null,
-                translatable = {
-                    text: text,
-                    context: context,
-                    count: count
-                };
-
-            // Check for duplicates
-            translatables.forEach(function(tr) {
-                if (tr.text === translatable.text && tr.context === translatable.context && tr.count === translatable.count) {
-                    isDuplicate = true;
-                }
-            });
-
-            if (isDuplicate) {
-                dfd.reject();
-            } else {
-                translatables.push(translatable);
-                fetchTranslations()
-                    .then(function() {
-                        dfd.resolve(getTranslation(translatable));
-                    });
-            }
-
-            return dfd.promise;
+        t: function(namespace, key) {
+            return tFunc(namespace + ':' + key);
         }
     };
 }]);

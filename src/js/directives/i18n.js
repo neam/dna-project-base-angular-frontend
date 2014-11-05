@@ -6,12 +6,6 @@ angular.module('Gapminder').directive('i18n', [function() {
             context: '@',
             count: '@'
         },
-        controller: function($rootScope, $scope, i18nService) {
-            i18nService.addTranslatable($scope.text, $scope.context, $scope.count)
-                .then(function(translation) {
-                    $scope.translation = translation;
-                })
-        },
-        templateUrl: '/templates/directives/i18n.html'
+        controller: function($rootScope, $scope, i18nService) {}
     };
 }]);
