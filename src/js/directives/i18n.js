@@ -3,10 +3,14 @@ angular.module('Gapminder').directive('i18n', ['i18nService', function(i18nServi
         restrict: 'EA',
         template: false,
         link: function($scope, element, attrs) {
-            var params = getParams(attrs.i18n),
-                translation = getTranslation(params);
+            var params = getParams(attrs.i18n);
 
-            renderTranslation(translation, params.target, element);
+            i18nService.init().then(function(tFunc) {
+                var trans = getTranslation(params, tFunc);
+                renderTranslation(trans, params.target, element);
+            }, function(err) {
+                console.log(err);
+            });
         }
     };
 
@@ -15,11 +19,12 @@ angular.module('Gapminder').directive('i18n', ['i18nService', function(i18nServi
      * @param {} params
      * @returns {string}
      */
-    function getTranslation(params) {
-        var translation = i18nService.t(params.namespace, params.key);
+    function getTranslation(params, t) {
+        var translationString = params.namespace + ':' + params.key,
+            translation = t(translationString);
 
         // Use fallback
-        if (translation === params.namespace + ':' + params.key) {
+        if (translation === translationString) {
             translation = params.fallback;
         }
 
