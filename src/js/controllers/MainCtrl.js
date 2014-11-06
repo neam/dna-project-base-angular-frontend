@@ -26,6 +26,7 @@ function(
     $rootScope.locale = LocaleService;
     $rootScope.load = LoadService;
     $rootScope.i18n = i18nService;
+    $rootScope.navigation = NavigationService;
     $scope.user = UserService;
 
     /**
