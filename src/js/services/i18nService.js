@@ -12,7 +12,8 @@ function(
     LocaleService
 ) {
     var currentLocale = LocaleService.getCurrentLocale(),
-        translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale);
+        translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale),
+        isInitialized = false;
 
     return {
         /**
@@ -25,10 +26,21 @@ function(
             loadTranslations().then(function(translations) {
                 configurei18next(translations).then(function(t) {
                     dfd.resolve(t);
+                    isInitialized = true;
                 });
             });
 
             return dfd.promise;
+        },
+        /**
+         * Translates an i18next namespace:key string.
+         * @param {string} i18nextString
+         * @param {string} [fallback]
+         * @returns {string}
+         */
+        translate: function(i18nextString, fallback) {
+            var translation = $window.i18n.t(i18nextString);
+            return translation === i18nextString ? fallback : translation;
         }
     };
 

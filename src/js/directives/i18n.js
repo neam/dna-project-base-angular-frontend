@@ -1,4 +1,4 @@
-angular.module('Gapminder').directive('i18n', ['$window', 'i18nService', function($window, i18nService) {
+angular.module('Gapminder').directive('i18n', ['i18nService', function(i18nService) {
     return {
         restrict: 'EA',
         template: false,
@@ -17,12 +17,10 @@ angular.module('Gapminder').directive('i18n', ['$window', 'i18nService', functio
      */
     function getTranslation(params) {
         var translationString = params.namespace + ':' + params.key,
-            translation = $window.i18n.t(translationString);
+            translation = i18nService.translate(translationString);
 
         return translation === translationString ? null : translation;
     };
-
-    // TODO: Move translation functions to i18nService.
 
     /**
      * Renders a translation.
