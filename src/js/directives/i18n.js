@@ -1,10 +1,14 @@
-angular.module('Gapminder').directive('i18n', ['i18nService', function(i18nService) {
+angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'i18nService', function($rootScope, $compile, i18nService) {
     return {
         restrict: 'EA',
         template: false,
         link: function($scope, element, attrs) {
             var params = getParams(attrs.i18n),
                 translation = getTranslation(params);
+
+            $rootScope.$on('i18nReady', function() {
+                $compile(element)($rootScope); // needed for rendering navbar and footer translations
+            });
 
             renderTranslation(translation, params.target, element);
         }

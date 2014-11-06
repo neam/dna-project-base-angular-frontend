@@ -1,10 +1,12 @@
 angular.module('Gapminder').factory('i18nService', [
+    '$rootScope',
     '$http',
     '$q',
     '$window',
     'ApiService',
     'LocaleService',
 function(
+    $rootScope,
     $http,
     $q,
     $window,
@@ -12,8 +14,7 @@ function(
     LocaleService
 ) {
     var currentLocale = LocaleService.getCurrentLocale(),
-        translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale),
-        isInitialized = false;
+        translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale);
 
     return {
         /**
@@ -25,8 +26,8 @@ function(
 
             loadTranslations().then(function(translations) {
                 configurei18next(translations).then(function(t) {
+                    $rootScope.$broadcast('i18nReady');
                     dfd.resolve(t);
-                    isInitialized = true;
                 });
             });
 
