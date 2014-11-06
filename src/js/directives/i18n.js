@@ -1,16 +1,12 @@
-angular.module('Gapminder').directive('i18n', ['i18nService', function(i18nService) {
+angular.module('Gapminder').directive('i18n', ['$window', 'i18nService', function($window, i18nService) {
     return {
         restrict: 'EA',
         template: false,
         link: function($scope, element, attrs) {
-            var params = getParams(attrs.i18n);
+            var params = getParams(attrs.i18n),
+                translation = getTranslation(params);
 
-            i18nService.init().then(function(tFunc) {
-                var trans = getTranslation(params, tFunc);
-                renderTranslation(trans, params.target, element);
-            }, function(err) {
-                console.log(err);
-            });
+            renderTranslation(translation, params.target, element);
         }
     };
 
@@ -19,11 +15,11 @@ angular.module('Gapminder').directive('i18n', ['i18nService', function(i18nServi
      * @param {} params
      * @returns {string}
      */
-    function getTranslation(params, t) {
+    function getTranslation(params) {
         var translationString = params.namespace + ':' + params.key,
-            translation = t(translationString);
+            translation = $window.i18n.t(translationString);
 
-        return translation;
+        return translation === translationString ? null : translation;
     };
 
     // TODO: Move translation functions to i18nService.
@@ -35,6 +31,11 @@ angular.module('Gapminder').directive('i18n', ['i18nService', function(i18nServi
      * @param {} element
      */
     function renderTranslation(translation, target, element) {
+        // Disable rendering when translation is null
+        if (!translation) {
+            return;
+        }
+
         if (target === 'html') {
             renderAsHtml(translation, element);
         } else {

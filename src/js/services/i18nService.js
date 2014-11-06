@@ -11,13 +11,51 @@ function(
     ApiService,
     LocaleService
 ) {
-    var currentLocale = LocaleService.getCurrentLocale();
+    var currentLocale = LocaleService.getCurrentLocale(),
+        translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale);
+
+    return {
+        /**
+         * Loads UI translations and initializes i18next.
+         * @returns {Deferred.promise}
+         */
+        init: function() {
+            var dfd = $q.defer();
+
+            loadTranslations().then(function(translations) {
+                configurei18next(translations).then(function(t) {
+                    dfd.resolve(t);
+                });
+            });
+
+            return dfd.promise;
+        }
+    };
 
     /**
-     * Initializes i18next.
-     * @param {Array} translations
+     * Loads UI translations for the current locale.
+     * @returns {Deferred.promise}
      */
-    function i18nextInit(translations) {
+    function loadTranslations() {
+        var dfd = $q.defer();
+
+        $http.get(ApiService.getApiUrl(translationApiUrl))
+            .success(function(translations) {
+                dfd.resolve(translations);
+            }, function(err) {
+                console.log('Failed to retrieve UI translations.');
+                dfd.reject(err);
+            });
+
+        return dfd.promise;
+    }
+
+    /**
+     * Configures the i18next library.
+     * @param {} translations
+     * @returns {Deferred.promise}
+     */
+    function configurei18next(translations) {
         var dfd = $q.defer(),
             i18nextConfig = {};
 
@@ -31,44 +69,4 @@ function(
 
         return dfd.promise;
     }
-
-    /**
-     * Loads translations from the API.
-     * @returns {Deferred.promise}
-     */
-    function loadTranslations() {
-        var dfd = $q.defer();
-
-        $http.get(ApiService.getApiUrl('/translateui/pages/' + currentLocale), {cache: true})
-            .success(function(translations) {
-                i18nextInit(translations).then(function(t) {
-                    dfd.resolve(t);
-                });
-            }, function(err) {
-                console.log('Failed to retrieve UI translations.');
-                dfd.reject(err);
-            });
-
-        return dfd.promise;
-    }
-
-    return {
-        /**
-         * Initializes the service.
-         * @returns {Deferred.promise}
-         */
-        init: function() {
-            var dfd = $q.defer();
-
-            // TODO: Find a way to translate strings without passing around the t function.
-
-            loadTranslations().then(function(t) {
-                dfd.resolve(t);
-            }, function(err) {
-                dfd.reject(err);
-            });
-
-            return dfd.promise;
-        }
-    };
 }]);

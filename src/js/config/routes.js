@@ -31,7 +31,13 @@ function(
                 layout: typeof route.layout !== 'undefined' ? route.layout : 'layout-regular',
                 controller: route.controller,
                 access: route.access,
-                title: route.title
+                title: route.title,
+                resolve: {
+                    // Always make sure i18n is initialized
+                    i18n: ['i18nService', function(i18nService) {
+                        return i18nService.init();
+                    }]
+                }
             })
             .otherwise({templateUrl: routeTemplateBasePath + '404.html'});
     });
