@@ -36,11 +36,12 @@ function(
         /**
          * Translates an i18next namespace:key string.
          * @param {string} i18nextString
+         * @param {} [options]
          * @param {string} [fallback]
          * @returns {string}
          */
-        translate: function(i18nextString, fallback) {
-            var translation = $window.i18n.t(i18nextString);
+        translate: function(i18nextString, options, fallback) {
+            var translation = $window.i18n.t(i18nextString, options);
             return translation === i18nextString ? fallback : translation;
         }
     };

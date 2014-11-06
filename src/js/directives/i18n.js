@@ -2,8 +2,13 @@ angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'i18nSe
     return {
         restrict: 'EA',
         template: false,
+        scope: {
+            i18nOptions: '='
+        },
         link: function($scope, element, attrs) {
-            var params = getParams(attrs.i18n),
+            attrs.i18nOptions = $scope.$eval(attrs.i18nOptions); // convert string to object
+
+            var params = getParams(attrs),
                 translation = getTranslation(params);
 
             $rootScope.$on('i18nReady', function() {
@@ -20,10 +25,11 @@ angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'i18nSe
      * @returns {string}
      */
     function getTranslation(params) {
-        var translationString = params.namespace + ':' + params.key,
-            translation = i18nService.translate(translationString);
+        var i18nextString = params.namespace + ':' + params.key,
+            options = params.options,
+            translation = i18nService.translate(i18nextString, options);
 
-        return translation === translationString ? null : translation;
+        return translation === i18nextString ? null : translation;
     };
 
     /**
@@ -66,13 +72,20 @@ angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'i18nSe
 
     /**
      * Parses and returns the translation params.
-     * @param {string} data
+     * @param {string} attrs
      * @returns {}
      */
-    function getParams(data) {
-        var parts = data.split('|'),
+    function getParams(attrs) {
+        var parts = attrs.i18n.split('|'),
+            options = attrs.i18nOptions || {},
             params = {};
 
+        // Set options
+        if (angular.isDefined(options)) {
+            params.options = options;
+        }
+
+        // Set namespace and message
         if (angular.isDefined(parts[0])) {
             var messageParts = parts[0].split(':');
 
@@ -82,6 +95,7 @@ angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'i18nSe
             throw Error("i18n directive syntax error: You must provide a translation message as 'namespace:key'.");
         }
 
+        // Set target
         if (angular.isDefined(parts[1])) {
             params.target = parts[1];
         } else {
