@@ -51,7 +51,7 @@ function(
     function loadTranslations() {
         var dfd = $q.defer();
 
-        $http.get(ApiService.getApiUrl(translationApiUrl))
+        $http.get(ApiService.getApiUrl(translationApiUrl), {cache: true})
             .success(function(translations) {
                 dfd.resolve(translations);
             }, function(err) {
