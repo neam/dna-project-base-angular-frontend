@@ -5,6 +5,7 @@ angular.module('Gapminder').controller('ItemCtrl', [
     '$location',
     'ApiService',
     'NavigationService',
+    'i18nService',
     'Item',
 function(
     $rootScope,
@@ -13,6 +14,7 @@ function(
     $location,
     ApiService,
     NavigationService,
+    i18nService,
     Item
 ) {
     var itemUrlParam = NavigationService.getPartOfPath(0);
@@ -20,7 +22,7 @@ function(
     // Get item
     Item.get({id: $routeParams.id}, function(item) {
         if (validateItemType(item)) {
-            $rootScope.pageTitle = item.heading;
+            $scope.navigation.setPageTitle(item.heading);
             $scope.item = item;
             $scope.itemCategory = getItemCategory(itemUrlParam);
         } else {
@@ -54,9 +56,9 @@ function(
      */
     function getItemCategory(urlParam) {
         var paramToItemCategory = {
-            exercises: 'Exercises',
-            presentations: 'Presentations',
-            qna: 'Questions & Answers'
+            exercises: i18nService.translate('item-category:exercises', 'Exercises'),
+            presentations: i18nService.translate('item-category:presentations', 'Presentations'),
+            qna: i18nService.translate('item-category:qna', 'Questions & Answers')
         };
 
         return angular.isDefined(paramToItemCategory[urlParam]) ? paramToItemCategory[urlParam] : '';

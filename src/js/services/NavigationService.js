@@ -1,11 +1,15 @@
 angular.module('Gapminder').factory('NavigationService', [
     '$location',
+    '$rootScope',
     'Utils',
+    'i18nService',
     'environment',
     'html5Mode',
 function(
     $location,
+    $rootScope,
     Utils,
+    i18nService,
     environment,
     html5Mode
 ) {
@@ -55,6 +59,27 @@ function(
         getPartOfPath: function(index) {
             var path = this.splitPath($location.path());
             return angular.isDefined(path[index]) ? path[index] : null;
+        },
+
+        /**
+         * Sets the page title.
+         * @param {} title
+         * @returns {boolean}
+         */
+        setPageTitle: function(title) {
+            $rootScope.pageTitle = title;
+        },
+
+        /**
+         * Translates a page title and sets it.
+         * @param {string} i18nKey
+         * @param {string} fallback
+         */
+        setTranslatedPageTitle: function(i18nKey, fallback) {
+            var i18nString = 'page-title:{key}'.replace('{key}', i18nKey),
+                translation = i18nService.translate(i18nString, fallback);
+
+            this.setPageTitle(translation);
         }
     }
 }]);
