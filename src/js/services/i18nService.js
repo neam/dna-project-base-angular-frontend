@@ -13,26 +13,37 @@ function(
     ApiService,
     LocaleService
 ) {
-    var currentLocale = LocaleService.getCurrentLocale(),
-        translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale);
+    var currentLocale,
+        translationApiUrl;
 
     return {
+        /**
+         * @type {boolean} whether i18nService has been initialized (and ready to translate)
+         */
+        isReady: false,
+
         /**
          * Loads UI translations and initializes i18next.
          * @returns {Deferred.promise}
          */
         init: function() {
-            var dfd = $q.defer();
+            var self = this,
+                dfd = $q.defer();
+
+            currentLocale = LocaleService.getCurrentLocale();
+            translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale);
 
             loadTranslations().then(function(translations) {
                 configurei18next(translations).then(function(t) {
                     $rootScope.$broadcast('i18nReady');
+                    self.isReady = true;
                     dfd.resolve(t);
                 });
             });
 
             return dfd.promise;
         },
+
         /**
          * Translates an i18next namespace:key string.
          * @param {string} i18nextString
