@@ -39,7 +39,7 @@ secret_key = $PUBLIC_FILE_UPLOADERS_SECRET
 acl_public = True" > /tmp/.gapminder-s3.s3cfg
 
 # export gapminder-pages target
-export PAGES_S3_TARGET="s3://static.gapminder.org/pages-desktop/master"
+export PAGES_S3_TARGET="s3://static.gapminder.org/pages-desktop/release_pages-dec-1-2014"
 
 # send to s3
 s3cmd -v --config=/tmp/.gapminder-s3.s3cfg --acl-public --recursive put dist/ "$PAGES_S3_TARGET/"
