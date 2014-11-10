@@ -1,4 +1,20 @@
-angular.module('Gapminder').controller('LoginCtrl', ['$scope', '$q', 'UserService', 'NavigationService', function($scope, $q, UserService, NavigationService) {
+angular.module('Gapminder').controller('LoginCtrl', [
+    '$scope',
+    '$rootScope',
+    '$q',
+    'UserService',
+    'i18nService',
+    'NavigationService',
+function(
+    $scope,
+    $rootScope,
+    $q,
+    UserService,
+    i18nService,
+    NavigationService
+) {
+    $scope.navigation.setTranslatedPageTitle('login', 'Login');
+
     /**
      * Sends an authentication request.
      * @returns {Deferred.promise}

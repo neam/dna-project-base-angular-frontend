@@ -2,6 +2,16 @@
   background-color: $gray-medium
   color: #fff
 
+  .gapminder-logo
+    width: 300px
+    height: auto
+
+    +respond-to(mobile)
+      width: 100%
+
+    path
+      fill: #fff
+
   ul
     list-style: none
     margin: 0
@@ -24,10 +34,10 @@
       color: #fff
 
     .top-primary
-      +make-md-column(6)
+      +make-sm-column(6)
 
     .top-secondary
-      +make-md-column(6)
+      +make-sm-column(6)
       text-align: right
 
       +respond-to(mobile)

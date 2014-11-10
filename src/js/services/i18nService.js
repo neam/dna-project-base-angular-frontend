@@ -1,86 +1,97 @@
-angular.module('Gapminder').factory('i18nService', ['$q', function($q) {
-    var translatables = [],
-        translations = [];
+angular.module('Gapminder').factory('i18nService', [
+    '$rootScope',
+    '$http',
+    '$q',
+    '$window',
+    'ApiService',
+    'LocaleService',
+function(
+    $rootScope,
+    $http,
+    $q,
+    $window,
+    ApiService,
+    LocaleService
+) {
+    var currentLocale,
+        translationApiUrl;
 
-    function fetchTranslations() {
-        var dfd = $q.defer();
+    return {
+        /**
+         * @type {boolean} whether i18nService has been initialized (and ready to translate)
+         */
+        isReady: false,
 
-        setTimeout(function() {
-            translations.push({
-                text: 'foo',
-                context: 'bar',
-                count: 1,
-                translation: 'FOOOO'
+        /**
+         * Loads UI translations and initializes i18next.
+         * @returns {Deferred.promise}
+         */
+        init: function() {
+            var self = this,
+                dfd = $q.defer();
+
+            currentLocale = LocaleService.getCurrentLocale();
+            translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale);
+
+            loadTranslations().then(function(translations) {
+                configurei18next(translations).then(function(t) {
+                    $rootScope.$broadcast('i18nReady');
+                    self.isReady = true;
+                    dfd.resolve(t);
+                });
             });
 
-            dfd.resolve();
-        }, 1000);
+            return dfd.promise;
+        },
+
+        /**
+         * Translates an i18next namespace:key string.
+         * @param {string} i18nextString
+         * @param {} [options]
+         * @param {string} [fallback]
+         * @returns {string}
+         */
+        translate: function(i18nextString, options, fallback) {
+            var translation = $window.i18n.t(i18nextString, options);
+            return translation === i18nextString ? fallback : translation;
+        }
+    };
+
+    /**
+     * Loads UI translations for the current locale.
+     * @returns {Deferred.promise}
+     */
+    function loadTranslations() {
+        var dfd = $q.defer();
+
+        $http.get(ApiService.getApiUrl(translationApiUrl), {cache: true})
+            .success(function(translations) {
+                dfd.resolve(translations);
+            }, function(err) {
+                console.log('Failed to retrieve UI translations.');
+                dfd.reject(err);
+            });
 
         return dfd.promise;
     }
 
-    function getTranslation(translatable) {
-        var result = '';
+    /**
+     * Configures the i18next library.
+     * @param {} translations
+     * @returns {Deferred.promise}
+     */
+    function configurei18next(translations) {
+        var dfd = $q.defer(),
+            i18nextConfig = {};
 
-        translations.forEach(function(translation) {
-            if (translation.text === translatable.text && translation.context === translatable.context && translation.count === parseInt(translatable.count)) {
-                result = translation;
-            }
+        i18nextConfig.resStore = {};
+        i18nextConfig.resStore[currentLocale] = translations;
+
+        $window.i18n.init(i18nextConfig);
+        $window.i18n.setLng(currentLocale, function(t) {
+            dfd.resolve(t);
         });
 
-        return result.translation;
+        return dfd.promise;
     }
-
-    return {
-        /**
-         * Returns all translatables.
-         * @returns {Array}
-         */
-        getTranslatables: function() {
-            return translatables;
-        },
-        /**
-         * Adds a translation.
-         * @param {string} text
-         * @param {string} context
-         * @param {number} count
-         * @returns {Deferred.promise}
-         */
-        addTranslatable: function(text, context, count) {
-            var dfd = $q.defer();
-
-            if (angular.isUndefined(text)) {
-                dfd.reject();
-                throw Error('Translation text must be specified.');
-            }
-
-            var isDuplicate = false,
-                context = context || null,
-                count = count || null,
-                translatable = {
-                    text: text,
-                    context: context,
-                    count: count
-                };
-
-            // Check for duplicates
-            translatables.forEach(function(tr) {
-                if (tr.text === translatable.text && tr.context === translatable.context && tr.count === translatable.count) {
-                    isDuplicate = true;
-                }
-            });
-
-            if (isDuplicate) {
-                dfd.reject();
-            } else {
-                translatables.push(translatable);
-                fetchTranslations()
-                    .then(function() {
-                        dfd.resolve(getTranslation(translatable));
-                    });
-            }
-
-            return dfd.promise;
-        }
-    };
 }]);

@@ -4,6 +4,19 @@
   margin-bottom: 0
   min-height: $navbar-height-mobile
 
+  +respond-to(mobile)
+    .navbar-toggle .icon-bar
+      background-color: #fff !important
+
+    .navbar-header
+      background-color: $brand-primary
+
+    .gapminder-logo
+      width: 170px !important
+
+      path
+        fill: #fff !important
+
   +respond-to(tablet-portrait)
     .navbar-header
       +make-sm-column(12)
@@ -38,17 +51,20 @@
         margin-top: 0
         margin-left: 4px
 
+    .gapminder-logo
+      width: 232px
+      height: auto
+
+      path
+        fill: $brand-primary
+
     +respond-to(tablet-portrait)
       +justify-content(left)
       float: initial
 
-  .locale-dropdown
-    font-family: $bariol-regular-font-family
-
-    .locale-menu
-      font-size: 16px
-      height: 400px
-      overflow-y: auto
+  .locale-dropdown .locale-menu
+    height: 400px
+    overflow-y: auto
 
   .navbar-brand-subtitle
     color: $brand-primary
@@ -57,28 +73,33 @@
     margin-top: -5px
     margin-left: 10px
 
-  .navbar-nav > li > a
-    cursor: pointer
-    font-family: $bariol-regular-font-family
-    font-size: 16px
+  .navbar-nav
+    .dropdown-menu
+      font-family: $bariol-regular-font-family
+      font-size: 16px
 
-    &.dropdown-user
-      +align-items(center)
-      +flexbox()
-      +justify-content(center)
-      height: $navbar-height
-      padding: 0 18px
+    > li > a
+      cursor: pointer
+      font-family: $bariol-regular-font-family
+      font-size: 16px
 
-      img
-        height: 30px
-        width: auto
-        margin-right: 10px
+      &.dropdown-user
+        +align-items(center)
+        +flexbox()
+        +justify-content(center)
+        height: $navbar-height
+        padding: 0 18px
 
-        +respond-to(mobile)
-          display: none
+        img
+          height: 30px
+          width: auto
+          margin-right: 10px
 
-      .caret
-        margin-left: 5px
+          +respond-to(mobile)
+            display: none
+
+        .caret
+          margin-left: 5px
 
   .navbar-toggle
     border: none
@@ -87,7 +108,7 @@
     margin-right: 0
     margin-bottom: 9px
     margin-left: 15px
-    padding: 8px 10px
+    padding: 7px 10px
     position: absolute
 
     &:hover,
@@ -99,4 +120,4 @@
 
     .icon-bar
       background-color: $brand-primary
-      height: 3px
+      height: 4px
