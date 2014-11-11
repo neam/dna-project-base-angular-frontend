@@ -1,16 +1,16 @@
 angular.module('Gapminder').factory('NavigationService', [
     '$location',
     '$rootScope',
+    '$route',
     'Utils',
     'i18nService',
-    'environment',
     'html5Mode',
 function(
     $location,
     $rootScope,
+    $route,
     Utils,
     i18nService,
-    environment,
     html5Mode
 ) {
     return {
@@ -80,6 +80,46 @@ function(
                 translation = i18nService.translate(i18nString, fallback);
 
             this.setPageTitle(translation);
+        },
+
+        /**
+         * Returns an array of valid paths (first terms only).
+         * @returns {Array}
+         */
+        getValidRoutes: function() {
+            var validRoutes = [];
+
+            _.forEach($route.routes, function(route, path) {
+                var path = path.split('/')[1];
+
+                if (angular.isDefined(path) && !_.contains(validRoutes, path) && path.length > 0) {
+                    validRoutes.push(path);
+                }
+            });
+
+            return validRoutes;
+        },
+
+        /**
+         * Returns the base route.
+         * @returns {string}
+         */
+        getBaseRoute: function() {
+            var route,
+                baseRoute,
+                firstPathTerm = $location.$$url.split('/')[1];
+
+            route = _.contains(this.getValidRoutes(), firstPathTerm)
+                ? $location.$$absUrl.split(firstPathTerm)[0]
+                : $location.$$absUrl; // no route params
+
+            baseRoute = route
+                .replace($location.$$protocol + '://', '') // strip protocol
+                .replace($location.$$host, '') // strip host
+                .replace(':' + $location.$$port, '') // strip port
+                .replace('/#', ''); // strip hashbang
+
+            return baseRoute;
         }
     }
 }]);
