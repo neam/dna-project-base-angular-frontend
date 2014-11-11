@@ -42,6 +42,16 @@ function(
         },
 
         /**
+         * Resolves and returns a URL to a template.
+         * @param {string} path
+         * @returns {string}
+         */
+        createTemplateUrl: function(path) {
+            path = Utils.ensureLeadingSlash(path);
+            return 'templates' + path;
+        },
+
+        /**
          * Splits a URL path into parts.
          * @param {string} path
          * @returns {Array}
