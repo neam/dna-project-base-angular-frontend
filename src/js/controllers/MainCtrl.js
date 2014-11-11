@@ -37,8 +37,7 @@ function(
     };
 
     /**
-     * Returns the base route.
-     * @returns {string}
+     * @see NavigationService#getBaseRoute
      */
     $rootScope.getBaseRoute = function() {
         return NavigationService.getBaseRoute();
