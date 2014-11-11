@@ -333,7 +333,7 @@ module.exports = function(grunt) {
         'http-server': {
             development: {
                 root: './dist',
-                port: 1337,
+                port: 1335,
                 host: '127.0.0.1',
                 cache: 1,
                 showDir : true,
