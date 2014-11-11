@@ -200,8 +200,8 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
         slideshare: service.renderSlideShare,
         about: service.renderAbout,
         html: service.renderHtml,
-        'linked-image': service.renderLinkedImage,
-        'download-links': service.renderDownloadLinks
+        linked_image: service.renderLinkedImage,
+        download_links: service.renderDownloadLinks
     };
 
     return service;

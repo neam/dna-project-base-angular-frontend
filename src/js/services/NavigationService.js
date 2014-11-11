@@ -107,7 +107,13 @@ function(
         getBaseRoute: function() {
             var route,
                 baseRoute,
-                firstPathTerm = $location.$$url.split('/')[1];
+                firstPathTerm;
+
+            angular.forEach(this.getValidRoutes(), function(route) {
+                if (_.contains($location.$$url, route)) {
+                    firstPathTerm = route;
+                }
+            });
 
             route = _.contains(this.getValidRoutes(), firstPathTerm)
                 ? $location.$$absUrl.split(firstPathTerm)[0]
