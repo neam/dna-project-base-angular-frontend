@@ -33,13 +33,17 @@ function(
             currentLocale = LocaleService.getCurrentLocale();
             translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale);
 
-            loadTranslations().finally(function(translations) {
-                configurei18next(translations).then(function(t) {
-                    $rootScope.$broadcast('i18nReady');
-                    self.isReady = true;
-                    dfd.resolve(t);
+            loadTranslations()
+                .then(function(translations) {
+                    configurei18next(translations).then(function(t) {
+                        $rootScope.$broadcast('i18nReady');
+                        self.isReady = true;
+                        dfd.resolve(t);
+                    });
+                })
+                .finally(function() {
+                    dfd.resolve();
                 });
-            });
 
             return dfd.promise;
         },
