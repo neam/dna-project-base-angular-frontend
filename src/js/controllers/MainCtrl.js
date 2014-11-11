@@ -56,8 +56,4 @@ function(
     $scope.createAssetUrl = function(path) {
         return NavigationService.createAssetUrl(path);
     };
-
-    $scope.$$postDigest(function() {
-        // TODO: Get translations.
-    });
 }]);
