@@ -153,7 +153,6 @@ module.exports = function(grunt) {
             development: {
                 options: {
                     data: {
-                        environment: 'development',
                         baseApiUrl: baseApiUrlDevelopment,
                         html5Mode: html5ModeDevelopment
                     }
@@ -165,7 +164,6 @@ module.exports = function(grunt) {
             production: {
                 options: {
                     data: {
-                        environment: 'production',
                         baseApiUrl: baseApiUrlProduction,
                         html5Mode: html5ModeProduction
                     }
@@ -177,7 +175,6 @@ module.exports = function(grunt) {
             stage: {
                 options: {
                     data: {
-                        environment: 'stage',
                         baseApiUrl: baseApiUrlStage,
                         html5Mode: html5ModeStage
                     }

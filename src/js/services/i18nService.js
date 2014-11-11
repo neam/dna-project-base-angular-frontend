@@ -33,7 +33,7 @@ function(
             currentLocale = LocaleService.getCurrentLocale();
             translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale);
 
-            loadTranslations().then(function(translations) {
+            loadTranslations().finally(function(translations) {
                 configurei18next(translations).then(function(t) {
                     $rootScope.$broadcast('i18nReady');
                     self.isReady = true;
@@ -67,8 +67,8 @@ function(
         $http.get(ApiService.getApiUrl(translationApiUrl), {cache: true})
             .success(function(translations) {
                 dfd.resolve(translations);
-            }, function(err) {
-                console.log('Failed to retrieve UI translations.');
+            })
+            .error(function(err) {
                 dfd.reject(err);
             });
 
