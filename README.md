@@ -33,19 +33,19 @@ Now launch your web browser and navigate to `http://localhost:1335`.
 
 ## Deploy to stage
 
-    ./deploy_to_stage.sh <S3 ACCESS KEY> <S3 SECRET>
+    ./deploy.sh stage <S3 ACCESS KEY> <S3 SECRET>
 
 Specify a different API base URL (e.g. http://stage.gapminder.org/api/v2):
 
-    ./deploy_to_production.sh <S3 ACCESS KEY> <S3 SECRET> <API BASE URL>
+    ./deploy.sh stage <S3 ACCESS KEY> <S3 SECRET> <API BASE URL>
 
 ## Deploy to production
 
-    ./deploy_to_production.sh <S3 ACCESS KEY> <S3 SECRET>
+    ./deploy.sh production <S3 ACCESS KEY> <S3 SECRET>
 
 Specify a different API base URL (e.g. http://www.gapminder.org/api/v2):
 
-    ./deploy_to_production.sh <S3 ACCESS KEY> <S3 SECRET> <API BASE URL>
+    ./deploy.sh production <S3 ACCESS KEY> <S3 SECRET> <API BASE URL>
 
 ## Run the tests
 
