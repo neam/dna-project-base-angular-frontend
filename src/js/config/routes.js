@@ -1,15 +1,26 @@
 angular.module('Gapminder').config([
     '$routeProvider',
     '$locationProvider',
+    '$sceDelegateProvider',
+    'assetUrl',
     'html5Mode',
 function(
     $routeProvider,
     $locationProvider,
+    $sceDelegateProvider,
+    assetUrl,
     html5Mode
 ) {
-    var routeTemplateBasePath = 'templates/routes/';
-
+    // HTML5 mode
     $locationProvider.html5Mode(html5Mode);
+
+    // Allow resources from elsewhere
+    $sceDelegateProvider.resourceUrlWhitelist([
+        'self',
+        'http://static.gapminder.org/**'
+    ]);
+
+    var routeTemplateBasePath = assetUrl + 'templates/routes/';
 
     // Define routes
     var routes = [
