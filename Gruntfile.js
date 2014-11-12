@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
     var baseApiUrlDevelopment = grunt.option('api') || 'http://localhost:1338/api',
         baseApiUrlProduction = grunt.option('api') || 'http://release_pages-dec-1-2014-cms.gapminder.org/api/v1',
-        baseApiUrlStage = grunt.option('api') || 'http://cmsext.gapminderdev.org:1338/api',
+        baseApiUrlStage = grunt.option('api') || 'http://cms.gapminder.org/api/v1', // Mock API: http://cmsext.gapminderdev.org:1338/api
         html5ModeDevelopment = grunt.option('html5Mode') || false,
         html5ModeProduction = grunt.option('html5Mode') || true,
         html5ModeStage = grunt.option('html5Mode') || false;

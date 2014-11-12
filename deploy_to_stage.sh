@@ -1,24 +1,25 @@
 #!/usr/bin/env bash
 
-# =================================================
-# INSTALL s3cmd
-# 1.1.0-beta3 (manual install: http://sourceforge.net/projects/s3tools/files/s3cmd/1.1.0-beta3/s3cmd-1.1.0-beta3.zip/download)
+#set -x
 
-set -x
-#wget -O- -q http://s3tools.org/repo/deb-all/stable/s3tools.key | sudo apt-key add -
-#sudo wget -O/etc/apt/sources.list.d/s3tools.list http://s3tools.org/repo/deb-all/stable/s3tools.list
-#sudo apt-get update && sudo apt-get install -y -q s3cmd
+# Variables
+S3_ACCESS_KEY=$1
+S3_SECRET=$2
+API_BASE_URL_OVERRIDE=$3
+DEPLOYMENT_DIR="s3://static.gapminder.org/pages-desktop-stage"
 
 if [ $# -lt 2 ]; then
-    echo "Invalid arguments: access_key, secret"
+    echo "Invalid arguments: S3_ACCESS_KEY, S3_SECRET"
     exit 1
 fi
 
 # =================================================
-# BUILD PROJECT
+# BUILD APPLICATION
+
+karma start || { echo "Deployment failed: all tests must pass."; exit 1; }
 
 if [ $# -eq 3 ]; then
-    grunt build-stage --api=$3
+    grunt build-stage --api=$API_BASE_URL_OVERRIDE
 else
     grunt build-stage
 fi
@@ -26,20 +27,17 @@ fi
 # =================================================
 # DEPLOY TO S3
 
-# OUR SECRET KEYS
-# THIS IS SECRET AND SHOULD NOT BE IN THE SAME FILE OR IN THE REPO
-export PUBLIC_FILE_UPLOADERS_ACCESS_KEY=$1
-export PUBLIC_FILE_UPLOADERS_SECRET=$2
-# END OF SECRET
+export PUBLIC_FILE_UPLOADERS_ACCESS_KEY=$S3_ACCESS_KEY
+export PUBLIC_FILE_UPLOADERS_SECRET=$S3_SECRET
 
-# generate s3 configuration file
+# Generate S3 configuration file
 echo "[default]
 access_key = $PUBLIC_FILE_UPLOADERS_ACCESS_KEY
 secret_key = $PUBLIC_FILE_UPLOADERS_SECRET
 acl_public = True" > /tmp/.gapminder-s3.s3cfg
 
-# export gapminder-pages target
-export PAGES_S3_TARGET="s3://static.gapminder.org/pages-desktop-stage"
+# Export target
+export PAGES_S3_TARGET=$DEPLOYMENT_DIR
 
-# send to s3
+# Upload to S3
 s3cmd -v --config=/tmp/.gapminder-s3.s3cfg --acl-public --recursive put dist/ "$PAGES_S3_TARGET/"
