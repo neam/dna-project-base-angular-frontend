@@ -1,9 +1,12 @@
-angular.module('Gapminder').directive('logo', [function() {
+angular.module('Gapminder').directive('logo', ['NavigationService', 'assetUrl', function(NavigationService, assetUrl) {
     return {
         restrict: 'E',
         scope: {
             cssClass: '@'
         },
-        templateUrl: 'templates/directives/logo.html'
+        controller: function($scope) {
+            $scope.assetUrl = assetUrl;
+        },
+        templateUrl: NavigationService.createTemplateUrl('/directives/logo.html')
     };
 }]);

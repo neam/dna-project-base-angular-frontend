@@ -42,7 +42,7 @@ function(
          * @returns {string}
          */
         createAssetUrl: function(path) {
-            return Utils.stripLeadingSlash(path);
+            return assetUrl + Utils.stripLeadingSlash(path);
         },
 
         /**
