@@ -1,9 +1,18 @@
-angular.module('Gapminder').directive('showMore', ['$compile', '$timeout', function($compile, $timeout) {
+angular.module('Gapminder').directive('showMore', [
+    '$compile',
+    '$timeout',
+    'NavigationService',
+function(
+    $compile,
+    $timeout,
+    NavigationService
+) {
     return {
         restrict: 'AE',
         scope: {
         },
         templateUrl: 'templates/directives/show-more.html',
+        templateUrl: NavigationService.createTemplateUrl('/directives/show-more.html'),
         transclude: true,
         link: function(scope, element, attrs, controller, transclude) {
             var contentElement,

@@ -20,7 +20,7 @@ angular.module('Gapminder').directive('loader', ['NavigationService', function(N
                 return loading;
             };
         },
-        templateUrl: 'templates/directives/loader.html',
+        templateUrl: NavigationService.createTemplateUrl('/directives/loader.html'),
         transclude: true
     };
 }]);

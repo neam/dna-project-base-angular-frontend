@@ -2,15 +2,19 @@ angular.module('Gapminder').factory('NavigationService', [
     '$location',
     '$rootScope',
     '$route',
+    '$sce',
     'Utils',
     'i18nService',
+    'assetUrl',
     'html5Mode',
 function(
     $location,
     $rootScope,
     $route,
+    $sce,
     Utils,
     i18nService,
+    assetUrl,
     html5Mode
 ) {
     return {
@@ -38,7 +42,17 @@ function(
          * @returns {string}
          */
         createAssetUrl: function(path) {
-            return Utils.stripLeadingSlash(path);
+            return assetUrl + Utils.stripLeadingSlash(path);
+        },
+
+        /**
+         * Resolves and returns a URL to a template.
+         * @param {string} path
+         * @returns {string}
+         */
+        createTemplateUrl: function(path) {
+            path = Utils.ensureLeadingSlash(path);
+            return $sce.trustAsResourceUrl(assetUrl + 'templates' + path);
         },
 
         /**

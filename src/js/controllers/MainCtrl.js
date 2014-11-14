@@ -27,8 +27,6 @@ function(
     $rootScope.navigation = NavigationService;
     $scope.user = UserService;
 
-    NavigationService.getBaseRoute();
-
     /**
      * Initializes the controller.
      */
@@ -37,8 +35,7 @@ function(
     };
 
     /**
-     * Returns the base route.
-     * @returns {string}
+     * @see NavigationService#getBaseRoute
      */
     $rootScope.getBaseRoute = function() {
         return NavigationService.getBaseRoute();
@@ -58,7 +55,10 @@ function(
         return NavigationService.createAssetUrl(path);
     };
 
-    $scope.$$postDigest(function() {
-        // TODO: Get translations.
-    });
+    /**
+     * @see NavigationService#createTemplateUrl
+     */
+    $scope.createTemplateUrl = function(path) {
+        return NavigationService.createTemplateUrl(path);
+    }
 }]);

@@ -36,8 +36,8 @@
                             <div class="info-segment">
                                 <h2 class="heading-4" i18n="item-page:thanks-to-heading|html">Thanks to</h2>
                                 <div class="item-contributors">
-                                    <a ng-repeat="contributor in item.contributors" ng-href="{{ createUserProfileUrl(contributor.userId) }}">
-                                        <img class="item-contributor" ng-src="{{ contributor.thumbnailUrl }}">
+                                    <a ng-repeat="contributor in item.contributors" ng-href="{{ createUserProfileUrl(contributor.user_id) }}">
+                                        <img class="item-contributor" ng-src="{{ contributor.thumbnail_url }}">
                                     </a>
                                 </div>
                                 <a class="item-participate-link" ng-href="{{ createUrl('/') }}" i18n="item-page:participate-link-label|html">Participate</a>
@@ -50,10 +50,10 @@
                         <h2 class="heading-4" i18n="item-page:related-heading|html">Related</h2>
                         <ul class="related-items">
                             <li class="related-item" ng-repeat="relatedItem in item.related">
-                                <a ng-href="{{ createRelatedItemUrl(relatedItem.composition_type, relatedItem.slug) }}">
-                                    <img class="related-item-thumbnail" ng-src="{{ relatedItem.thumbnailUrl }}">
+                                <a ng-href="{{ createRelatedItemUrl(relatedItem) }}">
+                                    <img class="related-item-thumbnail" ng-src="{{ relatedItem.thumb }}">
                                     <div class="related-item-info">
-                                        <span class="related-item-title">{{ relatedItem.title }}</span>
+                                        <span class="related-item-title">{{ relatedItem.heading }}</span>
                                         <span class="related-item-subheading">{{ relatedItem.subheading }}</span>
                                     </div>
                                 </a>

@@ -81,12 +81,12 @@ function(
 
     /**
      * Creates a link to a related item.
-     * @param {string} compositionType
-     * @param {string} slug
+     * @param {} composition
      * @returns {string}
      */
-    $scope.createRelatedItemUrl = function(compositionType, slug) {
-        return ApiService.getCompositionItemPathName(compositionType) + '/' + slug;
+    $scope.createRelatedItemUrl = function(composition) {
+        var identifier = composition.slug ? composition.slug : composition.node_id;
+        return ApiService.getCompositionItemPathName(composition.composition_type) + '/' + identifier;
     };
 
     /**
