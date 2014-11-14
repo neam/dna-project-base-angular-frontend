@@ -8,7 +8,8 @@ function(
     baseApiUrl
 ) {
     var compositionTypeToItemPathNameMap = {
-        exercise: 'exercises'
+        exercise: 'exercises',
+        presentation: 'presentations'
     };
 
     return {
