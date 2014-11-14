@@ -25,13 +25,17 @@ To install *Gapminder Pages for Desktop*, run:
     npm install
     bower install
 
-## Run the app in development
+## Run in development
 
     grunt
 
 Now launch your web browser and navigate to `http://localhost:1335`.
 
-## Deploy to stage
+## Deploy the app
+
+You will need to have [s3cmd](http://s3tools.org/s3cmd) installed in order to deploy the app.
+
+### Stage
 
     ./deploy.sh stage <S3 ACCESS KEY> <S3 SECRET>
 
@@ -39,7 +43,7 @@ Specify a different API base URL (e.g. http://stage.gapminder.org/api/v2):
 
     ./deploy.sh stage <S3 ACCESS KEY> <S3 SECRET> <API BASE URL>
 
-## Deploy to production
+### Production
 
     ./deploy.sh production <S3 ACCESS KEY> <S3 SECRET>
 
