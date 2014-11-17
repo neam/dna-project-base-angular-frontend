@@ -1,10 +1,12 @@
 angular.module('Gapminder').factory('CustomPageService', [
     '$q',
     '$http',
+    '$window',
     'ApiService',
 function(
     $q,
     $http,
+    $window,
     ApiService
 ) {
     var item;
@@ -16,7 +18,7 @@ function(
      */
     function loadPage(route) {
         var dfd = $q.defer(),
-            apiUrl = '/item/:route'.replace(':route', encodeURIComponent(route));
+            apiUrl = '/item/:route'.replace(':route', $window.encodeURIComponent(route));
 
         $http.get(ApiService.getApiUrl(apiUrl))
             .success(function(page) {
