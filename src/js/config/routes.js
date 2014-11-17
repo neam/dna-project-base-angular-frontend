@@ -49,6 +49,15 @@ function(
                     }]
                 }
             })
-            .otherwise({templateUrl: routeTemplateBasePath + '404.html'});
+            .otherwise({
+                templateUrl: routeTemplateBasePath + 'custom-page.html',
+                controller: 'CustomPageCtrl',
+                access: {requiredLogin: false},
+                resolve: {
+                    customPage: ['CustomPageService', '$route', '$location', function(CustomPageService, $route, $location) {
+                        return CustomPageService.init($location.$$path);
+                    }]
+                }
+            });
     });
 }]);

@@ -35,10 +35,8 @@ function(
             // Update page layout
             $rootScope.layout = nextRoute.$$route.layout;
         } else {
-            // 404
-            $rootScope.controller = 'PageNotFoundCtrl';
-            $rootScope.pageTitle = 'Page Not Found';
-            $rootScope.layout = 'layout-minimal';
+            // Custom pages
+            $rootScope.layout = 'layout-regular';
         }
     });
 }]);
