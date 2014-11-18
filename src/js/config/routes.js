@@ -52,7 +52,13 @@ function(
             .otherwise({
                 templateUrl: routeTemplateBasePath + 'custom-page.html',
                 controller: 'CustomPageCtrl',
-                access: {requiredLogin: false}
+                access: {requiredLogin: false},
+                resolve: {
+                    // Always make sure i18n is initialized
+                    i18n: ['i18nService', function(i18nService) {
+                        return i18nService.init();
+                    }]
+                }
             });
     });
 }]);
