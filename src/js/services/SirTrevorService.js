@@ -121,7 +121,7 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
 
             // Replace placeholders
             html = html.replace('{{link_url}}', block.data.link_url);
-            html = html.replace('{{image_url}}', block.data.image_url);
+            html = html.replace('{{image_url}}', block.data.file.url);
             html = html.replace('{{title}}', block.data.title);
 
             return html;
