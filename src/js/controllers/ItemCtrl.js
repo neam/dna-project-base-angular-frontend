@@ -56,9 +56,9 @@ function(
      */
     function getItemCategory(urlParam) {
         var paramToItemCategory = {
-            exercises: i18nService.translate('item-category:exercises', 'Exercises'),
-            presentations: i18nService.translate('item-category:presentations', 'Presentations'),
-            qna: i18nService.translate('item-category:qna', 'Questions & Answers')
+            exercises: i18nService.translate('item-category:exercises', {}, 'Exercises'),
+            presentations: i18nService.translate('item-category:presentations', {}, 'Presentations'),
+            qna: i18nService.translate('item-category:qna', {}, 'Questions & Answers')
         };
 
         return angular.isDefined(paramToItemCategory[urlParam]) ? paramToItemCategory[urlParam] : '';
