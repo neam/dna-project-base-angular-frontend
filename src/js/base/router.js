@@ -10,6 +10,8 @@ function(
     UserService
 ) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+        $rootScope.pageNotFound = false;
+
         // Attempt to auto-login
         UserService.autoLogin()
             .finally(function() {

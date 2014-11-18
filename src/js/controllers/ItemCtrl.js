@@ -36,8 +36,7 @@ function(
      * Process 404 logic.
      */
     function whenItemNotFound() {
-        $rootScope.pageTitle = 'Not Found';
-        $scope.itemNotFound = true;
+        $scope.notFound();
     }
 
     /**

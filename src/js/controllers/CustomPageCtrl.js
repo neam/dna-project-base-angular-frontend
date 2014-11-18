@@ -20,9 +20,6 @@ function(
             NavigationService.setPageTitle(item.heading);
             $scope.item = item;
         }, function(err) {
-            // 404
-            NavigationService.setTranslatedPageTitle('not-found', 'Not Found');
-            $scope.notFound = true;
-            $rootScope.layout = 'layout-minimal';
+            $scope.notFound();
         });
 }]);

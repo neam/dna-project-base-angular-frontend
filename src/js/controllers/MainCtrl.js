@@ -35,6 +35,15 @@ function(
     };
 
     /**
+     * Triggers page not found.
+     */
+    $scope.notFound = function() {
+        NavigationService.setTranslatedPageTitle('not-found', 'Not Found');
+        $rootScope.pageNotFound = true;
+        $rootScope.layout = 'layout-minimal';
+    };
+
+    /**
      * @see NavigationService#getBaseRoute
      */
     $rootScope.getBaseRoute = function() {
