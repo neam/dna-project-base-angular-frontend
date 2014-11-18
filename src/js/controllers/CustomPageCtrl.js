@@ -1,18 +1,28 @@
 angular.module('Gapminder').controller('CustomPageCtrl', [
     '$scope',
     '$rootScope',
+    '$location',
     'CustomPageService',
     'NavigationService',
 function(
     $scope,
     $rootScope,
+    $location,
     CustomPageService,
     NavigationService
 ) {
+    var routePath = $location.$$path;
+
     $scope.item = CustomPageService.getItem();
-    NavigationService.setPageTitle($scope.item.heading);
 
-    console.log($scope.item);
-
-    // TODO: Handle 404.
+    CustomPageService.init(routePath)
+        .then(function(item) {
+            NavigationService.setPageTitle(item.heading);
+            $scope.item = item;
+        }, function(err) {
+            // 404
+            NavigationService.setTranslatedPageTitle('not-found', 'Not Found');
+            $scope.notFound = true;
+            $rootScope.layout = 'layout-minimal';
+        });
 }]);

@@ -43,6 +43,8 @@ function(
             loadPage(route).then(function(page) {
                 item = page;
                 dfd.resolve(page);
+            }, function(err) {
+                dfd.reject(err);
             });
 
             return dfd.promise;
