@@ -44,6 +44,20 @@ function(
     };
 
     /**
+     * Returns the page title.
+     * @returns {string}
+     */
+    $rootScope.getPageTitle = function() {
+        var title = 'Gapminder';
+
+        if (angular.isDefined($rootScope.pageTitle)) {
+            title = $rootScope.pageTitle + ' - ' + title;
+        }
+
+        return title;
+    };
+
+    /**
      * @see NavigationService#getBaseRoute
      */
     $rootScope.getBaseRoute = function() {
