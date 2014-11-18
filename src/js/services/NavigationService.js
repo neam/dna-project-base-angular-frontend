@@ -17,6 +17,8 @@ function(
     assetUrl,
     html5Mode
 ) {
+    var overriddenBaseRoute;
+
     return {
         /**
          * Redirects to the given route.
@@ -123,6 +125,10 @@ function(
                 baseRoute,
                 firstPathTerm;
 
+            if (overriddenBaseRoute) {
+                return overriddenBaseRoute;
+            }
+
             angular.forEach(this.getValidRoutes(), function(route) {
                 if (_.contains($location.$$url, route)) {
                     firstPathTerm = route;
@@ -140,6 +146,25 @@ function(
                 .replace('/#', ''); // strip hashbang
 
             return baseRoute;
+        },
+
+        /**
+         * Overrides the base route.
+         */
+        overrideBaseRoute: function() {
+            overriddenBaseRoute = Utils.ensureTrailingSlash($location.$$absUrl
+                .replace($location.$$path, '') // strip path
+                .replace($location.$$protocol + '://', '') // strip protocol
+                .replace($location.$$host, '') // strip host
+                .replace(':' + $location.$$port, '') // strip port
+                .replace('/#', ''));
+        },
+
+        /**
+         * Resets the base route.
+         */
+        resetBaseRoute: function() {
+            overriddenBaseRoute = null;
         }
     }
 }]);

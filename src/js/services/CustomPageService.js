@@ -48,14 +48,6 @@ function(
             });
 
             return dfd.promise;
-        },
-
-        /**
-         * Returns the loaded page item.
-         * @returns {}
-         */
-        getItem: function() {
-            return item;
         }
     };
 }]);

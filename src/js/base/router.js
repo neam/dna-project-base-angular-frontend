@@ -3,13 +3,16 @@ angular.module('Gapminder').run([
     '$location',
     '$window',
     'UserService',
+    'NavigationService',
 function(
     $rootScope,
     $location,
     $window,
-    UserService
+    UserService,
+    NavigationService
 ) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+        NavigationService.resetBaseRoute();
         $rootScope.pageNotFound = false;
 
         // Attempt to auto-login

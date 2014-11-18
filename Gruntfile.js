@@ -9,7 +9,8 @@ module.exports = function(grunt) {
         assetUrlStage = grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop-stage/',
         html5ModeDevelopment = grunt.option('html5Mode') || false,
         html5ModeProduction = grunt.option('html5Mode') || true,
-        html5ModeStage = grunt.option('html5Mode') || false;
+        html5ModeStage = grunt.option('html5Mode') || false,
+        devHttpServerRoot = grunt.option('httpServerRoot') || './dist';
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -338,7 +339,7 @@ module.exports = function(grunt) {
         },
         'http-server': {
             development: {
-                root: './dist',
+                root: devHttpServerRoot,
                 port: 1335,
                 host: '127.0.0.1',
                 cache: 1,
