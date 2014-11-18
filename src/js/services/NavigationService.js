@@ -1,7 +1,7 @@
 angular.module('Gapminder').factory('NavigationService', [
     '$location',
     '$rootScope',
-    '$route',
+    '$injector',
     '$sce',
     'Utils',
     'i18nService',
@@ -10,7 +10,7 @@ angular.module('Gapminder').factory('NavigationService', [
 function(
     $location,
     $rootScope,
-    $route,
+    $injector,
     $sce,
     Utils,
     i18nService,
@@ -103,9 +103,10 @@ function(
          * @returns {Array}
          */
         getValidRoutes: function() {
-            var validRoutes = [];
+            var routes = $injector.get('$route').routes, // directly injecting $route into this service causes unit tests to fail
+                validRoutes = [];
 
-            _.forEach($route.routes, function(route, path) {
+            _.forEach(routes, function(route, path) {
                 var path = path.split('/')[1];
 
                 if (angular.isDefined(path) && !_.contains(validRoutes, path) && path.length > 0) {
