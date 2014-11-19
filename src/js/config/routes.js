@@ -48,7 +48,18 @@ function(
                         return i18nService.init();
                     }]
                 }
-            })
-            .otherwise({templateUrl: routeTemplateBasePath + '404.html'});
+            });
+    });
+
+    $routeProvider.otherwise({
+        templateUrl: routeTemplateBasePath + 'custom-page.html',
+        controller: 'CustomPageCtrl',
+        access: {requiredLogin: false},
+        resolve: {
+            // Always make sure i18n is initialized
+            i18n: ['i18nService', function(i18nService) {
+                return i18nService.init();
+            }]
+        }
     });
 }]);

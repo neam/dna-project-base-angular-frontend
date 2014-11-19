@@ -1,7 +1,7 @@
 angular.module('Gapminder').factory('NavigationService', [
     '$location',
     '$rootScope',
-    '$route',
+    '$injector',
     '$sce',
     'Utils',
     'i18nService',
@@ -10,13 +10,15 @@ angular.module('Gapminder').factory('NavigationService', [
 function(
     $location,
     $rootScope,
-    $route,
+    $injector,
     $sce,
     Utils,
     i18nService,
     assetUrl,
     html5Mode
 ) {
+    var overriddenBaseRoute;
+
     return {
         /**
          * Redirects to the given route.
@@ -101,9 +103,10 @@ function(
          * @returns {Array}
          */
         getValidRoutes: function() {
-            var validRoutes = [];
+            var routes = $injector.get('$route').routes, // directly injecting $route into this service causes unit tests to fail
+                validRoutes = [];
 
-            _.forEach($route.routes, function(route, path) {
+            _.forEach(routes, function(route, path) {
                 var path = path.split('/')[1];
 
                 if (angular.isDefined(path) && !_.contains(validRoutes, path) && path.length > 0) {
@@ -123,6 +126,10 @@ function(
                 baseRoute,
                 firstPathTerm;
 
+            if (overriddenBaseRoute) {
+                return overriddenBaseRoute;
+            }
+
             angular.forEach(this.getValidRoutes(), function(route) {
                 if (_.contains($location.$$url, route)) {
                     firstPathTerm = route;
@@ -140,6 +147,25 @@ function(
                 .replace('/#', ''); // strip hashbang
 
             return baseRoute;
+        },
+
+        /**
+         * Overrides the base route.
+         */
+        overrideBaseRoute: function() {
+            overriddenBaseRoute = Utils.ensureTrailingSlash($location.$$absUrl
+                .replace($location.$$path, '') // strip path
+                .replace($location.$$protocol + '://', '') // strip protocol
+                .replace($location.$$host, '') // strip host
+                .replace(':' + $location.$$port, '') // strip port
+                .replace('/#', ''));
+        },
+
+        /**
+         * Resets the base route.
+         */
+        resetBaseRoute: function() {
+            overriddenBaseRoute = null;
         }
     }
 }]);

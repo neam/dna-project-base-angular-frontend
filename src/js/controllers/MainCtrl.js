@@ -35,6 +35,29 @@ function(
     };
 
     /**
+     * Triggers page not found.
+     */
+    $scope.notFound = function() {
+        NavigationService.setTranslatedPageTitle('not-found', 'Not Found');
+        $rootScope.pageNotFound = true;
+        $rootScope.layout = 'layout-minimal';
+    };
+
+    /**
+     * Returns the page title.
+     * @returns {string}
+     */
+    $rootScope.getPageTitle = function() {
+        var title = 'Gapminder';
+
+        if (angular.isDefined($rootScope.pageTitle)) {
+            title = $rootScope.pageTitle + ' - ' + title;
+        }
+
+        return title;
+    };
+
+    /**
      * @see NavigationService#getBaseRoute
      */
     $rootScope.getBaseRoute = function() {
