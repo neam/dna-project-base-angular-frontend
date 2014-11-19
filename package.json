@@ -20,10 +20,10 @@
   },
   "author": "Eric Nishio <eric.nishio@nordsoftware.com>",
   "contributors": [
-      {
-          "name": "Eric Nishio",
-          "email": "eric.nishio@nordsoftware.com"
-      }
+    {
+      "name": "Eric Nishio",
+      "email": "eric.nishio@nordsoftware.com"
+    }
   ],
   "license": "Proprietary License",
   "devDependencies": {
@@ -39,6 +39,7 @@
     "karma": "^0.12.23",
     "karma-chrome-launcher": "^0.1.4",
     "karma-jasmine": "~0.2.0",
+    "karma-ng-html2js-preprocessor": "^0.1.2",
     "protractor": "^1.2.0"
   }
 }
