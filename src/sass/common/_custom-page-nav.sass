@@ -1,0 +1,39 @@
+.custom-page-nav
+  margin-bottom: 50px
+
+  ul
+    font-family: $bariol-regular-font-family
+    font-size: 15px
+    list-style-type: none
+    margin: 0
+    padding: 0
+
+    li
+      display: inline
+      margin-right: 15px
+
+      &:before
+        color: $brand-primary
+        margin-right: 15px
+
+      a
+        color: $text-color
+
+    &.nav-parents
+      margin-bottom: 10px
+
+      li
+        &:before
+          content: "<"
+
+    &.nav-children
+      li
+        &:before
+          content: "\2022"
+
+        &:first-child:before
+          display: none
+
+  .nav-heading
+    @extend .heading-1
+    margin-bottom: 0
