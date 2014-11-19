@@ -53,6 +53,7 @@ Specify a different API base URL (e.g. http://www.gapminder.org/api/v2):
 
 ## Run the tests
 
-You will need to have *Google Chrome* installed in order to run the tests.
+You will need to have *Google Chrome* installed in order to run the tests. Also, make sure you have built
+the app (with `grunt` or `grunt build-development`) before running the tests.
 
     karma start
