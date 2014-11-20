@@ -6,6 +6,13 @@ angular.module('Gapminder').directive('customPageNav', ['NavigationService', fun
         },
         controller: ['$scope', function($scope) {
             /**
+             * @see NavigationService#createUrl
+             */
+            $scope.createUrl = function(route) {
+                return NavigationService.createUrl(route);
+            };
+
+            /**
              * Checks if the page has a parent.
              * @returns {boolean}
              */

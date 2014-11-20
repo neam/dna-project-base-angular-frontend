@@ -1,11 +1,11 @@
 <div class="custom-page-nav">
     <ul ng-show="hasParent()" class="nav-parents">
         <li ng-repeat="parent in getParents()">
-            <a ng-href="{{ parent.url }}">{{ parent.menu_label }}</a>
+            <a ng-href="{{ createUrl(parent.url) }}">{{ parent.menu_label }}</a>
         </li>
     </ul>
     <h1 class="nav-heading">{{ item.heading }}</h1>
     <ul ng-show="hasChild()" class="nav-children">
-        <li ng-repeat="child in getChildren()"><a ng-href="{{ child.url }}">{{ child.menu_label }}</a></li>
+        <li ng-repeat="child in getChildren()"><a ng-href="{{ createUrl(child.url) }}">{{ child.menu_label }}</a></li>
     </ul>
 </div>
