@@ -85,7 +85,7 @@ function(
      */
     $scope.createRelatedItemUrl = function(composition) {
         var identifier = composition.slug ? composition.slug : composition.node_id;
-        return ApiService.getCompositionItemPathName(composition.composition_type) + '/' + identifier;
+        return NavigationService.createUrl(ApiService.getCompositionItemPathName(composition.composition_type) + '/' + identifier);
     };
 
     /**

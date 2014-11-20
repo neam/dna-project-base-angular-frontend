@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
     var baseApiUrlDevelopment = grunt.option('api') || 'http://localhost:1338/api',
         baseApiUrlProduction = grunt.option('api') || 'http://release_pages-dec-1-2014-cms.gapminder.org/api/v1',
-        baseApiUrlStage = grunt.option('api') || 'http://cmsextmock.gapminderdev.org:1338/api',
+        baseApiUrlStage = grunt.option('api') || 'http://cms.gapminder.org/api/v1',
         assetUrlDevelopment = grunt.option('assetUrl') || '',
         assetUrlProduction = grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop/master/',
         assetUrlStage = grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop-stage/',

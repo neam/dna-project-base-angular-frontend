@@ -15,8 +15,6 @@ function(
 ) {
     var routePath = $location.$$path;
 
-    NavigationService.overrideBaseRoute();
-
     CustomPageService.init(routePath)
         .then(function(item) {
             NavigationService.setPageTitle(item.heading);

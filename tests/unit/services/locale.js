@@ -1,4 +1,4 @@
-describe('locale', function() {
+describe('LocaleService', function() {
     var $rootScope,
         $controller,
         $httpBackend,

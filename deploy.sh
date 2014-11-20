@@ -16,6 +16,9 @@ API_BASE_URL_OVERRIDE=$4
 if [[ "$ENVIRONMENT" == "stage" ]]; then
     DEPLOYMENT_DIR="s3://static.gapminder.org/pages-desktop-stage"
     BUILD_CMD="grunt build-stage"
+elif [[ "$ENVIRONMENT" == "stage-mock" ]]; then
+    DEPLOYMENT_DIR="s3://static.gapminder.org/pages-desktop-stage-with-mock"
+    BUILD_CMD="grunt build-stage --assetUrl=http://static.gapminder.org/pages-desktop-stage-with-mock/ --api=http://cmsextmock.gapminderdev.org:1338/api"
 elif [[ "$ENVIRONMENT" == "production" ]]; then
     DEPLOYMENT_DIR="s3://static.gapminder.org/pages-desktop/master"
     BUILD_CMD="grunt build-production"

@@ -12,7 +12,6 @@ function(
     NavigationService
 ) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-        NavigationService.resetBaseRoute();
         $rootScope.pageNotFound = false;
 
         // Attempt to auto-login

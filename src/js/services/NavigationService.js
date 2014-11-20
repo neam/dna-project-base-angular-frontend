@@ -3,6 +3,7 @@ angular.module('Gapminder').factory('NavigationService', [
     '$rootScope',
     '$injector',
     '$sce',
+    '$q',
     'Utils',
     'i18nService',
     'assetUrl',
@@ -12,13 +13,12 @@ function(
     $rootScope,
     $injector,
     $sce,
+    $q,
     Utils,
     i18nService,
     assetUrl,
     html5Mode
 ) {
-    var overriddenBaseRoute;
-
     return {
         /**
          * Redirects to the given route.
@@ -34,6 +34,11 @@ function(
          * @returns {string}
          */
         createUrl: function(route) {
+            // Return absolute URLs as is
+            if (_.contains(route, '://')) {
+                return route;
+            }
+
             route = Utils.ensureLeadingSlash(route);
             return html5Mode ? route : '#' + route;
         },
@@ -126,10 +131,6 @@ function(
                 baseRoute,
                 firstPathTerm;
 
-            if (overriddenBaseRoute) {
-                return overriddenBaseRoute;
-            }
-
             angular.forEach(this.getValidRoutes(), function(route) {
                 if (_.contains($location.$$url, route)) {
                     firstPathTerm = route;
@@ -146,26 +147,11 @@ function(
                 .replace(':' + $location.$$port, '') // strip port
                 .replace('/#', ''); // strip hashbang
 
+            if ($location.$$path !== '/') {
+                baseRoute = baseRoute.replace($location.$$path, ''); // strip path
+            }
+
             return baseRoute;
-        },
-
-        /**
-         * Overrides the base route.
-         */
-        overrideBaseRoute: function() {
-            overriddenBaseRoute = Utils.ensureTrailingSlash($location.$$absUrl
-                .replace($location.$$path, '') // strip path
-                .replace($location.$$protocol + '://', '') // strip protocol
-                .replace($location.$$host, '') // strip host
-                .replace(':' + $location.$$port, '') // strip port
-                .replace('/#', ''));
-        },
-
-        /**
-         * Resets the base route.
-         */
-        resetBaseRoute: function() {
-            overriddenBaseRoute = null;
         }
     }
 }]);
