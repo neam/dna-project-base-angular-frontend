@@ -32,19 +32,19 @@ function(
 
         /**
          * Returns an API URL to the given page.
-         * @param {string|number} identifier
+         * @param {string|number} urlParam
          * @returns {string}
          */
-        getPageApiUrl: function(identifier) {
-            var identifierAsNumber = _.isString(identifier)
-                    ? identifier.replace('/', '')
-                    : identifier;
+        getPageApiUrl: function(urlParam) {
+            var urlParamAsNumber = _.isString(urlParam)
+                    ? urlParam.replace('/', '')
+                    : urlParam;
 
-            var url = identifierAsNumber > 0 // check if the identifier is a number
-                    ? identifierAsNumber
-                    : $window.encodeURIComponent(identifier);
+            var identifier = _.isFinite(urlParamAsNumber)
+                    ? urlParamAsNumber
+                    : $window.encodeURIComponent(urlParam);
 
-            return ApiService.getApiUrl('/item/' + url);
+            return ApiService.getApiUrl('/item/' + identifier);
         },
 
         /**
