@@ -1,4 +1,4 @@
-describe('i18n', function() {
+describe('i18nService', function() {
     var $rootScope,
         $controller,
         $httpBackend,
