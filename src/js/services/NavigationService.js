@@ -3,6 +3,7 @@ angular.module('Gapminder').factory('NavigationService', [
     '$rootScope',
     '$injector',
     '$sce',
+    '$q',
     'Utils',
     'i18nService',
     'assetUrl',
@@ -12,6 +13,7 @@ function(
     $rootScope,
     $injector,
     $sce,
+    $q,
     Utils,
     i18nService,
     assetUrl,
@@ -132,7 +134,7 @@ function(
                 firstPathTerm;
 
             if (overriddenBaseRoute) {
-                return overriddenBaseRoute;
+                //return overriddenBaseRoute;
             }
 
             angular.forEach(this.getValidRoutes(), function(route) {
@@ -151,26 +153,11 @@ function(
                 .replace(':' + $location.$$port, '') // strip port
                 .replace('/#', ''); // strip hashbang
 
+            if ($location.$$path !== '/') {
+                baseRoute = baseRoute.replace($location.$$path, ''); // strip path
+            }
+
             return baseRoute;
-        },
-
-        /**
-         * Overrides the base route.
-         */
-        overrideBaseRoute: function() {
-            overriddenBaseRoute = Utils.ensureTrailingSlash($location.$$absUrl
-                .replace($location.$$path, '') // strip path
-                .replace($location.$$protocol + '://', '') // strip protocol
-                .replace($location.$$host, '') // strip host
-                .replace(':' + $location.$$port, '') // strip port
-                .replace('/#', ''));
-        },
-
-        /**
-         * Resets the base route.
-         */
-        resetBaseRoute: function() {
-            overriddenBaseRoute = null;
         }
     }
 }]);
