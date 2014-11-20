@@ -34,6 +34,11 @@ function(
          * @returns {string}
          */
         createUrl: function(route) {
+            // Return absolute URLs as is
+            if (_.contains(route, '://')) {
+                return route;
+            }
+
             route = Utils.ensureLeadingSlash(route);
             return html5Mode ? route : '#' + route;
         },
