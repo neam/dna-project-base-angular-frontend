@@ -71,7 +71,7 @@ angular.module('Gapminder').directive('customPageNav', ['NavigationService', fun
              * @returns {boolean}
              */
             $scope.hasIcon = function() {
-                return angular.isDefined($scope.item.icon); // TODO: Fix this once page icons have been implemented.
+                return false; // TODO: Fix this once page icons have been implemented.
             };
         }],
         templateUrl: NavigationService.createTemplateUrl('/directives/custom-page-nav.html')
