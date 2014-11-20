@@ -4,8 +4,6 @@ Gapminder Pages for Desktop
 This is the desktop version of the Gapminder Pages project. The app is built with AngularJS and utilizes
 the *Gapminder Mock API* for simulating real API calls in development and testing environments.
 
-Stage URL: [http://static.gapminder.org/pages-desktop-stage](http://static.gapminder.org/pages-desktop-stage)
-
 ## Setup
 
 Requirements: *Node*, *Ruby*, *Gapminder Mock API*
@@ -35,7 +33,19 @@ Now launch your web browser and navigate to `http://localhost:1335`.
 
 You will need to have [s3cmd](http://s3tools.org/s3cmd) installed in order to deploy the app.
 
+### Production
+
+URL: [http://www.gapminder.org/{route}](http://www.gapminder.org/{route})
+
+    ./deploy.sh production <S3 ACCESS KEY> <S3 SECRET>
+
+Specify a different API base URL (e.g. http://www.gapminder.org/api/v2):
+
+    ./deploy.sh production <S3 ACCESS KEY> <S3 SECRET> <API BASE URL>
+
 ### Stage
+
+URL: [http://static.gapminder.org/pages-desktop-stage](http://static.gapminder.org/pages-desktop-stage)
 
     ./deploy.sh stage <S3 ACCESS KEY> <S3 SECRET>
 
@@ -43,13 +53,13 @@ Specify a different API base URL (e.g. http://stage.gapminder.org/api/v2):
 
     ./deploy.sh stage <S3 ACCESS KEY> <S3 SECRET> <API BASE URL>
 
-### Production
+### Stage with Mock API
 
-    ./deploy.sh production <S3 ACCESS KEY> <S3 SECRET>
+URL: [http://static.gapminder.org/pages-desktop-stage-with-mock](http://static.gapminder.org/pages-desktop-stage-with-mock)
 
-Specify a different API base URL (e.g. http://www.gapminder.org/api/v2):
+Deploy a stage version that uses the Gapminder Mock API:
 
-    ./deploy.sh production <S3 ACCESS KEY> <S3 SECRET> <API BASE URL>
+    ./deploy.sh stage-mock <S3 ACCESS KEY> <S3 SECRET>
 
 ## Run the tests
 
