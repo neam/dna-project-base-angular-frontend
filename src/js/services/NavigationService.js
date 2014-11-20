@@ -19,8 +19,6 @@ function(
     assetUrl,
     html5Mode
 ) {
-    var overriddenBaseRoute;
-
     return {
         /**
          * Redirects to the given route.
@@ -132,10 +130,6 @@ function(
             var route,
                 baseRoute,
                 firstPathTerm;
-
-            if (overriddenBaseRoute) {
-                //return overriddenBaseRoute;
-            }
 
             angular.forEach(this.getValidRoutes(), function(route) {
                 if (_.contains($location.$$url, route)) {
