@@ -3,13 +3,11 @@ angular.module('Gapminder').run([
     '$location',
     '$window',
     'UserService',
-    'NavigationService',
 function(
     $rootScope,
     $location,
     $window,
-    UserService,
-    NavigationService
+    UserService
 ) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
         $rootScope.pageNotFound = false;
