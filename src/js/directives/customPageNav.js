@@ -65,6 +65,14 @@ angular.module('Gapminder').directive('customPageNav', ['NavigationService', fun
             $scope.getChildren = function() {
                 return $scope.hasChild() ? $scope.item.page_hierarchy.children : [];
             };
+
+            /**
+             * Checks if the item has an icon.
+             * @returns {boolean}
+             */
+            $scope.hasIcon = function() {
+                return angular.isDefined($scope.item.icon); // TODO: Fix this once page icons have been implemented.
+            };
         }],
         templateUrl: NavigationService.createTemplateUrl('/directives/custom-page-nav.html')
     };
