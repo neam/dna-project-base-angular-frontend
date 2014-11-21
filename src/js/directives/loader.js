@@ -1,15 +1,21 @@
-angular.module('Gapminder').directive('loader', ['NavigationService', function(NavigationService) {
+angular.module('Gapminder').directive('loader', [
+    '$rootScope',
+    'NavigationService',
+function(
+    $rootScope,
+    NavigationService
+) {
     return {
         restrict: 'AE',
         link: function($scope, element, attrs) {
-            var loading = true;
+            $rootScope.loading = true;
 
             $scope.$on('startedLoading', function() {
-                loading = false;
+                $rootScope.loading = false;
             });
 
             $scope.$on('finishedLoading', function() {
-                loading = false;
+                $rootScope.loading = false;
             });
 
             /**
@@ -17,7 +23,7 @@ angular.module('Gapminder').directive('loader', ['NavigationService', function(N
              * @returns {boolean}
              */
             $scope.showSpinner = function() {
-                return loading;
+                return $rootScope.loading;
             };
         },
         templateUrl: NavigationService.createTemplateUrl('/directives/loader.html'),
