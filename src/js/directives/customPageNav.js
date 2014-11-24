@@ -18,6 +18,7 @@ angular.module('Gapminder').directive('customPageNav', ['NavigationService', fun
              */
             $scope.hasParent = function() {
                 return angular.isDefined($scope.item)
+                    && angular.isDefined($scope.item.page_hierarchy)
                     && angular.isArray($scope.item.page_hierarchy.parent_path)
                     && $scope.item.page_hierarchy.parent_path.length > 0;
             };
@@ -28,6 +29,7 @@ angular.module('Gapminder').directive('customPageNav', ['NavigationService', fun
              */
             $scope.hasSibling = function() {
                 return angular.isDefined($scope.item)
+                    && angular.isDefined($scope.item.page_hierarchy)
                     && angular.isArray($scope.item.page_hierarchy.siblings)
                     && $scope.item.page_hierarchy.siblings.length > 0;
             };
@@ -38,6 +40,7 @@ angular.module('Gapminder').directive('customPageNav', ['NavigationService', fun
              */
             $scope.hasChild = function() {
                 return angular.isDefined($scope.item)
+                    && angular.isDefined($scope.item.page_hierarchy)
                     && angular.isArray($scope.item.page_hierarchy.children)
                     && $scope.item.page_hierarchy.children.length > 0;
             };
