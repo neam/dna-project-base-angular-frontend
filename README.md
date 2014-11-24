@@ -43,6 +43,12 @@ Specify a different API base URL (e.g. http://www.gapminder.org/api/v2):
 
     ./deploy.sh production <S3 ACCESS KEY> <S3 SECRET> <API BASE URL>
 
+### Branch-specific
+
+URL: [http://static.gapminder.org/pages-desktop/{branch}](http://static.gapminder.org/pages-desktop/{branch})
+
+    ./deploy.sh branch <S3 ACCESS KEY> <S3 SECRET> <BRANCH NAME>
+
 ### Stage
 
 URL: [http://static.gapminder.org/pages-desktop-stage](http://static.gapminder.org/pages-desktop-stage)
