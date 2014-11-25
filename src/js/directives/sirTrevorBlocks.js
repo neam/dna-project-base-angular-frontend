@@ -16,9 +16,15 @@ angular.module('Gapminder').directive('sirTrevorBlocks', ['$compile', 'SirTrevor
                             // TODO: Try to get rid of these if-else statements.
                             if (block.type === 'about') {
                                 if (angular.isDefined(attrs.about)) {
-                                    html += '<show-more>';
+                                    if (angular.isDefined(attrs.aboutShowMore)) {
+                                        html += '<show-more>';
+                                    }
+
                                     html += '<div class="item-about">' + scope.about + '</div>';
-                                    html += '</show-more>';
+
+                                    if (angular.isDefined(attrs.aboutShowMore)) {
+                                        html += '</show-more>';
+                                    }
                                 }
                             } else {
                                 if (block.type === 'slideshare') {
