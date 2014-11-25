@@ -19,7 +19,7 @@ function(
 
     $http.get(ApiService.getApiUrl('/navbar/' + lang))
         .then(function(res) {
-            $scope.expandedItems = res.data.default_navigation;
+            $scope.expandedItems = res.data;
         });
 
     /**
