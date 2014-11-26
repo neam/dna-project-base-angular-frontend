@@ -143,11 +143,11 @@ function(
         renderDownloadLinks: function(block) {
             var html = '';
 
-            if (block.data.links.length > 1) {
+            if (block.data.download_links.length > 1) {
                 // Multiple download links
                 html += block.data.title;
                 html += '<ul>';
-                angular.forEach(block.data.links, function(link) {
+                angular.forEach(block.data.download_links, function(link) {
                     html += '<li><a href="{{url}}">{{title}}</a></li>'
                         .replace('{{url}}', link.url)
                         .replace('{{title}}', link.title);
@@ -156,8 +156,8 @@ function(
             } else {
                 // Single link
                 html += html += '<a href="{{url}}">{{title}}</a>'
-                    .replace('{{url}}', block.data.links[0].url)
-                    .replace('{{title}}', block.data.links[0].title);
+                    .replace('{{url}}', block.data.download_links[0].url)
+                    .replace('{{title}}', block.data.download_links[0].title);
             }
 
             return html;
