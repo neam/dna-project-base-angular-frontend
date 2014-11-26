@@ -176,7 +176,7 @@ function(
                     url = NavigationService.createUrl(ApiService.getCompositionItemPathName(item.composition_type) + '/' + item.node_id);
 
                 itemHtml += '<li class="item-list-item">';
-                itemHtml += '<a href="{{ url }}">'.replace('{{ url }}', url);
+                itemHtml += '<a ng-href="{{ url }}">'.replace('{{ url }}', url);
                 itemHtml += '<img src="{{ thumb }}" class="item-list-thumbnail">'.replace('{{ thumb }}', item.thumb);
                 itemHtml += '<div class="item-list-info">';
                 itemHtml += '<span class="item-list-title">{{ heading }}</span>'.replace('{{ heading }}', item.heading);
