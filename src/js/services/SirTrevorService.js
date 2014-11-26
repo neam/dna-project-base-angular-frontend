@@ -1,4 +1,12 @@
-angular.module('Gapminder').factory('SirTrevorService', ['$location', function($location) {
+angular.module('Gapminder').factory('SirTrevorService', [
+    '$location',
+    'NavigationService',
+    'ApiService',
+function(
+    $location,
+    NavigationService,
+    ApiService
+) {
     var service = {
         /**
          * Renders a text block and returns the HTML.
@@ -156,6 +164,36 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
         },
 
         /**
+         * Renders an item list.
+         * @param {} block
+         * @returns {string}
+         */
+        renderItemList: function(block) {
+            var html = '<ul class="item-list">';
+
+            angular.forEach(block.data, function(item) {
+                var itemHtml = '',
+                    url = NavigationService.createUrl(ApiService.getCompositionItemPathName(item.composition_type) + '/' + item.node_id);
+
+                itemHtml += '<li class="item-list-item">';
+                itemHtml += '<a href="{{ url }}">'.replace('{{ url }}', url);
+                itemHtml += '<img src="{{ thumb }}" class="item-list-thumbnail">'.replace('{{ thumb }}', item.thumb);
+                itemHtml += '<div class="item-list-info">';
+                itemHtml += '<span class="item-list-title">{{ heading }}</span>'.replace('{{ heading }}', item.heading);
+                itemHtml += '<span class="item-list-subheading">{{ subheading }}</span>'.replace('{{ subheading }}', item.subheading);
+                itemHtml += '</div>';
+                itemHtml += '</a>';
+                itemHtml += '</li>';
+
+                html += itemHtml;
+            });
+
+            html += '</ul>';
+
+            return html;
+        },
+
+        /**
          * Checks if the block type is supported.
          * @param {string} blockType
          * @returns {boolean}
@@ -201,7 +239,8 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
         about: service.renderAbout,
         html: service.renderHtml,
         linked_image: service.renderLinkedImage,
-        download_links: service.renderDownloadLinks
+        download_links: service.renderDownloadLinks,
+        item_list: service.renderItemList
     };
 
     return service;

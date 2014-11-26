@@ -1,30 +1,30 @@
-.related-items
+.item-list
   list-style: none
   margin: 0
   padding: 0
 
-  .related-item
+  .item-list-item
     display: block
     margin-bottom: 20px
 
     &:last-child
       margin-bottom: 0
 
-    .related-item-thumbnail
+    .item-list-thumbnail
       width: 160px
       height: auto
 
       +respond-to(tablet-landscape)
         width: 120px
 
-    .related-item-info
+    .item-list-info
       display: inline-block
       line-height: 1.2
       padding-right: 15px
       position: absolute
       margin-left: 20px
 
-      .related-item-title
+      .item-list-title
         color: $text-color
         display: block
         font-family: $bariol-regular-font-family
@@ -34,7 +34,7 @@
         +respond-to(tablet-landscape)
           font-size: 15px
 
-      .related-item-subheading
+      .item-list-subheading
         color: $gray-light
         display: block
         font-size: 14px
