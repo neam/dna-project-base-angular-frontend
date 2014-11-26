@@ -154,6 +154,9 @@ function(
                 //console.log('after path: ' + baseRoute);
             }
 
+            baseRoute = Utils.ensureTrailingSlash(baseRoute);
+            //console.log('after trailing slash: ' + baseRoute);
+
             return baseRoute;
         }
     }
