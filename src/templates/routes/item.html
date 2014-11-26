@@ -46,7 +46,7 @@
                 <aside class="column-secondary">
                     <div ng-show="item.related">
                         <h2 class="heading-4" i18n="item-page:related-heading|html">Related</h2>
-                        <ul class="item-list">
+                        <ul class="item-list item-list-small">
                             <li class="item-list-item" ng-repeat="relatedItem in item.related">
                                 <a ng-href="{{ createRelatedItemUrl(relatedItem) }}">
                                     <img class="item-list-thumbnail" ng-src="{{ relatedItem.thumb }}">
