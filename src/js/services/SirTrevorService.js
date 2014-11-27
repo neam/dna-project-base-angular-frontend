@@ -226,6 +226,35 @@ function(
         },
 
         /**
+         * Renders a video_file block.
+         * @param {} block
+         */
+        renderVideoFile: function(block) {
+            var html = '';
+
+            if (angular.isDefined(block.data.attributes)) {
+                html += '<video width="640">';
+                html += '<source type="video/mp4" src="{{ url }}">'.replace('{{ url }}', block.data.attributes.url_mp4);
+                html += '<source type="video/webm" src="{{ url }}">'.replace('{{ url }}', block.data.attributes.url_webm);
+                html += '<track kind="subtitles" src="{{ url }}" srclang="en">'.replace('{{ url }}', ApiService.getApiUrl(block.data.attributes.url_subtitles));
+                html += '<object width="640" height="360" type="application/x-shockwave-flash" data="vendor/mediaelement/build/flashmediaelement.swf"></object>';
+                html += '<param name="movie" value="vendor/mediaelement/build/flashmediaelement.swf">';
+                html += '<param name="flashvars" value="controls=true&file={{ url }}">'.replace('{{ url }}', block.data.attributes.url_mp4);
+                html += '<img src="{{ url }}" width="640" height="360" title="No video playback capabilities">'.replace('{{ url }}', block.data.attributes.thumbnail);
+                html += '</object>';
+                html += '</video>';
+
+                // TODO: YouTube
+
+                setTimeout(function() {
+                    angular.element('video').mediaelementplayer(); // TODO: Initialize player without this hack.
+                }, 1000);
+            }
+
+            return html;
+        },
+
+        /**
          * Checks if the block type is supported.
          * @param {string} blockType
          * @returns {boolean}
@@ -276,7 +305,8 @@ function(
 
         // CMS item blocks
         html_chunk: service.renderHtmlChunk,
-        download_link: service.renderDownloadLink
+        download_link: service.renderDownloadLink,
+        video_file: service.renderVideoFile
     };
 
     return service;

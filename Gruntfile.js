@@ -265,6 +265,19 @@ module.exports = function(grunt) {
                         filter: 'isFile',
                         src: ['fonts/**'],
                         dest: '<%= paths.tmpDist %>/assets/'
+                    },
+                    {
+                        // mediaelementplayer
+                        cwd: '<%= paths.vendor %>/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: [
+                            'mediaelement/build/*.svg',
+                            'mediaelement/build/*.png',
+                            'mediaelement/build/*.gif',
+                            'mediaelement/build/*.swf'
+                        ],
+                        dest: '<%= paths.tmpDist %>/vendor'
                     }
                 ]
             }
