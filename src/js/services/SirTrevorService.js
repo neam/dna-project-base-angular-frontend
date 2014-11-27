@@ -196,12 +196,30 @@ function(
         /**
          * Renders an html_chunk block.
          * @param {} block
+         * @returns {string}
          */
         renderHtmlChunk: function(block) {
             var html = '';
 
             if (angular.isDefined(block.data.attributes)) {
                 html += block.data.attributes.markup;
+            }
+
+            return html;
+        },
+
+        /**
+         * Renders a download_link block.
+         * @param {} block
+         * @returns {string}
+         */
+        renderDownloadLink: function(block) {
+            var html = '';
+
+            if (angular.isDefined(block.data.attributes)) {
+                html += '<a href="{{ url }}">{{ label }}</a>'
+                    .replace('{{ url }}', block.data.attributes.url)
+                    .replace('{{ label }}', block.data.attributes.title);
             }
 
             return html;
@@ -255,7 +273,10 @@ function(
         linked_image: service.renderLinkedImage,
         download_links: service.renderDownloadLinks,
         item_list: service.renderItemList,
-        html_chunk: service.renderHtmlChunk
+
+        // CMS item blocks
+        html_chunk: service.renderHtmlChunk,
+        download_link: service.renderDownloadLink
     };
 
     return service;
