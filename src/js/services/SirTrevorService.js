@@ -194,6 +194,20 @@ function(
         },
 
         /**
+         * Renders an html_chunk block.
+         * @param {} block
+         */
+        renderHtmlChunk: function(block) {
+            var html = '';
+
+            if (angular.isDefined(block.data.attributes)) {
+                html += block.data.attributes.markup;
+            }
+
+            return html;
+        },
+
+        /**
          * Checks if the block type is supported.
          * @param {string} blockType
          * @returns {boolean}
@@ -240,7 +254,8 @@ function(
         html: service.renderHtml,
         linked_image: service.renderLinkedImage,
         download_links: service.renderDownloadLinks,
-        item_list: service.renderItemList
+        item_list: service.renderItemList,
+        html_chunk: service.renderHtmlChunk
     };
 
     return service;
