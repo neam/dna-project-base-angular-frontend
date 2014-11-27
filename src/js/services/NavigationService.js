@@ -139,23 +139,16 @@ function(
                 ? $location.$$absUrl.split(firstPathTerm)[0]
                 : $location.$$absUrl; // no route params
 
-            //console.log('full route: ' + route);
             baseRoute = route.replace($location.$$protocol + '://', ''); // strip protocol
-            //console.log('after protocol: ' + baseRoute);
             baseRoute = baseRoute.replace($location.$$host, ''); // strip host
-            //console.log('after host: ' + baseRoute);
             baseRoute = baseRoute.replace(':' + $location.$$port, ''); // strip port
-            //console.log('after port: ' + baseRoute);
             baseRoute = baseRoute.replace('/#', ''); // strip hashbang
-            //console.log('after hashbang: ' + baseRoute);
 
             if ($location.$$path !== '/') {
                 baseRoute = baseRoute.replace($location.$$path, ''); // strip path
-                //console.log('after path: ' + baseRoute);
             }
 
             baseRoute = Utils.ensureTrailingSlash(baseRoute);
-            //console.log('after trailing slash: ' + baseRoute);
 
             return baseRoute;
         }
