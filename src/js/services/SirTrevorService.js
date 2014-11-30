@@ -305,8 +305,8 @@ function(
 
         // CMS item blocks
         html_chunk: service.renderHtmlChunk,
-        download_link: service.renderDownloadLink,
-        video_file: service.renderVideoFile
+        download_link: service.renderDownloadLink
+        //video_file: service.renderVideoFile // TODO: Finish up renderer.
     };
 
     return service;
