@@ -4,12 +4,12 @@
             <div class="columns">
                 <div class="column-primary">
                     <div class="item-type">{{ itemCategory }} <!-- <span class="glyphicon glyphicon-chevron-right"></span> #{{ item.id }} --></div>
-                    <h1 class="item-title">{{ item.heading }}</h1>
-                    <span class="item-subheading">{{ item.subheading }}</span>
-                    <item-splash blocks="item.composition.data" class="item-splash"></item-splash>
+                    <h1 class="item-title">{{ item.attributes.heading }}</h1>
+                    <span class="item-subheading">{{ item.attributes.subheading }}</span>
+                    <item-splash blocks="item.attributes.composition.data" class="item-splash"></item-splash>
                     <div class="item-info">
                         <div class="item-info-primary">
-                            <sir-trevor-blocks blocks="item.composition.data" about="item.about" about-show-more></sir-trevor-blocks>
+                            <sir-trevor-blocks blocks="item.attributes.composition.data" about="item.attributes.about" about-show-more></sir-trevor-blocks>
                         </div>
                         <div class="item-info-secondary">
                             <div class="info-segment">
@@ -49,10 +49,10 @@
                         <ul class="item-list item-list-small">
                             <li class="item-list-item" ng-repeat="relatedItem in item.related">
                                 <a ng-href="{{ createRelatedItemUrl(relatedItem) }}">
-                                    <img class="item-list-thumbnail" ng-src="{{ relatedItem.thumb }}">
+                                    <img class="item-list-thumbnail" ng-src="{{ relatedItem.attributes.thumb.original }}">
                                     <div class="item-list-info">
-                                        <span class="item-list-title">{{ relatedItem.heading }}</span>
-                                        <span class="item-list-subheading">{{ relatedItem.subheading }}</span>
+                                        <span class="item-list-title">{{ relatedItem.attributes.heading }}</span>
+                                        <span class="item-list-subheading">{{ relatedItem.attributes.subheading }}</span>
                                     </div>
                                 </a>
                             </li>

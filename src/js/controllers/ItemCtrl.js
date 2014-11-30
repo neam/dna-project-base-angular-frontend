@@ -45,7 +45,7 @@ function(
      * @returns {boolean}
      */
     function validateItemType(item) {
-        return item.composition_type === getItemType(itemUrlParam);
+        return item.attributes.composition_type === getItemType(itemUrlParam);
     }
 
     /**
