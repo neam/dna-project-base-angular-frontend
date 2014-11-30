@@ -45,7 +45,7 @@ function(
      * @returns {boolean}
      */
     function validateItemType(item) {
-        return item.composition_type === getItemType(itemUrlParam);
+        return item.attributes.composition_type === getItemType(itemUrlParam);
     }
 
     /**
@@ -84,8 +84,8 @@ function(
      * @returns {string}
      */
     $scope.createRelatedItemUrl = function(composition) {
-        var identifier = composition.slug ? composition.slug : composition.node_id;
-        return NavigationService.createUrl(ApiService.getCompositionItemPathName(composition.composition_type) + '/' + identifier);
+        var identifier = composition.attributes.slug ? composition.attributes.slug : composition.node_id;
+        return NavigationService.createUrl(ApiService.getCompositionItemPathName(composition.attributes.composition_type) + '/' + identifier);
     };
 
     /**

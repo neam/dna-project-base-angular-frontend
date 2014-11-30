@@ -3,8 +3,9 @@
         <div class="section-inner">
             <div class="columns">
                 <div class="column-primary">
+                    <h1 class="nav-heading">{{ item.attributes.heading }}</h1>
                     <custom-page-nav item="item"></custom-page-nav>
-                    <sir-trevor-blocks blocks="item.composition.data" about="item.about"></sir-trevor-blocks>
+                    <sir-trevor-blocks blocks="item.attributes.composition.data" about="item.about"></sir-trevor-blocks>
                 </div>
             </div>
         </div>
