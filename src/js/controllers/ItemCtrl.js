@@ -22,7 +22,7 @@ function(
     // Get item
     Item.get({id: $routeParams.id}, function(item) {
         if (validateItemType(item)) {
-            NavigationService.setPageTitle(item.heading);
+            NavigationService.setPageTitle(item.attributes.heading);
             $scope.item = item;
             $scope.itemCategory = getItemCategory(itemUrlParam);
         } else {
