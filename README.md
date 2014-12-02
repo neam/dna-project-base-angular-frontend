@@ -66,10 +66,3 @@ URL: [http://static.gapminder.org/pages-desktop-stage-with-mock](http://static.g
 Deploy a stage version that uses the Gapminder Mock API:
 
     ./deploy.sh stage-mock <S3 ACCESS KEY> <S3 SECRET>
-
-## Run the tests
-
-You will need to have *Google Chrome* installed in order to run the tests. Also, make sure you have built
-the app (with `grunt` or `grunt build-development`) before running the tests.
-
-    karma start
