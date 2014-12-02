@@ -18,6 +18,7 @@ module.exports = function(grunt) {
             js: 'src/js',
             sass: 'src/sass',
             src: 'src',
+            tests: 'tests',
             dist: 'dist',
             distAssets: 'dist/assets',
             vendor: 'vendor',
@@ -317,8 +318,13 @@ module.exports = function(grunt) {
                 tasks: [
                     'concat:development',
                     'copy:assetsDevelopment',
-                    'sync:main'
+                    'sync:main',
+                    'karma:unit'
                 ]
+            },
+            tests: {
+                files: ['<%= paths.tests %>/**/*.js'],
+                tasks: ['karma:unit']
             },
             templates: {
                 files: [
@@ -350,6 +356,12 @@ module.exports = function(grunt) {
             },
             development: ['watch', 'serve']
         },
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js',
+                browsers: ['PhantomJS']
+            }
+        },
         'http-server': {
             development: {
                 root: devHttpServerRoot,
@@ -375,7 +387,8 @@ module.exports = function(grunt) {
         'copy:assetsDevelopment',
         'copy:other',
         'copy:dist',
-        'sync:main'
+        'sync:main',
+        'karma:unit'
     ]);
 
     // Builds the app for production

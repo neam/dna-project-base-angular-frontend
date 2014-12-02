@@ -30,6 +30,7 @@ describe('LocaleService', function() {
     afterEach(function() {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
+        LocaleService.setCurrentLocale('en_us');
     });
 
     it('should load locale options', function() {
