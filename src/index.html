@@ -21,5 +21,17 @@
             .constant('assetUrl', '<%- assetUrl %>')
             .constant('html5Mode', <%- html5Mode %>);
     </script>
+    <script>
+        (function() {
+            // Google Custom Search
+            var cx = '011760643686675649438:usn4ikfmofa';
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+        })();
+    </script>
 </body>
 </html>

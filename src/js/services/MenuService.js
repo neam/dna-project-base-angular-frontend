@@ -6,6 +6,7 @@ function(
     $q
 ) {
     var homeTreeData = {
+        /*
         "node_id": null,
         "menu_label": "Home",
         "caption": null,
@@ -40,6 +41,7 @@ function(
                 ]
             }
         ]
+        */
     };
 
     return {

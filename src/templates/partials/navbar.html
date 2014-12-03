@@ -22,6 +22,9 @@
                         <li ng-repeat="(code, localeOption) in locale.getLocaleOptions()"><a ng-click="setLocale(code)" ng-href="">{{ localeOption.name }}</a></li>
                     </ul>
                 </li>
+                <li class="search-box">
+                    <gcse:searchbox-only></gcse:searchbox-only>
+                </li>
                 <li class="dropdown" ng-show="user.isAuthenticated">
                     <a ng-href="" class="dropdown-toggle dropdown-user" data-toggle="dropdown">
                         <img ng-src="{{ createAssetUrl('images/dummy/ola-small.png') }}">{{ getUsername() }} <span class="caret"></span>
