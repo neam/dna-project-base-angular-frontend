@@ -1,9 +1,9 @@
 .search-box
-  margin-left: 5px
-  margin-right: 5px
+  margin-left: 12px
+  margin-right: 12px
 
   .gsc-control-searchbox-only
-    width: 240px
+    width: 190px
     height: 64px
     display: table-cell
     vertical-align: middle
@@ -13,6 +13,7 @@
       background: none !important
       border: 1px solid $gray-lighter
       border-right: none
+      height: 37px
 
       &:focus
         border-width: 1px
@@ -31,13 +32,14 @@
       display: none
 
     input.gsc-search-button
+      background: url(../../images/icons/icon-search.svg) no-repeat
+      background-size: 32px
+      background-position: right center
+      background-color: $navbar-default-bg
       border: 1px solid $gray-lighter
       border-left: none
-      background-color: $navbar-default-bg
       border-radius: 0
-      height: 50px
+      color: $navbar-default-bg
+      height: 37px
       margin-left: 0
       outline: 0
-
-      &:before
-        content: "\f002"
