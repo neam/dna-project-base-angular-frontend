@@ -5,6 +5,43 @@ function(
     $location,
     $q
 ) {
+    var homeTreeData = {
+        "node_id": null,
+        "menu_label": "Home",
+        "caption": null,
+        "url": null,
+        "children": [
+            {
+                "node_id": null,
+                "menu_label": "Health",
+                "caption": "About health.",
+                "url": null,
+                "children": [
+                    {
+                        "node_id": 3,
+                        "menu_label": "Ebola",
+                        "caption": "Most people need more money to lead a good life.",
+                        "url": "/ebola"
+                    }
+                ]
+            },
+            {
+                "node_id": null,
+                "menu_label": "Exercises",
+                "caption": null,
+                "url": null,
+                "children": [
+                    {
+                        "node_id": 4,
+                        "menu_label": "Ebola Dashboard",
+                        "caption": null,
+                        "url": "/ebola/dashboard"
+                    }
+                ]
+            }
+        ]
+    };
+
     return {
         type: {
             HOME: 'home',
@@ -17,6 +54,23 @@ function(
         },
         currentType: null,
         currentParentId: null,
+
+        /**
+         * Returns the home tree data.
+         * @returns {}
+         */
+        getHomeTreeData: function() {
+            return homeTreeData;
+        },
+
+        /**
+         * Returns the home menu items.
+         * @returns {}
+         */
+        getHomeMenuItems: function() {
+            var tree = this.getHomeTreeData();
+            return angular.isDefined(tree.children) ? tree.children : null;
+        },
 
         /**
          * Returns the current URL.

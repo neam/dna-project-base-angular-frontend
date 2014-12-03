@@ -5,23 +5,14 @@ angular.module('Gapminder').controller('NavbarCtrl', [
     'UserService',
     'NavigationService',
     'LocaleService',
-    'ApiService',
 function(
     $scope,
     $http,
     $window,
     UserService,
     NavigationService,
-    LocaleService,
-    ApiService
+    LocaleService
 ) {
-    var lang = LocaleService.getCurrentLocale();
-
-    $http.get(ApiService.getApiUrl('/navbar/' + lang))
-        .then(function(res) {
-            $scope.expandedItems = res.data;
-        });
-
     /**
      * Logs out the user.
      */

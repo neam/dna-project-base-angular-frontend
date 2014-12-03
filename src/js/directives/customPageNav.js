@@ -16,7 +16,7 @@ function(
         },
         controller: ['$scope', function($scope) {
             $rootScope.$on('customPageLoadSuccess', function(event, item) {
-                MenuService.buildTree('root_page', item.root_page);
+                MenuService.buildTree(MenuService.type.ROOT_PAGE, item.root_page);
 
                 MenuService.getChildrenOfCurrentRootPageItem()
                     .then(function(children) {
