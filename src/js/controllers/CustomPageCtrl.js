@@ -19,7 +19,8 @@ function(
         .then(function(item) {
             NavigationService.setPageTitle(item.heading);
             $scope.item = item;
-        }, function(err) {
+            $rootScope.$broadcast('customPageLoadSuccess', item);
+        }, function() {
             $scope.notFound();
         });
 }]);
