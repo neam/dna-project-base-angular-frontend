@@ -6,6 +6,22 @@
                     <custom-page-nav item="item"></custom-page-nav>
                     <sir-trevor-blocks blocks="item.attributes.composition.data" about="item.about"></sir-trevor-blocks>
                 </div>
+                <aside class="column-secondary">
+                    <div ng-show="item.related">
+                        <h2 class="heading-4" i18n="item-page:related-heading|html">Related</h2>
+                        <ul class="item-list item-list-small">
+                            <li class="item-list-item" ng-repeat="relatedItem in item.related">
+                                <a ng-href="{{ sirTrevor.createRelatedItemUrl(relatedItem) }}">
+                                    <img class="item-list-thumbnail" ng-src="{{ relatedItem.attributes.thumb.original }}">
+                                    <div class="item-list-info">
+                                        <span class="item-list-title">{{ relatedItem.attributes.heading }}</span>
+                                        <span class="item-list-subheading">{{ relatedItem.attributes.subheading }}</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
             </div>
         </div>
     </section>

@@ -337,6 +337,16 @@ function(
             } else {
                 return '';
             }
+        },
+
+        /**
+         * Creates a link to a related item.
+         * @param {} composition
+         * @returns {string}
+         */
+        createRelatedItemUrl: function(composition) {
+            var identifier = composition.attributes.slug ? composition.attributes.slug : composition.node_id;
+            return NavigationService.createUrl(ApiService.getCompositionItemPathName(composition.attributes.composition_type) + '/' + identifier);
         }
     };
 

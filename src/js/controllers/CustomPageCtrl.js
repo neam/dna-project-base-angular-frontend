@@ -5,15 +5,19 @@ angular.module('Gapminder').controller('CustomPageCtrl', [
     'Utils',
     'CustomPageService',
     'NavigationService',
+    'SirTrevorService',
 function(
     $scope,
     $rootScope,
     $location,
     Utils,
     CustomPageService,
-    NavigationService
+    NavigationService,
+    SirTrevorService
 ) {
     var routePath = $location.$$path;
+
+    $scope.sirTrevor = SirTrevorService;
 
     CustomPageService.init(routePath)
         .then(function(item) {
