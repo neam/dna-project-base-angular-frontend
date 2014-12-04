@@ -44,11 +44,17 @@ function(
 
             if (block.type === 'download_links') {
                 // TODO: Get rid of this.
-                return angular.isDefined(block.data)
+                return (angular.isDefined(block.data)
                     && angular.isDefined(block.data.download_links)
                     && angular.isDefined(block.data.download_links[0])
                     && angular.isDefined(block.data.download_links[0].data)
-                    && angular.isDefined(block.data.download_links[0].data.attributes)
+                    && angular.isDefined(block.data.download_links[0].data.attributes))
+                    ||
+                    (angular.isDefined(block.data)
+                    && angular.isDefined(block.data.children)
+                    && angular.isDefined(block.data.children[0])
+                    && angular.isDefined(block.data.children[0].data)
+                    && angular.isDefined(block.data.children[0].data.attributes));
             }
 
             if (this.isCmsItem(block)) {
@@ -197,7 +203,7 @@ function(
                 // Multiple download links
                 html += block.data.title;
                 html += '<ul>';
-                angular.forEach(block.data.download_links, function(link) {
+                angular.forEach(block.data.children, function(link) {
                     html += '<li><a href="{{url}}">{{title}}</a></li>'
                         .replace('{{url}}', link.url)
                         .replace('{{title}}', link.title);
@@ -206,8 +212,8 @@ function(
             } else {
                 // Single link
                 html += html += '<a href="{{url}}">{{title}}</a>'
-                    .replace('{{url}}', block.data.download_links[0].url)
-                    .replace('{{title}}', block.data.download_links[0].title);
+                    .replace('{{url}}', block.data.children[0].url)
+                    .replace('{{title}}', block.data.children[0].title);
             }
 
             return html;
