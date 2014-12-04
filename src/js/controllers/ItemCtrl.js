@@ -6,6 +6,7 @@ angular.module('Gapminder').controller('ItemCtrl', [
     'ApiService',
     'NavigationService',
     'i18nService',
+    'SirTrevorService',
     'Item',
 function(
     $rootScope,
@@ -15,9 +16,12 @@ function(
     ApiService,
     NavigationService,
     i18nService,
+    SirTrevorService,
     Item
 ) {
     var itemUrlParam = NavigationService.getPartOfPath(0);
+
+    $scope.sirTrevor = SirTrevorService;
 
     // Get item
     Item.get({id: $routeParams.id}, function(item) {
@@ -77,16 +81,6 @@ function(
 
         return angular.isDefined(paramToItemTypeMap[urlParam]) ? paramToItemTypeMap[urlParam] : '';
     }
-
-    /**
-     * Creates a link to a related item.
-     * @param {} composition
-     * @returns {string}
-     */
-    $scope.createRelatedItemUrl = function(composition) {
-        var identifier = composition.attributes.slug ? composition.attributes.slug : composition.node_id;
-        return NavigationService.createUrl(ApiService.getCompositionItemPathName(composition.attributes.composition_type) + '/' + identifier);
-    };
 
     /**
      * Creates a link to a user profile page.

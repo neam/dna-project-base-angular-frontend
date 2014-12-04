@@ -16,15 +16,18 @@
                 <li ng-hide="user.isAuthenticated"><a ng-href="{{ createUrl('/login') }}" i18n="navbar:login|html">Login</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right hidden-xs">
+                <!--
                 <li class="dropdown locale-dropdown">
                     <a ng-href="" class="dropdown-toggle dropdown-user" data-toggle="dropdown">{{ locale.getCurrentLocaleLabel() }} <span class="caret"></span></a>
                     <ul class="dropdown-menu locale-menu" role="menu">
                         <li ng-repeat="(code, localeOption) in locale.getLocaleOptions()"><a ng-click="setLocale(code)" ng-href="">{{ localeOption.name }}</a></li>
                     </ul>
                 </li>
+                -->
                 <li class="search-box">
                     <gcse:searchbox-only></gcse:searchbox-only>
                 </li>
+                <!--
                 <li class="dropdown" ng-show="user.isAuthenticated">
                     <a ng-href="" class="dropdown-toggle dropdown-user" data-toggle="dropdown">
                         <img ng-src="{{ createAssetUrl('images/dummy/ola-small.png') }}">{{ getUsername() }} <span class="caret"></span>
@@ -34,6 +37,7 @@
                     </ul>
                 </li>
                 <li ng-hide="user.isAuthenticated"><a class="hidden-xs" ng-href=" {{ createUrl('/login') }}" i18n="navbar:login|html">Login</a></li>
+                -->
             </ul>
         </div>
     </div>

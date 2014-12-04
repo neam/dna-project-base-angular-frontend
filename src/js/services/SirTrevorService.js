@@ -7,7 +7,63 @@ function(
     NavigationService,
     ApiService
 ) {
+    var cmsItemTypes = [
+        'download_link',
+        'html_chunk',
+        'video_file'
+    ];
+
     var service = {
+        /**
+         * Checks if a block is a CMS item.
+         * @param {} block
+         * @returns {boolean}
+         */
+        isCmsItem: function(block) {
+            return angular.isDefined(block) && _.contains(cmsItemTypes, block.type);
+        },
+
+        /**
+         * Checks if a CMS item is renderable.
+         * @param {} block
+         * @returns {boolean}
+         */
+        isCmsItemRenderable: function(block) {
+            return this.isCmsItem(block)
+                && angular.isDefined(block.data)
+                && angular.isDefined(block.data.attributes);
+        },
+
+        /**
+         * Checks if a block is renderable.
+         * @param {} block
+         * @returns {boolean}
+         */
+        isRenderable: function(block) {
+            var self = this;
+
+            if (block.type === 'download_links') {
+                // TODO: Get rid of this.
+                return (angular.isDefined(block.data)
+                    && angular.isDefined(block.data.download_links)
+                    && angular.isDefined(block.data.download_links[0])
+                    && angular.isDefined(block.data.download_links[0].data)
+                    && angular.isDefined(block.data.download_links[0].data.attributes))
+                    ||
+                    (angular.isDefined(block.data)
+                    && angular.isDefined(block.data.children)
+                    && angular.isDefined(block.data.children[0])
+                    && angular.isDefined(block.data.children[0].data)
+                    && angular.isDefined(block.data.children[0].data.attributes));
+            }
+
+            if (this.isCmsItem(block)) {
+                return self.isCmsItemRenderable(block);
+            } else {
+                return true; // TODO: Add conditions for rendering regular blocks.
+            }
+        },
+
         /**
          * Renders a text block and returns the HTML.
          * @param {} block
@@ -147,7 +203,7 @@ function(
                 // Multiple download links
                 html += block.data.title;
                 html += '<ul>';
-                angular.forEach(block.data.download_links, function(link) {
+                angular.forEach(block.data.children, function(link) {
                     html += '<li><a href="{{url}}">{{title}}</a></li>'
                         .replace('{{url}}', link.url)
                         .replace('{{title}}', link.title);
@@ -156,8 +212,8 @@ function(
             } else {
                 // Single link
                 html += html += '<a href="{{url}}">{{title}}</a>'
-                    .replace('{{url}}', block.data.download_links[0].url)
-                    .replace('{{title}}', block.data.download_links[0].title);
+                    .replace('{{url}}', block.data.children[0].url)
+                    .replace('{{title}}', block.data.children[0].title);
             }
 
             return html;
@@ -282,7 +338,21 @@ function(
          * @returns {string} HTML
          */
         render: function(block) {
-            return this.getRenderer(block.type)(block);
+            if (this.isRenderable(block)) {
+                return this.getRenderer(block.type)(block);
+            } else {
+                return '';
+            }
+        },
+
+        /**
+         * Creates a link to a related item.
+         * @param {} composition
+         * @returns {string}
+         */
+        createRelatedItemUrl: function(composition) {
+            var identifier = composition.attributes.slug ? composition.attributes.slug : composition.node_id;
+            return NavigationService.createUrl(ApiService.getCompositionItemPathName(composition.attributes.composition_type) + '/' + identifier);
         }
     };
 

@@ -48,7 +48,7 @@
                         <h2 class="heading-4" i18n="item-page:related-heading|html">Related</h2>
                         <ul class="item-list item-list-small">
                             <li class="item-list-item" ng-repeat="relatedItem in item.related">
-                                <a ng-href="{{ createRelatedItemUrl(relatedItem) }}">
+                                <a ng-href="{{ sirTrevor.createRelatedItemUrl(relatedItem) }}">
                                     <img class="item-list-thumbnail" ng-src="{{ relatedItem.attributes.thumb.original }}">
                                     <div class="item-list-info">
                                         <span class="item-list-title">{{ relatedItem.attributes.heading }}</span>
