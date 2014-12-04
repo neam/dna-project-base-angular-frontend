@@ -42,6 +42,15 @@ function(
         isRenderable: function(block) {
             var self = this;
 
+            if (block.type === 'download_links') {
+                // TODO: Get rid of this.
+                return angular.isDefined(block.data)
+                    && angular.isDefined(block.data.download_links)
+                    && angular.isDefined(block.data.download_links[0])
+                    && angular.isDefined(block.data.download_links[0].data)
+                    && angular.isDefined(block.data.download_links[0].data.attributes)
+            }
+
             if (this.isCmsItem(block)) {
                 return self.isCmsItemRenderable(block);
             } else {
