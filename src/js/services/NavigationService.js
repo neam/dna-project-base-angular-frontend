@@ -1,7 +1,7 @@
 angular.module('Gapminder').factory('NavigationService', [
     '$location',
     '$rootScope',
-    '$route',
+    '$injector',
     '$sce',
     'Utils',
     'i18nService',
@@ -10,7 +10,7 @@ angular.module('Gapminder').factory('NavigationService', [
 function(
     $location,
     $rootScope,
-    $route,
+    $injector,
     $sce,
     Utils,
     i18nService,
@@ -32,6 +32,11 @@ function(
          * @returns {string}
          */
         createUrl: function(route) {
+            // Return absolute URLs as is
+            if (_.contains(route, '://')) {
+                return route;
+            }
+
             route = Utils.ensureLeadingSlash(route);
             return html5Mode ? route : '#' + route;
         },
@@ -91,7 +96,7 @@ function(
          */
         setTranslatedPageTitle: function(i18nKey, fallback) {
             var i18nString = 'page-title:{key}'.replace('{key}', i18nKey),
-                translation = i18nService.translate(i18nString, fallback);
+                translation = i18nService.translate(i18nString, {}, fallback);
 
             this.setPageTitle(translation);
         },
@@ -101,9 +106,10 @@ function(
          * @returns {Array}
          */
         getValidRoutes: function() {
-            var validRoutes = [];
+            var routes = $injector.get('$route').routes, // directly injecting $route into this service causes unit tests to fail
+                validRoutes = [];
 
-            _.forEach($route.routes, function(route, path) {
+            _.forEach(routes, function(route, path) {
                 var path = path.split('/')[1];
 
                 if (angular.isDefined(path) && !_.contains(validRoutes, path) && path.length > 0) {
@@ -133,11 +139,16 @@ function(
                 ? $location.$$absUrl.split(firstPathTerm)[0]
                 : $location.$$absUrl; // no route params
 
-            baseRoute = route
-                .replace($location.$$protocol + '://', '') // strip protocol
-                .replace($location.$$host, '') // strip host
-                .replace(':' + $location.$$port, '') // strip port
-                .replace('/#', ''); // strip hashbang
+            baseRoute = route.replace($location.$$protocol + '://', ''); // strip protocol
+            baseRoute = baseRoute.replace($location.$$host, ''); // strip host
+            baseRoute = baseRoute.replace(':' + $location.$$port, ''); // strip port
+            baseRoute = baseRoute.replace('/#', ''); // strip hashbang
+
+            if ($location.$$path !== '/') {
+                baseRoute = baseRoute.replace($location.$$path, ''); // strip path
+            }
+
+            baseRoute = Utils.ensureTrailingSlash(baseRoute);
 
             return baseRoute;
         }

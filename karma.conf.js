@@ -12,6 +12,7 @@ module.exports = function (config) {
             'dist/assets/js/vendor.js',
             'vendor/angular-mocks/angular-mocks.js',
             'dist/assets/js/main.js',
+            'dist/templates/**/*.html',
             'tests/unit/_config.js',
             'tests/unit/**/*.js'
         ],
@@ -20,9 +21,15 @@ module.exports = function (config) {
         exclude: [
         ],
 
+        // ng-html2js
+        ngHtml2JsPreprocessor: {
+            stripPrefix: 'dist/'
+        },
+
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
+            'dist/templates/**/*.html': ['ng-html2js']
         },
 
         // test results reporter to use
@@ -45,7 +52,7 @@ module.exports = function (config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits

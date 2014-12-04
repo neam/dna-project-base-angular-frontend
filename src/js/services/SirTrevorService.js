@@ -1,5 +1,69 @@
-angular.module('Gapminder').factory('SirTrevorService', ['$location', function($location) {
+angular.module('Gapminder').factory('SirTrevorService', [
+    '$location',
+    'NavigationService',
+    'ApiService',
+function(
+    $location,
+    NavigationService,
+    ApiService
+) {
+    var cmsItemTypes = [
+        'download_link',
+        'html_chunk',
+        'video_file'
+    ];
+
     var service = {
+        /**
+         * Checks if a block is a CMS item.
+         * @param {} block
+         * @returns {boolean}
+         */
+        isCmsItem: function(block) {
+            return angular.isDefined(block) && _.contains(cmsItemTypes, block.type);
+        },
+
+        /**
+         * Checks if a CMS item is renderable.
+         * @param {} block
+         * @returns {boolean}
+         */
+        isCmsItemRenderable: function(block) {
+            return this.isCmsItem(block)
+                && angular.isDefined(block.data)
+                && angular.isDefined(block.data.attributes);
+        },
+
+        /**
+         * Checks if a block is renderable.
+         * @param {} block
+         * @returns {boolean}
+         */
+        isRenderable: function(block) {
+            var self = this;
+
+            if (block.type === 'download_links') {
+                // TODO: Get rid of this.
+                return (angular.isDefined(block.data)
+                    && angular.isDefined(block.data.download_links)
+                    && angular.isDefined(block.data.download_links[0])
+                    && angular.isDefined(block.data.download_links[0].data)
+                    && angular.isDefined(block.data.download_links[0].data.attributes))
+                    ||
+                    (angular.isDefined(block.data)
+                    && angular.isDefined(block.data.children)
+                    && angular.isDefined(block.data.children[0])
+                    && angular.isDefined(block.data.children[0].data)
+                    && angular.isDefined(block.data.children[0].data.attributes));
+            }
+
+            if (this.isCmsItem(block)) {
+                return self.isCmsItemRenderable(block);
+            } else {
+                return true; // TODO: Add conditions for rendering regular blocks.
+            }
+        },
+
         /**
          * Renders a text block and returns the HTML.
          * @param {} block
@@ -121,7 +185,7 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
 
             // Replace placeholders
             html = html.replace('{{link_url}}', block.data.link_url);
-            html = html.replace('{{image_url}}', block.data.image_url);
+            html = html.replace('{{image_url}}', block.data.file.url);
             html = html.replace('{{title}}', block.data.title);
 
             return html;
@@ -135,11 +199,11 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
         renderDownloadLinks: function(block) {
             var html = '';
 
-            if (block.data.links.length > 1) {
+            if (block.data.download_links.length > 1) {
                 // Multiple download links
                 html += block.data.title;
                 html += '<ul>';
-                angular.forEach(block.data.links, function(link) {
+                angular.forEach(block.data.children, function(link) {
                     html += '<li><a href="{{url}}">{{title}}</a></li>'
                         .replace('{{url}}', link.url)
                         .replace('{{title}}', link.title);
@@ -148,8 +212,99 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
             } else {
                 // Single link
                 html += html += '<a href="{{url}}">{{title}}</a>'
-                    .replace('{{url}}', block.data.links[0].url)
-                    .replace('{{title}}', block.data.links[0].title);
+                    .replace('{{url}}', block.data.children[0].url)
+                    .replace('{{title}}', block.data.children[0].title);
+            }
+
+            return html;
+        },
+
+        /**
+         * Renders an item list.
+         * @param {} block
+         * @returns {string}
+         */
+        renderItemList: function(block) {
+            var html = '<ul class="item-list">';
+
+            angular.forEach(block.data, function(item) {
+                var itemHtml = '',
+                    url = NavigationService.createUrl(ApiService.getCompositionItemPathName(item.composition_type) + '/' + item.node_id);
+
+                itemHtml += '<li class="item-list-item">';
+                itemHtml += '<a ng-href="{{ url }}">'.replace('{{ url }}', url);
+                itemHtml += '<img src="{{ thumb }}" class="item-list-thumbnail">'.replace('{{ thumb }}', item.thumb);
+                itemHtml += '<div class="item-list-info">';
+                itemHtml += '<span class="item-list-title">{{ heading }}</span>'.replace('{{ heading }}', item.heading);
+                itemHtml += '<span class="item-list-subheading">{{ subheading }}</span>'.replace('{{ subheading }}', item.subheading);
+                itemHtml += '</div>';
+                itemHtml += '</a>';
+                itemHtml += '</li>';
+
+                html += itemHtml;
+            });
+
+            html += '</ul>';
+
+            return html;
+        },
+
+        /**
+         * Renders an html_chunk block.
+         * @param {} block
+         * @returns {string}
+         */
+        renderHtmlChunk: function(block) {
+            var html = '';
+
+            if (angular.isDefined(block.data.attributes)) {
+                html += block.data.attributes.markup;
+            }
+
+            return html;
+        },
+
+        /**
+         * Renders a download_link block.
+         * @param {} block
+         * @returns {string}
+         */
+        renderDownloadLink: function(block) {
+            var html = '';
+
+            if (angular.isDefined(block.data.attributes)) {
+                html += '<a href="{{ url }}">{{ label }}</a>'
+                    .replace('{{ url }}', block.data.attributes.url)
+                    .replace('{{ label }}', block.data.attributes.title);
+            }
+
+            return html;
+        },
+
+        /**
+         * Renders a video_file block.
+         * @param {} block
+         */
+        renderVideoFile: function(block) {
+            var html = '';
+
+            if (angular.isDefined(block.data.attributes)) {
+                html += '<video width="640">';
+                html += '<source type="video/mp4" src="{{ url }}">'.replace('{{ url }}', block.data.attributes.url_mp4);
+                html += '<source type="video/webm" src="{{ url }}">'.replace('{{ url }}', block.data.attributes.url_webm);
+                html += '<track kind="subtitles" src="{{ url }}" srclang="en">'.replace('{{ url }}', ApiService.getApiUrl(block.data.attributes.url_subtitles));
+                html += '<object width="640" height="360" type="application/x-shockwave-flash" data="vendor/mediaelement/build/flashmediaelement.swf"></object>';
+                html += '<param name="movie" value="vendor/mediaelement/build/flashmediaelement.swf">';
+                html += '<param name="flashvars" value="controls=true&file={{ url }}">'.replace('{{ url }}', block.data.attributes.url_mp4);
+                html += '<img src="{{ url }}" width="640" height="360" title="No video playback capabilities">'.replace('{{ url }}', block.data.attributes.thumbnail);
+                html += '</object>';
+                html += '</video>';
+
+                // TODO: YouTube
+
+                setTimeout(function() {
+                    angular.element('video').mediaelementplayer(); // TODO: Initialize player without this hack.
+                }, 1000);
             }
 
             return html;
@@ -183,7 +338,21 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
          * @returns {string} HTML
          */
         render: function(block) {
-            return this.getRenderer(block.type)(block);
+            if (this.isRenderable(block)) {
+                return this.getRenderer(block.type)(block);
+            } else {
+                return '';
+            }
+        },
+
+        /**
+         * Creates a link to a related item.
+         * @param {} composition
+         * @returns {string}
+         */
+        createRelatedItemUrl: function(composition) {
+            var identifier = composition.attributes.slug ? composition.attributes.slug : composition.node_id;
+            return NavigationService.createUrl(ApiService.getCompositionItemPathName(composition.attributes.composition_type) + '/' + identifier);
         }
     };
 
@@ -201,7 +370,13 @@ angular.module('Gapminder').factory('SirTrevorService', ['$location', function($
         about: service.renderAbout,
         html: service.renderHtml,
         linked_image: service.renderLinkedImage,
-        download_links: service.renderDownloadLinks
+        download_links: service.renderDownloadLinks,
+        item_list: service.renderItemList,
+
+        // CMS item blocks
+        html_chunk: service.renderHtmlChunk,
+        download_link: service.renderDownloadLink
+        //video_file: service.renderVideoFile // TODO: Finish up renderer.
     };
 
     return service;

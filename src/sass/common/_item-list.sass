@@ -1,0 +1,51 @@
+.item-list
+  list-style: none
+  margin: 0
+  padding: 0
+
+  &.item-list-small
+    .item-list-title
+      font-size: 18px
+
+    .item-list-subheading
+      font-size: 14px
+
+  .item-list-item
+    display: block
+    margin-bottom: 20px
+
+    &:last-child
+      margin-bottom: 0
+
+  .item-list-thumbnail
+    width: 160px
+    height: auto
+
+    +respond-to(tablet-landscape)
+      width: 120px
+
+  .item-list-info
+    display: inline-block
+    line-height: 1.2
+    padding-right: 15px
+    position: absolute
+    margin-left: 20px
+
+  .item-list-title
+    color: $text-color
+    display: block
+    font-family: $bariol-regular-font-family
+    font-size: 23px
+    margin-bottom: 5px
+
+    +respond-to(tablet-landscape)
+      font-size: 15px
+
+  .item-list-subheading
+    color: $gray-light
+    display: block
+    font-size: 18px
+    font-style: italic
+
+    +respond-to(tablet-landscape)
+      font-size: 11px

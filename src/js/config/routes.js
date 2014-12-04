@@ -36,19 +36,29 @@ function(
 
     // Register routes
     angular.forEach(routes, function(route) {
-        $routeProvider
-            .when(route.path, {
-                templateUrl: routeTemplateBasePath + route.templateFile,
-                layout: typeof route.layout !== 'undefined' ? route.layout : 'layout-regular',
-                controller: route.controller,
-                access: route.access,
-                resolve: {
-                    // Always make sure i18n is initialized
-                    i18n: ['i18nService', function(i18nService) {
-                        return i18nService.init();
-                    }]
-                }
-            })
-            .otherwise({templateUrl: routeTemplateBasePath + '404.html'});
+        $routeProvider.when(route.path, {
+            templateUrl: routeTemplateBasePath + route.templateFile,
+            layout: typeof route.layout !== 'undefined' ? route.layout : 'layout-regular',
+            controller: route.controller,
+            access: route.access,
+            resolve: {
+                // Always make sure i18n is initialized
+                i18n: ['i18nService', function(i18nService) {
+                    return i18nService.init();
+                }]
+            }
+        });
+    });
+
+    $routeProvider.otherwise({
+        templateUrl: routeTemplateBasePath + 'custom-page.html',
+        controller: 'CustomPageCtrl',
+        access: {requiredLogin: false},
+        resolve: {
+            // Always make sure i18n is initialized
+            i18n: ['i18nService', function(i18nService) {
+                return i18nService.init();
+            }]
+        }
     });
 }]);

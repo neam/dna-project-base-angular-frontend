@@ -1,4 +1,4 @@
-describe('locale', function() {
+describe('LocaleService', function() {
     var $rootScope,
         $controller,
         $httpBackend,
@@ -30,6 +30,7 @@ describe('locale', function() {
     afterEach(function() {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
+        LocaleService.setCurrentLocale('en_us');
     });
 
     it('should load locale options', function() {

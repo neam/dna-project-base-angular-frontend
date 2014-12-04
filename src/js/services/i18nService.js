@@ -57,7 +57,7 @@ function(
          */
         translate: function(i18nextString, options, fallback) {
             var translation = $window.i18n.t(i18nextString, options);
-            return translation === i18nextString ? fallback : translation;
+            return translation === i18nextString || _.isEmpty(translation) ? fallback : translation;
         }
     };
 

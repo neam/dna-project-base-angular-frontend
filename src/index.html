@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:ng="http://angularjs.org" ng-app="Gapminder" lang="{{ locale.getCurrentLocale() }}" dir="{{ locale.getTextDirection() }}">
 <head>
-    <title ng-bind="pageTitle + ' - Gapminder'"></title>
+    <title ng-bind="getPageTitle()"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
     <link rel="stylesheet" href="<%- assetUrl %>assets/css/main.css">
@@ -9,7 +9,8 @@
 </head>
 <body ng-controller="MainCtrl" class="{{ layout }}" ng-init="init()" ng-show="load.pageFullyLoaded()" ng-cloak>
     <div ng-include="createTemplateUrl('/partials/navbar.html')"></div>
-    <div ng-view class="page"></div>
+    <div ng-view class="page" ng-hide="pageNotFound"></div>
+    <div ng-show="pageNotFound" ng-include="createTemplateUrl('/partials/404.html')"></div>
     <footer ng-include="createTemplateUrl('/partials/footer.html')"></footer>
     <script src="<%- assetUrl %>assets/js/vendor.js"></script>
     <script src="<%- assetUrl %>assets/js/main.js"></script>
@@ -19,6 +20,18 @@
             .constant('baseApiUrl', '<%- baseApiUrl %>')
             .constant('assetUrl', '<%- assetUrl %>')
             .constant('html5Mode', <%- html5Mode %>);
+    </script>
+    <script>
+        (function() {
+            // Google Custom Search
+            var cx = '011760643686675649438:usn4ikfmofa';
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+        })();
     </script>
 </body>
 </html>

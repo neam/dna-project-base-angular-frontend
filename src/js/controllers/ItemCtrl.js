@@ -6,6 +6,7 @@ angular.module('Gapminder').controller('ItemCtrl', [
     'ApiService',
     'NavigationService',
     'i18nService',
+    'SirTrevorService',
     'Item',
 function(
     $rootScope,
@@ -15,14 +16,17 @@ function(
     ApiService,
     NavigationService,
     i18nService,
+    SirTrevorService,
     Item
 ) {
     var itemUrlParam = NavigationService.getPartOfPath(0);
 
+    $scope.sirTrevor = SirTrevorService;
+
     // Get item
     Item.get({id: $routeParams.id}, function(item) {
         if (validateItemType(item)) {
-            $scope.navigation.setPageTitle(item.heading);
+            NavigationService.setPageTitle(item.attributes.heading);
             $scope.item = item;
             $scope.itemCategory = getItemCategory(itemUrlParam);
         } else {
@@ -36,8 +40,7 @@ function(
      * Process 404 logic.
      */
     function whenItemNotFound() {
-        $rootScope.pageTitle = 'Not Found';
-        $scope.itemNotFound = true;
+        $scope.notFound();
     }
 
     /**
@@ -46,7 +49,7 @@ function(
      * @returns {boolean}
      */
     function validateItemType(item) {
-        return item.composition_type === getItemType(itemUrlParam);
+        return item.attributes.composition_type === getItemType(itemUrlParam);
     }
 
     /**
@@ -56,9 +59,9 @@ function(
      */
     function getItemCategory(urlParam) {
         var paramToItemCategory = {
-            exercises: i18nService.translate('item-category:exercises', 'Exercises'),
-            presentations: i18nService.translate('item-category:presentations', 'Presentations'),
-            qna: i18nService.translate('item-category:qna', 'Questions & Answers')
+            exercises: i18nService.translate('item-category:exercises', {}, 'Exercises'),
+            presentations: i18nService.translate('item-category:presentations', {}, 'Presentations'),
+            qna: i18nService.translate('item-category:qna', {}, 'Questions & Answers')
         };
 
         return angular.isDefined(paramToItemCategory[urlParam]) ? paramToItemCategory[urlParam] : '';
@@ -78,16 +81,6 @@ function(
 
         return angular.isDefined(paramToItemTypeMap[urlParam]) ? paramToItemTypeMap[urlParam] : '';
     }
-
-    /**
-     * Creates a link to a related item.
-     * @param {} composition
-     * @returns {string}
-     */
-    $scope.createRelatedItemUrl = function(composition) {
-        var identifier = composition.slug ? composition.slug : composition.node_id;
-        return ApiService.getCompositionItemPathName(composition.composition_type) + '/' + identifier;
-    };
 
     /**
      * Creates a link to a user profile page.

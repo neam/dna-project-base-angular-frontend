@@ -10,6 +10,8 @@ function(
     UserService
 ) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+        $rootScope.pageNotFound = false;
+
         // Attempt to auto-login
         UserService.autoLogin()
             .finally(function() {
@@ -35,10 +37,8 @@ function(
             // Update page layout
             $rootScope.layout = nextRoute.$$route.layout;
         } else {
-            // 404
-            $rootScope.controller = 'PageNotFoundCtrl';
-            $rootScope.pageTitle = 'Page Not Found';
-            $rootScope.layout = 'layout-minimal';
+            // Custom pages
+            $rootScope.layout = 'layout-regular';
         }
     });
 }]);

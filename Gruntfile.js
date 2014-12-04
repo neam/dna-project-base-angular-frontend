@@ -2,14 +2,15 @@ module.exports = function(grunt) {
     require('jit-grunt')(grunt);
 
     var baseApiUrlDevelopment = grunt.option('api') || 'http://localhost:1338/api',
-        baseApiUrlProduction = grunt.option('api') || 'http://release_pages-dec-1-2014-cms.gapminder.org/api/v1',
-        baseApiUrlStage = grunt.option('api') || 'http://cms.gapminder.org/api/v1', // Mock API: http://cmsext.gapminderdev.org:1338/api
+        baseApiUrlProduction = grunt.option('api') || 'http://cms.gapminder.org/api/v1',
+        baseApiUrlStage = grunt.option('api') || 'http://cms.gapminder.org/api/v1',
         assetUrlDevelopment = grunt.option('assetUrl') || '',
         assetUrlProduction = grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop/master/',
         assetUrlStage = grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop-stage/',
         html5ModeDevelopment = grunt.option('html5Mode') || false,
         html5ModeProduction = grunt.option('html5Mode') || true,
-        html5ModeStage = grunt.option('html5Mode') || false;
+        html5ModeStage = grunt.option('html5Mode') || false,
+        devHttpServerRoot = grunt.option('httpServerRoot') || './dist';
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -17,6 +18,7 @@ module.exports = function(grunt) {
             js: 'src/js',
             sass: 'src/sass',
             src: 'src',
+            tests: 'tests',
             dist: 'dist',
             distAssets: 'dist/assets',
             vendor: 'vendor',
@@ -264,6 +266,19 @@ module.exports = function(grunt) {
                         filter: 'isFile',
                         src: ['fonts/**'],
                         dest: '<%= paths.tmpDist %>/assets/'
+                    },
+                    {
+                        // mediaelementplayer
+                        cwd: '<%= paths.vendor %>/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: [
+                            'mediaelement/build/*.svg',
+                            'mediaelement/build/*.png',
+                            'mediaelement/build/*.gif',
+                            'mediaelement/build/*.swf'
+                        ],
+                        dest: '<%= paths.tmpDist %>/vendor'
                     }
                 ]
             }
@@ -303,8 +318,13 @@ module.exports = function(grunt) {
                 tasks: [
                     'concat:development',
                     'copy:assetsDevelopment',
-                    'sync:main'
+                    'sync:main',
+                    'karma:unit'
                 ]
+            },
+            tests: {
+                files: ['<%= paths.tests %>/**/*.js'],
+                tasks: ['karma:unit']
             },
             templates: {
                 files: [
@@ -336,9 +356,15 @@ module.exports = function(grunt) {
             },
             development: ['watch', 'serve']
         },
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js',
+                browsers: ['PhantomJS']
+            }
+        },
         'http-server': {
             development: {
-                root: './dist',
+                root: devHttpServerRoot,
                 port: 1335,
                 host: '127.0.0.1',
                 cache: 1,
@@ -361,7 +387,8 @@ module.exports = function(grunt) {
         'copy:assetsDevelopment',
         'copy:other',
         'copy:dist',
-        'sync:main'
+        'sync:main',
+        'karma:unit'
     ]);
 
     // Builds the app for production

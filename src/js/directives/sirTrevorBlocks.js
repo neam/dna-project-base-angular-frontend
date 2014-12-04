@@ -13,11 +13,19 @@ angular.module('Gapminder').directive('sirTrevorBlocks', ['$compile', 'SirTrevor
 
                     angular.forEach(scope.blocks, function(block) {
                         if (SirTrevorService.isBlockTypeSupported(block.type)) {
-                            // TODO: Try to get rid of this if-else statement.
+                            // TODO: Try to get rid of these if-else statements.
                             if (block.type === 'about') {
-                                html += '<show-more>';
-                                html += '<div class="item-about">' + scope.about + '</div>';
-                                html += '</show-more>';
+                                if (angular.isDefined(attrs.about)) {
+                                    if (angular.isDefined(attrs.aboutShowMore)) {
+                                        html += '<show-more>';
+                                    }
+
+                                    html += '<div class="item-about">' + scope.about + '</div>';
+
+                                    if (angular.isDefined(attrs.aboutShowMore)) {
+                                        html += '</show-more>';
+                                    }
+                                }
                             } else {
                                 if (block.type === 'slideshare') {
                                     containsSlideShare = true;

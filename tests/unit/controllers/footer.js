@@ -35,6 +35,8 @@ describe('footer', function() {
     });
 
     it('should load footer items', function() {
+        LocaleService.setCurrentLocale('en_us');
+
         $httpBackend.expectGET(ApiService.getApiUrl('/footer/en_us')).respond({
             "en_us": {
                 "socialLinks": [
