@@ -7,7 +7,48 @@ function(
     NavigationService,
     ApiService
 ) {
+    var cmsItemTypes = [
+        'download_link',
+        'html_chunk',
+        'video_file'
+    ];
+
     var service = {
+        /**
+         * Checks if a block is a CMS item.
+         * @param {} block
+         * @returns {boolean}
+         */
+        isCmsItem: function(block) {
+            return angular.isDefined(block) && _.contains(cmsItemTypes, block.type);
+        },
+
+        /**
+         * Checks if a CMS item is renderable.
+         * @param {} block
+         * @returns {boolean}
+         */
+        isCmsItemRenderable: function(block) {
+            return this.isCmsItem(block)
+                && angular.isDefined(block.data)
+                && angular.isDefined(block.data.attributes);
+        },
+
+        /**
+         * Checks if a block is renderable.
+         * @param {} block
+         * @returns {boolean}
+         */
+        isRenderable: function(block) {
+            var self = this;
+
+            if (this.isCmsItem(block)) {
+                return self.isCmsItemRenderable(block);
+            } else {
+                return true; // TODO: Add conditions for rendering regular blocks.
+            }
+        },
+
         /**
          * Renders a text block and returns the HTML.
          * @param {} block
@@ -282,7 +323,11 @@ function(
          * @returns {string} HTML
          */
         render: function(block) {
-            return this.getRenderer(block.type)(block);
+            if (this.isRenderable(block)) {
+                return this.getRenderer(block.type)(block);
+            } else {
+                return '';
+            }
         }
     };
 
