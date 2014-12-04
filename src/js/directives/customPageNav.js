@@ -16,7 +16,9 @@ function(
         },
         controller: ['$scope', function($scope) {
             $rootScope.$on('customPageLoadSuccess', function(event, item) {
-                MenuService.buildTree(MenuService.type.ROOT_PAGE, item.root_page);
+                if (angular.isDefined(item.root_page)) {
+                    MenuService.buildTree(MenuService.type.ROOT_PAGE, item.root_page);
+                }
 
                 MenuService.getChildrenOfCurrentRootPageItem()
                     .then(function(children) {
