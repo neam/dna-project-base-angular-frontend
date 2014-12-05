@@ -31,7 +31,16 @@ function(
         {path: '/presentations/', templateFile: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}},
         {path: '/presentations/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
         {path: '/qna', templateFile: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}},
-        {path: '/qna/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}}
+        {path: '/qna/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
+
+        // Branch-specific routes
+        {path: '/:dir/:branch/login', templateFile: 'login.html', layout: 'layout-minimal', controller: 'LoginCtrl', access: {requiredLogin: false}},
+        {path: '/:dir/:branch/exercises', templateFile: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}},
+        {path: '/:dir/:branch/exercises/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
+        {path: '/:dir/:branch/presentations/', templateFile: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}},
+        {path: '/:dir/:branch/presentations/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
+        {path: '/:dir/:branch/qna', templateFile: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}},
+        {path: '/:dir/:branch/qna/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}}
     ];
 
     // Register routes
