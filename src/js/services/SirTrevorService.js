@@ -203,7 +203,7 @@ function(
                 // Multiple download links
                 html += block.data.title;
                 html += '<ul>';
-                angular.forEach(block.data.children, function(link) {
+                angular.forEach(block.data.download_links, function(link) {
                     html += '<li><a href="{{url}}">{{title}}</a></li>'
                         .replace('{{url}}', link.url)
                         .replace('{{title}}', link.title);
@@ -212,8 +212,8 @@ function(
             } else {
                 // Single link
                 html += html += '<a href="{{url}}">{{title}}</a>'
-                    .replace('{{url}}', block.data.children[0].url)
-                    .replace('{{title}}', block.data.children[0].title);
+                    .replace('{{url}}', block.data.download_links[0].url)
+                    .replace('{{title}}', block.data.download_links[0].title);
             }
 
             return html;
