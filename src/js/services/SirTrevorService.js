@@ -199,21 +199,16 @@ function(
         renderDownloadLinks: function(block) {
             var html = '';
 
-            if (block.data.download_links.length > 1) {
-                // Multiple download links
-                html += block.data.title;
+            if (angular.isDefined(block.data.download_links)) {
                 html += '<ul>';
                 angular.forEach(block.data.download_links, function(link) {
-                    html += '<li><a href="{{url}}">{{title}}</a></li>'
-                        .replace('{{url}}', link.url)
-                        .replace('{{title}}', link.title);
+                    if (angular.isDefined(link.data.attributes)) {
+                        html += '<li><a href="{{url}}">{{title}}</a></li>'
+                            .replace('{{url}}', link.data.attributes.url)
+                            .replace('{{title}}', link.data.attributes.title);
+                    }
                 });
                 html += '</ul>';
-            } else {
-                // Single link
-                html += html += '<a href="{{url}}">{{title}}</a>'
-                    .replace('{{url}}', block.data.download_links[0].url)
-                    .replace('{{title}}', block.data.download_links[0].title);
             }
 
             return html;
