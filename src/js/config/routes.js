@@ -3,6 +3,7 @@ angular.module('Gapminder').config([
     '$urlRouterProvider',
     '$locationProvider',
     '$sceDelegateProvider',
+    '$urlMatcherFactory',
     'assetUrl',
     'html5Mode',
 function(
@@ -10,6 +11,7 @@ function(
     $urlRouterProvider,
     $locationProvider,
     $sceDelegateProvider,
+    $urlMatcherFactory,
     assetUrl,
     html5Mode
 ) {
@@ -23,6 +25,8 @@ function(
     ]);
 
     var routeTemplateBasePath = assetUrl + 'templates/states/';
+
+    var presentationMatcher = $urlMatcherFactory.compile('/presentations/:id');
 
     // Define states
     var states = [
