@@ -32,7 +32,7 @@ function(
         } else {
             whenItemNotFound();
         }
-    }, function(err) {
+    }, function() {
         whenItemNotFound();
     });
 

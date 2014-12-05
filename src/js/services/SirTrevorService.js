@@ -197,23 +197,29 @@ function(
          * @returns {string}
          */
         renderDownloadLinks: function(block) {
-            var html = '';
+            var html = '',
+                listItems = [];
 
-            if (block.data.download_links.length > 1) {
-                // Multiple download links
-                html += block.data.title;
+            // Create list items
+            if (angular.isDefined(block.data.download_links)) {
+                angular.forEach(block.data.download_links, function(link) {
+                    if (angular.isDefined(link.data.attributes)) {
+                        var li = '<li><a href="{{ url }}">{{ title }}</a></li>'
+                            .replace('{{ url }}', link.data.attributes.url)
+                            .replace('{{ title }}', link.data.attributes.title);
+
+                        listItems.push(li);
+                    }
+                });
+            }
+
+            // Render list items
+            if (listItems.length > 0) {
                 html += '<ul>';
-                angular.forEach(block.data.children, function(link) {
-                    html += '<li><a href="{{url}}">{{title}}</a></li>'
-                        .replace('{{url}}', link.url)
-                        .replace('{{title}}', link.title);
+                angular.forEach(listItems, function(li) {
+                    html += li;
                 });
                 html += '</ul>';
-            } else {
-                // Single link
-                html += html += '<a href="{{url}}">{{title}}</a>'
-                    .replace('{{url}}', block.data.children[0].url)
-                    .replace('{{title}}', block.data.children[0].title);
             }
 
             return html;

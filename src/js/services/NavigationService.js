@@ -76,7 +76,7 @@ function(
          * @returns {string}
          */
         getPartOfPath: function(index) {
-            var path = this.splitPath($location.path());
+            var path = this.splitPath($location.path().replace(this.getBaseRoute(), '/'));
             return angular.isDefined(path[index]) ? path[index] : null;
         },
 
