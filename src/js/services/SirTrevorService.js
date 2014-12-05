@@ -197,16 +197,27 @@ function(
          * @returns {string}
          */
         renderDownloadLinks: function(block) {
-            var html = '';
+            var html = '',
+                listItems = [];
 
+            // Create list items
             if (angular.isDefined(block.data.download_links)) {
-                html += '<ul>';
                 angular.forEach(block.data.download_links, function(link) {
                     if (angular.isDefined(link.data.attributes)) {
-                        html += '<li><a href="{{url}}">{{title}}</a></li>'
-                            .replace('{{url}}', link.data.attributes.url)
-                            .replace('{{title}}', link.data.attributes.title);
+                        var li = '<li><a href="{{ url }}">{{ title }}</a></li>'
+                            .replace('{{ url }}', link.data.attributes.url)
+                            .replace('{{ title }}', link.data.attributes.title);
+
+                        listItems.push(li);
                     }
+                });
+            }
+
+            // Render list items
+            if (listItems.length > 0) {
+                html += '<ul>';
+                angular.forEach(listItems, function(li) {
+                    html += li;
                 });
                 html += '</ul>';
             }
