@@ -1,11 +1,13 @@
 angular.module('Gapminder').config([
-    '$routeProvider',
+    '$stateProvider',
+    '$urlRouterProvider',
     '$locationProvider',
     '$sceDelegateProvider',
     'assetUrl',
     'html5Mode',
 function(
-    $routeProvider,
+    $stateProvider,
+    $urlRouterProvider,
     $locationProvider,
     $sceDelegateProvider,
     assetUrl,
@@ -20,30 +22,23 @@ function(
         'http://static.gapminder.org/**'
     ]);
 
-    var routeTemplateBasePath = assetUrl + 'templates/routes/';
+    var routeTemplateBasePath = assetUrl + 'templates/states/';
 
-    // Define routes
-    var routes = [
-        {path: '/', templateFile: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}},
-        {path: '/login', templateFile: 'login.html', layout: 'layout-minimal', controller: 'LoginCtrl', access: {requiredLogin: false}},
-        {path: '/exercises/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
-        {path: '/presentations/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
-        {path: '/qna/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
-
-        // Branch-specific routes
-        {path: '/:dir/:branch/login', templateFile: 'login.html', layout: 'layout-minimal', controller: 'LoginCtrl', access: {requiredLogin: false}},
-        {path: '/:dir/:branch/exercises/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
-        {path: '/:dir/:branch/presentations/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
-        {path: '/:dir/:branch/qna/:id', templateFile: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}}
+    // Define states
+    var states = [
+        {name: 'home', url: '/', templateUrl: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}},
+        {name: 'item', url: '/item', templateUrl: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
+        {name: 'exercise', url: '/exercises/:id', templateUrl: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
+        {name: 'presentation', url: '/presentations/:id', templateUrl: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
+        {name: 'qna', url: '/qna/:id', templateUrl: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}}
     ];
 
-    // Register routes
-    angular.forEach(routes, function(route) {
-        $routeProvider.when(route.path, {
-            templateUrl: routeTemplateBasePath + route.templateFile,
-            layout: typeof route.layout !== 'undefined' ? route.layout : 'layout-regular',
-            controller: route.controller,
-            access: route.access,
+    angular.forEach(states, function(state) {
+        $stateProvider.state(state.name, {
+            url: state.url,
+            templateUrl: routeTemplateBasePath + state.templateUrl,
+            access: state.access,
+            controller: state.controller,
             resolve: {
                 // Always make sure i18n is initialized
                 i18n: ['i18nService', function(i18nService) {
@@ -53,7 +48,12 @@ function(
         });
     });
 
-    $routeProvider.otherwise({
+    // Handle root
+    $urlRouterProvider.when('', '/');
+
+    // Custom pages
+    $stateProvider.state('customPage', {
+        url: ':id',
         templateUrl: routeTemplateBasePath + 'custom-page.html',
         controller: 'CustomPageCtrl',
         access: {requiredLogin: false},
@@ -63,5 +63,11 @@ function(
                 return i18nService.init();
             }]
         }
+    });
+
+    // Apply custom page state
+    $urlRouterProvider.otherwise(function($injector) {
+        var $state = $injector.get('$state');
+        $state.go('customPage');
     });
 }]);

@@ -1,1 +1,1 @@
-angular.module('Gapminder', ['ngRoute', 'ngResource', 'ngSanitize']);
+angular.module('Gapminder', ['ui.router', 'ngResource', 'ngSanitize']);

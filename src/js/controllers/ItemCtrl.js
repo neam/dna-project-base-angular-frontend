@@ -1,7 +1,7 @@
 angular.module('Gapminder').controller('ItemCtrl', [
     '$rootScope',
     '$scope',
-    '$routeParams',
+    '$stateParams',
     '$location',
     'ApiService',
     'NavigationService',
@@ -11,7 +11,7 @@ angular.module('Gapminder').controller('ItemCtrl', [
 function(
     $rootScope,
     $scope,
-    $routeParams,
+    $stateParams,
     $location,
     ApiService,
     NavigationService,
@@ -24,7 +24,7 @@ function(
     $scope.sirTrevor = SirTrevorService;
 
     // Get item
-    Item.get({id: $routeParams.id}, function(item) {
+    Item.get({id: $stateParams.id}, function(item) {
         if (validateItemType(item)) {
             NavigationService.setPageTitle(item.attributes.heading);
             $scope.item = item;
