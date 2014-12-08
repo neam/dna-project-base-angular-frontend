@@ -7,7 +7,7 @@ angular.module('Gapminder').controller('GoItemCtrl', [
     'NavigationService',
     'i18nService',
     'SirTrevorService',
-    'ItemService',
+    'GoItemService',
 function(
     $rootScope,
     $scope,
@@ -17,13 +17,13 @@ function(
     NavigationService,
     i18nService,
     SirTrevorService,
-    ItemService
+    GoItemService
 ) {
     var itemUrlParam = NavigationService.getPartOfPath(0);
 
     $scope.sirTrevor = SirTrevorService;
 
-    ItemService.init()
+    GoItemService.init()
         .then(function(item) {
             NavigationService.setPageTitle(item.attributes.heading);
             $scope.item = item;

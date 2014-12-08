@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('ItemService', [
+angular.module('Gapminder').factory('GoItemService', [
     '$http',
     '$q',
     '$window',
