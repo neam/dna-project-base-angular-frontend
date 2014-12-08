@@ -27,7 +27,7 @@ function(
         .then(function(item) {
             NavigationService.setPageTitle(item.attributes.heading);
             $scope.item = item;
-            $scope.itemCategory = getItemCategory(itemUrlParam);
+            $scope.itemCategory = item.attributes.composition_type;
         }, function() {
             whenItemNotFound();
         });
@@ -46,21 +46,6 @@ function(
      */
     function validateItemType(item) {
         return item.attributes.composition_type === getItemType(itemUrlParam);
-    }
-
-    /**
-     * Returns an item category by URL param.
-     * @param {string} urlParam (e.g. 'exercises')
-     * @returns {string}
-     */
-    function getItemCategory(urlParam) {
-        var paramToItemCategory = {
-            exercises: i18nService.translate('item-category:exercises', {}, 'Exercises'),
-            presentations: i18nService.translate('item-category:presentations', {}, 'Presentations'),
-            qna: i18nService.translate('item-category:qna', {}, 'Questions & Answers')
-        };
-
-        return angular.isDefined(paramToItemCategory[urlParam]) ? paramToItemCategory[urlParam] : '';
     }
 
     /**
@@ -84,7 +69,6 @@ function(
      * @returns {string}
      */
     $scope.createUserProfileUrl = function(userId) {
-        // TODO: Use a real profile URL or make it configurable per environment.
         return 'http://www.gapminder.org/profiles/' + userId;
     };
 }]);

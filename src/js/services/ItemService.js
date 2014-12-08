@@ -27,7 +27,7 @@ function(
                 fullRoute = $location.$$path.replace(NavigationService.getBaseRoute(), '/'),
                 route = this.getItemRoute(fullRoute);
 
-            this.loadItem(route).then(function(page) {
+            this.loadItemByRoute(route).then(function(page) {
                 item = page;
                 dfd.resolve(page);
             }, function(err) {
@@ -75,7 +75,7 @@ function(
          * @param {string} route
          * @returns {Deferred.promise}
          */
-        loadItem: function(route) {
+        loadItemByRoute: function(route) {
             var dfd = $q.defer(),
                 apiUrl = this.getPageApiUrl(route);
 

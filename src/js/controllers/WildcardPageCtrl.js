@@ -15,11 +15,10 @@ function(
     NavigationService,
     SirTrevorService
 ) {
-    var routePath = $location.$$path;
-
     $scope.sirTrevor = SirTrevorService;
 
-    WildcardPageService.init(routePath)
+    // Load item
+    WildcardPageService.init()
         .then(function(item) {
             NavigationService.setPageTitle(item.attributes.heading);
             $scope.item = item;
@@ -39,5 +38,14 @@ function(
         } else {
             return NavigationService.createTemplateUrl('/states/custom-page.html');
         }
+    };
+
+    /**
+     * Creates a link to a user profile page.
+     * @param {number} userId
+     * @returns {string}
+     */
+    $scope.createUserProfileUrl = function(userId) {
+        return 'http://www.gapminder.org/profiles/' + userId;
     };
 }]);

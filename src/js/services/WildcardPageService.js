@@ -2,11 +2,13 @@ angular.module('Gapminder').factory('WildcardPageService', [
     '$q',
     '$http',
     '$window',
+    '$location',
     'ApiService',
 function(
     $q,
     $http,
     $window,
+    $location,
     ApiService
 ) {
     var item;
@@ -14,13 +16,13 @@ function(
     return {
         /**
          * Initializes the service.
-         * @param {string} route
          * @returns {Deferred.promise}
          */
-        init: function(route) {
-            var dfd = $q.defer();
+        init: function() {
+            var dfd = $q.defer(),
+                itemRoute = $location.$$path;
 
-            this.loadPage(route).then(function(page) {
+            this.loadItemByRoute(itemRoute).then(function(page) {
                 item = page;
                 dfd.resolve(page);
             }, function(err) {
@@ -48,11 +50,11 @@ function(
         },
 
         /**
-         * Loads a page item by route (ID).
+         * Loads an item by route (ID).
          * @param {string} route
          * @returns {Deferred.promise}
          */
-        loadPage: function(route) {
+        loadItemByRoute: function(route) {
             var dfd = $q.defer(),
                 apiUrl = this.getPageApiUrl(route);
 
