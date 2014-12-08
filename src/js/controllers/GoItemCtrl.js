@@ -1,4 +1,4 @@
-angular.module('Gapminder').controller('ItemCtrl', [
+angular.module('Gapminder').controller('GoItemCtrl', [
     '$rootScope',
     '$scope',
     '$stateParams',

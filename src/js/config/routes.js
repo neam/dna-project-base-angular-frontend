@@ -27,10 +27,10 @@ function(
     // Define states
     var states = [
         {name: 'home', url: '/', templateUrl: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}},
-        {name: 'item', url: '/item', templateUrl: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
-        {name: 'exercise', url: '/exercises/:id', templateUrl: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
-        {name: 'presentation', url: '/presentations/:id', templateUrl: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
-        {name: 'qna', url: '/qna/:id', templateUrl: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}}
+        {name: 'item', url: '/item', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}},
+        {name: 'exercise', url: '/exercises/:id', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}},
+        {name: 'presentation', url: '/presentations/:id', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}},
+        {name: 'qna', url: '/qna/:id', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}}
     ];
 
     angular.forEach(states, function(state) {
@@ -54,7 +54,7 @@ function(
     // Custom pages
     $stateProvider.state('customPage', {
         url: ':id',
-        templateUrl: routeTemplateBasePath + 'custom-page.html',
+        templateUrl: routeTemplateBasePath + 'item.html',
         controller: 'CustomPageCtrl',
         access: {requiredLogin: false},
         resolve: {
