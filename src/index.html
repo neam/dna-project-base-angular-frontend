@@ -9,7 +9,7 @@
 </head>
 <body ng-controller="MainCtrl" class="{{ layout }}" ng-init="init()" ng-show="load.pageFullyLoaded()" ng-cloak>
     <div ng-include="createTemplateUrl('/partials/navbar.html')"></div>
-    <div ng-view class="page" ng-hide="pageNotFound"></div>
+    <div ui-view class="page" ng-hide="pageNotFound"></div>
     <div ng-show="pageNotFound" ng-include="createTemplateUrl('/partials/404.html')"></div>
     <footer ng-include="createTemplateUrl('/partials/footer.html')"></footer>
     <script src="<%- assetUrl %>assets/js/vendor.js"></script>

@@ -106,14 +106,16 @@ function(
          * @returns {Array}
          */
         getValidRoutes: function() {
-            var routes = $injector.get('$route').routes, // directly injecting $route into this service causes unit tests to fail
+            var states = $injector.get('$state').get(),
                 validRoutes = [];
 
-            _.forEach(routes, function(route, path) {
-                var path = path.split('/')[1];
+            _.forEach(states, function(state) {
+                if (angular.isDefined(state.url)) {
+                    var path = state.url.split('/')[1];
 
-                if (angular.isDefined(path) && !_.contains(validRoutes, path) && path.length > 0) {
-                    validRoutes.push(path);
+                    if (angular.isDefined(path) && !_.contains(validRoutes, path) && path.length > 0) {
+                        validRoutes.push(path);
+                    }
                 }
             });
 
