@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('CustomPageService', [
+angular.module('Gapminder').factory('WildcardPageService', [
     '$q',
     '$http',
     '$window',

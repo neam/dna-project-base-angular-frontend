@@ -1,9 +1,9 @@
-angular.module('Gapminder').controller('CustomPageCtrl', [
+angular.module('Gapminder').controller('WildcardPageCtrl', [
     '$scope',
     '$rootScope',
     '$location',
     'Utils',
-    'CustomPageService',
+    'WildcardPageService',
     'NavigationService',
     'SirTrevorService',
 function(
@@ -11,7 +11,7 @@ function(
     $rootScope,
     $location,
     Utils,
-    CustomPageService,
+    WildcardPageService,
     NavigationService,
     SirTrevorService
 ) {
@@ -19,11 +19,11 @@ function(
 
     $scope.sirTrevor = SirTrevorService;
 
-    CustomPageService.init(routePath)
+    WildcardPageService.init(routePath)
         .then(function(item) {
             NavigationService.setPageTitle(item.attributes.heading);
             $scope.item = item;
-            $rootScope.$broadcast('customPageLoadSuccess', item);
+            $rootScope.$broadcast('wildcardPageLoadSuccess', item);
         }, function() {
             $scope.notFound();
         });

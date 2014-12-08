@@ -52,10 +52,10 @@ function(
     $urlRouterProvider.when('', '/');
 
     // Custom pages
-    $stateProvider.state('customPage', {
+    $stateProvider.state('wildcardPage', {
         url: ':id',
-        templateUrl: routeTemplateBasePath + 'item.html',
-        controller: 'CustomPageCtrl',
+        templateUrl: routeTemplateBasePath + 'wildcard-page.html',
+        controller: 'WildcardPageCtrl',
         access: {requiredLogin: false},
         resolve: {
             // Always make sure i18n is initialized
@@ -68,6 +68,6 @@ function(
     // Apply custom page state
     $urlRouterProvider.otherwise(function($injector) {
         var $state = $injector.get('$state');
-        $state.go('customPage');
+        $state.go('wildcardPage');
     });
 }]);
