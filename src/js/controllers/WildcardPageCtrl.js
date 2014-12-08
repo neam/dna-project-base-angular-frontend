@@ -23,6 +23,7 @@ function(
         .then(function(item) {
             NavigationService.setPageTitle(item.attributes.heading);
             $scope.item = item;
+            $scope.itemCategory = item.attributes.composition_type;
             $rootScope.$broadcast('wildcardPageLoadSuccess', item);
         }, function() {
             $scope.notFound();
