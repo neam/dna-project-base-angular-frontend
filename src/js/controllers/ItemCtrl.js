@@ -7,7 +7,7 @@ angular.module('Gapminder').controller('ItemCtrl', [
     'NavigationService',
     'i18nService',
     'SirTrevorService',
-    'Item',
+    'ItemService',
 function(
     $rootScope,
     $scope,
@@ -17,24 +17,20 @@ function(
     NavigationService,
     i18nService,
     SirTrevorService,
-    Item
+    ItemService
 ) {
     var itemUrlParam = NavigationService.getPartOfPath(0);
 
     $scope.sirTrevor = SirTrevorService;
 
-    // Get item
-    Item.get({id: $stateParams.id}, function(item) {
-        if (validateItemType(item)) {
+    ItemService.init()
+        .then(function(item) {
             NavigationService.setPageTitle(item.attributes.heading);
             $scope.item = item;
             $scope.itemCategory = getItemCategory(itemUrlParam);
-        } else {
+        }, function() {
             whenItemNotFound();
-        }
-    }, function() {
-        whenItemNotFound();
-    });
+        });
 
     /**
      * Process 404 logic.
