@@ -6,6 +6,10 @@ angular.module('Gapminder').factory('Utils', [function() {
          * @returns {string}
          */
         stripLeadingSlash: function(str) {
+            if (_.isNumber(str)) {
+                str = str.toString();
+            }
+
             if (str.charAt(0) === '/') {
                 str = str.replace(/^\//, '');
             }
@@ -19,6 +23,10 @@ angular.module('Gapminder').factory('Utils', [function() {
          * @returns {string}
          */
         stripTrailingSlash: function(str) {
+            if (_.isNumber(str)) {
+                str = str.toString();
+            }
+
             var lastCharPos = str.length - 1;
 
             if (str.charAt(lastCharPos) === '/') {
@@ -34,6 +42,10 @@ angular.module('Gapminder').factory('Utils', [function() {
          * @returns {string}
          */
         ensureLeadingSlash: function(str) {
+            if (_.isNumber(str)) {
+                str = str.toString();
+            }
+
             if (str.charAt(0) !== '/') {
                 str = '/' + str;
             }
@@ -47,6 +59,10 @@ angular.module('Gapminder').factory('Utils', [function() {
          * @returns {string}
          */
         ensureTrailingSlash: function(str) {
+            if (_.isNumber(str)) {
+                str = str.toString();
+            }
+
             var lastCharPos = str.length - 1;
 
             if (str.charAt(lastCharPos) !== '/') {

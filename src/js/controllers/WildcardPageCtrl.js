@@ -3,7 +3,7 @@ angular.module('Gapminder').controller('WildcardPageCtrl', [
     '$rootScope',
     '$location',
     'Utils',
-    'WildcardPageService',
+    'ItemService',
     'NavigationService',
     'SirTrevorService',
 function(
@@ -11,14 +11,13 @@ function(
     $rootScope,
     $location,
     Utils,
-    WildcardPageService,
+    ItemService,
     NavigationService,
     SirTrevorService
 ) {
     $scope.sirTrevor = SirTrevorService;
 
-    // Load item
-    WildcardPageService.init()
+    ItemService.loadItem()
         .then(function(item) {
             NavigationService.setPageTitle(item.attributes.heading);
             $scope.item = item;
@@ -38,14 +37,5 @@ function(
         } else {
             return NavigationService.createTemplateUrl('/states/custom-page.html');
         }
-    };
-
-    /**
-     * Creates a link to a user profile page.
-     * @param {number} userId
-     * @returns {string}
-     */
-    $scope.createUserProfileUrl = function(userId) {
-        return 'http://www.gapminder.org/profiles/' + userId;
     };
 }]);
