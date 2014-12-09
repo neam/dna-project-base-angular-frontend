@@ -27,6 +27,7 @@ function(
     // Define states
     var states = [
         {name: 'home', url: '/', templateUrl: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}},
+        {name: 'login', url: '/login', templateUrl: 'login.html', layout: 'layout-minimal', controller: 'LoginCtrl', access: {requiredLogin: false}},
         {name: 'item', url: '/item', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}},
         {name: 'exercise', url: '/exercises/:id', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}},
         {name: 'presentation', url: '/presentations/:id', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}},
@@ -37,6 +38,7 @@ function(
         $stateProvider.state(state.name, {
             url: state.url,
             templateUrl: routeTemplateBasePath + state.templateUrl,
+            layout: state.layout || 'layout-regular',
             access: state.access,
             controller: state.controller,
             resolve: {
