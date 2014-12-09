@@ -123,6 +123,24 @@ function(
         },
 
         /**
+         * Checks if the current route matches a route definition (e.g. '/exercises/*', '/presentations/*').
+         * @returns {boolean}
+         */
+        isValidRoute: function() {
+            var self = this,
+                currentRouteParts = this.getCurrentRoute().split('/'),
+                isValid = false;
+
+            angular.forEach(self.getValidRoutes(), function(validRoute) {
+                if (_.contains(currentRouteParts, validRoute)) {
+                    isValid = true;
+                }
+            });
+
+            return isValid;
+        },
+
+        /**
          * Returns the base route.
          * @returns {string}
          */
@@ -153,6 +171,14 @@ function(
             baseRoute = Utils.ensureTrailingSlash(baseRoute);
 
             return baseRoute;
+        },
+
+        /**
+         * Returns the current route without the base route.
+         * @returns {string}
+         */
+        getCurrentRoute: function() {
+            return $location.$$path.replace(this.getBaseRoute(), '/');
         }
     }
 }]);

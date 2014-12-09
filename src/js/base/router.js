@@ -9,16 +9,16 @@ function(
     $window,
     UserService
 ) {
-    $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
         $rootScope.pageNotFound = false;
 
         // Attempt to auto-login
         UserService.autoLogin()
             .finally(function() {
                 // Redirect to login if login required and not logged in
-                if (nextRoute !== null
-                    && nextRoute.access !== null
-                    && nextRoute.access.requiredLogin
+                if (toState !== null
+                    && toState.access !== null
+                    && toState.access.requiredLogin
                     && !UserService.isAuthenticated)
                 {
                     $location.path('/login');
@@ -26,16 +26,13 @@ function(
             });
     });
 
-    $rootScope.$on('$routeChangeSuccess', function(event, nextRoute, currentRoute) {
-        if (angular.isDefined(nextRoute) && angular.isDefined(nextRoute.$$route)) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+        if (angular.isDefined(toState)) {
             // Update current controller
-            $rootScope.controller = nextRoute.$$route.controller;
-
-            // Update page title
-            $rootScope.pageTitle = nextRoute.$$route.title;
+            $rootScope.controller = toState.controller;
 
             // Update page layout
-            $rootScope.layout = nextRoute.$$route.layout;
+            $rootScope.layout = toState.layout;
         } else {
             // Custom pages
             $rootScope.layout = 'layout-regular';

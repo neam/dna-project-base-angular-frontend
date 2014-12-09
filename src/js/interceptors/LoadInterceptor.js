@@ -1,4 +1,12 @@
-angular.module('Gapminder').factory('LoadInterceptor', ['$q', '$rootScope', function($q, $rootScope) {
+angular.module('Gapminder').factory('LoadInterceptor', [
+    '$q',
+    '$rootScope',
+    '$timeout',
+function(
+    $q,
+    $rootScope,
+    $timeout
+) {
     var loadCount = 0;
 
     return {
@@ -13,7 +21,10 @@ angular.module('Gapminder').factory('LoadInterceptor', ['$q', '$rootScope', func
             loadCount -= 1;
 
             if (loadCount < 1) {
-                $rootScope.$broadcast('finishedLoading');
+                // TODO: Replace this timeout hack with a proper solution.
+                $timeout(function() {
+                    $rootScope.$broadcast('finishedLoading');
+                }, 0);
             }
 
             // Google Custom Search hacks
