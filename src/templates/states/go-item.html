@@ -34,7 +34,7 @@
                             <div class="info-segment">
                                 <h2 class="heading-4" i18n="item-page:thanks-to-heading|html">Thanks to</h2>
                                 <div class="item-contributors">
-                                    <a ng-repeat="contributor in item.contributors" ng-href="{{ createUserProfileUrl(contributor.user_id) }}">
+                                    <a ng-repeat="contributor in item.contributors" ng-href="{{ itemService.createUserProfileUrl(contributor.user_id) }}">
                                         <img class="item-contributor" ng-src="{{ contributor.thumbnail_url }}">
                                     </a>
                                 </div>

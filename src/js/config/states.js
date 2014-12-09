@@ -27,10 +27,10 @@ function(
     // Define states
     var states = [
         {name: 'home', url: '/', templateUrl: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}},
-        {name: 'item', url: '/item', templateUrl: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
-        {name: 'exercise', url: '/exercises/:id', templateUrl: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
-        {name: 'presentation', url: '/presentations/:id', templateUrl: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}},
-        {name: 'qna', url: '/qna/:id', templateUrl: 'item.html', controller: 'ItemCtrl', access: {requiredLogin: false}}
+        {name: 'item', url: '/item', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}},
+        {name: 'exercise', url: '/exercises/:id', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}},
+        {name: 'presentation', url: '/presentations/:id', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}},
+        {name: 'qna', url: '/qna/:id', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}}
     ];
 
     angular.forEach(states, function(state) {
@@ -52,10 +52,10 @@ function(
     $urlRouterProvider.when('', '/');
 
     // Custom pages
-    $stateProvider.state('customPage', {
+    $stateProvider.state('wildcardPage', {
         url: ':id',
-        templateUrl: routeTemplateBasePath + 'custom-page.html',
-        controller: 'CustomPageCtrl',
+        templateUrl: routeTemplateBasePath + 'wildcard-page.html',
+        controller: 'WildcardPageCtrl',
         access: {requiredLogin: false},
         resolve: {
             // Always make sure i18n is initialized
@@ -68,6 +68,6 @@ function(
     // Apply custom page state
     $urlRouterProvider.otherwise(function($injector) {
         var $state = $injector.get('$state');
-        $state.go('customPage');
+        $state.go('wildcardPage');
     });
 }]);
