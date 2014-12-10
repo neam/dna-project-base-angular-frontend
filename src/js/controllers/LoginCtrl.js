@@ -14,6 +14,7 @@ function(
     NavigationService
 ) {
     $scope.navigation.setTranslatedPageTitle('login', 'Login');
+    $scope.credentials = {};
 
     /**
      * Sends an authentication request.
@@ -22,7 +23,7 @@ function(
     $scope.login = function() {
         var dfd = $q.defer();
 
-        UserService.login($scope.username, $scope.password)
+        UserService.login($scope.credentials.username, $scope.credentials.password)
             .then(function(res) {
                 UserService.ensureInfo();
                 NavigationService.redirect('/'); // TODO: Redirect to www.gapminder.org/friends
