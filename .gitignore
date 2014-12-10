@@ -4,6 +4,7 @@
 .node_history
 .sass-cache
 .tmp
+*.swp
 node_modules
 bower_components
 dist
