@@ -38,7 +38,7 @@
                             <div class="info-segment">
                                 <h2 class="heading-4" i18n="item-page:thanks-to-heading|html">Thanks to</h2>
                                 <div class="item-contributors">
-                                    <a ng-hide="contributor.user_id == 1" ng-repeat="contributor in item.contributors" ng-href="{{ itemService.createUserProfileUrl(contributor.user_id) }}">
+                                    <a ng-hide="contributor.user_id == 1" ng-repeat="contributor in item.contributors" ng-click="navigation.redirect(itemService.createUserProfileUrl(contributor.user_id))" href="#"> <!-- TODO: Make href work. -->
                                         <img class="item-contributor" ng-src="{{ contributor.thumbnail_url }}" alt="{{ contributor.username }}" title="{{ contributor.username }}">
                                     </a>
                                 </div>

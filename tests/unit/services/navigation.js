@@ -62,6 +62,14 @@ describe('NavigationService', function() {
         expect(NavigationService.getBaseRoute()).toBe('/pages-desktop-stage-with-mock/');
     });
 
+    it('should identify http://www.gapminder.org/ebola as an absolute URL', function() {
+        expect(NavigationService.isAbsoluteUrl('http://www.gapminder.org/ebola')).toBe(true);
+    });
+
+    it('should identify /ebola/dashboard as an absolute URL', function() {
+        expect(NavigationService.isAbsoluteUrl('/ebola/dashboard')).toBe(false);
+    });
+
     /**
      * Overrides $location.
      * @param {string} host
