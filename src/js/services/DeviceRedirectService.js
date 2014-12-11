@@ -56,6 +56,7 @@ function(
          * Tells whether redirects are disabled.
          */
         isRedirectDisabled: function() {
+            return true; // TODO: Uncomment to enable redirects.
             var cancelDeviceRedirect = JSON.parse($window.sessionStorage.getItem(SESSION_STORAGE_KEY));
             return cancelDeviceRedirect;
         },

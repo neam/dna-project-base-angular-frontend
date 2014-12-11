@@ -15,6 +15,7 @@ function(
     NavigationService,
     SirTrevorService
 ) {
+    $scope.itemService = ItemService;
     $scope.sirTrevor = SirTrevorService;
 
     ItemService.loadItem()

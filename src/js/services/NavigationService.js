@@ -1,4 +1,5 @@
 angular.module('Gapminder').factory('NavigationService', [
+    '$window',
     '$location',
     '$rootScope',
     '$injector',
@@ -8,6 +9,7 @@ angular.module('Gapminder').factory('NavigationService', [
     'assetUrl',
     'html5Mode',
 function(
+    $window,
     $location,
     $rootScope,
     $injector,
@@ -20,10 +22,23 @@ function(
     return {
         /**
          * Redirects to the given route.
-         * @param {string} route
+         * @param {string} url
          */
-        redirect: function(route) {
-            $location.path(route);
+        redirect: function(url) {
+            if (this.isAbsoluteUrl(url)) {
+                $window.location.href = url;
+            } else {
+                $location.path(url);
+            }
+        },
+
+        /**
+         * Checks if a URL is absolute.
+         * @param {string} url
+         * @returns {boolean}
+         */
+        isAbsoluteUrl: function(url) {
+            return _.contains(url, '://');
         },
 
         /**
@@ -33,7 +48,7 @@ function(
          */
         createUrl: function(route) {
             // Return absolute URLs as is
-            if (_.contains(route, '://')) {
+            if (this.isAbsoluteUrl(route)) {
                 return route;
             }
 
