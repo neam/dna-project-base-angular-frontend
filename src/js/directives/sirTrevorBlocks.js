@@ -1,4 +1,12 @@
-angular.module('Gapminder').directive('sirTrevorBlocks', ['$compile', 'SirTrevorService', function($compile, SirTrevorService) {
+angular.module('Gapminder').directive('sirTrevorBlocks', [
+    '$compile',
+    '$timeout',
+    'SirTrevorService',
+function(
+    $compile,
+    $timeout,
+    SirTrevorService
+) {
     return {
         restrict: 'AE',
         scope: {
@@ -9,7 +17,8 @@ angular.module('Gapminder').directive('sirTrevorBlocks', ['$compile', 'SirTrevor
             scope.$watch('blocks', function() {
                 if (angular.isObject(scope.blocks)) {
                     var html = '',
-                        containsSlideShare = false;
+                        containsSlideShare = false,
+                        containsVimeo = false;
 
                     angular.forEach(scope.blocks, function(block) {
                         if (SirTrevorService.isBlockTypeSupported(block.type)) {
@@ -31,6 +40,10 @@ angular.module('Gapminder').directive('sirTrevorBlocks', ['$compile', 'SirTrevor
                                     containsSlideShare = true;
                                 }
 
+                                if (block.type === 'video' && block.data.source === 'vimeo') {
+                                    containsVimeo = true;
+                                }
+
                                 html += '<div class="block block-{{type}}">'.replace('{{type}}', block.type);
                                 html += SirTrevorService.render(block);
                                 html += '</div>';
@@ -44,10 +57,17 @@ angular.module('Gapminder').directive('sirTrevorBlocks', ['$compile', 'SirTrevor
 
                     element.html(html).find('a').attr('target', '_blank');
 
-                    // TODO: Run FitVids elsewhere. Refactor and clean up.
+                    // TODO: Run elsewhere. Refactor and clean up.
                     if (containsSlideShare) {
                         $('.block-slideshare').fitVids({customSelector: 'iframe'});
-                        $('.vimeo-container').fitVids({customSelector: 'iframe'});
+                    }
+
+                    // TODO: Run elsewhere. Refactor and clean up.
+                    if (containsVimeo) {
+                        // TODO: Get rid of the timeout.
+                        $timeout(function() {
+                            $('.vimeo-container').fitVids({customSelector: 'iframe'});
+                        }, 200, false);
                     }
                 }
             });
