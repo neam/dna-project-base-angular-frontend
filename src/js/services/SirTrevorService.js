@@ -122,20 +122,20 @@ function(
         renderVideo: function(block) {
             var providers = {
                     vimeo: {
-                        src: "{{protocol}}://player.vimeo.com/video/{{remote_id}}",
-                        html: "<iframe src=\"{{src}}?title=0&byline=0\" width=\"580\" height=\"320\" frameborder=\"0\"></iframe>"
+                        src: '{{ protocol }}://player.vimeo.com/video/{{ remote_id }}',
+                        html: '<div class="item-video vimeo-container"><iframe src="{{ src }}?title=0&byline=0&portrait=0&color=ffca34" width="500" height="281" frameborder="0"></iframe></div>'
                     },
                     youtube: {
-                        src: "{{protocol}}://www.youtube.com/embed/{{remote_id}}",
-                        html: "<div class=\"item-video youtube-container\"><iframe src=\"{{src}}\" width=\"580\" height=\"320\" frameborder=\"0\" allowfullscreen></iframe></div>"
+                        src: '{{ protocol }}://www.youtube.com/embed/{{remote_id}}',
+                        html: '<div class="item-video youtube-container"><iframe src="{{ src }}" width="580" height="320" frameborder="0" allowfullscreen></iframe></div>'
                     }
                 },
                 src = providers[block.data.source]
                     .src
-                    .replace('{{protocol}}', $location.protocol())
-                    .replace('{{remote_id}}', block.data.remote_id),
+                    .replace('{{ protocol }}', $location.protocol())
+                    .replace('{{ remote_id }}', block.data.remote_id),
                 iframe = providers[block.data.source].html
-                    .replace('{{src}}', src);
+                    .replace('{{ src }}', src);
 
             return iframe;
         },

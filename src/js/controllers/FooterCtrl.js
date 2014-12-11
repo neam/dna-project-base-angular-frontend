@@ -61,7 +61,6 @@ function(
      * Re-enables device redirects and redirects to the mobile version.
      */
     $scope.goMobile = function() {
-        DeviceRedirectService.uncancelRedirects();
-        DeviceRedirectService.redirect();
+        DeviceRedirectService.forceRedirect();
     };
 }]);

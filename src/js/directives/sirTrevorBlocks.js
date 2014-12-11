@@ -46,7 +46,8 @@ angular.module('Gapminder').directive('sirTrevorBlocks', ['$compile', 'SirTrevor
 
                     // TODO: Run FitVids elsewhere. Refactor and clean up.
                     if (containsSlideShare) {
-                        $('.block-slideshare').fitVids({ customSelector: 'iframe'});
+                        $('.block-slideshare').fitVids({customSelector: 'iframe'});
+                        $('.vimeo-container').fitVids({customSelector: 'iframe'});
                     }
                 }
             });

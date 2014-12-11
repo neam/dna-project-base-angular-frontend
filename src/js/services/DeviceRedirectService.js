@@ -34,6 +34,8 @@ function(
             if (angular.isDefined(queryParams[QUERY_PARAM_ENABLE])) {
                 this.uncancelRedirects();
             }
+
+            $location.search({}); // remove query param from URL
         },
 
         /**
@@ -66,6 +68,14 @@ function(
                 var route = NavigationService.getCurrentRoute();
                 $window.location.href = REDIRECT_BASE_URL + route;
             }
+        },
+
+        /**
+         * Forcefully performs a redirect.
+         */
+        forceRedirect: function() {
+            var route = NavigationService.getCurrentRoute();
+            $window.location.href = REDIRECT_BASE_URL + route + '?disableRedirect';
         }
     };
 }]);
