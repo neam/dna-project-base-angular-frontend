@@ -70,6 +70,6 @@ function(
     // Apply custom page state
     $urlRouterProvider.otherwise(function($injector) {
         var $state = $injector.get('$state');
-        $state.go('wildcardPage');
+        $state.go('wildcardPage', {}, {reload: true});
     });
 }]);
