@@ -126,7 +126,7 @@ function(
                         html: '<div class="item-video vimeo-container"><iframe src="{{ src }}?title=0&byline=0&portrait=0&color=ffca34" width="500" height="281" frameborder="0"></iframe></div>'
                     },
                     youtube: {
-                        src: '{{ protocol }}://www.youtube.com/embed/{{remote_id}}',
+                        src: '{{ protocol }}://www.youtube.com/embed/{{ remote_id }}',
                         html: '<div class="item-video youtube-container"><iframe src="{{ src }}" width="580" height="320" frameborder="0" allowfullscreen></iframe></div>'
                     }
                 },
