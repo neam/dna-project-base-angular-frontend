@@ -233,7 +233,7 @@ function(
         renderItemList: function(block) {
             var html = '<ul class="item-list">';
 
-            angular.forEach(block.data, function(item) {
+            angular.forEach(block.items, function(item) {
                 var itemHtml = '',
                     url = NavigationService.createUrl(ApiService.getCompositionItemPathName(item.composition_type) + '/' + item.node_id);
 
