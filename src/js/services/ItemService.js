@@ -101,6 +101,17 @@ function(
          */
         createUserProfileUrl: function(userId) {
             return 'http://www.gapminder.org/profiles/' + userId;
+        },
+
+        /**
+         * Navigates to the profile.
+         * @param {number} userId
+         * @param {jQuery.Event} event
+         */
+        goToProfile: function(userId, event) {
+            event.preventDefault();
+            var url = this.createUserProfileUrl(userId);
+            NavigationService.redirect(url);
         }
     };
 }]);
