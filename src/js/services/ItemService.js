@@ -127,6 +127,29 @@ function(
             event.preventDefault();
             var url = this.createUserProfileUrl(userId);
             NavigationService.redirect(url);
+        },
+
+        /**
+         * Checks if an item has contributors.
+         * @param {Object} item
+         * @returns {boolean}
+         */
+        itemHasContributors: function(item) {
+            return angular.isDefined(item) && angular.isDefined(item.contributors) && !_.isEmpty(item.contributors);
+        },
+
+        /**
+         * Removes an admin contributor from an item.
+         * @param {Object} item
+         */
+        removeAdminContributorFromItem: function(item) {
+            if (angular.isDefined(item) && angular.isDefined(item.contributors)) {
+                angular.forEach(item.contributors, function(contributor) {
+                    if (parseInt(contributor.user_id) === 1) {
+                        _.remove(item.contributors, contributor);
+                    }
+                });
+            }
         }
     };
 }]);

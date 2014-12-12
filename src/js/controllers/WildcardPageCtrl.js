@@ -5,15 +5,13 @@ angular.module('Gapminder').controller('WildcardPageCtrl', [
     'Utils',
     'ItemService',
     'NavigationService',
-    'SirTrevorService',
 function(
     $scope,
     $rootScope,
     $location,
     Utils,
     ItemService,
-    NavigationService,
-    SirTrevorService
+    NavigationService
 ) {
     $scope.itemService = ItemService;
 
