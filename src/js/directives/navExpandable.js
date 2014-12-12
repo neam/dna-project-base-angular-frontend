@@ -11,6 +11,7 @@ function(
             items: '='
         },
         controller: ['$scope', function($scope) {
+            $scope.navigation = NavigationService;
             MenuService.buildTree(MenuService.type.HOME, MenuService.getHomeTreeData());
             $scope.items = MenuService.getHomeMenuItems();
         }],
