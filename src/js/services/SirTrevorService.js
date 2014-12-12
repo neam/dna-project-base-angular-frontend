@@ -244,7 +244,9 @@ function(
                 itemHtml += '<img src="{{ thumb }}" class="item-list-thumbnail">'.replace('{{ thumb }}', item.attributes.thumb.original);
                 itemHtml += '<div class="item-list-info">';
                 itemHtml += '<span class="item-list-title">{{ heading }}</span>'.replace('{{ heading }}', item.attributes.heading);
-                itemHtml += '<span class="item-list-subheading">{{ subheading }}</span>'.replace('{{ subheading }}', item.attributes.subheading);
+                if (item.attributes.subheading) {
+                    itemHtml += '<span class="item-list-subheading">{{ subheading }}</span>'.replace('{{ subheading }}', item.attributes.subheading);
+                }
                 itemHtml += '</div>';
                 itemHtml += '</a>';
                 itemHtml += '</li>';
