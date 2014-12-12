@@ -27,7 +27,7 @@ function(
                         "node_id": null,
                         "menu_label": "Answers",
                         "caption": null,
-                        "url": "http://www.gapminder.org/answers"
+                        "url": "http://www.gapminder.org/1308"
                     },
                     {
                         "node_id": null,

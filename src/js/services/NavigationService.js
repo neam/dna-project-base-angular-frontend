@@ -33,6 +33,16 @@ function(
         },
 
         /**
+         * Redirects to an external URL.
+         * @param {string} url
+         * @param {jQuery.event} event
+         */
+        redirectExternal: function(url, event) {
+            event.preventDefault();
+            this.redirect(url);
+        },
+
+        /**
          * Checks if a URL is absolute.
          * @param {string} url
          * @returns {boolean}
