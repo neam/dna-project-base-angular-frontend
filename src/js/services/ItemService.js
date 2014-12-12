@@ -104,6 +104,21 @@ function(
         },
 
         /**
+         * Creates a link to an item.
+         * @param {Object} composition
+         * @returns {string}
+         */
+        createItemUrl: function(composition) {
+            if (angular.isDefined(composition.url) && composition.url) {
+                // by url
+                return composition.url;
+            } else {
+                // by node_id
+                return NavigationService.createUrl(ApiService.getCompositionItemPathName(composition.node_id));
+            }
+        },
+
+        /**
          * Navigates to the profile.
          * @param {number} userId
          * @param {jQuery.Event} event

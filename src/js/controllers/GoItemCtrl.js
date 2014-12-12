@@ -20,7 +20,6 @@ function(
     ItemService
 ) {
     $scope.itemService = ItemService;
-    $scope.sirTrevor = SirTrevorService;
 
     ItemService.loadItem()
         .then(function(item) {
