@@ -3,6 +3,7 @@
 <head>
     <title ng-bind="getPageTitle()"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Language" content="{{ locale.getCurrentLocale() }}">
     <meta charset="utf-8">
     <link rel="stylesheet" href="<%- assetUrl %>assets/css/main.css">
     <base ng-href="{{ getBaseRoute() }}">

@@ -2,10 +2,12 @@ angular.module('Gapminder').factory('SirTrevorService', [
     '$location',
     'NavigationService',
     'ApiService',
+    'ItemService',
 function(
     $location,
     NavigationService,
-    ApiService
+    ApiService,
+    ItemService
 ) {
     var cmsItemTypes = [
         'download_link',
@@ -227,22 +229,22 @@ function(
 
         /**
          * Renders an item list.
-         * @param {} block
+         * @param {Object} block
          * @returns {string}
          */
         renderItemList: function(block) {
             var html = '<ul class="item-list">';
 
-            angular.forEach(block.items, function(item) {
+            angular.forEach(block.data.attributes.items, function(item) {
                 var itemHtml = '',
-                    url = NavigationService.createUrl(ApiService.getCompositionItemPathName(item.composition_type) + '/' + item.node_id);
+                    url = ItemService.createItemUrl(item);
 
                 itemHtml += '<li class="item-list-item">';
                 itemHtml += '<a ng-href="{{ url }}">'.replace('{{ url }}', url);
-                itemHtml += '<img src="{{ thumb }}" class="item-list-thumbnail">'.replace('{{ thumb }}', item.thumb);
+                itemHtml += '<img src="{{ thumb }}" class="item-list-thumbnail">'.replace('{{ thumb }}', item.attributes.thumb.original);
                 itemHtml += '<div class="item-list-info">';
-                itemHtml += '<span class="item-list-title">{{ heading }}</span>'.replace('{{ heading }}', item.heading);
-                itemHtml += '<span class="item-list-subheading">{{ subheading }}</span>'.replace('{{ subheading }}', item.subheading);
+                itemHtml += '<span class="item-list-title">{{ heading }}</span>'.replace('{{ heading }}', item.attributes.heading);
+                itemHtml += '<span class="item-list-subheading">{{ subheading }}</span>'.replace('{{ subheading }}', item.attributes.subheading);
                 itemHtml += '</div>';
                 itemHtml += '</a>';
                 itemHtml += '</li>';
