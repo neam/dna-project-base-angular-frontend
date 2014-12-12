@@ -1,19 +1,23 @@
 <nav ng-controller="NavbarCtrl" class="navbar navbar-fixed-top navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
+            <!--
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            -->
             <a class="brand-link" ng-href="{{ createUrl('/') }}"><logo></logo><span class="navbar-brand-subtitle"></span></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-nav-left hidden-xs" nav-expandable items="expandedItems"></ul>
             <ul class="nav navbar-nav navbar-right visible-xs">
+                <!--
                 <li ng-show="user.isAuthenticated"><a ng-click="logout()" ng-href="" id="logout" i18n="navbar:logout|html">Logout</a></li>
                 <li ng-hide="user.isAuthenticated"><a ng-href="{{ createUrl('/login') }}" i18n="navbar:login|html">Login</a></li>
+                -->
             </ul>
             <ul class="nav navbar-nav navbar-right hidden-xs">
                 <!--
