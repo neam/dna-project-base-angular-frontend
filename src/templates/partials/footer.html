@@ -2,10 +2,10 @@
     <div class="section-inner">
         <div class="footer-top">
             <div class="top-primary">
-                <a href="#" ng-click="goMobile()" class="go-mobile-link" i18n="footer:go-to-mobile|html">Go to the Mobile Version</a>
+                <!-- <a href="#" ng-click="goMobile()" class="go-mobile-link" i18n="footer:go-to-mobile|html">Go to the Mobile Version</a> -->
                 <a href="http://www.gapminder.org"><logo></logo></a>
             </div>
-            <div class="top-secondary">
+            <div class="top-secondary hidden-xs">
                 <ul>
                     <li ng-repeat="link in footerItems.socialLinks">
                         <a ng-href="{{ link.url }}" target="_blank">
@@ -17,16 +17,22 @@
         </div>
         <div class="footer-group-links">
             <ul>
+                <!--
                 <li ng-repeat="link in footerItems.groupLinks">
                     <a ng-href="{{ link.url }}">{{ link.label }}</a>
                 </li>
+                -->
+                <li><a href="http://www.gapminder.org/world" ng-click="navigation.redirectExternal('http://www.gapminder.org/world', $event)">Gapminder World</a></li>
+                <li><a href="http://www.gapminder.org/for-teachers" ng-click="navigation.redirectExternal('http://www.gapminder.org/for-teachers', $event)">For Teachers</a></li>
             </ul>
         </div>
         <div class="footer-brand-links">
             <ul>
+                <!--
                 <li ng-repeat="link in footerItems.brandLinks">
                     <a ng-href="{{ link.url }}">{{ link.label }}</a>
                 </li>
+                -->
                 <li><a href="http://www.gapminder.org/about-gapminder" ng-click="navigation.redirectExternal('http://www.gapminder.org/about-gapminder', $event)">About</a></li>
                 <li><a href="http://www.gapminder.org/faq_frequently_asked_questions" ng-click="navigation.redirectExternal('http://www.gapminder.org/faq_frequently_asked_questions', $event)">Help</a></li>
                 <li><a href="http://www.gapminder.org/about-gapminder/contact" ng-click="navigation.redirectExternal('http://www.gapminder.org/about-gapminder/contact', $event)">Contact</a></li>
