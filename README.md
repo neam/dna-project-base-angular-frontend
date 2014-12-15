@@ -27,7 +27,7 @@ To install *Gapminder Pages for Desktop*, run:
 
     grunt
 
-Now launch your web browser and navigate to `http://localhost:1335`.
+Now launch your web browser and navigate to `http://localhost:1335/#/exercises/ejercicio-con-video`.
 
 ## Deploy to production
 

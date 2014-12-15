@@ -26,9 +26,7 @@ function(
 
     // Define states
     var states = [
-        {name: 'home', url: '/', templateUrl: 'home.html', controller: 'HomeCtrl', access: {requiredLogin: false}},
         {name: 'login', url: '/login', templateUrl: 'login.html', layout: 'layout-minimal', controller: 'LoginCtrl', access: {requiredLogin: false}},
-        {name: 'item', url: '/item', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}},
         {name: 'exercise', url: '/exercises/:id', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}},
         {name: 'presentation', url: '/presentations/:id', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}},
         {name: 'qna', url: '/qna/:id', templateUrl: 'go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}}
