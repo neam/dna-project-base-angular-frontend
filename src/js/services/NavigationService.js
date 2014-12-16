@@ -52,6 +52,13 @@ function(
         },
 
         /**
+         * Reloads the page.
+         */
+        reload: function() {
+            $window.location.reload();
+        },
+
+        /**
          * Creates a URL.
          * @param {string} route
          * @returns {string}
