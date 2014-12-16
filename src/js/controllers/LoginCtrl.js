@@ -26,7 +26,7 @@ function(
         UserService.login($scope.credentials.username, $scope.credentials.password)
             .then(function(res) {
                 UserService.ensureInfo();
-                NavigationService.redirect('/'); // TODO: Redirect to www.gapminder.org/friends
+                NavigationService.redirectToReturnUrl();
                 dfd.resolve(res);
             }, function(err) {
                 $scope.errors = err.data.errors;

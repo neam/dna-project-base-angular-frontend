@@ -19,6 +19,8 @@ function(
     assetUrl,
     html5Mode
 ) {
+    var returnUrl;
+
     return {
         /**
          * Redirects to the given route.
@@ -39,6 +41,14 @@ function(
          */
         redirectExternal: function(url, event) {
             event.preventDefault();
+            this.redirect(url);
+        },
+
+        /**
+         * Redirects to the return URL.
+         */
+        redirectToReturnUrl: function() {
+            var url = this.getReturnUrl();
             this.redirect(url);
         },
 
@@ -90,6 +100,51 @@ function(
         createTemplateUrl: function(path) {
             path = Utils.ensureLeadingSlash(path);
             return $sce.trustAsResourceUrl(assetUrl + 'templates' + path);
+        },
+
+        /**
+         * Creates a URL from state params.
+         * @param {string} route the route (e.g. '/exercises/:id')
+         * @param {Object} params the route params
+         * @returns {string|null}
+         */
+        createUrlFromStateParams: function(route, params) {
+            if (!_.contains(route, '/')) {
+                return null;
+            }
+
+            _.forEach(params, function(param, key) {
+                route = route.replace(':' + key, param);
+            });
+
+            return route;
+        },
+
+        /**
+         * Returns the return URL.
+         * @returns {string}
+         */
+        getReturnUrl: function() {
+            return returnUrl || 'http://www.gapminder.org/friends';
+        },
+
+        /**
+         * Sets the return URL.
+         * @param {string} url
+         */
+        setReturnUrl: function(url) {
+            returnUrl = url;
+        },
+
+        /**
+         * Updates the return URL.
+         */
+        updateReturnUrl: function() {
+            var currentUrl = this.getCurrentRoute();
+
+            if (currentUrl !== '/login') {
+                this.setReturnUrl(currentUrl);
+            }
         },
 
         /**
