@@ -82,7 +82,7 @@
     > li > a
       cursor: pointer
       font-family: $bariol-regular-font-family
-      font-size: 16px
+      font-size: 14px
 
       &.dropdown-user
         +align-items(center)
@@ -91,16 +91,30 @@
         height: $navbar-height
         padding: 0 18px
 
+        +respond-to(tablet-portrait)
+          padding-left: 5px
+          padding-right: 5px
+
         img
-          height: 30px
+          height: 26px
           width: auto
           margin-right: 10px
 
           +respond-to(mobile)
             display: none
 
+          +respond-to(tablet-portrait)
+            margin-right: 0
+
+        .username
+          +respond-to(tablet-portrait)
+            display: none
+
         .caret
           margin-left: 5px
+
+          +respond-to(tablet-portrait)
+            display: none
 
   .navbar-toggle
     border: none
