@@ -9,15 +9,15 @@
       cursor: pointer
       display: block
       font-family: $bariol-regular-font-family
-      font-size: 16px
-      line-height: 28px
+      font-size: 13px
+      line-height: 1
       padding: 10px 15px
-      padding-top: 18px
-      padding-bottom: 18px
+      padding-top: 11px
+      padding-bottom: 10px
       position: relative
+      text-transform: uppercase
 
       &:hover
-        color: $navbar-default-link-hover-color
         text-decoration: none
 
   .nav-expanded:hover + .nav-toggle-expanded
@@ -28,9 +28,12 @@
     border-left: $navbar-border-size solid transparent
     border-right: $navbar-border-size solid transparent
 
+    .active,
     &:hover
+      background-color: $brand-primary
       border-left-color: $brand-primary
       border-right-color: $brand-primary
+      color: #fff
 
     &:hover + .nav-expanded,
     & + .nav-expanded:hover
@@ -43,15 +46,14 @@
     box-sizing: border-box
     display: none
     padding: 30px 25px
+    padding-bottom: 10px
     position: absolute
     left: -200px
     width: 700px
 
     +respond-to(tablet-portrait)
       left: 0
-      width: 685px
-      height: 400px
-      overflow-y: scroll
+      width: 400px
 
     .nav-expanded-heading
       +make-md-column(12)
@@ -136,6 +138,10 @@
         .expanded-column-item
           margin-bottom: 20px
 
+          a
+            text-transform: none
+            line-height: 31px
+
           .column-item-icon
             color: $brand-primary
             font-size: 32px
@@ -149,7 +155,8 @@
               font-size: 17px
 
             .column-item-heading
-              font-family: $bariol-bold-font-family
+              font-family: $bariol-regular-font-family
 
             .column-item-description
               color: $gray-light
+              line-height: 1.4
