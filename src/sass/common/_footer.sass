@@ -14,7 +14,8 @@
     height: auto
 
     +respond-to(mobile)
-      width: 100%
+      max-width: 100%
+      width: 225px
 
     path
       fill: #fff
@@ -59,17 +60,26 @@
     margin-bottom: 10px
 
     li
-      margin-right: 10px
+      margin-right: 3px
 
       &:after
         content: "\2013"
-        margin-left: 6px
+        margin-left: 5px
 
       &:last-child:after
         display: none
 
+      +respond-to(mobile)
+        display: block
+
+        &:after
+          content: none
+          margin-left: 0
+
   .footer-brand-links
     color: $footer-text-gray
+    font-size: 14px
+    text-transform: uppercase
 
     li a
       color: $footer-text-gray
