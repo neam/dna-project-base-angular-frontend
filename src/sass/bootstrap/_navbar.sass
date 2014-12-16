@@ -2,24 +2,22 @@
   border-bottom: $navbar-border-size solid transparent
   border-color: $navbar-border-color
   margin-bottom: 0
-  min-height: $navbar-height-mobile
+  min-height: $navbar-height
 
   +respond-to(mobile)
+    min-height: $navbar-height-mobile
+
     .navbar-toggle .icon-bar
       background-color: #fff !important
 
     .navbar-header
       background-color: $brand-primary
 
-    .gapminder-logo
-      width: 170px !important
-
       path
         fill: #fff !important
 
-  +respond-to(tablet-portrait)
-    .navbar-header
-      +make-sm-column(12)
+  .navbar-collapse
+    background-color: $navbar-default-bg
 
   .navbar-nav-left
     margin-left: 20px
@@ -52,11 +50,14 @@
         margin-left: 4px
 
     .gapminder-logo
-      width: 232px
+      width: 185px
       height: auto
 
       path
         fill: $brand-primary
+
+      +respond-to(mobile)
+        width: 170px
 
     +respond-to(tablet-portrait)
       +justify-content(left)
