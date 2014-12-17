@@ -125,7 +125,7 @@ function(
          * @returns {string}
          */
         getReturnUrl: function() {
-            return returnUrl || 'http://www.gapminder.org/friends';
+            return $window.sessionStorage.getItem('returnUrl') || 'http://www.gapminder.org/friends';
         },
 
         /**
@@ -133,7 +133,7 @@ function(
          * @param {string} url
          */
         setReturnUrl: function(url) {
-            returnUrl = url;
+            $window.sessionStorage.setItem('returnUrl', url);
         },
 
         /**
