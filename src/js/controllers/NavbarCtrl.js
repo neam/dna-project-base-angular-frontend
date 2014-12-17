@@ -18,7 +18,6 @@ function(
      */
     $scope.logout = function() {
         UserService.logout();
-        NavigationService.redirect('/');
     };
 
     /**
@@ -35,6 +34,6 @@ function(
      */
     $scope.setLocale = function(locale) {
         LocaleService.setCurrentLocale(locale);
-        $window.location.reload();
+        NavigationService.reload();
     };
 }]);

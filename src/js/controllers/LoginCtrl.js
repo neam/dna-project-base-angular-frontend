@@ -24,11 +24,12 @@ function(
         var dfd = $q.defer();
 
         UserService.login($scope.credentials.username, $scope.credentials.password)
-            .then(function(res) {
+            .success(function(res) {
                 UserService.ensureInfo();
-                NavigationService.redirect('/'); // TODO: Redirect to www.gapminder.org/friends
+                NavigationService.redirectToReturnUrl();
                 dfd.resolve(res);
-            }, function(err) {
+            })
+            .error(function(err) {
                 $scope.errors = err.data.errors;
                 dfd.reject(err);
             });

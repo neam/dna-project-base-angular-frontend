@@ -33,7 +33,9 @@
                 </li>
                 <li class="dropdown" ng-show="user.isAuthenticated">
                     <a ng-href="" class="dropdown-toggle dropdown-user" data-toggle="dropdown">
-                        <img ng-src="{{ createAssetUrl('images/dummy/ola-small.png') }}">{{ getUsername() }} <span class="caret"></span>
+                        <img ng-src="{{ createAssetUrl('images/dummy/ola-small.png') }}">
+                        <span class="username">{{ getUsername() }}</span>
+                        <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a ng-click="logout()" ng-href="" i18n="navbar:logout|html">Logout</a></li>

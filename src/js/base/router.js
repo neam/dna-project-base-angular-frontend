@@ -2,12 +2,14 @@ angular.module('Gapminder').run([
     '$rootScope',
     '$location',
     '$window',
+    'NavigationService',
     'UserService',
     'DeviceRedirectService',
 function(
     $rootScope,
     $location,
     $window,
+    NavigationService,
     UserService,
     DeviceRedirectService
 ) {
@@ -15,6 +17,8 @@ function(
         DeviceRedirectService.run();
 
         $rootScope.pageNotFound = false;
+
+        NavigationService.updateReturnUrl();
 
         // Attempt to auto-login
         UserService.autoLogin()
