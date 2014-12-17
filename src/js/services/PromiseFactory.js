@@ -3,7 +3,6 @@ angular.module('Gapminder').factory('PromiseFactory', ['$q', function($q) {
         /**
          * Adds success and error helper methods to a promise object.
          * @param {Deferred.promise} promise
-         * @returns {Deferred.promise}
          */
         decorate: function(promise) {
             promise.success = function(callback) {
@@ -15,8 +14,6 @@ angular.module('Gapminder').factory('PromiseFactory', ['$q', function($q) {
                 promise.then(null, callback);
                 return promise;
             }
-
-            return promise;
         },
 
         /**
