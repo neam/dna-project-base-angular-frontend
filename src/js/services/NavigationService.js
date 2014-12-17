@@ -19,8 +19,6 @@ function(
     assetUrl,
     html5Mode
 ) {
-    var returnUrl;
-
     return {
         /**
          * Redirects to the given route.
