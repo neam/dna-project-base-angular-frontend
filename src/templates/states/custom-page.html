@@ -7,7 +7,7 @@
                     <sir-trevor-blocks blocks="item.attributes.composition.data" about="item.attributes.about"></sir-trevor-blocks>
                 </div>
                 <aside class="column-secondary">
-                    <div ng-show="item.related">
+                    <div class="sidebar-section" ng-show="item.related">
                         <h2 class="heading-4" i18n="item-page:related-heading|html">Related</h2>
                         <ul class="item-list item-list-small">
                             <li class="item-list-item" ng-repeat="relatedItem in item.related">
@@ -20,6 +20,27 @@
                                 </a>
                             </li>
                         </ul>
+                    </div>
+                    <div class="sidebar-section">
+                        <h2 class="heading-4" i18n="item-page:share-heading|html">Share</h2>
+                        <a class="a2a_dd" href="https://www.addtoany.com/share_save">
+                            <ul class="social-share">
+                                <li><span class="fa fa-envelope-o"></span></li>
+                                <li><span class="fa fa-facebook"></span></li>
+                                <li><span class="fa fa-twitter"></span></li>
+                                <li><span class="fa fa-ellipsis-h"></span></li>
+                            </ul>
+                        </a>
+                        <script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+                    </div>
+                    <div class="sidebar-section" ng-show="itemService.itemHasContributors(item)">
+                        <h2 class="heading-4" i18n="item-page:thanks-to-heading|html">Thanks to</h2>
+                        <div class="contributors">
+                            <a ng-repeat="contributor in item.contributors" ng-click="itemService.goToProfile(contributor.user_id, $event)" href="{{ itemService.createUserProfileUrl(contributor.user_id) }}">
+                                <img class="contributor" ng-src="{{ contributor.thumbnail_url }}" alt="{{ contributor.username }}" title="{{ contributor.username }}">
+                            </a>
+                        </div>
+                        <!-- <a class="item-participate-link" ng-href="{{ createUrl('/') }}" i18n="item-page:participate-link-label|html">Participate</a> -->
                     </div>
                 </aside>
             </div>
