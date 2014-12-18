@@ -70,6 +70,15 @@ angular.module('Gapminder').factory('Utils', [function() {
             }
 
             return str;
+        },
+
+        /**
+         * Converts a string containing HTML markup to plain text.
+         * @param {string} string
+         * @returns {string}
+         */
+        htmlToPlainText: function(string) {
+            return String(string).replace(/<[^>]+>/gm, '');
         }
     };
 }]);

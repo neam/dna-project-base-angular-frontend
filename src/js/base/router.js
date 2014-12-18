@@ -16,6 +16,7 @@ function(
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
         DeviceRedirectService.run();
 
+        delete $rootScope.metaDescription;
         $rootScope.pageNotFound = false;
 
         NavigationService.updateReturnUrl();
