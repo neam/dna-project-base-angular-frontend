@@ -7,20 +7,6 @@
                     <sir-trevor-blocks blocks="item.attributes.composition.data" about="item.attributes.about"></sir-trevor-blocks>
                 </div>
                 <aside class="column-secondary">
-                    <div class="sidebar-section" ng-show="item.related">
-                        <h2 class="heading-4" i18n="item-page:related-heading|html">Related</h2>
-                        <ul class="item-list item-list-small">
-                            <li class="item-list-item" ng-repeat="relatedItem in item.related">
-                                <a ng-href="{{ itemService.createItemUrl(relatedItem) }}">
-                                    <img class="item-list-thumbnail" ng-src="{{ relatedItem.attributes.thumb.original }}">
-                                    <div class="item-list-info">
-                                        <span class="item-list-title">{{ relatedItem.attributes.heading }}</span>
-                                        <span class="item-list-subheading">{{ relatedItem.attributes.subheading }}</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                     <div class="sidebar-section">
                         <h2 class="heading-4" i18n="item-page:share-heading|html">Share</h2>
                         <a class="a2a_dd" href="https://www.addtoany.com/share_save">
