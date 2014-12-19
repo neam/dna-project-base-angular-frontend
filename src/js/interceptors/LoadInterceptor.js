@@ -28,7 +28,6 @@ function(
             }
 
             // Google Custom Search hacks
-            angular.element('.search-box input[type="text"].gsc-input').attr('placeholder', 'Search...');
             angular.element('input.gsc-search-button').val("\0"); // remove "Search" button label
 
             return response || $q.when(response);

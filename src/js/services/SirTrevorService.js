@@ -125,7 +125,7 @@ function(
             var providers = {
                     vimeo: {
                         src: '{{ protocol }}://player.vimeo.com/video/{{ remote_id }}',
-                        html: '<div class="item-video vimeo-container"><iframe src="{{ src }}?title=0&byline=0&portrait=0&color=ffca34" width="500" height="281" frameborder="0"></iframe></div>'
+                        html: '<div class="item-video vimeo-container"><iframe src="{{ src }}?title=0&byline=0&portrait=0&color=ffca34&autoplay=1" width="500" height="281" frameborder="0"></iframe></div>'
                     },
                     youtube: {
                         src: '{{ protocol }}://www.youtube.com/embed/{{ remote_id }}',

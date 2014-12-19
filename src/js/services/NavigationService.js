@@ -19,8 +19,6 @@ function(
     assetUrl,
     html5Mode
 ) {
-    var returnUrl;
-
     return {
         /**
          * Redirects to the given route.
@@ -250,6 +248,8 @@ function(
             baseRoute = baseRoute.replace($location.$$host, ''); // strip host
             baseRoute = baseRoute.replace(':' + $location.$$port, ''); // strip port
             baseRoute = baseRoute.replace('/#', ''); // strip hashbang
+
+            // TODO: Add regexp to strip /pages-desktop/*/
 
             if ($location.$$path !== '/') {
                 baseRoute = baseRoute.replace($location.$$path, ''); // strip path

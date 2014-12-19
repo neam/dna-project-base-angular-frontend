@@ -3,6 +3,7 @@ angular.module('Gapminder').factory('ItemService', [
     '$q',
     '$window',
     '$location',
+    '$rootScope',
     'NavigationService',
     'ApiService',
     'Utils',
@@ -11,6 +12,7 @@ function(
     $q,
     $window,
     $location,
+    $rootScope,
     NavigationService,
     ApiService,
     Utils
@@ -35,6 +37,7 @@ function(
 
             $http.get(apiUrl)
                 .success(function(item) {
+                    self.setMetaDescriptionFromItem(item);
                     dfd.resolve(item);
                 })
                 .error(function(err) {
@@ -150,6 +153,24 @@ function(
                     }
                 });
             }
+        },
+
+        /**
+         * Sets the meta description based on item data.
+         * @param {Object} item
+         */
+        setMetaDescriptionFromItem: function(item) {
+            var text = null;
+
+            if (angular.isDefined(item.attributes)) {
+                if (angular.isDefined(item.attributes.about)) {
+                    text = Utils.htmlToPlainText(item.attributes.about);
+                } else if (angular.isDefined(item.attributes.subheading)) {
+                    text = Utils.htmlToPlainText(item.attributes.subheading);
+                }
+            }
+
+            $rootScope.metaDescription = text;
         }
     };
 }]);

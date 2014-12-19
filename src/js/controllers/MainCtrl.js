@@ -58,6 +58,14 @@ function(
     };
 
     /**
+     * Returns the meta description.
+     * @returns {string}
+     */
+    $rootScope.getMetaDescription = function() {
+        return $rootScope.metaDescription || i18nService.translate('metatag:meta-description-fallback', {}, 'A fact-based worldview');
+    };
+
+    /**
      * @see NavigationService#getBaseRoute
      */
     $rootScope.getBaseRoute = function() {

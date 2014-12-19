@@ -26,6 +26,7 @@
     "fitvids": "~1.1.0",
     "mediaelement": "~2.16.2",
     "angular-ui-router": "~0.2.13",
-    "device.js": "git@github.com:matthewhudson/device.js.git"
+    "device.js": "git@github.com:matthewhudson/device.js.git",
+    "angular-bootstrap": "~0.12.0"
   }
 }
