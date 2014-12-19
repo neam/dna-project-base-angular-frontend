@@ -249,6 +249,8 @@ function(
             baseRoute = baseRoute.replace(':' + $location.$$port, ''); // strip port
             baseRoute = baseRoute.replace('/#', ''); // strip hashbang
 
+            // TODO: Add regexp to strip /pages-desktop/*/
+
             if ($location.$$path !== '/') {
                 baseRoute = baseRoute.replace($location.$$path, ''); // strip path
             }
