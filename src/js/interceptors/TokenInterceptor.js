@@ -1,11 +1,13 @@
 angular.module('Gapminder').factory('TokenInterceptor', [
     '$q',
     '$window',
+    '$rootScope',
     '$injector',
     'PromiseFactory',
 function(
     $q,
     $window,
+    $rootScope,
     $injector,
     PromiseFactory
 ) {
@@ -27,6 +29,8 @@ function(
      * @param {Deferred} deferred
      */
     function retryHttpRequest(config, deferred) {
+        var $http = $injector.get('$http');
+
         function successCallback(response) {
             deferred.resolve(response);
         }
@@ -34,8 +38,6 @@ function(
         function errorCallback(response) {
             deferred.reject(response);
         }
-
-        var $http = $injector.get('$http');
 
         $http(config).then(successCallback, errorCallback);
     }
@@ -79,10 +81,15 @@ function(
                 UserService.refreshAuthToken()
                     .success(function(res) {
                         retryHttpRequest(rejection.config, dfd);
+                    })
+                    .error(function(err) {
+                        dfd.reject(err);
                     });
+
+                return dfd.promise;
             }
 
-            return dfd.promise;
+            return $q.reject(rejection);
         }
     };
 }]).config(['$httpProvider', function($httpProvider) {

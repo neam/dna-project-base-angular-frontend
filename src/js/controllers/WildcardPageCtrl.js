@@ -24,7 +24,7 @@ function(
             $rootScope.$broadcast('wildcardPageLoadSuccess', item);
         })
         .error(function() {
-            $scope.notFound();
+            NavigationService.notFound();
         });
 
     /**

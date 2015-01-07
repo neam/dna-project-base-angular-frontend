@@ -106,14 +106,15 @@ function(
                 transformRequest: ApiService.serializeFormData,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
-                .then(function(res) {
+                .success(function(res) {
                     self.isAuthenticated = true;
-                    self.saveAuthToken(res.data.access_token);
-                    self.saveRefreshToken(res.data.refresh_token);
+                    self.saveAuthToken(res.access_token);
+                    self.saveRefreshToken(res.refresh_token);
                     self.ensureInfo();
 
                     dfd.resolve(res);
-                }, function(err) {
+                })
+                .error(function(err) {
                     dfd.reject(err);
                 });
 
