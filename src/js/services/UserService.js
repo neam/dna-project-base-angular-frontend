@@ -110,6 +110,7 @@ function(
                     self.isAuthenticated = true;
                     self.saveAuthToken(res.data.access_token);
                     self.saveRefreshToken(res.data.refresh_token);
+                    self.ensureInfo();
 
                     dfd.resolve(res);
                 }, function(err) {

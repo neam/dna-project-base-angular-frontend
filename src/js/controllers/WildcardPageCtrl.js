@@ -16,13 +16,14 @@ function(
     $scope.itemService = ItemService;
 
     ItemService.loadItem()
-        .then(function(item) {
+        .success(function(item) {
             NavigationService.setPageTitle(item.attributes.heading);
             ItemService.removeAdminContributorFromItem(item);
             $scope.item = item;
             $scope.itemCategory = item.attributes.composition_type;
             $rootScope.$broadcast('wildcardPageLoadSuccess', item);
-        }, function() {
+        })
+        .error(function() {
             $scope.notFound();
         });
 

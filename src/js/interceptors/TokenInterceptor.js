@@ -73,8 +73,6 @@ function(
             var UserService = $injector.get('UserService'),
                 dfd = PromiseFactory.defer();
 
-            console.log(rejection);
-
             if (rejection.status === 401 && !_.contains(retryUrls, rejection.config.url)) {
                 retryUrls.push(rejection.config.url);
 
@@ -84,7 +82,7 @@ function(
                     });
             }
 
-            return $q.reject(rejection);
+            return dfd.promise;
         }
     };
 }]).config(['$httpProvider', function($httpProvider) {
