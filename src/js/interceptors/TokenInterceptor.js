@@ -1,4 +1,16 @@
-angular.module('Gapminder').factory('TokenInterceptor', ['$q', '$window', function($q, $window) {
+angular.module('Gapminder').factory('TokenInterceptor', [
+    '$q',
+    '$window',
+    '$injector',
+    'PromiseFactory',
+function(
+    $q,
+    $window,
+    $injector,
+    PromiseFactory
+) {
+    var retryUrls = [];
+
     /**
      * Checks if the requested URL is a template.
      * AWS S3 gives a 403 when requesting templates with authorization headers.
@@ -9,11 +21,30 @@ angular.module('Gapminder').factory('TokenInterceptor', ['$q', '$window', functi
         return _.contains(url, 'templates') && _.contains(url, '.html');
     }
 
+    /**
+     * Retries an HTTP request.
+     * @param {Object} config
+     * @param {Deferred} deferred
+     */
+    function retryHttpRequest(config, deferred) {
+        function successCallback(response) {
+            deferred.resolve(response);
+        }
+
+        function errorCallback(response) {
+            deferred.reject(response);
+        }
+
+        var $http = $injector.get('$http');
+
+        $http(config).then(successCallback, errorCallback);
+    }
+
     return {
         /**
-         * Manipulates a request config.
-         * @param {*} config
-         * @returns {*}
+         * Handles a request config.
+         * @param {Object} config
+         * @returns {Object}
          */
         request: function(config) {
             config.headers = config.headers || {};
@@ -26,12 +57,34 @@ angular.module('Gapminder').factory('TokenInterceptor', ['$q', '$window', functi
         },
 
         /**
-         * Manipulates a response.
-         * @param {*} response
-         * @returns {*|Promise}
+         * Handles a response.
+         * @param {Object} response
+         * @returns {Object|Promise}
          */
         response: function(response) {
             return response || $q.when(response);
+        },
+
+        /**
+         * Handles an error response.
+         * @param {Object} rejection
+         */
+        responseError: function(rejection) {
+            var UserService = $injector.get('UserService'),
+                dfd = PromiseFactory.defer();
+
+            console.log(rejection);
+
+            if (rejection.status === 401 && !_.contains(retryUrls, rejection.config.url)) {
+                retryUrls.push(rejection.config.url);
+
+                UserService.refreshAuthToken()
+                    .success(function(res) {
+                        retryHttpRequest(rejection.config, dfd);
+                    });
+            }
+
+            return $q.reject(rejection);
         }
     };
 }]).config(['$httpProvider', function($httpProvider) {

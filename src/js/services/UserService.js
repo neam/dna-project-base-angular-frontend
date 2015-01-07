@@ -25,6 +25,7 @@ function(
         logout: function() {
             this.info = null;
             this.deleteAuthToken();
+            this.deleteRefreshToken();
             this.isAuthenticated = false;
         },
 
@@ -47,9 +48,14 @@ function(
                 .then(function(res) {
                     self.isAuthenticated = true;
                     self.saveAuthToken(res.data.access_token);
+
+                    if (angular.isDefined(res.data.refresh_token)) {
+                        self.saveRefreshToken(res.data.refresh_token);
+                    }
+
                     dfd.resolve(res);
                 }, function(err, status) {
-                    dfd.reject(err, status);
+                    dfd.reject(status);
                 });
 
             return dfd.promise;
@@ -75,6 +81,38 @@ function(
             } else {
                 dfd.resolve();
             }
+
+            return dfd.promise;
+        },
+
+        /**
+         * Refreshes an auth token with a refresh token.
+         * @returns {Deferred.promise}
+         */
+        refreshAuthToken: function() {
+            var self = this,
+                dfd = PromiseFactory.defer(),
+                url = ApiService.getApiUrl('/user/token'),
+                refreshToken = this.getRefreshToken();
+
+            $http({
+                method: 'POST',
+                url: url,
+                data: {
+                    refresh_token: refreshToken
+                },
+                transformRequest: ApiService.serializeFormData,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+                .then(function(res) {
+                    self.isAuthenticated = true;
+                    self.saveAuthToken(res.data.access_token);
+                    self.saveRefreshToken(res.data.refresh_token);
+
+                    dfd.resolve(res);
+                }, function(err) {
+                    dfd.reject(err);
+                });
 
             return dfd.promise;
         },
@@ -134,6 +172,41 @@ function(
                 delete $window.sessionStorage.authToken;
             } else {
                 console.info('Authentication token has not been saved.');
+            }
+        },
+
+        /**
+         * Returns a refresh token.
+         * @returns {string}
+         */
+        getRefreshToken: function() {
+            return $window.sessionStorage.refreshToken;
+        },
+
+        /**
+         * Saves a refresh token.
+         * @param {string} token
+         */
+        saveRefreshToken: function(token) {
+            $window.sessionStorage.refreshToken = token;
+        },
+
+        /**
+         * Checks if the user has saved a refresh token.
+         * @returns {boolean}
+         */
+        hasRefreshToken: function() {
+            return angular.isDefined(this.getRefreshToken());
+        },
+
+        /**
+         * Deletes a refresh token.
+         */
+        deleteRefreshToken: function() {
+            if (angular.isDefined($window.sessionStorage.refreshToken)) {
+                delete $window.sessionStorage.refreshToken;
+            } else {
+                console.info('Refresh token has not been saved.');
             }
         }
     }
