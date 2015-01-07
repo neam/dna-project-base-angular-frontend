@@ -99,7 +99,9 @@ function(
                 method: 'POST',
                 url: url,
                 data: {
-                    refresh_token: refreshToken
+                    client_id: clientId,
+                    refresh_token: refreshToken,
+                    grant_type: 'refresh_token'
                 },
                 transformRequest: ApiService.serializeFormData,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
