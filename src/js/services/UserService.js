@@ -92,7 +92,7 @@ function(
         refreshAuthToken: function() {
             var self = this,
                 dfd = PromiseFactory.defer(),
-                url = ApiService.getApiUrl('/user/token'),
+                url = ApiService.getApiUrl('/user/login'),
                 refreshToken = this.getRefreshToken();
 
             $http({
