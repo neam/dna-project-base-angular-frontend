@@ -69,18 +69,18 @@ function(
 
         /**
          * Handles an error response.
-         * @param {Object} rejection
+         * @param {Object} response
          */
-        responseError: function(rejection) {
+        responseError: function(response) {
             var UserService = $injector.get('UserService'),
                 dfd = PromiseFactory.defer();
 
-            if (rejection.status === 401 && !_.contains(retryUrls, rejection.config.url)) {
-                retryUrls.push(rejection.config.url);
+            if (response.status === 401 && UserService.hasRefreshToken() && !_.contains(retryUrls, response.config.url)) {
+                retryUrls.push(response.config.url);
 
                 UserService.refreshAuthToken()
                     .success(function(res) {
-                        retryHttpRequest(rejection.config, dfd);
+                        retryHttpRequest(response.config, dfd);
                     })
                     .error(function(err) {
                         dfd.reject(err);
@@ -89,7 +89,7 @@ function(
                 return dfd.promise;
             }
 
-            return $q.reject(rejection);
+            return $q.reject(response);
         }
     };
 }]).config(['$httpProvider', function($httpProvider) {
