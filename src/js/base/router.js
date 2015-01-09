@@ -3,14 +3,14 @@ angular.module('Gapminder').run([
     '$location',
     '$window',
     'urlManager',
-    'UserService',
+    'userManager',
     'deviceRedirector',
 function(
     $rootScope,
     $location,
     $window,
     urlManager,
-    UserService,
+    userManager,
     deviceRedirector
 ) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
@@ -22,13 +22,13 @@ function(
         urlManager.updateReturnUrl();
 
         // Attempt to auto-login
-        UserService.autoLogin()
+        userManager.autoLogin()
             .finally(function() {
                 // Redirect to login if login required and not logged in
                 if (toState !== null
                     && toState.access !== null
                     && toState.access.requiredLogin
-                    && !UserService.isAuthenticated)
+                    && !userManager.isAuthenticated)
                 {
                     $location.path('/login');
                 }

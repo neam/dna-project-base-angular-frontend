@@ -4,20 +4,20 @@ describe('tokenInterceptor', function() {
         $httpProvider,
         tokenInterceptor,
         api,
-        UserService;
+        userManager;
 
     beforeEach(module('Gapminder', function(_$httpProvider_) {
         $httpProvider = _$httpProvider_;
     }));
 
-    beforeEach(inject(function(_$httpBackend_, _$http_, _tokenInterceptor_, _api_, _UserService_) {
+    beforeEach(inject(function(_$httpBackend_, _$http_, _tokenInterceptor_, _api_, _userManager_) {
         $httpBackend = _$httpBackend_;
         $http = _$http_;
         tokenInterceptor = _tokenInterceptor_;
         api = _api_;
-        UserService = _UserService_;
+        userManager = _userManager_;
 
-        UserService.logout();
+        userManager.logout();
     }));
 
     it('should register the token interceptor', function() {
@@ -26,7 +26,7 @@ describe('tokenInterceptor', function() {
 
     it('should set authorization header in request', function() {
         var authToken = '2345dfdd29222dd9';
-        UserService.saveAuthToken(authToken);
+        userManager.saveAuthToken(authToken);
         var config = tokenInterceptor.request({headers: {}});
         expect(config.headers['Authorization']).toBe('Bearer ' + authToken);
     });
@@ -38,8 +38,8 @@ describe('tokenInterceptor', function() {
 
     it('should request new auth token on 401 and when refresh token exists', function() {
         var url = '/some-url-that-requires-authentication';
-        UserService.saveRefreshToken('cba321');
-        spyOn(UserService, 'refreshAuthToken').and.callThrough();
+        userManager.saveRefreshToken('cba321');
+        spyOn(userManager, 'refreshAuthToken').and.callThrough();
         $http.get(url);
         $httpBackend.when('GET', url).respond(401);
         $httpBackend.expect('POST', api.getApiUrl('/user/login')).respond(200, {
@@ -48,15 +48,15 @@ describe('tokenInterceptor', function() {
         });
         $httpBackend.expect('GET', api.getApiUrl('/user/info')).respond(200);
         $httpBackend.flush();
-        expect(UserService.refreshAuthToken).toHaveBeenCalled();
+        expect(userManager.refreshAuthToken).toHaveBeenCalled();
     });
 
     it('should not request new auth token on 401 when refresh token does not exist', function() {
         var url = '/some-url-that-requires-authentication';
-        spyOn(UserService, 'refreshAuthToken');
+        spyOn(userManager, 'refreshAuthToken');
         $http.get(url);
         $httpBackend.when('GET', url).respond(401);
         $httpBackend.flush();
-        expect(UserService.refreshAuthToken).not.toHaveBeenCalled();
+        expect(userManager.refreshAuthToken).not.toHaveBeenCalled();
     });
 });

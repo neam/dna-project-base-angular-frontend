@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('UserService', [
+angular.module('Gapminder').factory('userManager', [
     '$http',
     '$q',
     '$window',

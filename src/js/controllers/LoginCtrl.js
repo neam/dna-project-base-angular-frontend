@@ -2,14 +2,14 @@ angular.module('Gapminder').controller('LoginCtrl', [
     '$scope',
     '$rootScope',
     '$q',
-    'UserService',
+    'userManager',
     'uiTranslator',
     'urlManager',
 function(
     $scope,
     $rootScope,
     $q,
-    UserService,
+    userManager,
     uiTranslator,
     urlManager
 ) {
@@ -23,9 +23,9 @@ function(
     $scope.login = function() {
         var dfd = $q.defer();
 
-        UserService.login($scope.credentials.username, $scope.credentials.password)
+        userManager.login($scope.credentials.username, $scope.credentials.password)
             .success(function(res) {
-                UserService.ensureInfo();
+                userManager.ensureInfo();
                 urlManager.redirectToReturnUrl();
                 dfd.resolve(res);
             })

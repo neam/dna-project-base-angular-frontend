@@ -2,14 +2,14 @@ angular.module('Gapminder').controller('NavbarCtrl', [
     '$scope',
     '$http',
     '$window',
-    'UserService',
+    'userManager',
     'urlManager',
     'localeManager',
 function(
     $scope,
     $http,
     $window,
-    UserService,
+    userManager,
     urlManager,
     localeManager
 ) {
@@ -17,7 +17,7 @@ function(
      * Logs out the user.
      */
     $scope.logout = function() {
-        UserService.logout();
+        userManager.logout();
     };
 
     /**
@@ -25,7 +25,7 @@ function(
      * @returns {string}
      */
     $scope.getUsername = function() {
-        return UserService.info ? UserService.info.username : '';
+        return userManager.info ? userManager.info.username : '';
     };
 
     /**

@@ -72,13 +72,13 @@ function(
          * @param {Object} response
          */
         responseError: function(response) {
-            var UserService = $injector.get('UserService'),
+            var userManager = $injector.get('userManager'),
                 dfd = promiseFactory.defer();
 
-            if (response.status === 401 && UserService.hasRefreshToken() && !_.contains(retryUrls, response.config.url)) {
+            if (response.status === 401 && userManager.hasRefreshToken() && !_.contains(retryUrls, response.config.url)) {
                 retryUrls.push(response.config.url);
 
-                UserService.refreshAuthToken()
+                userManager.refreshAuthToken()
                     .success(function(res) {
                         retryHttpRequest(response.config, dfd);
                     })
