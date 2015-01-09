@@ -1,12 +1,4 @@
-angular.module('Gapminder').directive('showMore', [
-  '$compile',
-  '$timeout',
-  'urlManager',
-function(
-  $compile,
-  $timeout,
-  urlManager
-) {
+angular.module('Gapminder').directive('showMore', function($compile, $timeout, urlManager) {
   return {
     restrict: 'AE',
     scope: {
@@ -63,4 +55,4 @@ function(
       };
     }
   };
-}]);
+});

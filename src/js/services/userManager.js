@@ -1,18 +1,4 @@
-angular.module('Gapminder').factory('userManager', [
-  '$http',
-  '$q',
-  '$window',
-  'api',
-  'configManager',
-  'promiseFactory',
-function(
-  $http,
-  $q,
-  $window,
-  api,
-  configManager,
-  promiseFactory
-) {
+angular.module('Gapminder').factory('userManager', function($http, $q, $window, api, configManager, promiseFactory) {
   var clientId = configManager.get('authClientId');
 
   return {
@@ -214,4 +200,4 @@ function(
       }
     }
   }
-}]);
+});

@@ -1,14 +1,4 @@
-angular.module('Gapminder').factory('sirTrevor', [
-  '$location',
-  'urlManager',
-  'api',
-  'itemManager',
-function(
-  $location,
-  urlManager,
-  api,
-  itemManager
-) {
+angular.module('Gapminder').factory('sirTrevor', function($location, urlManager, api, itemManager) {
   var cmsItemTypes = [
     'download_link',
     'html_chunk',
@@ -380,4 +370,4 @@ function(
   };
 
   return service;
-}]);
+});

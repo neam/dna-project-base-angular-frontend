@@ -1,12 +1,4 @@
-angular.module('Gapminder').directive('sirTrevorBlocks', [
-  '$compile',
-  '$timeout',
-  'sirTrevor',
-function(
-  $compile,
-  $timeout,
-  sirTrevor
-) {
+angular.module('Gapminder').directive('sirTrevorBlocks', function($compile, $timeout, sirTrevor) {
   return {
     restrict: 'AE',
     scope: {
@@ -73,4 +65,4 @@ function(
       });
     }
   };
-}]);
+});

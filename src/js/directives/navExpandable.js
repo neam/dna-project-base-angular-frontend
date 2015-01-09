@@ -1,10 +1,4 @@
-angular.module('Gapminder').directive('navExpandable', [
-  'urlManager',
-  'menuFactory',
-function(
-  urlManager,
-  menuFactory
-) {
+angular.module('Gapminder').directive('navExpandable', function(urlManager, menuFactory) {
   return {
     restrict: 'A',
     scope: {
@@ -17,4 +11,4 @@ function(
     }],
     templateUrl: urlManager.createTemplateUrl('/directives/nav-expandable.html')
   };
-}]);
+});

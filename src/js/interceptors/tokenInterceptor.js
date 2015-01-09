@@ -1,16 +1,4 @@
-angular.module('Gapminder').factory('tokenInterceptor', [
-  '$q',
-  '$window',
-  '$rootScope',
-  '$injector',
-  'promiseFactory',
-function(
-  $q,
-  $window,
-  $rootScope,
-  $injector,
-  promiseFactory
-) {
+angular.module('Gapminder').factory('tokenInterceptor', function($q, $window, $rootScope, $injector, promiseFactory) {
   var retryUrls = [];
 
   /**
@@ -92,6 +80,6 @@ function(
       return $q.reject(response);
     }
   };
-}]).config(['$httpProvider', function($httpProvider) {
+}).config(function($httpProvider) {
   $httpProvider.interceptors.push('tokenInterceptor');
-}]);
+});

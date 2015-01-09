@@ -1,12 +1,4 @@
-angular.module('Gapminder').factory('api', [
-  'configManager',
-  'utils',
-  'baseApiUrl',
-function(
-  configManager,
-  utils,
-  baseApiUrl
-) {
+angular.module('Gapminder').factory('api', function(configManager, utils, baseApiUrl) {
   var compositionTypeToItemPathNameMap = {
     exercise: 'exercises',
     presentation: 'presentations'
@@ -48,4 +40,4 @@ function(
       return str.join('&');
     }
   }
-}]);
+});

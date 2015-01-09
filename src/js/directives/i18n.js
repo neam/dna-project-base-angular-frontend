@@ -1,4 +1,4 @@
-angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'uiTranslator', function($rootScope, $compile, uiTranslator) {
+angular.module('Gapminder').directive('i18n', function($rootScope, $compile, uiTranslator) {
   return {
     restrict: 'EA',
     template: false,
@@ -104,4 +104,4 @@ angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'uiTran
 
     return params;
   }
-}]);
+});

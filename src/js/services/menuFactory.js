@@ -1,12 +1,4 @@
-angular.module('Gapminder').factory('menuFactory', [
-  '$location',
-  '$q',
-  'configManager',
-function(
-  $location,
-  $q,
-  configManager
-) {
+angular.module('Gapminder').factory('menuFactory', function($location, $q, configManager) {
   return {
     type: {
       HOME: 'home',
@@ -257,4 +249,4 @@ function(
       }
     }
   };
-}]);
+});

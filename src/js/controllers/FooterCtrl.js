@@ -1,18 +1,4 @@
-angular.module('Gapminder').controller('FooterCtrl', [
-  '$scope',
-  '$http',
-  '$q',
-  'api',
-  'localeManager',
-  'deviceRedirector',
-function(
-  $scope,
-  $http,
-  $q,
-  api,
-  localeManager,
-  deviceRedirector
-) {
+angular.module('Gapminder').controller('FooterCtrl', function($scope, $http, $q, api, localeManager, deviceRedirector) {
   /**
    * Initializes the controller.
    * @returns {Deferred.Promise}
@@ -63,4 +49,4 @@ function(
   $scope.goMobile = function() {
     deviceRedirector.forceRedirect();
   };
-}]);
+});

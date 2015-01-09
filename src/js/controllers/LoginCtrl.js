@@ -1,18 +1,4 @@
-angular.module('Gapminder').controller('LoginCtrl', [
-  '$scope',
-  '$rootScope',
-  '$q',
-  'userManager',
-  'uiTranslator',
-  'urlManager',
-function(
-  $scope,
-  $rootScope,
-  $q,
-  userManager,
-  uiTranslator,
-  urlManager
-) {
+angular.module('Gapminder').controller('LoginCtrl', function($scope, $rootScope, $q, userManager, uiTranslator, urlManager) {
   $scope.navigation.setTranslatedPageTitle('login', 'Login');
   $scope.credentials = {};
 
@@ -36,4 +22,4 @@ function(
 
     return dfd.promise;
   };
-}]);
+});

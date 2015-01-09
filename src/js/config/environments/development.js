@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('EnvironmentConfig', [function() {
+angular.module('Gapminder').factory('EnvironmentConfig', function() {
   return {
     homeTreeData: {
       "node_id": null,
@@ -37,4 +37,4 @@ angular.module('Gapminder').factory('EnvironmentConfig', [function() {
       ]
     }
   };
-}]);
+});

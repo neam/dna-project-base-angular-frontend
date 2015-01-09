@@ -1,12 +1,4 @@
-angular.module('Gapminder').factory('deviceRedirector', [
-  '$window',
-  '$location',
-  'urlManager',
-function(
-  $window,
-  $location,
-  urlManager
-) {
+angular.module('Gapminder').factory('deviceRedirector', function($window, $location, urlManager) {
   var REDIRECT_BASE_URL = 'http://m.gapminder.org',
       SESSION_STORAGE_KEY = 'cancelDeviceRedirect',
       QUERY_PARAM_ENABLE = 'enableRedirect',
@@ -79,4 +71,4 @@ function(
       $window.location.href = REDIRECT_BASE_URL + route + '?disableRedirect';
     }
   };
-}]);
+});

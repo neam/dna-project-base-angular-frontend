@@ -1,18 +1,4 @@
-angular.module('Gapminder').run([
-  '$rootScope',
-  '$location',
-  '$window',
-  'urlManager',
-  'userManager',
-  'deviceRedirector',
-function(
-  $rootScope,
-  $location,
-  $window,
-  urlManager,
-  userManager,
-  deviceRedirector
-) {
+angular.module('Gapminder').run(function($rootScope, $location, $window, urlManager, userManager, deviceRedirector) {
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
     deviceRedirector.run();
 
@@ -47,4 +33,4 @@ function(
       $rootScope.layout = 'layout-regular';
     }
   });
-}]);
+});

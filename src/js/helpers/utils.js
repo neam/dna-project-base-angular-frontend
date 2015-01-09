@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('utils', [function() {
+angular.module('Gapminder').factory('utils', function() {
   return {
     /**
      * Strips a leading slash if present, and returns the string.
@@ -81,4 +81,4 @@ angular.module('Gapminder').factory('utils', [function() {
       return String(string).replace(/<[^>]+>/gm, '');
     }
   };
-}]);
+});

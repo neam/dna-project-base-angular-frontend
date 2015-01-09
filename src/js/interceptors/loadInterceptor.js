@@ -1,12 +1,4 @@
-angular.module('Gapminder').factory('loadInterceptor', [
-  '$q',
-  '$rootScope',
-  '$timeout',
-function(
-  $q,
-  $rootScope,
-  $timeout
-) {
+angular.module('Gapminder').factory('loadInterceptor', function($q, $rootScope, $timeout) {
   var loadCount = 0;
 
   return {
@@ -42,6 +34,6 @@ function(
       return $q.reject(response);
     }
   };
-}]).config(['$httpProvider', function($httpProvider) {
+}).config(function($httpProvider) {
   $httpProvider.interceptors.push('loadInterceptor');
-}]);
+});

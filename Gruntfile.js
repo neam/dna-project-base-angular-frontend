@@ -2,15 +2,15 @@ module.exports = function(grunt) {
   require('jit-grunt')(grunt);
 
   var baseApiUrlDevelopment = grunt.option('api') || 'http://localhost:1338/api',
-    baseApiUrlProduction = grunt.option('api') || 'http://cms.gapminder.org/api/v1',
-    baseApiUrlStage = grunt.option('api') || 'http://cms.gapminder.org/api/v1',
-    assetUrlDevelopment = grunt.option('assetUrl') || '',
-    assetUrlProduction = grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop/master/',
-    assetUrlStage = grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop-stage/',
-    html5ModeDevelopment = grunt.option('html5Mode') || false,
-    html5ModeProduction = grunt.option('html5Mode') || true,
-    html5ModeStage = grunt.option('html5Mode') || false,
-    devHttpServerRoot = grunt.option('httpServerRoot') || './dist';
+      baseApiUrlProduction = grunt.option('api') || 'http://cms.gapminder.org/api/v1',
+      baseApiUrlStage = grunt.option('api') || 'http://cms.gapminder.org/api/v1',
+      assetUrlDevelopment = grunt.option('assetUrl') || '',
+      assetUrlProduction = grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop/master/',
+      assetUrlStage = grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop-stage/',
+      html5ModeDevelopment = grunt.option('html5Mode') || false,
+      html5ModeProduction = grunt.option('html5Mode') || true,
+      html5ModeStage = grunt.option('html5Mode') || false,
+      devHttpServerRoot = grunt.option('httpServerRoot') || './dist';
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -26,9 +26,19 @@ module.exports = function(grunt) {
       tmpCompile: '.tmp/compile',
       tmpDist: '.tmp/dist'
     },
+    ngAnnotate: {
+      options: {
+        singleQuotes: true
+      },
+      app: {
+        files: {
+          '<%= paths.tmpCompile %>/assets/js/main.js': ['<%= paths.tmpCompile %>/assets/js/main.js']
+        }
+      }
+    },
     concat: {
       options: {
-        separator: "\n\n"
+        separator: "\n"
       },
       development: {
         src: [
@@ -381,6 +391,7 @@ module.exports = function(grunt) {
     'clean:dist',
     'sass:development',
     'concat:development',
+    'ngAnnotate:app',
     'bower:main',
     'concat:vendor',
     'template:development',
@@ -396,6 +407,7 @@ module.exports = function(grunt) {
     'clean:dist',
     'sass:production',
     'concat:production',
+    'ngAnnotate:app',
     'bower:main',
     'concat:vendor',
     'uglify:production',
@@ -411,6 +423,7 @@ module.exports = function(grunt) {
     'clean:dist',
     'sass:production',
     'concat:stage',
+    'ngAnnotate:app',
     'bower:main',
     'concat:vendor',
     'uglify:production',

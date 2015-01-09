@@ -1,18 +1,4 @@
-angular.module('Gapminder').controller('NavbarCtrl', [
-  '$scope',
-  '$http',
-  '$window',
-  'userManager',
-  'urlManager',
-  'localeManager',
-function(
-  $scope,
-  $http,
-  $window,
-  userManager,
-  urlManager,
-  localeManager
-) {
+angular.module('Gapminder').controller('NavbarCtrl', function($scope, $http, $window, userManager, urlManager, localeManager) {
   /**
    * Logs out the user.
    */
@@ -36,4 +22,4 @@ function(
     localeManager.setCurrentLocale(locale);
     urlManager.reload();
   };
-}]);
+});

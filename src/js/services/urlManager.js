@@ -1,24 +1,4 @@
-angular.module('Gapminder').factory('urlManager', [
-  '$window',
-  '$location',
-  '$rootScope',
-  '$injector',
-  '$sce',
-  'utils',
-  'uiTranslator',
-  'assetUrl',
-  'html5Mode',
-function(
-  $window,
-  $location,
-  $rootScope,
-  $injector,
-  $sce,
-  utils,
-  uiTranslator,
-  assetUrl,
-  html5Mode
-) {
+angular.module('Gapminder').factory('urlManager', function($window, $location, $rootScope, $injector, $sce, utils, uiTranslator, assetUrl, html5Mode) {
   var MOBILE_BASE_URL = 'http://m.gapminder.org';
 
   return {
@@ -295,4 +275,4 @@ function(
       $rootScope.layout = 'layout-minimal';
     }
   }
-}]);
+});

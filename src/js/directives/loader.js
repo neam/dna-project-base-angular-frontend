@@ -1,10 +1,4 @@
-angular.module('Gapminder').directive('loader', [
-  '$rootScope',
-  'urlManager',
-function(
-  $rootScope,
-  urlManager
-) {
+angular.module('Gapminder').directive('loader', function($rootScope, urlManager) {
   return {
     restrict: 'AE',
     link: function($scope, element, attrs) {
@@ -29,4 +23,4 @@ function(
     templateUrl: urlManager.createTemplateUrl('/directives/loader.html'),
     transclude: true
   };
-}]);
+});

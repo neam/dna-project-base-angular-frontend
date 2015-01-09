@@ -1,3 +1,3 @@
-angular.module('Gapminder').controller('HomeCtrl', ['$scope', function($scope) {
+angular.module('Gapminder').controller('HomeCtrl', function($scope) {
   $scope.navigation.setTranslatedPageTitle('home', 'Home');
-}]);
+});

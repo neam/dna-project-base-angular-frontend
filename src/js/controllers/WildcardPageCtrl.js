@@ -1,16 +1,4 @@
-angular.module('Gapminder').controller('WildcardPageCtrl', [
-  '$scope',
-  '$rootScope',
-  '$location',
-  'itemManager',
-  'urlManager',
-function(
-  $scope,
-  $rootScope,
-  $location,
-  itemManager,
-  urlManager
-) {
+angular.module('Gapminder').controller('WildcardPageCtrl', function($scope, $rootScope, $location, itemManager, urlManager) {
   $scope.itemService = itemManager;
 
   itemManager.loadItem()
@@ -36,4 +24,4 @@ function(
       return urlManager.createTemplateUrl('/states/custom-page.html');
     }
   };
-}]);
+});

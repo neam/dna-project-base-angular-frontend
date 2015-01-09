@@ -1,26 +1,4 @@
-angular.module('Gapminder').controller('MainCtrl', [
-  '$scope',
-  '$rootScope',
-  '$http',
-  '$location',
-  'userManager',
-  'api',
-  'localeManager',
-  'urlManager',
-  'uiTranslator',
-  'pageLoader',
-function(
-  $scope,
-  $rootScope,
-  $http,
-  $location,
-  userManager,
-  api,
-  localeManager,
-  urlManager,
-  uiTranslator,
-  pageLoader
-) {
+angular.module('Gapminder').controller('MainCtrl', function ($scope, $rootScope, $http, $location, userManager, api, localeManager, urlManager, uiTranslator, pageLoader) {
   $rootScope.locale = localeManager;
   $rootScope.load = pageLoader;
   $rootScope.i18n = uiTranslator;
@@ -88,4 +66,4 @@ function(
   $scope.createTemplateUrl = function(path) {
     return urlManager.createTemplateUrl(path);
   }
-}]);
+});

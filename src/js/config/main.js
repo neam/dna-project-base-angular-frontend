@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('MainConfig', [function() {
+angular.module('Gapminder').factory('MainConfig', function() {
   return {
     authClientId: 'TestClient',
     homeTreeData: {
@@ -100,4 +100,4 @@ angular.module('Gapminder').factory('MainConfig', [function() {
       ]
     }
   };
-}]);
+});

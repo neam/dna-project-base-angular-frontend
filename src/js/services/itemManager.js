@@ -1,24 +1,4 @@
-angular.module('Gapminder').factory('itemManager', [
-  '$http',
-  '$q',
-  '$window',
-  '$location',
-  '$rootScope',
-  'promiseFactory',
-  'urlManager',
-  'api',
-  'utils',
-function(
-  $http,
-  $q,
-  $window,
-  $location,
-  $rootScope,
-  promiseFactory,
-  urlManager,
-  api,
-  utils
-) {
+angular.module('Gapminder').factory('itemManager', function($http, $q, $window, $location, $rootScope, promiseFactory, urlManager, api, utils) {
   return {
     /**
      * Loads an item.
@@ -177,4 +157,4 @@ function(
       $rootScope.metaDescription = text;
     }
   };
-}]);
+});

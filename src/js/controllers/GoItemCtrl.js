@@ -1,22 +1,4 @@
-angular.module('Gapminder').controller('GoItemCtrl', [
-  '$rootScope',
-  '$scope',
-  '$stateParams',
-  '$location',
-  'api',
-  'urlManager',
-  'uiTranslator',
-  'itemManager',
-function(
-  $rootScope,
-  $scope,
-  $stateParams,
-  $location,
-  api,
-  urlManager,
-  uiTranslator,
-  itemManager
-) {
+angular.module('Gapminder').controller('GoItemCtrl', function($rootScope, $scope, $stateParams, $location, api, urlManager, uiTranslator, itemManager) {
   $scope.itemService = itemManager;
 
   itemManager.loadItem()
@@ -57,4 +39,4 @@ function(
 
     return angular.isDefined(paramToItemTypeMap[urlParam]) ? paramToItemTypeMap[urlParam] : '';
   }
-}]);
+});

@@ -1,18 +1,4 @@
-angular.module('Gapminder').config([
-  '$stateProvider',
-  '$urlRouterProvider',
-  '$locationProvider',
-  '$sceDelegateProvider',
-  'assetUrl',
-  'html5Mode',
-function(
-  $stateProvider,
-  $urlRouterProvider,
-  $locationProvider,
-  $sceDelegateProvider,
-  assetUrl,
-  html5Mode
-) {
+angular.module('Gapminder').config(function($stateProvider, $urlRouterProvider, $locationProvider, $sceDelegateProvider, assetUrl, html5Mode) {
   // HTML5 mode
   $locationProvider.html5Mode(html5Mode);
 
@@ -70,4 +56,4 @@ function(
     var $state = $injector.get('$state');
     $state.go('wildcardPage', {}, {reload: true});
   });
-}]);
+});

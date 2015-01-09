@@ -1,18 +1,4 @@
-angular.module('Gapminder').factory('uiTranslator', [
-  '$rootScope',
-  '$http',
-  '$q',
-  '$window',
-  'api',
-  'localeManager',
-function(
-  $rootScope,
-  $http,
-  $q,
-  $window,
-  api,
-  localeManager
-) {
+angular.module('Gapminder').factory('uiTranslator', function($rootScope, $http, $q, $window, api, localeManager) {
   var currentLocale,
       translationApiUrl;
 
@@ -98,4 +84,4 @@ function(
 
     return dfd.promise;
   }
-}]);
+});

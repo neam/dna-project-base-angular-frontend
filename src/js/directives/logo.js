@@ -1,4 +1,4 @@
-angular.module('Gapminder').directive('logo', ['urlManager', 'assetUrl', function(urlManager, assetUrl) {
+angular.module('Gapminder').directive('logo', function(urlManager, assetUrl) {
   return {
     restrict: 'E',
     scope: {
@@ -9,4 +9,4 @@ angular.module('Gapminder').directive('logo', ['urlManager', 'assetUrl', functio
     },
     templateUrl: urlManager.createTemplateUrl('/directives/logo.html')
   };
-}]);
+});

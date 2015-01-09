@@ -1,14 +1,4 @@
-angular.module('Gapminder').directive('customPageNav', [
-  '$rootScope',
-  '$location',
-  'menuFactory',
-  'urlManager',
-function(
-  $rootScope,
-  $location,
-  menuFactory,
-  urlManager
-) {
+angular.module('Gapminder').directive('customPageNav', function($rootScope, $location, menuFactory, urlManager) {
   return {
     restrict: 'E',
     scope: {
@@ -66,4 +56,4 @@ function(
     }],
     templateUrl: urlManager.createTemplateUrl('/directives/custom-page-nav.html')
   };
-}]);
+});

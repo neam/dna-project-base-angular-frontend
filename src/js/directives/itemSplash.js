@@ -1,4 +1,4 @@
-angular.module('Gapminder').directive('itemSplash', ['urlManager', 'sirTrevor', function(urlManager, sirTrevor) {
+angular.module('Gapminder').directive('itemSplash', function(urlManager, sirTrevor) {
   return {
     restrict: 'AE',
     scope: {
@@ -35,4 +35,4 @@ angular.module('Gapminder').directive('itemSplash', ['urlManager', 'sirTrevor', 
       });
     }
   };
-}]);
+});
