@@ -1,11 +1,11 @@
-angular.module('Gapminder').factory('NavigationService', [
+angular.module('Gapminder').factory('urlManager', [
     '$window',
     '$location',
     '$rootScope',
     '$injector',
     '$sce',
-    'Utils',
-    'i18nService',
+    'utils',
+    'uiTranslator',
     'assetUrl',
     'html5Mode',
 function(
@@ -14,8 +14,8 @@ function(
     $rootScope,
     $injector,
     $sce,
-    Utils,
-    i18nService,
+    utils,
+    uiTranslator,
     assetUrl,
     html5Mode
 ) {
@@ -77,7 +77,7 @@ function(
                 return route;
             }
 
-            route = Utils.ensureLeadingSlash(route);
+            route = utils.ensureLeadingSlash(route);
             return html5Mode ? route : '#' + route;
         },
 
@@ -87,7 +87,7 @@ function(
          * @returns {string}
          */
         createAssetUrl: function(path) {
-            return assetUrl + Utils.stripLeadingSlash(path);
+            return assetUrl + utils.stripLeadingSlash(path);
         },
 
         /**
@@ -96,7 +96,7 @@ function(
          * @returns {string}
          */
         createTemplateUrl: function(path) {
-            path = Utils.ensureLeadingSlash(path);
+            path = utils.ensureLeadingSlash(path);
             return $sce.trustAsResourceUrl(assetUrl + 'templates' + path);
         },
 
@@ -181,7 +181,7 @@ function(
          */
         setTranslatedPageTitle: function(i18nKey, fallback) {
             var i18nString = 'page-title:{key}'.replace('{key}', i18nKey),
-                translation = i18nService.translate(i18nString, {}, fallback);
+                translation = uiTranslator.translate(i18nString, {}, fallback);
 
             this.setPageTitle(translation);
         },
@@ -255,7 +255,7 @@ function(
                 baseRoute = baseRoute.replace($location.$$path, ''); // strip path
             }
 
-            baseRoute = Utils.ensureTrailingSlash(baseRoute);
+            baseRoute = utils.ensureTrailingSlash(baseRoute);
 
             return baseRoute;
         },

@@ -1,10 +1,10 @@
-angular.module('Gapminder').factory('ApiService', [
-    'ConfigService',
-    'Utils',
+angular.module('Gapminder').factory('api', [
+    'configManager',
+    'utils',
     'baseApiUrl',
 function(
-    ConfigService,
-    Utils,
+    configManager,
+    utils,
     baseApiUrl
 ) {
     var compositionTypeToItemPathNameMap = {
@@ -19,7 +19,7 @@ function(
          * @returns {string}
          */
         getApiUrl: function(uri) {
-            return Utils.stripTrailingSlash(baseApiUrl + uri)
+            return utils.stripTrailingSlash(baseApiUrl + uri)
         },
 
         /**

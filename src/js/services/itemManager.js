@@ -1,23 +1,23 @@
-angular.module('Gapminder').factory('ItemService', [
+angular.module('Gapminder').factory('itemManager', [
     '$http',
     '$q',
     '$window',
     '$location',
     '$rootScope',
-    'PromiseFactory',
-    'NavigationService',
-    'ApiService',
-    'Utils',
+    'promiseFactory',
+    'urlManager',
+    'api',
+    'utils',
 function(
     $http,
     $q,
     $window,
     $location,
     $rootScope,
-    PromiseFactory,
-    NavigationService,
-    ApiService,
-    Utils
+    promiseFactory,
+    urlManager,
+    api,
+    utils
 ) {
     return {
         /**
@@ -27,10 +27,10 @@ function(
          */
         loadItem: function() {
             var self = this,
-                dfd = PromiseFactory.defer(),
+                dfd = promiseFactory.defer(),
                 apiUrl;
 
-            if (NavigationService.isValidRoute()) {
+            if (urlManager.isValidRoute()) {
                 apiUrl = self.getItemIdentifierFromUrl();
             } else {
                 var routeParam = self.getItemRouteParamFromUrl();
@@ -71,8 +71,8 @@ function(
          * @returns {string}
          */
         getItemRouteParamFromUrl: function() {
-            var fullRoute = NavigationService.getCurrentRoute();
-            return Utils.ensureLeadingSlash(fullRoute);
+            var fullRoute = urlManager.getCurrentRoute();
+            return utils.ensureLeadingSlash(fullRoute);
         },
 
         /**
@@ -80,12 +80,12 @@ function(
          * @returns {number|string}
          */
         getItemIdentifierFromUrl: function() {
-            var fullRoute = NavigationService.getCurrentRoute(),
+            var fullRoute = urlManager.getCurrentRoute(),
                 identifier = fullRoute.split('/')[2]; // TODO: Improve.
 
             identifier = _.isFinite(identifier)
                 ? identifier
-                : $window.encodeURIComponent(Utils.ensureLeadingSlash(fullRoute));
+                : $window.encodeURIComponent(utils.ensureLeadingSlash(fullRoute));
 
             return this.createItemApiUrl(identifier);
         },
@@ -96,7 +96,7 @@ function(
          * @returns {string}
          */
         createItemApiUrl: function(identifier) {
-            return ApiService.getApiUrl('/item' + Utils.ensureLeadingSlash(identifier));
+            return api.getApiUrl('/item' + utils.ensureLeadingSlash(identifier));
         },
 
         /**
@@ -119,7 +119,7 @@ function(
                 return composition.url;
             } else {
                 // by node_id
-                return NavigationService.createUrl(ApiService.getCompositionItemPathName(composition.node_id));
+                return urlManager.createUrl(api.getCompositionItemPathName(composition.node_id));
             }
         },
 
@@ -131,7 +131,7 @@ function(
         goToProfile: function(userId, event) {
             event.preventDefault();
             var url = this.createUserProfileUrl(userId);
-            NavigationService.redirect(url);
+            urlManager.redirect(url);
         },
 
         /**
@@ -166,9 +166,9 @@ function(
 
             if (angular.isDefined(item.attributes)) {
                 if (angular.isDefined(item.attributes.about)) {
-                    text = Utils.htmlToPlainText(item.attributes.about);
+                    text = utils.htmlToPlainText(item.attributes.about);
                 } else if (angular.isDefined(item.attributes.subheading)) {
-                    text = Utils.htmlToPlainText(item.attributes.subheading);
+                    text = utils.htmlToPlainText(item.attributes.subheading);
                 }
             }
 

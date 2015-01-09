@@ -1,16 +1,16 @@
-describe('NavigationService', function() {
+describe('urlManager', function() {
     var $rootScope,
         $controller,
         $location,
-        NavigationService;
+        urlManager;
 
     beforeEach(module('Gapminder'));
 
-    beforeEach(inject(function(_$rootScope_, _$controller_, _$location_, _NavigationService_) {
+    beforeEach(inject(function(_$rootScope_, _$controller_, _$location_, _urlManager_) {
         $rootScope = _$rootScope_;
         $controller = _$controller_;
         $location = _$location_;
-        NavigationService = _NavigationService_;
+        urlManager = _urlManager_;
     }));
 
     afterEach(function() {
@@ -19,55 +19,55 @@ describe('NavigationService', function() {
 
     it('should return base route at www.gapminder.org', function() {
         setLocation('www.gapminder.org', '', '');
-        expect(NavigationService.getBaseRoute()).toBe('/');
+        expect(urlManager.getBaseRoute()).toBe('/');
     });
 
     it('should return base route at www.gapminder.org/ebola', function() {
         setLocation('www.gapminder.org', '', '/ebola');
-        expect(NavigationService.getBaseRoute()).toBe('/');
+        expect(urlManager.getBaseRoute()).toBe('/');
     });
 
     it('should return base route at www.gapminder.org/exercises/ejercicio-con-video', function() {
         setLocation('www.gapminder.org', '', '/exercises/ejercicio-con-video');
-        expect(NavigationService.getBaseRoute()).toBe('/');
+        expect(urlManager.getBaseRoute()).toBe('/');
     });
 
     it('should return base route at www.gapminder.org/exercises/100', function() {
         setLocation('www.gapminder.org', '', '/exercises/100');
-        expect(NavigationService.getBaseRoute()).toBe('/');
+        expect(urlManager.getBaseRoute()).toBe('/');
     });
 
     it('should return base route at www.gapminder.org/ebola/dashboard', function() {
         setLocation('www.gapminder.org', '', '/ebola/dashboard');
-        expect(NavigationService.getBaseRoute()).toBe('/');
+        expect(urlManager.getBaseRoute()).toBe('/');
     });
 
     it('should return base route at static.gapminder.org/pages-desktop-stage-with-mock/#/ebola', function() {
         setLocation('static.gapminder.org', 'pages-desktop-stage-with-mock', '/ebola', true);
-        expect(NavigationService.getBaseRoute()).toBe('/pages-desktop-stage-with-mock/');
+        expect(urlManager.getBaseRoute()).toBe('/pages-desktop-stage-with-mock/');
     });
 
     it('should return base route at static.gapminder.org/pages-desktop-stage-with-mock/#/ebola/dashboard', function() {
         setLocation('static.gapminder.org', 'pages-desktop-stage-with-mock', '/ebola/dashboard', true);
-        expect(NavigationService.getBaseRoute()).toBe('/pages-desktop-stage-with-mock/');
+        expect(urlManager.getBaseRoute()).toBe('/pages-desktop-stage-with-mock/');
     });
 
     it('should return base route at static.gapminder.org/pages-desktop-stage-with-mock/#/exercises/ejercicio-con-video', function() {
         setLocation('static.gapminder.org', 'pages-desktop-stage-with-mock', '/exercises/ejercicio-con-video', true);
-        expect(NavigationService.getBaseRoute()).toBe('/pages-desktop-stage-with-mock/');
+        expect(urlManager.getBaseRoute()).toBe('/pages-desktop-stage-with-mock/');
     });
 
     it('should return base route at static.gapminder.org/pages-desktop-stage-with-mock/#/exercises/100', function() {
         setLocation('static.gapminder.org', 'pages-desktop-stage-with-mock', '/exercises/100', true);
-        expect(NavigationService.getBaseRoute()).toBe('/pages-desktop-stage-with-mock/');
+        expect(urlManager.getBaseRoute()).toBe('/pages-desktop-stage-with-mock/');
     });
 
     it('should identify http://www.gapminder.org/ebola as an absolute URL', function() {
-        expect(NavigationService.isAbsoluteUrl('http://www.gapminder.org/ebola')).toBe(true);
+        expect(urlManager.isAbsoluteUrl('http://www.gapminder.org/ebola')).toBe(true);
     });
 
     it('should identify /ebola/dashboard as an absolute URL', function() {
-        expect(NavigationService.isAbsoluteUrl('/ebola/dashboard')).toBe(false);
+        expect(urlManager.isAbsoluteUrl('/ebola/dashboard')).toBe(false);
     });
 
     /**

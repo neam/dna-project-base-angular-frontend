@@ -2,16 +2,16 @@ angular.module('Gapminder').controller('FooterCtrl', [
     '$scope',
     '$http',
     '$q',
-    'ApiService',
-    'LocaleService',
-    'DeviceRedirectService',
+    'api',
+    'localeManager',
+    'deviceRedirector',
 function(
     $scope,
     $http,
     $q,
-    ApiService,
-    LocaleService,
-    DeviceRedirectService
+    api,
+    localeManager,
+    deviceRedirector
 ) {
     /**
      * Initializes the controller.
@@ -19,9 +19,9 @@ function(
      */
     $scope.init = function() {
         var dfd = $q.defer(),
-            lang = LocaleService.getCurrentLocale();
+            lang = localeManager.getCurrentLocale();
 
-        $http.get(ApiService.getApiUrl('/footer/' + lang))
+        $http.get(api.getApiUrl('/footer/' + lang))
             .then(function(res) {
                 $scope.footerItems = res.data;
                 dfd.resolve(res);
@@ -61,6 +61,6 @@ function(
      * Re-enables device redirects and redirects to the mobile version.
      */
     $scope.goMobile = function() {
-        DeviceRedirectService.forceRedirect();
+        deviceRedirector.forceRedirect();
     };
 }]);

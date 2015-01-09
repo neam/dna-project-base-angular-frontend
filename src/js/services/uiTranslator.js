@@ -1,24 +1,24 @@
-angular.module('Gapminder').factory('i18nService', [
+angular.module('Gapminder').factory('uiTranslator', [
     '$rootScope',
     '$http',
     '$q',
     '$window',
-    'ApiService',
-    'LocaleService',
+    'api',
+    'localeManager',
 function(
     $rootScope,
     $http,
     $q,
     $window,
-    ApiService,
-    LocaleService
+    api,
+    localeManager
 ) {
     var currentLocale,
         translationApiUrl;
 
     return {
         /**
-         * @type {boolean} whether i18nService has been initialized (and ready to translate)
+         * @type {boolean} whether uiTranslator has been initialized (and ready to translate)
          */
         isReady: false,
 
@@ -30,7 +30,7 @@ function(
             var self = this,
                 dfd = $q.defer();
 
-            currentLocale = LocaleService.getCurrentLocale();
+            currentLocale = localeManager.getCurrentLocale();
             translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale);
 
             loadTranslations()
@@ -68,7 +68,7 @@ function(
     function loadTranslations() {
         var dfd = $q.defer();
 
-        $http.get(ApiService.getApiUrl(translationApiUrl), {cache: true})
+        $http.get(api.getApiUrl(translationApiUrl), {cache: true})
             .success(function(translations) {
                 dfd.resolve(translations);
             })

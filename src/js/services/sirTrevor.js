@@ -1,13 +1,13 @@
-angular.module('Gapminder').factory('SirTrevorService', [
+angular.module('Gapminder').factory('sirTrevor', [
     '$location',
-    'NavigationService',
-    'ApiService',
-    'ItemService',
+    'urlManager',
+    'api',
+    'itemManager',
 function(
     $location,
-    NavigationService,
-    ApiService,
-    ItemService
+    urlManager,
+    api,
+    itemManager
 ) {
     var cmsItemTypes = [
         'download_link',
@@ -237,7 +237,7 @@ function(
 
             angular.forEach(block.data.attributes.items, function(item) {
                 var itemHtml = '',
-                    url = ItemService.createItemUrl(item);
+                    url = itemManager.createItemUrl(item);
 
                 itemHtml += '<li class="item-list-item">';
                 itemHtml += '<a ng-href="{{ url }}">'.replace('{{ url }}', url);
@@ -302,7 +302,7 @@ function(
                 html += '<video width="640">';
                 html += '<source type="video/mp4" src="{{ url }}">'.replace('{{ url }}', block.data.attributes.url_mp4);
                 html += '<source type="video/webm" src="{{ url }}">'.replace('{{ url }}', block.data.attributes.url_webm);
-                html += '<track kind="subtitles" src="{{ url }}" srclang="en">'.replace('{{ url }}', ApiService.getApiUrl(block.data.attributes.url_subtitles));
+                html += '<track kind="subtitles" src="{{ url }}" srclang="en">'.replace('{{ url }}', api.getApiUrl(block.data.attributes.url_subtitles));
                 html += '<object width="640" height="360" type="application/x-shockwave-flash" data="vendor/mediaelement/build/flashmediaelement.swf"></object>';
                 html += '<param name="movie" value="vendor/mediaelement/build/flashmediaelement.swf">';
                 html += '<param name="flashvars" value="controls=true&file={{ url }}">'.replace('{{ url }}', block.data.attributes.url_mp4);

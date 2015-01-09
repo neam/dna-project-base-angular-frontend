@@ -1,19 +1,19 @@
-angular.module('Gapminder').factory('UserService', [
+angular.module('Gapminder').factory('userManager', [
     '$http',
     '$q',
     '$window',
-    'ApiService',
-    'ConfigService',
-    'PromiseFactory',
+    'api',
+    'configManager',
+    'promiseFactory',
 function(
     $http,
     $q,
     $window,
-    ApiService,
-    ConfigService,
-    PromiseFactory
+    api,
+    configManager,
+    promiseFactory
 ) {
-    var clientId = ConfigService.get('authClientId');
+    var clientId = configManager.get('authClientId');
 
     return {
         info: null,
@@ -36,10 +36,10 @@ function(
          * @returns {Deferred.promise}
          */
         login: function(username, password) {
-            var dfd = PromiseFactory.defer(),
+            var dfd = promiseFactory.defer(),
                 self = this;
 
-            $http.post(ApiService.getApiUrl('/user/login'), {
+            $http.post(api.getApiUrl('/user/login'), {
                 grant_type: 'password',
                 client_id: clientId,
                 username: username,
@@ -69,7 +69,7 @@ function(
                 dfd = $q.defer();
 
             if (!self.isAuthenticated && self.hasAuthToken()) {
-                $http.post(ApiService.getApiUrl('/user/authenticate'), {})
+                $http.post(api.getApiUrl('/user/authenticate'), {})
                     .then(function(res) {
                         self.isAuthenticated = true;
                         self.ensureInfo();
@@ -91,8 +91,8 @@ function(
          */
         refreshAuthToken: function() {
             var self = this,
-                dfd = PromiseFactory.defer(),
-                url = ApiService.getApiUrl('/user/login'),
+                dfd = promiseFactory.defer(),
+                url = api.getApiUrl('/user/login'),
                 refreshToken = this.getRefreshToken();
 
             $http({
@@ -103,7 +103,7 @@ function(
                     refresh_token: refreshToken,
                     grant_type: 'refresh_token'
                 },
-                transformRequest: ApiService.serializeFormData,
+                transformRequest: api.serializeFormData,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
                 .success(function(res) {
@@ -130,7 +130,7 @@ function(
                 dfd = $q.defer();
 
             if (!this.username) {
-                $http.get(ApiService.getApiUrl('/user/info'))
+                $http.get(api.getApiUrl('/user/info'))
                     .then(function(res) {
                         self.info = res.data;
                         dfd.resolve();

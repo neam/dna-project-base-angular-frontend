@@ -1,4 +1,4 @@
-angular.module('Gapminder').directive('logo', ['NavigationService', 'assetUrl', function(NavigationService, assetUrl) {
+angular.module('Gapminder').directive('logo', ['urlManager', 'assetUrl', function(urlManager, assetUrl) {
     return {
         restrict: 'E',
         scope: {
@@ -7,6 +7,6 @@ angular.module('Gapminder').directive('logo', ['NavigationService', 'assetUrl', 
         controller: function($scope) {
             $scope.assetUrl = assetUrl;
         },
-        templateUrl: NavigationService.createTemplateUrl('/directives/logo.html')
+        templateUrl: urlManager.createTemplateUrl('/directives/logo.html')
     };
 }]);

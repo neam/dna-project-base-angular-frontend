@@ -3,41 +3,41 @@ angular.module('Gapminder').controller('MainCtrl', [
     '$rootScope',
     '$http',
     '$location',
-    'UserService',
-    'ApiService',
-    'LocaleService',
-    'NavigationService',
-    'i18nService',
-    'LoadService',
+    'userManager',
+    'api',
+    'localeManager',
+    'urlManager',
+    'uiTranslator',
+    'pageLoader',
 function(
     $scope,
     $rootScope,
     $http,
     $location,
-    UserService,
-    ApiService,
-    LocaleService,
-    NavigationService,
-    i18nService,
-    LoadService
+    userManager,
+    api,
+    localeManager,
+    urlManager,
+    uiTranslator,
+    pageLoader
 ) {
-    $rootScope.locale = LocaleService;
-    $rootScope.load = LoadService;
-    $rootScope.i18n = i18nService;
-    $rootScope.navigation = NavigationService;
-    $scope.user = UserService;
+    $rootScope.locale = localeManager;
+    $rootScope.load = pageLoader;
+    $rootScope.i18n = uiTranslator;
+    $rootScope.navigation = urlManager;
+    $scope.user = userManager;
 
     /**
      * Initializes the controller.
      */
     $scope.init = function() {
-        LocaleService.loadLocaleOptions();
+        localeManager.loadLocaleOptions();
     };
 
     /**
      * Triggers page not found.
      */
-    $scope.notFound = NavigationService.notFound;
+    $scope.notFound = urlManager.notFound;
 
     /**
      * Returns the page title.
@@ -58,34 +58,34 @@ function(
      * @returns {string}
      */
     $rootScope.getMetaDescription = function() {
-        return $rootScope.metaDescription || i18nService.translate('metatag:meta-description-fallback', {}, 'A fact-based worldview');
+        return $rootScope.metaDescription || uiTranslator.translate('metatag:meta-description-fallback', {}, 'A fact-based worldview');
     };
 
     /**
-     * @see NavigationService#getBaseRoute
+     * @see urlManager#getBaseRoute
      */
     $rootScope.getBaseRoute = function() {
-        return NavigationService.getBaseRoute();
+        return urlManager.getBaseRoute();
     };
 
     /**
-     * @see NavigationService#createUrl
+     * @see urlManager#createUrl
      */
     $scope.createUrl = function(route) {
-        return NavigationService.createUrl(route);
+        return urlManager.createUrl(route);
     };
 
     /**
-     * @see NavigationService#createAssetUrl
+     * @see urlManager#createAssetUrl
      */
     $scope.createAssetUrl = function(path) {
-        return NavigationService.createAssetUrl(path);
+        return urlManager.createAssetUrl(path);
     };
 
     /**
-     * @see NavigationService#createTemplateUrl
+     * @see urlManager#createTemplateUrl
      */
     $scope.createTemplateUrl = function(path) {
-        return NavigationService.createTemplateUrl(path);
+        return urlManager.createTemplateUrl(path);
     }
 }]);

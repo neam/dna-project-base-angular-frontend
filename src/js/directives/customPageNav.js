@@ -1,13 +1,13 @@
 angular.module('Gapminder').directive('customPageNav', [
     '$rootScope',
     '$location',
-    'MenuService',
-    'NavigationService',
+    'menuFactory',
+    'urlManager',
 function(
     $rootScope,
     $location,
-    MenuService,
-    NavigationService
+    menuFactory,
+    urlManager
 ) {
     return {
         restrict: 'E',
@@ -17,15 +17,15 @@ function(
         controller: ['$scope', function($scope) {
             $rootScope.$on('wildcardPageLoadSuccess', function(event, item) {
                 if (angular.isDefined(item.root_page)) {
-                    MenuService.buildTree(MenuService.type.ROOT_PAGE, item.root_page);
+                    menuFactory.buildTree(menuFactory.type.ROOT_PAGE, item.root_page);
                 }
 
-                MenuService.getChildrenOfCurrentRootPageItem()
+                menuFactory.getChildrenOfCurrentRootPageItem()
                     .then(function(children) {
                         $scope.children = children;
                     });
 
-                MenuService.getParentOfCurrentRootPageItem()
+                menuFactory.getParentOfCurrentRootPageItem()
                     .then(function(parent) {
                         $scope.parent = parent;
                     });
@@ -56,14 +56,14 @@ function(
             };
 
             /**
-             * @see NavigationService#createUrl
+             * @see urlManager#createUrl
              */
             $scope.createUrl = function(route) {
                 if (angular.isDefined(route)) {
-                    return NavigationService.createUrl(route);
+                    return urlManager.createUrl(route);
                 }
             };
         }],
-        templateUrl: NavigationService.createTemplateUrl('/directives/custom-page-nav.html')
+        templateUrl: urlManager.createTemplateUrl('/directives/custom-page-nav.html')
     };
 }]);

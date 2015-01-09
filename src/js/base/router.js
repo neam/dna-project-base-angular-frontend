@@ -2,33 +2,33 @@ angular.module('Gapminder').run([
     '$rootScope',
     '$location',
     '$window',
-    'NavigationService',
-    'UserService',
-    'DeviceRedirectService',
+    'urlManager',
+    'userManager',
+    'deviceRedirector',
 function(
     $rootScope,
     $location,
     $window,
-    NavigationService,
-    UserService,
-    DeviceRedirectService
+    urlManager,
+    userManager,
+    deviceRedirector
 ) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        DeviceRedirectService.run();
+        deviceRedirector.run();
 
         delete $rootScope.metaDescription;
         $rootScope.pageNotFound = false;
 
-        NavigationService.updateReturnUrl();
+        urlManager.updateReturnUrl();
 
         // Attempt to auto-login
-        UserService.autoLogin()
+        userManager.autoLogin()
             .finally(function() {
                 // Redirect to login if login required and not logged in
                 if (toState !== null
                     && toState.access !== null
                     && toState.access.requiredLogin
-                    && !UserService.isAuthenticated)
+                    && !userManager.isAuthenticated)
                 {
                     $location.path('/login');
                 }

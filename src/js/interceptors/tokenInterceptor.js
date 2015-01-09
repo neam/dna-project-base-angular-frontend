@@ -1,15 +1,15 @@
-angular.module('Gapminder').factory('TokenInterceptor', [
+angular.module('Gapminder').factory('tokenInterceptor', [
     '$q',
     '$window',
     '$rootScope',
     '$injector',
-    'PromiseFactory',
+    'promiseFactory',
 function(
     $q,
     $window,
     $rootScope,
     $injector,
-    PromiseFactory
+    promiseFactory
 ) {
     var retryUrls = [];
 
@@ -72,13 +72,13 @@ function(
          * @param {Object} response
          */
         responseError: function(response) {
-            var UserService = $injector.get('UserService'),
-                dfd = PromiseFactory.defer();
+            var userManager = $injector.get('userManager'),
+                dfd = promiseFactory.defer();
 
-            if (response.status === 401 && UserService.hasRefreshToken() && !_.contains(retryUrls, response.config.url)) {
+            if (response.status === 401 && userManager.hasRefreshToken() && !_.contains(retryUrls, response.config.url)) {
                 retryUrls.push(response.config.url);
 
-                UserService.refreshAuthToken()
+                userManager.refreshAuthToken()
                     .success(function(res) {
                         retryHttpRequest(response.config, dfd);
                     })
@@ -93,5 +93,5 @@ function(
         }
     };
 }]).config(['$httpProvider', function($httpProvider) {
-    $httpProvider.interceptors.push('TokenInterceptor');
+    $httpProvider.interceptors.push('tokenInterceptor');
 }]);

@@ -1,9 +1,9 @@
 angular.module('Gapminder').directive('loader', [
     '$rootScope',
-    'NavigationService',
+    'urlManager',
 function(
     $rootScope,
-    NavigationService
+    urlManager
 ) {
     return {
         restrict: 'AE',
@@ -26,7 +26,7 @@ function(
                 return $rootScope.loading;
             };
         },
-        templateUrl: NavigationService.createTemplateUrl('/directives/loader.html'),
+        templateUrl: urlManager.createTemplateUrl('/directives/loader.html'),
         transclude: true
     };
 }]);

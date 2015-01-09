@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('PromiseFactory', ['$q', function($q) {
+angular.module('Gapminder').factory('promiseFactory', ['$q', function($q) {
     return {
         /**
          * Adds success and error helper methods to a promise object.

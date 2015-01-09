@@ -1,11 +1,11 @@
-angular.module('Gapminder').factory('MenuService', [
+angular.module('Gapminder').factory('menuFactory', [
     '$location',
     '$q',
-    'ConfigService',
+    'configManager',
 function(
     $location,
     $q,
-    ConfigService
+    configManager
 ) {
     return {
         type: {
@@ -25,7 +25,7 @@ function(
          * @returns {}
          */
         getHomeTreeData: function() {
-            return ConfigService.get('homeTreeData');
+            return configManager.get('homeTreeData');
         },
 
         /**

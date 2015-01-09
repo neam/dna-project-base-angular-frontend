@@ -1,4 +1,4 @@
-angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'i18nService', function($rootScope, $compile, i18nService) {
+angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'uiTranslator', function($rootScope, $compile, uiTranslator) {
     return {
         restrict: 'EA',
         template: false,
@@ -27,7 +27,7 @@ angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'i18nSe
     function getTranslation(params) {
         var i18nextString = params.namespace + ':' + params.key,
             options = params.options,
-            translation = i18nService.translate(i18nextString, options);
+            translation = uiTranslator.translate(i18nextString, options);
 
         return translation === i18nextString ? null : translation;
     };
