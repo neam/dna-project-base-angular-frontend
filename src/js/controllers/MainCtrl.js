@@ -8,7 +8,7 @@ angular.module('Gapminder').controller('MainCtrl', [
     'LocaleService',
     'NavigationService',
     'uiTranslator',
-    'LoadService',
+    'pageLoader',
 function(
     $scope,
     $rootScope,
@@ -19,10 +19,10 @@ function(
     LocaleService,
     NavigationService,
     uiTranslator,
-    LoadService
+    pageLoader
 ) {
     $rootScope.locale = LocaleService;
-    $rootScope.load = LoadService;
+    $rootScope.load = pageLoader;
     $rootScope.i18n = uiTranslator;
     $rootScope.navigation = NavigationService;
     $scope.user = UserService;

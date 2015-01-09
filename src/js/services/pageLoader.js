@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('LoadService', ['$rootScope', function($rootScope) {
+angular.module('Gapminder').factory('pageLoader', ['$rootScope', function($rootScope) {
     var initialPageLoadComplete = false,
         contentLoadComplete = false;
 
