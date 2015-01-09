@@ -1,20 +1,20 @@
 describe('uiTranslator', function() {
   var $rootScope,
-    $controller,
-    $httpBackend,
-    $q,
-    api,
-    localeManager,
-    uiTranslator,
-    apiUrl = '/translateui/pages/fi',
-    locale = 'fi',
-    translations = {
-      "test": {
-        "login": "Kirjaudu",
-        "user_plural": "__count__ käyttäjää",
-        "you-are": "Sinä olet __username__"
-      }
-    };
+      $controller,
+      $httpBackend,
+      $q,
+      api,
+      localeManager,
+      uiTranslator,
+      apiUrl = '/translateui/pages/fi',
+      locale = 'fi',
+      translations = {
+        "test": {
+          "login": "Kirjaudu",
+          "user_plural": "__count__ käyttäjää",
+          "you-are": "Sinä olet __username__"
+        }
+      };
 
   beforeEach(module('Gapminder'));
 

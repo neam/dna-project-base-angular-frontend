@@ -36,8 +36,8 @@ function(
      * @returns {Deferred.promise}
      */
     login: function(username, password) {
-      var dfd = promiseFactory.defer(),
-        self = this;
+      var self = this,
+          dfd = promiseFactory.defer();
 
       $http.post(api.getApiUrl('/user/login'), {
         grant_type: 'password',
@@ -66,7 +66,7 @@ function(
      */
     autoLogin: function() {
       var self = this,
-        dfd = $q.defer();
+          dfd = $q.defer();
 
       if (!self.isAuthenticated && self.hasAuthToken()) {
         $http.post(api.getApiUrl('/user/authenticate'), {})
@@ -91,9 +91,9 @@ function(
      */
     refreshAuthToken: function() {
       var self = this,
-        dfd = promiseFactory.defer(),
-        url = api.getApiUrl('/user/login'),
-        refreshToken = this.getRefreshToken();
+          dfd = promiseFactory.defer(),
+          url = api.getApiUrl('/user/login'),
+          refreshToken = this.getRefreshToken();
 
       $http({
         method: 'POST',
@@ -127,7 +127,7 @@ function(
      */
     ensureInfo: function() {
       var self = this,
-        dfd = $q.defer();
+          dfd = $q.defer();
 
       if (!this.username) {
         $http.get(api.getApiUrl('/user/info'))

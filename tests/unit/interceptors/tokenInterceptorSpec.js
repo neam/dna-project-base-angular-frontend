@@ -1,10 +1,10 @@
 describe('tokenInterceptor', function() {
   var $httpBackend,
-    $http,
-    $httpProvider,
-    tokenInterceptor,
-    api,
-    userManager;
+      $http,
+      $httpProvider,
+      tokenInterceptor,
+      api,
+      userManager;
 
   beforeEach(module('Gapminder', function(_$httpProvider_) {
     $httpProvider = _$httpProvider_;

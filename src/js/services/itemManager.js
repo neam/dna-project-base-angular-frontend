@@ -27,8 +27,8 @@ function(
      */
     loadItem: function() {
       var self = this,
-        dfd = promiseFactory.defer(),
-        apiUrl;
+          dfd = promiseFactory.defer(),
+          apiUrl;
 
       if (urlManager.isValidRoute()) {
         apiUrl = self.getItemIdentifierFromUrl();
@@ -81,7 +81,7 @@ function(
      */
     getItemIdentifierFromUrl: function() {
       var fullRoute = urlManager.getCurrentRoute(),
-        identifier = fullRoute.split('/')[2]; // TODO: Improve.
+          identifier = fullRoute.split('/')[2]; // TODO: Improve.
 
       identifier = _.isFinite(identifier)
         ? identifier

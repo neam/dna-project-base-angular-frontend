@@ -73,7 +73,7 @@ function(
      */
     responseError: function(response) {
       var userManager = $injector.get('userManager'),
-        dfd = promiseFactory.defer();
+          dfd = promiseFactory.defer();
 
       if (response.status === 401 && userManager.hasRefreshToken() && !_.contains(retryUrls, response.config.url)) {
         retryUrls.push(response.config.url);

@@ -14,7 +14,7 @@ function(
   localeManager
 ) {
   var currentLocale,
-    translationApiUrl;
+      translationApiUrl;
 
   return {
     /**
@@ -28,7 +28,7 @@ function(
      */
     init: function() {
       var self = this,
-        dfd = $q.defer();
+          dfd = $q.defer();
 
       currentLocale = localeManager.getCurrentLocale();
       translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale);
@@ -86,7 +86,7 @@ function(
    */
   function configurei18next(translations) {
     var dfd = $q.defer(),
-      i18nextConfig = {};
+        i18nextConfig = {};
 
     i18nextConfig.resStore = {};
     i18nextConfig.resStore[currentLocale] = translations;

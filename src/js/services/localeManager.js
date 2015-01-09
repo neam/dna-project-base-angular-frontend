@@ -10,8 +10,8 @@ function(
   api
 ) {
   var localeOptions = {},
-    currentLocale = determineLocale(),
-    currentTextDirection;
+      currentLocale = determineLocale(),
+      currentTextDirection;
 
   /**
    * Returns the current locale from local storage.
@@ -29,8 +29,8 @@ function(
    */
   function determineLocale() {
     var locale = 'en_us', // default
-      localeFromStorage = getLocaleFromStorage(),
-      localeFromDetector = detectUserLocale();
+        localeFromStorage = getLocaleFromStorage(),
+        localeFromDetector = detectUserLocale();
 
     if (angular.isDefined(localeFromStorage)) {
       locale = localeFromStorage;

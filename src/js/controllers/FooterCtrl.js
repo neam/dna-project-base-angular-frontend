@@ -19,7 +19,7 @@ function(
    */
   $scope.init = function() {
     var dfd = $q.defer(),
-      lang = localeManager.getCurrentLocale();
+        lang = localeManager.getCurrentLocale();
 
     $http.get(api.getApiUrl('/footer/' + lang))
       .then(function(res) {

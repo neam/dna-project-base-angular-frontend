@@ -9,7 +9,7 @@ angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'uiTran
       attrs.i18nOptions = $scope.$eval(attrs.i18nOptions); // convert string to object
 
       var params = getParams(attrs),
-        translation = getTranslation(params);
+          translation = getTranslation(params);
 
       $rootScope.$on('i18nReady', function() {
         $compile(element)($rootScope); // needed for rendering navbar and footer translations
@@ -26,8 +26,8 @@ angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'uiTran
    */
   function getTranslation(params) {
     var i18nextString = params.namespace + ':' + params.key,
-      options = params.options,
-      translation = uiTranslator.translate(i18nextString, options);
+        options = params.options,
+        translation = uiTranslator.translate(i18nextString, options);
 
     return translation === i18nextString ? null : translation;
   };
@@ -77,8 +77,8 @@ angular.module('Gapminder').directive('i18n', ['$rootScope', '$compile', 'uiTran
    */
   function getParams(attrs) {
     var parts = attrs.i18n.split('|'),
-      options = attrs.i18nOptions || {},
-      params = {};
+        options = attrs.i18nOptions || {},
+        params = {};
 
     // Set options
     if (angular.isDefined(options)) {

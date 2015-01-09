@@ -51,8 +51,8 @@ function(
      */
     getCurrentRootPageItem: function() {
       var tree = this.trees.root_page,
-        currentRoute = this.getCurrentUrl(),
-        dfd = $q.defer();
+          currentRoute = this.getCurrentUrl(),
+          dfd = $q.defer();
 
       recursive(tree);
 
@@ -94,7 +94,7 @@ function(
      */
     getParentOfCurrentRootPageItem: function() {
       var self = this,
-        dfd = $q.defer();
+          dfd = $q.defer();
 
       self.getCurrentRootPageItem()
         .then(function(item) {
@@ -114,7 +114,7 @@ function(
      */
     getRootPageItemById: function(id) {
       var tree = this.trees.root_page,
-        dfd = $q.defer();
+          dfd = $q.defer();
 
       recursive(tree);
 
@@ -151,8 +151,8 @@ function(
       }
 
       var count = 1,
-        tree = [],
-        root = createRoot(data);
+          tree = [],
+          root = createRoot(data);
 
       angular.forEach(data.children, function(originalItem) {
         var item = createItem(originalItem);

@@ -1,19 +1,19 @@
 describe('localeManager', function() {
   var $rootScope,
-    $controller,
-    $httpBackend,
-    $q,
-    configManager,
-    api,
-    localeManager,
-    languageApiPath = '/language',
-    /**
-     * @type {} mock locale options
-     */
-    localeOptions = {
-      "es": {"name": "Español", "direction": "ltr"},
-      "ja": {"name": "日本語", "direction": "ltr"}
-    };
+      $controller,
+      $httpBackend,
+      $q,
+      configManager,
+      api,
+      localeManager,
+      languageApiPath = '/language',
+      /**
+       * @type {} mock locale options
+       */
+      localeOptions = {
+        "es": {"name": "Español", "direction": "ltr"},
+        "ja": {"name": "日本語", "direction": "ltr"}
+      };
 
   beforeEach(module('Gapminder'));
 

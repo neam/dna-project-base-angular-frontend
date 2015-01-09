@@ -17,8 +17,8 @@ function(
       scope.$watch('blocks', function() {
         if (angular.isObject(scope.blocks)) {
           var html = '',
-            containsSlideShare = false,
-            containsVimeo = false;
+              containsSlideShare = false,
+              containsVimeo = false;
 
           angular.forEach(scope.blocks, function(block) {
             if (sirTrevor.isBlockTypeSupported(block.type)) {

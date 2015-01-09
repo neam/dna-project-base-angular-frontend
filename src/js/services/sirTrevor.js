@@ -123,21 +123,21 @@ function(
      */
     renderVideo: function(block) {
       var providers = {
-          vimeo: {
-            src: '{{ protocol }}://player.vimeo.com/video/{{ remote_id }}',
-            html: '<div class="item-video vimeo-container"><iframe src="{{ src }}?title=0&byline=0&portrait=0&color=ffca34&autoplay=1" width="500" height="281" frameborder="0"></iframe></div>'
+            vimeo: {
+              src: '{{ protocol }}://player.vimeo.com/video/{{ remote_id }}',
+              html: '<div class="item-video vimeo-container"><iframe src="{{ src }}?title=0&byline=0&portrait=0&color=ffca34&autoplay=1" width="500" height="281" frameborder="0"></iframe></div>'
+            },
+            youtube: {
+              src: '{{ protocol }}://www.youtube.com/embed/{{ remote_id }}',
+              html: '<div class="item-video youtube-container"><iframe src="{{ src }}" width="580" height="320" frameborder="0" allowfullscreen></iframe></div>'
+            }
           },
-          youtube: {
-            src: '{{ protocol }}://www.youtube.com/embed/{{ remote_id }}',
-            html: '<div class="item-video youtube-container"><iframe src="{{ src }}" width="580" height="320" frameborder="0" allowfullscreen></iframe></div>'
-          }
-        },
-        src = providers[block.data.source]
-          .src
-          .replace('{{ protocol }}', $location.protocol())
-          .replace('{{ remote_id }}', block.data.remote_id),
-        iframe = providers[block.data.source].html
-          .replace('{{ src }}', src);
+          src = providers[block.data.source]
+            .src
+            .replace('{{ protocol }}', $location.protocol())
+            .replace('{{ remote_id }}', block.data.remote_id),
+          iframe = providers[block.data.source].html
+            .replace('{{ src }}', src);
 
       return iframe;
     },
@@ -200,7 +200,7 @@ function(
      */
     renderDownloadLinks: function(block) {
       var html = '',
-        listItems = [];
+          listItems = [];
 
       // Create list items
       if (angular.isDefined(block.data.download_links)) {
@@ -237,7 +237,7 @@ function(
 
       angular.forEach(block.data.attributes.items, function(item) {
         var itemHtml = '',
-          url = itemManager.createItemUrl(item);
+            url = itemManager.createItemUrl(item);
 
         itemHtml += '<li class="item-list-item">';
         itemHtml += '<a ng-href="{{ url }}">'.replace('{{ url }}', url);

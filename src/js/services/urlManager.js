@@ -199,7 +199,7 @@ function(
      */
     setTranslatedPageTitle: function(i18nKey, fallback) {
       var i18nString = 'page-title:{key}'.replace('{key}', i18nKey),
-        translation = uiTranslator.translate(i18nString, {}, fallback);
+          translation = uiTranslator.translate(i18nString, {}, fallback);
 
       this.setPageTitle(translation);
     },
@@ -210,7 +210,7 @@ function(
      */
     getValidRoutes: function() {
       var states = $injector.get('$state').get(),
-        validRoutes = [];
+          validRoutes = [];
 
       _.forEach(states, function(state) {
         if (angular.isDefined(state.url)) {
@@ -231,8 +231,8 @@ function(
      */
     isValidRoute: function() {
       var self = this,
-        currentRouteParts = this.getCurrentRoute().split('/'),
-        isValid = false;
+          currentRouteParts = this.getCurrentRoute().split('/'),
+          isValid = false;
 
       angular.forEach(self.getValidRoutes(), function(validRoute) {
         if (_.contains(currentRouteParts, validRoute)) {
@@ -249,8 +249,8 @@ function(
      */
     getBaseRoute: function() {
       var route,
-        baseRoute,
-        firstPathTerm;
+          baseRoute,
+          firstPathTerm;
 
       angular.forEach(this.getValidRoutes(), function(route) {
         if (_.contains($location.$$url, route)) {

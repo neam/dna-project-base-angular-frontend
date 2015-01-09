@@ -8,9 +8,9 @@ function(
   urlManager
 ) {
   var REDIRECT_BASE_URL = 'http://m.gapminder.org',
-    SESSION_STORAGE_KEY = 'cancelDeviceRedirect',
-    QUERY_PARAM_ENABLE = 'enableRedirect',
-    QUERY_PARAM_DISABLE = 'disableRedirect';
+      SESSION_STORAGE_KEY = 'cancelDeviceRedirect',
+      QUERY_PARAM_ENABLE = 'enableRedirect',
+      QUERY_PARAM_DISABLE = 'disableRedirect';
 
   return {
     /**

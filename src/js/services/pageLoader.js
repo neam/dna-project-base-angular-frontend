@@ -1,6 +1,6 @@
 angular.module('Gapminder').factory('pageLoader', ['$rootScope', function($rootScope) {
   var initialPageLoadComplete = false,
-    contentLoadComplete = false;
+      contentLoadComplete = false;
 
   // Initial page load
   (function() {

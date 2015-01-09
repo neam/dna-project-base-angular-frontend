@@ -49,11 +49,11 @@ function(
    */
   function getItemTypeFromUrl() {
     var urlParam = urlManager.getPartOfPath(0),
-      paramToItemTypeMap = {
-        exercises: 'exercise',
-        presentations: 'presentation',
-        qna: 'qna'
-      };
+        paramToItemTypeMap = {
+          exercises: 'exercise',
+          presentations: 'presentation',
+          qna: 'qna'
+        };
 
     return angular.isDefined(paramToItemTypeMap[urlParam]) ? paramToItemTypeMap[urlParam] : '';
   }

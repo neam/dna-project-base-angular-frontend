@@ -1,13 +1,13 @@
 describe('footer', function() {
   var $rootScope,
-    $controller,
-    $httpBackend,
-    $scope,
-    $q,
-    configManager,
-    api,
-    localeManager,
-    FooterCtrl;
+      $controller,
+      $httpBackend,
+      $scope,
+      $q,
+      configManager,
+      api,
+      localeManager,
+      FooterCtrl;
 
   beforeEach(module('Gapminder'));
 

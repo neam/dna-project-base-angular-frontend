@@ -16,7 +16,7 @@ function(
     transclude: true,
     link: function(scope, element, attrs, controller, transclude) {
       var contentElement,
-        canToggle = true;
+          canToggle = true;
 
       transclude(scope.$parent, function(clone, parentScope) {
         contentElement = clone;

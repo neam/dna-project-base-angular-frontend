@@ -1,8 +1,8 @@
 describe('urlManager', function() {
   var $rootScope,
-    $controller,
-    $location,
-    urlManager;
+      $controller,
+      $location,
+      urlManager;
 
   beforeEach(module('Gapminder'));
 

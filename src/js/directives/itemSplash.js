@@ -8,9 +8,9 @@ angular.module('Gapminder').directive('itemSplash', ['urlManager', 'sirTrevor', 
       scope.$watch('blocks', function() {
         if (angular.isObject(scope.blocks)) {
           var validSplashBlockTypes = ['image', 'linked-image', 'video', 'slideshare'],
-            html = '',
-            firstBlock = scope.blocks[0],
-            containsSlideShare = false;
+              html = '',
+              firstBlock = scope.blocks[0],
+              containsSlideShare = false;
 
           if (_.contains(validSplashBlockTypes, firstBlock.type) && sirTrevor.isBlockTypeSupported(firstBlock.type)) {
             if (firstBlock.type === 'slideshare') {
