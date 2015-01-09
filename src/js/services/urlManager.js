@@ -19,6 +19,8 @@ function(
   assetUrl,
   html5Mode
 ) {
+  var MOBILE_BASE_URL = 'http://m.gapminder.org';
+
   return {
     /**
      * Redirects to the given route.
@@ -116,6 +118,22 @@ function(
       });
 
       return route;
+    },
+
+    /**
+     * Returns the mobile base URL.
+     * @returns {string}
+     */
+    getMobileBaseUrl: function() {
+      return MOBILE_BASE_URL;
+    },
+
+    /**
+     * Returns a mobile URL for the current page.
+     * @returns {string}
+     */
+    getMobileUrl: function() {
+      return this.getMobileBaseUrl() + this.getCurrentRoute();
     },
 
     /**

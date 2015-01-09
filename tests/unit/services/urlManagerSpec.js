@@ -70,6 +70,11 @@ describe('urlManager', function() {
     expect(urlManager.isAbsoluteUrl('/ebola/dashboard')).toBe(false);
   });
 
+  it('should return a mobile URL', function() {
+    setLocation('www.gapminder.org', '', '/ebola');
+    expect(urlManager.getMobileUrl()).toBe('http://m.gapminder.org/ebola');
+  });
+
   /**
    * Overrides $location.
    * @param {string} host
@@ -79,8 +84,8 @@ describe('urlManager', function() {
    */
   function setLocation(host, subdir, route, useHashbang) {
     var useHashbang = angular.isDefined(useHashbang) ? useHashbang : false,
-      subdir = subdir.length > 0 ? '/' + subdir : '',
-      hashbang = useHashbang ? '/#' : '';
+        subdir = subdir.length > 0 ? '/' + subdir : '',
+        hashbang = useHashbang ? '/#' : '';
 
     $location.$$host = host;
     $location.$$path = route;
