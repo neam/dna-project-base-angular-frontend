@@ -2,12 +2,12 @@ angular.module('Gapminder').factory('SirTrevorService', [
     '$location',
     'NavigationService',
     'api',
-    'ItemService',
+    'itemManager',
 function(
     $location,
     NavigationService,
     api,
-    ItemService
+    itemManager
 ) {
     var cmsItemTypes = [
         'download_link',
@@ -237,7 +237,7 @@ function(
 
             angular.forEach(block.data.attributes.items, function(item) {
                 var itemHtml = '',
-                    url = ItemService.createItemUrl(item);
+                    url = itemManager.createItemUrl(item);
 
                 itemHtml += '<li class="item-list-item">';
                 itemHtml += '<a ng-href="{{ url }}">'.replace('{{ url }}', url);

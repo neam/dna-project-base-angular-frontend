@@ -6,7 +6,7 @@ angular.module('Gapminder').controller('GoItemCtrl', [
     'api',
     'NavigationService',
     'uiTranslator',
-    'ItemService',
+    'itemManager',
 function(
     $rootScope,
     $scope,
@@ -15,15 +15,15 @@ function(
     api,
     NavigationService,
     uiTranslator,
-    ItemService
+    itemManager
 ) {
-    $scope.itemService = ItemService;
+    $scope.itemService = itemManager;
 
-    ItemService.loadItem()
+    itemManager.loadItem()
         .success(function(item) {
             if (isRequestedItemType(item)) {
                 NavigationService.setPageTitle(item.attributes.heading);
-                ItemService.removeAdminContributorFromItem(item);
+                itemManager.removeAdminContributorFromItem(item);
                 $scope.item = item;
                 $scope.itemCategory = item.attributes.composition_type;
             } else {

@@ -2,21 +2,21 @@ angular.module('Gapminder').controller('WildcardPageCtrl', [
     '$scope',
     '$rootScope',
     '$location',
-    'ItemService',
+    'itemManager',
     'NavigationService',
 function(
     $scope,
     $rootScope,
     $location,
-    ItemService,
+    itemManager,
     NavigationService
 ) {
-    $scope.itemService = ItemService;
+    $scope.itemService = itemManager;
 
-    ItemService.loadItem()
+    itemManager.loadItem()
         .success(function(item) {
             NavigationService.setPageTitle(item.attributes.heading);
-            ItemService.removeAdminContributorFromItem(item);
+            itemManager.removeAdminContributorFromItem(item);
             $scope.item = item;
             $scope.itemCategory = item.attributes.composition_type;
             $rootScope.$broadcast('wildcardPageLoadSuccess', item);
