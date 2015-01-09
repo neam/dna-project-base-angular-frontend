@@ -1,32 +1,32 @@
 angular.module('Gapminder').directive('loader', [
-    '$rootScope',
-    'urlManager',
+  '$rootScope',
+  'urlManager',
 function(
-    $rootScope,
-    urlManager
+  $rootScope,
+  urlManager
 ) {
-    return {
-        restrict: 'AE',
-        link: function($scope, element, attrs) {
-            $rootScope.loading = true;
+  return {
+    restrict: 'AE',
+    link: function($scope, element, attrs) {
+      $rootScope.loading = true;
 
-            $scope.$on('startedLoading', function() {
-                $rootScope.loading = false;
-            });
+      $scope.$on('startedLoading', function() {
+        $rootScope.loading = false;
+      });
 
-            $scope.$on('finishedLoading', function() {
-                $rootScope.loading = false;
-            });
+      $scope.$on('finishedLoading', function() {
+        $rootScope.loading = false;
+      });
 
-            /**
-             * Checks if the spinner should be shown.
-             * @returns {boolean}
-             */
-            $scope.showSpinner = function() {
-                return $rootScope.loading;
-            };
-        },
-        templateUrl: urlManager.createTemplateUrl('/directives/loader.html'),
-        transclude: true
-    };
+      /**
+       * Checks if the spinner should be shown.
+       * @returns {boolean}
+       */
+      $scope.showSpinner = function() {
+        return $rootScope.loading;
+      };
+    },
+    templateUrl: urlManager.createTemplateUrl('/directives/loader.html'),
+    transclude: true
+  };
 }]);

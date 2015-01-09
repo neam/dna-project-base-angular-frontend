@@ -1,20 +1,20 @@
 <div class="custom-page-nav">
-    <ul ng-show="hasParent()" class="nav-parents">
-        <li>
-            <a ng-href="{{ createUrl(parent.url) }}">{{ parent.menu_label }}</a>
-        </li>
-    </ul>
-    <div class="nav-row">
-        <div class="nav-icon" ng-show="hasIcon()">
-            <div class="nav-icon-circle">
-                <i class="fa fa-globe"></i>
-            </div>
-        </div>
-        <div class="nav-content">
-            <h1 class="nav-heading">{{ item.attributes.heading }}</h1>
-            <ul ng-show="hasChildren()" class="nav-children">
-                <li ng-repeat="child in children"><a ng-href="{{ createUrl(child.url) }}">{{ child.menu_label }}</a></li>
-            </ul>
-        </div>
+  <ul ng-show="hasParent()" class="nav-parents">
+    <li>
+      <a ng-href="{{ createUrl(parent.url) }}">{{ parent.menu_label }}</a>
+    </li>
+  </ul>
+  <div class="nav-row">
+    <div class="nav-icon" ng-show="hasIcon()">
+      <div class="nav-icon-circle">
+        <i class="fa fa-globe"></i>
+      </div>
     </div>
+    <div class="nav-content">
+      <h1 class="nav-heading">{{ item.attributes.heading }}</h1>
+      <ul ng-show="hasChildren()" class="nav-children">
+        <li ng-repeat="child in children"><a ng-href="{{ createUrl(child.url) }}">{{ child.menu_label }}</a></li>
+      </ul>
+    </div>
+  </div>
 </div>

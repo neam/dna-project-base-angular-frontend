@@ -1,97 +1,97 @@
 angular.module('Gapminder').factory('tokenInterceptor', [
-    '$q',
-    '$window',
-    '$rootScope',
-    '$injector',
-    'promiseFactory',
+  '$q',
+  '$window',
+  '$rootScope',
+  '$injector',
+  'promiseFactory',
 function(
-    $q,
-    $window,
-    $rootScope,
-    $injector,
-    promiseFactory
+  $q,
+  $window,
+  $rootScope,
+  $injector,
+  promiseFactory
 ) {
-    var retryUrls = [];
+  var retryUrls = [];
 
-    /**
-     * Checks if the requested URL is a template.
-     * AWS S3 gives a 403 when requesting templates with authorization headers.
-     * @param {string} url
-     * @returns {boolean}
-     */
-    function isTemplate(url) {
-        return _.contains(url, 'templates') && _.contains(url, '.html');
+  /**
+   * Checks if the requested URL is a template.
+   * AWS S3 gives a 403 when requesting templates with authorization headers.
+   * @param {string} url
+   * @returns {boolean}
+   */
+  function isTemplate(url) {
+    return _.contains(url, 'templates') && _.contains(url, '.html');
+  }
+
+  /**
+   * Retries an HTTP request.
+   * @param {Object} config
+   * @param {Deferred} deferred
+   */
+  function retryHttpRequest(config, deferred) {
+    var $http = $injector.get('$http');
+
+    function successCallback(response) {
+      deferred.resolve(response);
     }
 
+    function errorCallback(response) {
+      deferred.reject(response);
+    }
+
+    $http(config).then(successCallback, errorCallback);
+  }
+
+  return {
     /**
-     * Retries an HTTP request.
+     * Handles a request config.
      * @param {Object} config
-     * @param {Deferred} deferred
+     * @returns {Object}
      */
-    function retryHttpRequest(config, deferred) {
-        var $http = $injector.get('$http');
+    request: function(config) {
+      config.headers = config.headers || {};
 
-        function successCallback(response) {
-            deferred.resolve(response);
-        }
+      if ($window.sessionStorage.authToken && !isTemplate(config.url)) {
+        config.headers.Authorization = 'Bearer ' + $window.sessionStorage.authToken;
+      }
 
-        function errorCallback(response) {
-            deferred.reject(response);
-        }
+      return config;
+    },
 
-        $http(config).then(successCallback, errorCallback);
+    /**
+     * Handles a response.
+     * @param {Object} response
+     * @returns {Object|Promise}
+     */
+    response: function(response) {
+      return response || $q.when(response);
+    },
+
+    /**
+     * Handles an error response.
+     * @param {Object} response
+     */
+    responseError: function(response) {
+      var userManager = $injector.get('userManager'),
+        dfd = promiseFactory.defer();
+
+      if (response.status === 401 && userManager.hasRefreshToken() && !_.contains(retryUrls, response.config.url)) {
+        retryUrls.push(response.config.url);
+
+        userManager.refreshAuthToken()
+          .success(function(res) {
+            retryHttpRequest(response.config, dfd);
+          })
+          .error(function(err) {
+            dfd.reject(err);
+          });
+
+        return dfd.promise;
+      }
+
+      return $q.reject(response);
     }
-
-    return {
-        /**
-         * Handles a request config.
-         * @param {Object} config
-         * @returns {Object}
-         */
-        request: function(config) {
-            config.headers = config.headers || {};
-
-            if ($window.sessionStorage.authToken && !isTemplate(config.url)) {
-                config.headers.Authorization = 'Bearer ' + $window.sessionStorage.authToken;
-            }
-
-            return config;
-        },
-
-        /**
-         * Handles a response.
-         * @param {Object} response
-         * @returns {Object|Promise}
-         */
-        response: function(response) {
-            return response || $q.when(response);
-        },
-
-        /**
-         * Handles an error response.
-         * @param {Object} response
-         */
-        responseError: function(response) {
-            var userManager = $injector.get('userManager'),
-                dfd = promiseFactory.defer();
-
-            if (response.status === 401 && userManager.hasRefreshToken() && !_.contains(retryUrls, response.config.url)) {
-                retryUrls.push(response.config.url);
-
-                userManager.refreshAuthToken()
-                    .success(function(res) {
-                        retryHttpRequest(response.config, dfd);
-                    })
-                    .error(function(err) {
-                        dfd.reject(err);
-                    });
-
-                return dfd.promise;
-            }
-
-            return $q.reject(response);
-        }
-    };
+  };
 }]).config(['$httpProvider', function($httpProvider) {
-    $httpProvider.interceptors.push('tokenInterceptor');
+  $httpProvider.interceptors.push('tokenInterceptor');
 }]);
