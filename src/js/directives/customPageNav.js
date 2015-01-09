@@ -2,12 +2,12 @@ angular.module('Gapminder').directive('customPageNav', [
     '$rootScope',
     '$location',
     'menuFactory',
-    'NavigationService',
+    'urlManager',
 function(
     $rootScope,
     $location,
     menuFactory,
-    NavigationService
+    urlManager
 ) {
     return {
         restrict: 'E',
@@ -56,14 +56,14 @@ function(
             };
 
             /**
-             * @see NavigationService#createUrl
+             * @see urlManager#createUrl
              */
             $scope.createUrl = function(route) {
                 if (angular.isDefined(route)) {
-                    return NavigationService.createUrl(route);
+                    return urlManager.createUrl(route);
                 }
             };
         }],
-        templateUrl: NavigationService.createTemplateUrl('/directives/custom-page-nav.html')
+        templateUrl: urlManager.createTemplateUrl('/directives/custom-page-nav.html')
     };
 }]);

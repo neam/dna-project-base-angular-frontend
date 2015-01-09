@@ -6,7 +6,7 @@ angular.module('Gapminder').controller('MainCtrl', [
     'UserService',
     'api',
     'localeManager',
-    'NavigationService',
+    'urlManager',
     'uiTranslator',
     'pageLoader',
 function(
@@ -17,14 +17,14 @@ function(
     UserService,
     api,
     localeManager,
-    NavigationService,
+    urlManager,
     uiTranslator,
     pageLoader
 ) {
     $rootScope.locale = localeManager;
     $rootScope.load = pageLoader;
     $rootScope.i18n = uiTranslator;
-    $rootScope.navigation = NavigationService;
+    $rootScope.navigation = urlManager;
     $scope.user = UserService;
 
     /**
@@ -37,7 +37,7 @@ function(
     /**
      * Triggers page not found.
      */
-    $scope.notFound = NavigationService.notFound;
+    $scope.notFound = urlManager.notFound;
 
     /**
      * Returns the page title.
@@ -62,30 +62,30 @@ function(
     };
 
     /**
-     * @see NavigationService#getBaseRoute
+     * @see urlManager#getBaseRoute
      */
     $rootScope.getBaseRoute = function() {
-        return NavigationService.getBaseRoute();
+        return urlManager.getBaseRoute();
     };
 
     /**
-     * @see NavigationService#createUrl
+     * @see urlManager#createUrl
      */
     $scope.createUrl = function(route) {
-        return NavigationService.createUrl(route);
+        return urlManager.createUrl(route);
     };
 
     /**
-     * @see NavigationService#createAssetUrl
+     * @see urlManager#createAssetUrl
      */
     $scope.createAssetUrl = function(path) {
-        return NavigationService.createAssetUrl(path);
+        return urlManager.createAssetUrl(path);
     };
 
     /**
-     * @see NavigationService#createTemplateUrl
+     * @see urlManager#createTemplateUrl
      */
     $scope.createTemplateUrl = function(path) {
-        return NavigationService.createTemplateUrl(path);
+        return urlManager.createTemplateUrl(path);
     }
 }]);

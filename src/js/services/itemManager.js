@@ -5,7 +5,7 @@ angular.module('Gapminder').factory('itemManager', [
     '$location',
     '$rootScope',
     'PromiseFactory',
-    'NavigationService',
+    'urlManager',
     'api',
     'utils',
 function(
@@ -15,7 +15,7 @@ function(
     $location,
     $rootScope,
     PromiseFactory,
-    NavigationService,
+    urlManager,
     api,
     utils
 ) {
@@ -30,7 +30,7 @@ function(
                 dfd = PromiseFactory.defer(),
                 apiUrl;
 
-            if (NavigationService.isValidRoute()) {
+            if (urlManager.isValidRoute()) {
                 apiUrl = self.getItemIdentifierFromUrl();
             } else {
                 var routeParam = self.getItemRouteParamFromUrl();
@@ -71,7 +71,7 @@ function(
          * @returns {string}
          */
         getItemRouteParamFromUrl: function() {
-            var fullRoute = NavigationService.getCurrentRoute();
+            var fullRoute = urlManager.getCurrentRoute();
             return utils.ensureLeadingSlash(fullRoute);
         },
 
@@ -80,7 +80,7 @@ function(
          * @returns {number|string}
          */
         getItemIdentifierFromUrl: function() {
-            var fullRoute = NavigationService.getCurrentRoute(),
+            var fullRoute = urlManager.getCurrentRoute(),
                 identifier = fullRoute.split('/')[2]; // TODO: Improve.
 
             identifier = _.isFinite(identifier)
@@ -119,7 +119,7 @@ function(
                 return composition.url;
             } else {
                 // by node_id
-                return NavigationService.createUrl(api.getCompositionItemPathName(composition.node_id));
+                return urlManager.createUrl(api.getCompositionItemPathName(composition.node_id));
             }
         },
 
@@ -131,7 +131,7 @@ function(
         goToProfile: function(userId, event) {
             event.preventDefault();
             var url = this.createUserProfileUrl(userId);
-            NavigationService.redirect(url);
+            urlManager.redirect(url);
         },
 
         /**

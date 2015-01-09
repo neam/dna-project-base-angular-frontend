@@ -1,4 +1,4 @@
-angular.module('Gapminder').directive('itemSplash', ['NavigationService', 'SirTrevorService', function(NavigationService, SirTrevorService) {
+angular.module('Gapminder').directive('itemSplash', ['urlManager', 'SirTrevorService', function(urlManager, SirTrevorService) {
     return {
         restrict: 'AE',
         scope: {

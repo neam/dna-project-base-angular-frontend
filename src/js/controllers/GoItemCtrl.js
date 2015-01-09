@@ -4,7 +4,7 @@ angular.module('Gapminder').controller('GoItemCtrl', [
     '$stateParams',
     '$location',
     'api',
-    'NavigationService',
+    'urlManager',
     'uiTranslator',
     'itemManager',
 function(
@@ -13,7 +13,7 @@ function(
     $stateParams,
     $location,
     api,
-    NavigationService,
+    urlManager,
     uiTranslator,
     itemManager
 ) {
@@ -22,7 +22,7 @@ function(
     itemManager.loadItem()
         .success(function(item) {
             if (isRequestedItemType(item)) {
-                NavigationService.setPageTitle(item.attributes.heading);
+                urlManager.setPageTitle(item.attributes.heading);
                 itemManager.removeAdminContributorFromItem(item);
                 $scope.item = item;
                 $scope.itemCategory = item.attributes.composition_type;
@@ -48,7 +48,7 @@ function(
      * @returns {string}
      */
     function getItemTypeFromUrl() {
-        var urlParam = NavigationService.getPartOfPath(0),
+        var urlParam = urlManager.getPartOfPath(0),
             paramToItemTypeMap = {
                 exercises: 'exercise',
                 presentations: 'presentation',

@@ -3,26 +3,26 @@ angular.module('Gapminder').controller('WildcardPageCtrl', [
     '$rootScope',
     '$location',
     'itemManager',
-    'NavigationService',
+    'urlManager',
 function(
     $scope,
     $rootScope,
     $location,
     itemManager,
-    NavigationService
+    urlManager
 ) {
     $scope.itemService = itemManager;
 
     itemManager.loadItem()
         .success(function(item) {
-            NavigationService.setPageTitle(item.attributes.heading);
+            urlManager.setPageTitle(item.attributes.heading);
             itemManager.removeAdminContributorFromItem(item);
             $scope.item = item;
             $scope.itemCategory = item.attributes.composition_type;
             $rootScope.$broadcast('wildcardPageLoadSuccess', item);
         })
         .error(function() {
-            NavigationService.notFound();
+            urlManager.notFound();
         });
 
     /**
@@ -31,9 +31,9 @@ function(
      */
     $scope.getTemplateUrl = function() {
         if (angular.isDefined($scope.item) && $scope.item.item_type === 'go_item') {
-            return NavigationService.createTemplateUrl('/states/go-item.html');
+            return urlManager.createTemplateUrl('/states/go-item.html');
         } else {
-            return NavigationService.createTemplateUrl('/states/custom-page.html');
+            return urlManager.createTemplateUrl('/states/custom-page.html');
         }
     };
 }]);

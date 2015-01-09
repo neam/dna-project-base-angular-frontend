@@ -1,11 +1,11 @@
 angular.module('Gapminder').factory('SirTrevorService', [
     '$location',
-    'NavigationService',
+    'urlManager',
     'api',
     'itemManager',
 function(
     $location,
-    NavigationService,
+    urlManager,
     api,
     itemManager
 ) {

@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('NavigationService', [
+angular.module('Gapminder').factory('urlManager', [
     '$window',
     '$location',
     '$rootScope',

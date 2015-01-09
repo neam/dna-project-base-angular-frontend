@@ -2,14 +2,14 @@ angular.module('Gapminder').run([
     '$rootScope',
     '$location',
     '$window',
-    'NavigationService',
+    'urlManager',
     'UserService',
     'deviceRedirector',
 function(
     $rootScope,
     $location,
     $window,
-    NavigationService,
+    urlManager,
     UserService,
     deviceRedirector
 ) {
@@ -19,7 +19,7 @@ function(
         delete $rootScope.metaDescription;
         $rootScope.pageNotFound = false;
 
-        NavigationService.updateReturnUrl();
+        urlManager.updateReturnUrl();
 
         // Attempt to auto-login
         UserService.autoLogin()

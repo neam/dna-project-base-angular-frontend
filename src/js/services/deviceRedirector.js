@@ -1,11 +1,11 @@
 angular.module('Gapminder').factory('deviceRedirector', [
     '$window',
     '$location',
-    'NavigationService',
+    'urlManager',
 function(
     $window,
     $location,
-    NavigationService
+    urlManager
 ) {
     var REDIRECT_BASE_URL = 'http://m.gapminder.org',
         SESSION_STORAGE_KEY = 'cancelDeviceRedirect',
@@ -66,7 +66,7 @@ function(
          */
         redirect: function() {
             if ($window.device.mobile() && !this.isRedirectDisabled()) {
-                var route = NavigationService.getCurrentRoute();
+                var route = urlManager.getCurrentRoute();
                 $window.location.href = REDIRECT_BASE_URL + route;
             }
         },
@@ -75,7 +75,7 @@ function(
          * Forcefully performs a redirect.
          */
         forceRedirect: function() {
-            var route = NavigationService.getCurrentRoute();
+            var route = urlManager.getCurrentRoute();
             $window.location.href = REDIRECT_BASE_URL + route + '?disableRedirect';
         }
     };

@@ -3,14 +3,14 @@ angular.module('Gapminder').controller('NavbarCtrl', [
     '$http',
     '$window',
     'UserService',
-    'NavigationService',
+    'urlManager',
     'localeManager',
 function(
     $scope,
     $http,
     $window,
     UserService,
-    NavigationService,
+    urlManager,
     localeManager
 ) {
     /**
@@ -34,6 +34,6 @@ function(
      */
     $scope.setLocale = function(locale) {
         localeManager.setCurrentLocale(locale);
-        NavigationService.reload();
+        urlManager.reload();
     };
 }]);

@@ -4,14 +4,14 @@ angular.module('Gapminder').controller('LoginCtrl', [
     '$q',
     'UserService',
     'uiTranslator',
-    'NavigationService',
+    'urlManager',
 function(
     $scope,
     $rootScope,
     $q,
     UserService,
     uiTranslator,
-    NavigationService
+    urlManager
 ) {
     $scope.navigation.setTranslatedPageTitle('login', 'Login');
     $scope.credentials = {};
@@ -26,7 +26,7 @@ function(
         UserService.login($scope.credentials.username, $scope.credentials.password)
             .success(function(res) {
                 UserService.ensureInfo();
-                NavigationService.redirectToReturnUrl();
+                urlManager.redirectToReturnUrl();
                 dfd.resolve(res);
             })
             .error(function(err) {
