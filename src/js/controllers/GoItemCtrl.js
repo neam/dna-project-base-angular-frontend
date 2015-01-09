@@ -20,7 +20,7 @@ function(
     $scope.itemService = ItemService;
 
     ItemService.loadItem()
-        .then(function(item) {
+        .success(function(item) {
             if (isRequestedItemType(item)) {
                 NavigationService.setPageTitle(item.attributes.heading);
                 ItemService.removeAdminContributorFromItem(item);
@@ -29,7 +29,8 @@ function(
             } else {
                 $scope.notFound();
             }
-        }, function() {
+        })
+        .error(function() {
             $scope.notFound();
         });
 

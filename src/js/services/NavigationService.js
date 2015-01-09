@@ -266,6 +266,15 @@ function(
          */
         getCurrentRoute: function() {
             return $location.$$path.replace(this.getBaseRoute(), '/');
+        },
+
+        /**
+         * Triggers page not found.
+         */
+        notFound: function() {
+            this.setTranslatedPageTitle('not-found', 'Not Found');
+            $rootScope.pageNotFound = true;
+            $rootScope.layout = 'layout-minimal';
         }
     }
 }]);

@@ -4,6 +4,7 @@ angular.module('Gapminder').factory('ItemService', [
     '$window',
     '$location',
     '$rootScope',
+    'PromiseFactory',
     'NavigationService',
     'ApiService',
     'Utils',
@@ -13,6 +14,7 @@ function(
     $window,
     $location,
     $rootScope,
+    PromiseFactory,
     NavigationService,
     ApiService,
     Utils
@@ -25,7 +27,7 @@ function(
          */
         loadItem: function() {
             var self = this,
-                dfd = $q.defer(),
+                dfd = PromiseFactory.defer(),
                 apiUrl;
 
             if (NavigationService.isValidRoute()) {

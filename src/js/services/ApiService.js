@@ -31,6 +31,21 @@ function(
             return angular.isDefined(compositionTypeToItemPathNameMap[compositionType])
                 ? compositionTypeToItemPathNameMap[compositionType]
                 : compositionType;
+        },
+
+        /**
+         * Serializes form data.
+         * @param {Object} data
+         * @returns {string}
+         */
+        serializeFormData: function(data) {
+            var str = [];
+
+            angular.forEach(data, function(value, key) {
+                str.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+            });
+
+            return str.join('&');
         }
     }
 }]);
