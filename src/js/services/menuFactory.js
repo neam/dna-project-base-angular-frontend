@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('MenuService', [
+angular.module('Gapminder').factory('menuFactory', [
     '$location',
     '$q',
     'configManager',

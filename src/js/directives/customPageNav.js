@@ -1,12 +1,12 @@
 angular.module('Gapminder').directive('customPageNav', [
     '$rootScope',
     '$location',
-    'MenuService',
+    'menuFactory',
     'NavigationService',
 function(
     $rootScope,
     $location,
-    MenuService,
+    menuFactory,
     NavigationService
 ) {
     return {
@@ -17,15 +17,15 @@ function(
         controller: ['$scope', function($scope) {
             $rootScope.$on('wildcardPageLoadSuccess', function(event, item) {
                 if (angular.isDefined(item.root_page)) {
-                    MenuService.buildTree(MenuService.type.ROOT_PAGE, item.root_page);
+                    menuFactory.buildTree(menuFactory.type.ROOT_PAGE, item.root_page);
                 }
 
-                MenuService.getChildrenOfCurrentRootPageItem()
+                menuFactory.getChildrenOfCurrentRootPageItem()
                     .then(function(children) {
                         $scope.children = children;
                     });
 
-                MenuService.getParentOfCurrentRootPageItem()
+                menuFactory.getParentOfCurrentRootPageItem()
                     .then(function(parent) {
                         $scope.parent = parent;
                     });

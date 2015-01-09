@@ -1,9 +1,9 @@
 angular.module('Gapminder').directive('navExpandable', [
     'NavigationService',
-    'MenuService',
+    'menuFactory',
 function(
     NavigationService,
-    MenuService
+    menuFactory
 ) {
     return {
         restrict: 'A',
@@ -12,8 +12,8 @@ function(
         },
         controller: ['$scope', function($scope) {
             $scope.navigation = NavigationService;
-            MenuService.buildTree(MenuService.type.HOME, MenuService.getHomeTreeData());
-            $scope.items = MenuService.getHomeMenuItems();
+            menuFactory.buildTree(menuFactory.type.HOME, menuFactory.getHomeTreeData());
+            $scope.items = menuFactory.getHomeMenuItems();
         }],
         templateUrl: NavigationService.createTemplateUrl('/directives/nav-expandable.html')
     };
