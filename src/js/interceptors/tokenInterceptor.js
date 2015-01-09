@@ -3,13 +3,13 @@ angular.module('Gapminder').factory('tokenInterceptor', [
     '$window',
     '$rootScope',
     '$injector',
-    'PromiseFactory',
+    'promiseFactory',
 function(
     $q,
     $window,
     $rootScope,
     $injector,
-    PromiseFactory
+    promiseFactory
 ) {
     var retryUrls = [];
 
@@ -73,7 +73,7 @@ function(
          */
         responseError: function(response) {
             var UserService = $injector.get('UserService'),
-                dfd = PromiseFactory.defer();
+                dfd = promiseFactory.defer();
 
             if (response.status === 401 && UserService.hasRefreshToken() && !_.contains(retryUrls, response.config.url)) {
                 retryUrls.push(response.config.url);

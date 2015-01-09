@@ -4,14 +4,14 @@ angular.module('Gapminder').factory('UserService', [
     '$window',
     'api',
     'configManager',
-    'PromiseFactory',
+    'promiseFactory',
 function(
     $http,
     $q,
     $window,
     api,
     configManager,
-    PromiseFactory
+    promiseFactory
 ) {
     var clientId = configManager.get('authClientId');
 
@@ -36,7 +36,7 @@ function(
          * @returns {Deferred.promise}
          */
         login: function(username, password) {
-            var dfd = PromiseFactory.defer(),
+            var dfd = promiseFactory.defer(),
                 self = this;
 
             $http.post(api.getApiUrl('/user/login'), {
@@ -91,7 +91,7 @@ function(
          */
         refreshAuthToken: function() {
             var self = this,
-                dfd = PromiseFactory.defer(),
+                dfd = promiseFactory.defer(),
                 url = api.getApiUrl('/user/login'),
                 refreshToken = this.getRefreshToken();
 

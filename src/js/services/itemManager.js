@@ -4,7 +4,7 @@ angular.module('Gapminder').factory('itemManager', [
     '$window',
     '$location',
     '$rootScope',
-    'PromiseFactory',
+    'promiseFactory',
     'urlManager',
     'api',
     'utils',
@@ -14,7 +14,7 @@ function(
     $window,
     $location,
     $rootScope,
-    PromiseFactory,
+    promiseFactory,
     urlManager,
     api,
     utils
@@ -27,7 +27,7 @@ function(
          */
         loadItem: function() {
             var self = this,
-                dfd = PromiseFactory.defer(),
+                dfd = promiseFactory.defer(),
                 apiUrl;
 
             if (urlManager.isValidRoute()) {
