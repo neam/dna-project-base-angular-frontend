@@ -38,11 +38,13 @@ function(
       }
 
       $http.get(apiUrl)
-        .success(function(item) {
+        .success(function(item, status) {
+          $rootScope.statusCode = status;
           self.setMetaDescriptionFromItem(item);
           dfd.resolve(item);
         })
-        .error(function(err) {
+        .error(function(err, status) {
+          $rootScope.statusCode = status;
           dfd.reject(err);
         });
 

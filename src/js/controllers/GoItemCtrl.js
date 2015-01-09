@@ -27,11 +27,11 @@ function(
         $scope.item = item;
         $scope.itemCategory = item.attributes.composition_type;
       } else {
-        $scope.notFound();
+        urlManager.notFound();
       }
     })
     .error(function() {
-      $scope.notFound();
+      urlManager.notFound();
     });
 
   /**
