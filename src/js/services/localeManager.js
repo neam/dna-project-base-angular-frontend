@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('LocaleService', [
+angular.module('Gapminder').factory('localeManager', [
     '$http',
     '$q',
     '$window',

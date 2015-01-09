@@ -4,14 +4,14 @@ angular.module('Gapminder').controller('NavbarCtrl', [
     '$window',
     'UserService',
     'NavigationService',
-    'LocaleService',
+    'localeManager',
 function(
     $scope,
     $http,
     $window,
     UserService,
     NavigationService,
-    LocaleService
+    localeManager
 ) {
     /**
      * Logs out the user.
@@ -33,7 +33,7 @@ function(
      * @param {string} locale
      */
     $scope.setLocale = function(locale) {
-        LocaleService.setCurrentLocale(locale);
+        localeManager.setCurrentLocale(locale);
         NavigationService.reload();
     };
 }]);

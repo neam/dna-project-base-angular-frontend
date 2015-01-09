@@ -4,14 +4,14 @@ angular.module('Gapminder').factory('uiTranslator', [
     '$q',
     '$window',
     'api',
-    'LocaleService',
+    'localeManager',
 function(
     $rootScope,
     $http,
     $q,
     $window,
     api,
-    LocaleService
+    localeManager
 ) {
     var currentLocale,
         translationApiUrl;
@@ -30,7 +30,7 @@ function(
             var self = this,
                 dfd = $q.defer();
 
-            currentLocale = LocaleService.getCurrentLocale();
+            currentLocale = localeManager.getCurrentLocale();
             translationApiUrl = '/translateui/pages/:locale'.replace(':locale', currentLocale);
 
             loadTranslations()

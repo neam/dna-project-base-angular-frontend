@@ -5,7 +5,7 @@ describe('i18n', function() {
         $q,
         $compile,
         api,
-        LocaleService,
+        localeManager,
         uiTranslator,
         apiUrl = '/translateui/pages/fi',
         locale = 'fi',
@@ -19,17 +19,17 @@ describe('i18n', function() {
 
     beforeEach(module('Gapminder'));
 
-    beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _$compile_, _api_, _LocaleService_, _uiTranslator_) {
+    beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _$compile_, _api_, _localeManager_, _uiTranslator_) {
         $rootScope = _$rootScope_;
         $controller = _$controller_;
         $httpBackend = _$httpBackend_;
         $q = _$q_;
         $compile = _$compile_;
         api = _api_;
-        LocaleService = _LocaleService_;
+        localeManager = _localeManager_;
         uiTranslator = _uiTranslator_;
 
-        LocaleService.setCurrentLocale(locale);
+        localeManager.setCurrentLocale(locale);
     }));
 
     afterEach(function() {

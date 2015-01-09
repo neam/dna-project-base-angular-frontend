@@ -6,19 +6,19 @@ describe('footer', function() {
         $q,
         configManager,
         api,
-        LocaleService,
+        localeManager,
         FooterCtrl;
 
     beforeEach(module('Gapminder'));
 
-    beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _configManager_, _api_, _LocaleService_) {
+    beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _configManager_, _api_, _localeManager_) {
         $rootScope = _$rootScope_;
         $controller = _$controller_;
         $httpBackend = _$httpBackend_;
         $q = _$q_;
         configManager = _configManager_;
         api = _api_;
-        LocaleService = _LocaleService_;
+        localeManager = _localeManager_;
     }));
 
     beforeEach(function() {
@@ -35,7 +35,7 @@ describe('footer', function() {
     });
 
     it('should load footer items', function() {
-        LocaleService.setCurrentLocale('en_us');
+        localeManager.setCurrentLocale('en_us');
 
         $httpBackend.expectGET(api.getApiUrl('/footer/en_us')).respond({
             "en_us": {
