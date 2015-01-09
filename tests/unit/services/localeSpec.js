@@ -4,7 +4,7 @@ describe('LocaleService', function() {
         $httpBackend,
         $q,
         ConfigService,
-        ApiService,
+        api,
         LocaleService,
         languageApiPath = '/language',
         /**
@@ -17,13 +17,13 @@ describe('LocaleService', function() {
 
     beforeEach(module('Gapminder'));
 
-    beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _ConfigService_, _ApiService_, _LocaleService_) {
+    beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _ConfigService_, _api_, _LocaleService_) {
         $rootScope = _$rootScope_;
         $controller = _$controller_;
         $httpBackend = _$httpBackend_;
         $q = _$q_;
         ConfigService = _ConfigService_;
-        ApiService = _ApiService_;
+        api = _api_;
         LocaleService = _LocaleService_;
     }));
 
@@ -34,7 +34,7 @@ describe('LocaleService', function() {
     });
 
     it('should load locale options', function() {
-        $httpBackend.expectGET(ApiService.getApiUrl(languageApiPath)).respond(localeOptions);
+        $httpBackend.expectGET(api.getApiUrl(languageApiPath)).respond(localeOptions);
 
         LocaleService.loadLocaleOptions()
             .then(function() {
@@ -56,7 +56,7 @@ describe('LocaleService', function() {
     });
 
     it('should return current locale label', function() {
-        $httpBackend.expectGET(ApiService.getApiUrl(languageApiPath)).respond(localeOptions);
+        $httpBackend.expectGET(api.getApiUrl(languageApiPath)).respond(localeOptions);
 
         LocaleService.loadLocaleOptions()
             .then(function() {

@@ -3,18 +3,18 @@ describe('tokenInterceptor', function() {
         $http,
         $httpProvider,
         tokenInterceptor,
-        ApiService,
+        api,
         UserService;
 
     beforeEach(module('Gapminder', function(_$httpProvider_) {
         $httpProvider = _$httpProvider_;
     }));
 
-    beforeEach(inject(function(_$httpBackend_, _$http_, _tokenInterceptor_, _ApiService_, _UserService_) {
+    beforeEach(inject(function(_$httpBackend_, _$http_, _tokenInterceptor_, _api_, _UserService_) {
         $httpBackend = _$httpBackend_;
         $http = _$http_;
         tokenInterceptor = _tokenInterceptor_;
-        ApiService = _ApiService_;
+        api = _api_;
         UserService = _UserService_;
 
         UserService.logout();
@@ -42,11 +42,11 @@ describe('tokenInterceptor', function() {
         spyOn(UserService, 'refreshAuthToken').and.callThrough();
         $http.get(url);
         $httpBackend.when('GET', url).respond(401);
-        $httpBackend.expect('POST', ApiService.getApiUrl('/user/login')).respond(200, {
+        $httpBackend.expect('POST', api.getApiUrl('/user/login')).respond(200, {
             access_token: 'foo',
             refresh_token: 'bar'
         });
-        $httpBackend.expect('GET', ApiService.getApiUrl('/user/info')).respond(200);
+        $httpBackend.expect('GET', api.getApiUrl('/user/info')).respond(200);
         $httpBackend.flush();
         expect(UserService.refreshAuthToken).toHaveBeenCalled();
     });

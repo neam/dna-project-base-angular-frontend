@@ -3,7 +3,7 @@ describe('i18nService', function() {
         $controller,
         $httpBackend,
         $q,
-        ApiService,
+        api,
         LocaleService,
         i18nService,
         apiUrl = '/translateui/pages/fi',
@@ -18,12 +18,12 @@ describe('i18nService', function() {
 
     beforeEach(module('Gapminder'));
 
-    beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _ApiService_, _LocaleService_, _i18nService_) {
+    beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _api_, _LocaleService_, _i18nService_) {
         $rootScope = _$rootScope_;
         $controller = _$controller_;
         $httpBackend = _$httpBackend_;
         $q = _$q_;
-        ApiService = _ApiService_;
+        api = _api_;
         LocaleService = _LocaleService_;
         i18nService = _i18nService_;
 
@@ -36,7 +36,7 @@ describe('i18nService', function() {
     });
 
     it('should initialize service', function() {
-        $httpBackend.expectGET(ApiService.getApiUrl(apiUrl)).respond(translations);
+        $httpBackend.expectGET(api.getApiUrl(apiUrl)).respond(translations);
 
         i18nService.init()
             .then(function() {
@@ -47,7 +47,7 @@ describe('i18nService', function() {
     });
 
     it('should translate a string', function() {
-        $httpBackend.expectGET(ApiService.getApiUrl(apiUrl)).respond(translations);
+        $httpBackend.expectGET(api.getApiUrl(apiUrl)).respond(translations);
 
         i18nService.init().then(function() {
             var translation = i18nService.translate('test:login');
@@ -58,7 +58,7 @@ describe('i18nService', function() {
     });
 
     it('should translate a plural phrase', function() {
-        $httpBackend.expectGET(ApiService.getApiUrl(apiUrl)).respond(translations);
+        $httpBackend.expectGET(api.getApiUrl(apiUrl)).respond(translations);
 
         i18nService.init().then(function() {
             var translation = i18nService.translate('test:user', {count: 3});
@@ -69,7 +69,7 @@ describe('i18nService', function() {
     });
 
     it('should translate a string and replace a variable', function() {
-        $httpBackend.expectGET(ApiService.getApiUrl(apiUrl)).respond(translations);
+        $httpBackend.expectGET(api.getApiUrl(apiUrl)).respond(translations);
 
         i18nService.init().then(function() {
             var translation = i18nService.translate('test:you-are', {username: 'Eric'});

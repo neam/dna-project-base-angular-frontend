@@ -5,19 +5,19 @@ describe('footer', function() {
         $scope,
         $q,
         ConfigService,
-        ApiService,
+        api,
         LocaleService,
         FooterCtrl;
 
     beforeEach(module('Gapminder'));
 
-    beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _ConfigService_, _ApiService_, _LocaleService_) {
+    beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _ConfigService_, _api_, _LocaleService_) {
         $rootScope = _$rootScope_;
         $controller = _$controller_;
         $httpBackend = _$httpBackend_;
         $q = _$q_;
         ConfigService = _ConfigService_;
-        ApiService = _ApiService_;
+        api = _api_;
         LocaleService = _LocaleService_;
     }));
 
@@ -37,7 +37,7 @@ describe('footer', function() {
     it('should load footer items', function() {
         LocaleService.setCurrentLocale('en_us');
 
-        $httpBackend.expectGET(ApiService.getApiUrl('/footer/en_us')).respond({
+        $httpBackend.expectGET(api.getApiUrl('/footer/en_us')).respond({
             "en_us": {
                 "socialLinks": [
                     {

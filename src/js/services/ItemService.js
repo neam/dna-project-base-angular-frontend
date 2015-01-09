@@ -6,7 +6,7 @@ angular.module('Gapminder').factory('ItemService', [
     '$rootScope',
     'PromiseFactory',
     'NavigationService',
-    'ApiService',
+    'api',
     'utils',
 function(
     $http,
@@ -16,7 +16,7 @@ function(
     $rootScope,
     PromiseFactory,
     NavigationService,
-    ApiService,
+    api,
     utils
 ) {
     return {
@@ -96,7 +96,7 @@ function(
          * @returns {string}
          */
         createItemApiUrl: function(identifier) {
-            return ApiService.getApiUrl('/item' + utils.ensureLeadingSlash(identifier));
+            return api.getApiUrl('/item' + utils.ensureLeadingSlash(identifier));
         },
 
         /**
@@ -119,7 +119,7 @@ function(
                 return composition.url;
             } else {
                 // by node_id
-                return NavigationService.createUrl(ApiService.getCompositionItemPathName(composition.node_id));
+                return NavigationService.createUrl(api.getCompositionItemPathName(composition.node_id));
             }
         },
 

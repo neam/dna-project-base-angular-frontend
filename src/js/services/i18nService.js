@@ -3,14 +3,14 @@ angular.module('Gapminder').factory('i18nService', [
     '$http',
     '$q',
     '$window',
-    'ApiService',
+    'api',
     'LocaleService',
 function(
     $rootScope,
     $http,
     $q,
     $window,
-    ApiService,
+    api,
     LocaleService
 ) {
     var currentLocale,
@@ -68,7 +68,7 @@ function(
     function loadTranslations() {
         var dfd = $q.defer();
 
-        $http.get(ApiService.getApiUrl(translationApiUrl), {cache: true})
+        $http.get(api.getApiUrl(translationApiUrl), {cache: true})
             .success(function(translations) {
                 dfd.resolve(translations);
             })

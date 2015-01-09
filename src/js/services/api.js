@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('ApiService', [
+angular.module('Gapminder').factory('api', [
     'ConfigService',
     'utils',
     'baseApiUrl',

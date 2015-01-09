@@ -1,12 +1,12 @@
 angular.module('Gapminder').factory('SirTrevorService', [
     '$location',
     'NavigationService',
-    'ApiService',
+    'api',
     'ItemService',
 function(
     $location,
     NavigationService,
-    ApiService,
+    api,
     ItemService
 ) {
     var cmsItemTypes = [
@@ -302,7 +302,7 @@ function(
                 html += '<video width="640">';
                 html += '<source type="video/mp4" src="{{ url }}">'.replace('{{ url }}', block.data.attributes.url_mp4);
                 html += '<source type="video/webm" src="{{ url }}">'.replace('{{ url }}', block.data.attributes.url_webm);
-                html += '<track kind="subtitles" src="{{ url }}" srclang="en">'.replace('{{ url }}', ApiService.getApiUrl(block.data.attributes.url_subtitles));
+                html += '<track kind="subtitles" src="{{ url }}" srclang="en">'.replace('{{ url }}', api.getApiUrl(block.data.attributes.url_subtitles));
                 html += '<object width="640" height="360" type="application/x-shockwave-flash" data="vendor/mediaelement/build/flashmediaelement.swf"></object>';
                 html += '<param name="movie" value="vendor/mediaelement/build/flashmediaelement.swf">';
                 html += '<param name="flashvars" value="controls=true&file={{ url }}">'.replace('{{ url }}', block.data.attributes.url_mp4);

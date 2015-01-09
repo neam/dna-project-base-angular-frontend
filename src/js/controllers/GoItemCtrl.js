@@ -3,7 +3,7 @@ angular.module('Gapminder').controller('GoItemCtrl', [
     '$scope',
     '$stateParams',
     '$location',
-    'ApiService',
+    'api',
     'NavigationService',
     'i18nService',
     'ItemService',
@@ -12,7 +12,7 @@ function(
     $scope,
     $stateParams,
     $location,
-    ApiService,
+    api,
     NavigationService,
     i18nService,
     ItemService

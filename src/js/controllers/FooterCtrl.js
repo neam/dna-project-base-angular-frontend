@@ -2,14 +2,14 @@ angular.module('Gapminder').controller('FooterCtrl', [
     '$scope',
     '$http',
     '$q',
-    'ApiService',
+    'api',
     'LocaleService',
     'DeviceRedirectService',
 function(
     $scope,
     $http,
     $q,
-    ApiService,
+    api,
     LocaleService,
     DeviceRedirectService
 ) {
@@ -21,7 +21,7 @@ function(
         var dfd = $q.defer(),
             lang = LocaleService.getCurrentLocale();
 
-        $http.get(ApiService.getApiUrl('/footer/' + lang))
+        $http.get(api.getApiUrl('/footer/' + lang))
             .then(function(res) {
                 $scope.footerItems = res.data;
                 dfd.resolve(res);
