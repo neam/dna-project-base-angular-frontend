@@ -2,14 +2,12 @@ angular.module('Gapminder').controller('WildcardPageCtrl', [
     '$scope',
     '$rootScope',
     '$location',
-    'Utils',
     'ItemService',
     'NavigationService',
 function(
     $scope,
     $rootScope,
     $location,
-    Utils,
     ItemService,
     NavigationService
 ) {

@@ -4,7 +4,7 @@ angular.module('Gapminder').factory('NavigationService', [
     '$rootScope',
     '$injector',
     '$sce',
-    'Utils',
+    'utils',
     'i18nService',
     'assetUrl',
     'html5Mode',
@@ -14,7 +14,7 @@ function(
     $rootScope,
     $injector,
     $sce,
-    Utils,
+    utils,
     i18nService,
     assetUrl,
     html5Mode
@@ -77,7 +77,7 @@ function(
                 return route;
             }
 
-            route = Utils.ensureLeadingSlash(route);
+            route = utils.ensureLeadingSlash(route);
             return html5Mode ? route : '#' + route;
         },
 
@@ -87,7 +87,7 @@ function(
          * @returns {string}
          */
         createAssetUrl: function(path) {
-            return assetUrl + Utils.stripLeadingSlash(path);
+            return assetUrl + utils.stripLeadingSlash(path);
         },
 
         /**
@@ -96,7 +96,7 @@ function(
          * @returns {string}
          */
         createTemplateUrl: function(path) {
-            path = Utils.ensureLeadingSlash(path);
+            path = utils.ensureLeadingSlash(path);
             return $sce.trustAsResourceUrl(assetUrl + 'templates' + path);
         },
 
@@ -255,7 +255,7 @@ function(
                 baseRoute = baseRoute.replace($location.$$path, ''); // strip path
             }
 
-            baseRoute = Utils.ensureTrailingSlash(baseRoute);
+            baseRoute = utils.ensureTrailingSlash(baseRoute);
 
             return baseRoute;
         },

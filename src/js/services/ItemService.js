@@ -7,7 +7,7 @@ angular.module('Gapminder').factory('ItemService', [
     'PromiseFactory',
     'NavigationService',
     'ApiService',
-    'Utils',
+    'utils',
 function(
     $http,
     $q,
@@ -17,7 +17,7 @@ function(
     PromiseFactory,
     NavigationService,
     ApiService,
-    Utils
+    utils
 ) {
     return {
         /**
@@ -72,7 +72,7 @@ function(
          */
         getItemRouteParamFromUrl: function() {
             var fullRoute = NavigationService.getCurrentRoute();
-            return Utils.ensureLeadingSlash(fullRoute);
+            return utils.ensureLeadingSlash(fullRoute);
         },
 
         /**
@@ -85,7 +85,7 @@ function(
 
             identifier = _.isFinite(identifier)
                 ? identifier
-                : $window.encodeURIComponent(Utils.ensureLeadingSlash(fullRoute));
+                : $window.encodeURIComponent(utils.ensureLeadingSlash(fullRoute));
 
             return this.createItemApiUrl(identifier);
         },
@@ -96,7 +96,7 @@ function(
          * @returns {string}
          */
         createItemApiUrl: function(identifier) {
-            return ApiService.getApiUrl('/item' + Utils.ensureLeadingSlash(identifier));
+            return ApiService.getApiUrl('/item' + utils.ensureLeadingSlash(identifier));
         },
 
         /**
@@ -166,9 +166,9 @@ function(
 
             if (angular.isDefined(item.attributes)) {
                 if (angular.isDefined(item.attributes.about)) {
-                    text = Utils.htmlToPlainText(item.attributes.about);
+                    text = utils.htmlToPlainText(item.attributes.about);
                 } else if (angular.isDefined(item.attributes.subheading)) {
-                    text = Utils.htmlToPlainText(item.attributes.subheading);
+                    text = utils.htmlToPlainText(item.attributes.subheading);
                 }
             }
 
