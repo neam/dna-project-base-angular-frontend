@@ -4,17 +4,17 @@ angular.module('Gapminder').run([
     '$window',
     'NavigationService',
     'UserService',
-    'DeviceRedirectService',
+    'deviceRedirector',
 function(
     $rootScope,
     $location,
     $window,
     NavigationService,
     UserService,
-    DeviceRedirectService
+    deviceRedirector
 ) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        DeviceRedirectService.run();
+        deviceRedirector.run();
 
         delete $rootScope.metaDescription;
         $rootScope.pageNotFound = false;

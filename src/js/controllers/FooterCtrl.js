@@ -4,14 +4,14 @@ angular.module('Gapminder').controller('FooterCtrl', [
     '$q',
     'api',
     'LocaleService',
-    'DeviceRedirectService',
+    'deviceRedirector',
 function(
     $scope,
     $http,
     $q,
     api,
     LocaleService,
-    DeviceRedirectService
+    deviceRedirector
 ) {
     /**
      * Initializes the controller.
@@ -61,6 +61,6 @@ function(
      * Re-enables device redirects and redirects to the mobile version.
      */
     $scope.goMobile = function() {
-        DeviceRedirectService.forceRedirect();
+        deviceRedirector.forceRedirect();
     };
 }]);

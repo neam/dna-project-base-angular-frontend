@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('DeviceRedirectService', [
+angular.module('Gapminder').factory('deviceRedirector', [
     '$window',
     '$location',
     'NavigationService',
