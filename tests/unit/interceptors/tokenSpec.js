@@ -1,8 +1,8 @@
-describe('TokenInterceptor', function() {
+describe('tokenInterceptor', function() {
     var $httpBackend,
         $http,
         $httpProvider,
-        TokenInterceptor,
+        tokenInterceptor,
         ApiService,
         UserService;
 
@@ -10,10 +10,10 @@ describe('TokenInterceptor', function() {
         $httpProvider = _$httpProvider_;
     }));
 
-    beforeEach(inject(function(_$httpBackend_, _$http_, _TokenInterceptor_, _ApiService_, _UserService_) {
+    beforeEach(inject(function(_$httpBackend_, _$http_, _tokenInterceptor_, _ApiService_, _UserService_) {
         $httpBackend = _$httpBackend_;
         $http = _$http_;
-        TokenInterceptor = _TokenInterceptor_;
+        tokenInterceptor = _tokenInterceptor_;
         ApiService = _ApiService_;
         UserService = _UserService_;
 
@@ -21,18 +21,18 @@ describe('TokenInterceptor', function() {
     }));
 
     it('should register the token interceptor', function() {
-        expect($httpProvider.interceptors).toContain('TokenInterceptor');
+        expect($httpProvider.interceptors).toContain('tokenInterceptor');
     });
 
     it('should set authorization header in request', function() {
         var authToken = '2345dfdd29222dd9';
         UserService.saveAuthToken(authToken);
-        var config = TokenInterceptor.request({headers: {}});
+        var config = tokenInterceptor.request({headers: {}});
         expect(config.headers['Authorization']).toBe('Bearer ' + authToken);
     });
 
     it('should not set authorization header in request', function() {
-        var config = TokenInterceptor.request({headers: {}});
+        var config = tokenInterceptor.request({headers: {}});
         expect(config.headers['Authorization']).toBeUndefined();
     });
 

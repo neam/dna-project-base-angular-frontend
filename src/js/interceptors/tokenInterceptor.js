@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('TokenInterceptor', [
+angular.module('Gapminder').factory('tokenInterceptor', [
     '$q',
     '$window',
     '$rootScope',
@@ -93,5 +93,5 @@ function(
         }
     };
 }]).config(['$httpProvider', function($httpProvider) {
-    $httpProvider.interceptors.push('TokenInterceptor');
+    $httpProvider.interceptors.push('tokenInterceptor');
 }]);
