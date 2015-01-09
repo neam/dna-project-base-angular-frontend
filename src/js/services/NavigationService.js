@@ -5,7 +5,7 @@ angular.module('Gapminder').factory('NavigationService', [
     '$injector',
     '$sce',
     'utils',
-    'i18nService',
+    'uiTranslator',
     'assetUrl',
     'html5Mode',
 function(
@@ -15,7 +15,7 @@ function(
     $injector,
     $sce,
     utils,
-    i18nService,
+    uiTranslator,
     assetUrl,
     html5Mode
 ) {
@@ -181,7 +181,7 @@ function(
          */
         setTranslatedPageTitle: function(i18nKey, fallback) {
             var i18nString = 'page-title:{key}'.replace('{key}', i18nKey),
-                translation = i18nService.translate(i18nString, {}, fallback);
+                translation = uiTranslator.translate(i18nString, {}, fallback);
 
             this.setPageTitle(translation);
         },

@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('i18nService', [
+angular.module('Gapminder').factory('uiTranslator', [
     '$rootScope',
     '$http',
     '$q',
@@ -18,7 +18,7 @@ function(
 
     return {
         /**
-         * @type {boolean} whether i18nService has been initialized (and ready to translate)
+         * @type {boolean} whether uiTranslator has been initialized (and ready to translate)
          */
         isReady: false,
 

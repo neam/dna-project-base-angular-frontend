@@ -41,8 +41,8 @@ function(
             controller: state.controller,
             resolve: {
                 // Always make sure i18n is initialized
-                i18n: ['i18nService', function(i18nService) {
-                    return i18nService.init();
+                i18n: ['uiTranslator', function(uiTranslator) {
+                    return uiTranslator.init();
                 }]
             }
         });
@@ -59,8 +59,8 @@ function(
         access: {requiredLogin: false},
         resolve: {
             // Always make sure i18n is initialized
-            i18n: ['i18nService', function(i18nService) {
-                return i18nService.init();
+            i18n: ['uiTranslator', function(uiTranslator) {
+                return uiTranslator.init();
             }]
         }
     });

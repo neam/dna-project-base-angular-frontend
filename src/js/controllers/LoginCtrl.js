@@ -3,14 +3,14 @@ angular.module('Gapminder').controller('LoginCtrl', [
     '$rootScope',
     '$q',
     'UserService',
-    'i18nService',
+    'uiTranslator',
     'NavigationService',
 function(
     $scope,
     $rootScope,
     $q,
     UserService,
-    i18nService,
+    uiTranslator,
     NavigationService
 ) {
     $scope.navigation.setTranslatedPageTitle('login', 'Login');

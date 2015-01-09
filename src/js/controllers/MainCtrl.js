@@ -7,7 +7,7 @@ angular.module('Gapminder').controller('MainCtrl', [
     'api',
     'LocaleService',
     'NavigationService',
-    'i18nService',
+    'uiTranslator',
     'LoadService',
 function(
     $scope,
@@ -18,12 +18,12 @@ function(
     api,
     LocaleService,
     NavigationService,
-    i18nService,
+    uiTranslator,
     LoadService
 ) {
     $rootScope.locale = LocaleService;
     $rootScope.load = LoadService;
-    $rootScope.i18n = i18nService;
+    $rootScope.i18n = uiTranslator;
     $rootScope.navigation = NavigationService;
     $scope.user = UserService;
 
@@ -58,7 +58,7 @@ function(
      * @returns {string}
      */
     $rootScope.getMetaDescription = function() {
-        return $rootScope.metaDescription || i18nService.translate('metatag:meta-description-fallback', {}, 'A fact-based worldview');
+        return $rootScope.metaDescription || uiTranslator.translate('metatag:meta-description-fallback', {}, 'A fact-based worldview');
     };
 
     /**

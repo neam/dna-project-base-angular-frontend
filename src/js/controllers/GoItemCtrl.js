@@ -5,7 +5,7 @@ angular.module('Gapminder').controller('GoItemCtrl', [
     '$location',
     'api',
     'NavigationService',
-    'i18nService',
+    'uiTranslator',
     'ItemService',
 function(
     $rootScope,
@@ -14,7 +14,7 @@ function(
     $location,
     api,
     NavigationService,
-    i18nService,
+    uiTranslator,
     ItemService
 ) {
     $scope.itemService = ItemService;
