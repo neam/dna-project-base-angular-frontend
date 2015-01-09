@@ -1,11 +1,11 @@
 angular.module('Gapminder').directive('sirTrevorBlocks', [
     '$compile',
     '$timeout',
-    'SirTrevorService',
+    'sirTrevor',
 function(
     $compile,
     $timeout,
-    SirTrevorService
+    sirTrevor
 ) {
     return {
         restrict: 'AE',
@@ -21,7 +21,7 @@ function(
                         containsVimeo = false;
 
                     angular.forEach(scope.blocks, function(block) {
-                        if (SirTrevorService.isBlockTypeSupported(block.type)) {
+                        if (sirTrevor.isBlockTypeSupported(block.type)) {
                             // TODO: Try to get rid of these if-else statements.
                             if (block.type === 'about') {
                                 if (angular.isDefined(attrs.about)) {
@@ -45,7 +45,7 @@ function(
                                 }
 
                                 html += '<div class="block block-{{type}}">'.replace('{{type}}', block.type);
-                                html += SirTrevorService.render(block);
+                                html += sirTrevor.render(block);
                                 html += '</div>';
                             }
                         }

@@ -1,4 +1,4 @@
-angular.module('Gapminder').directive('itemSplash', ['urlManager', 'SirTrevorService', function(urlManager, SirTrevorService) {
+angular.module('Gapminder').directive('itemSplash', ['urlManager', 'sirTrevor', function(urlManager, sirTrevor) {
     return {
         restrict: 'AE',
         scope: {
@@ -12,13 +12,13 @@ angular.module('Gapminder').directive('itemSplash', ['urlManager', 'SirTrevorSer
                         firstBlock = scope.blocks[0],
                         containsSlideShare = false;
 
-                    if (_.contains(validSplashBlockTypes, firstBlock.type) && SirTrevorService.isBlockTypeSupported(firstBlock.type)) {
+                    if (_.contains(validSplashBlockTypes, firstBlock.type) && sirTrevor.isBlockTypeSupported(firstBlock.type)) {
                         if (firstBlock.type === 'slideshare') {
                             containsSlideShare = true;
                         }
 
                         html += '<div class="block block-{{type}}">'.replace('{{type}}', firstBlock.type);
-                        html += SirTrevorService.render(firstBlock);
+                        html += sirTrevor.render(firstBlock);
                         html += '</div>';
 
                         // Prevent re-rendering

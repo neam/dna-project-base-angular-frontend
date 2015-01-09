@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('SirTrevorService', [
+angular.module('Gapminder').factory('sirTrevor', [
     '$location',
     'urlManager',
     'api',
