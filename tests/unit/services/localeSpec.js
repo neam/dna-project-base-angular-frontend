@@ -3,7 +3,7 @@ describe('LocaleService', function() {
         $controller,
         $httpBackend,
         $q,
-        ConfigService,
+        configManager,
         api,
         LocaleService,
         languageApiPath = '/language',
@@ -17,12 +17,12 @@ describe('LocaleService', function() {
 
     beforeEach(module('Gapminder'));
 
-    beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _ConfigService_, _api_, _LocaleService_) {
+    beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_, _configManager_, _api_, _LocaleService_) {
         $rootScope = _$rootScope_;
         $controller = _$controller_;
         $httpBackend = _$httpBackend_;
         $q = _$q_;
-        ConfigService = _ConfigService_;
+        configManager = _configManager_;
         api = _api_;
         LocaleService = _LocaleService_;
     }));

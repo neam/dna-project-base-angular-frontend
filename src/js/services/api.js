@@ -1,9 +1,9 @@
 angular.module('Gapminder').factory('api', [
-    'ConfigService',
+    'configManager',
     'utils',
     'baseApiUrl',
 function(
-    ConfigService,
+    configManager,
     utils,
     baseApiUrl
 ) {

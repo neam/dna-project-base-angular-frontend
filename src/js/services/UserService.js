@@ -3,17 +3,17 @@ angular.module('Gapminder').factory('UserService', [
     '$q',
     '$window',
     'api',
-    'ConfigService',
+    'configManager',
     'PromiseFactory',
 function(
     $http,
     $q,
     $window,
     api,
-    ConfigService,
+    configManager,
     PromiseFactory
 ) {
-    var clientId = ConfigService.get('authClientId');
+    var clientId = configManager.get('authClientId');
 
     return {
         info: null,
