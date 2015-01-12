@@ -1,5 +1,6 @@
 angular.module('Gapminder').factory('MainConfig', function() {
   return {
+    environment: null,
     authClientId: 'TestClient',
     homeTreeData: {
       "node_id": null,

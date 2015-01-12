@@ -1,5 +1,6 @@
 angular.module('Gapminder').factory('EnvironmentConfig', function() {
   return {
+    environment: 'development',
     homeTreeData: {
       "node_id": null,
       "menu_label": "Home",
