@@ -11,6 +11,7 @@ angular.module('Gapminder').factory('api', function(configManager, utils, baseAp
      * @returns {string}
      */
     getApiUrl: function(uri) {
+      uri = utils.ensureLeadingSlash(uri);
       return utils.stripTrailingSlash(baseApiUrl + uri)
     },
 
@@ -27,14 +28,14 @@ angular.module('Gapminder').factory('api', function(configManager, utils, baseAp
 
     /**
      * Serializes form data.
-     * @param {Object} data
+     * @param {Object} json
      * @returns {string}
      */
-    serializeFormData: function(data) {
+    serializeFormData: function(json) {
       var str = [];
 
-      angular.forEach(data, function(value, key) {
-        str.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+      angular.forEach(json, function(value, key) {
+        str.push(encodeURIComponent(key) + '=' + encodeURIComponent(json[key]));
       });
 
       return str.join('&');
