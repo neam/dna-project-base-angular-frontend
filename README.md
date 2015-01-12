@@ -62,3 +62,9 @@ URL: [http://static.gapminder.org/pages-desktop-stage-with-mock](http://static.g
 Deploy a stage version that uses the Gapminder Mock API:
 
     ./deploy.sh stage-mock <S3 ACCESS KEY> <S3 SECRET>
+
+## View unit test coverage
+
+While your development server is running, browse to:
+
+    http://localhost:1335/coverage/
