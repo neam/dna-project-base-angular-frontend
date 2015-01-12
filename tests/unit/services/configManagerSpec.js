@@ -12,6 +12,12 @@ describe('configManager', function() {
   });
 
   it('should get an environment-specific (overridden) config value', function() {
-    expect(configManager.get('environment')).toBe('development');
+    var environments = [
+      'development',
+      'production',
+      'stage'
+    ];
+
+    expect(_.contains(environments, configManager.get('environment'))).toBeTruthy();
   });
 });
