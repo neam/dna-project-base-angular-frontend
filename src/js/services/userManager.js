@@ -160,8 +160,6 @@ angular.module('Gapminder').factory('userManager', function($http, $q, $window, 
     deleteAuthToken: function() {
       if (angular.isDefined($window.sessionStorage.authToken)) {
         delete $window.sessionStorage.authToken;
-      } else {
-        console.info('Authentication token has not been saved.');
       }
     },
 
@@ -195,8 +193,6 @@ angular.module('Gapminder').factory('userManager', function($http, $q, $window, 
     deleteRefreshToken: function() {
       if (angular.isDefined($window.sessionStorage.refreshToken)) {
         delete $window.sessionStorage.refreshToken;
-      } else {
-        console.info('Refresh token has not been saved.');
       }
     }
   }

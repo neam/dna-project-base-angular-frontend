@@ -4,7 +4,7 @@ angular.module('Gapminder').directive('customPageNav', function($rootScope, $loc
     scope: {
       item: '='
     },
-    controller: ['$scope', function($scope) {
+    controller: function($scope) {
       $rootScope.$on('wildcardPageLoadSuccess', function(event, item) {
         if (angular.isDefined(item.root_page)) {
           menuFactory.buildTree(menuFactory.type.ROOT_PAGE, item.root_page);
@@ -53,7 +53,7 @@ angular.module('Gapminder').directive('customPageNav', function($rootScope, $loc
           return urlManager.createUrl(route);
         }
       };
-    }],
+    },
     templateUrl: urlManager.createTemplateUrl('/directives/custom-page-nav.html')
   };
 });

@@ -1,0 +1,6 @@
+<div class="contributors" ng-show="shouldRenderContainer">
+  <h2 class="heading-4" i18n="item-page:thanks-to-heading|html">Thanks to</h2>
+  <a ng-repeat="contributor in validContributors" ng-show="contributor.thumbnail_url" ng-click="itemMgr.goToProfile(contributor.user_id, $event)" href="{{ itemMgr.createUserProfileUrl(contributor.user_id) }}">
+    <img class="contributor" ng-src="{{ contributor.thumbnail_url }}" alt="{{ contributor.username }}" tooltip="{{ contributor.username }}">
+  </a>
+</div>

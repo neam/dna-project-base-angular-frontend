@@ -20,12 +20,7 @@
             <script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
           </div>
           <div class="sidebar-section" ng-show="itemService.itemHasContributors(item)">
-            <h2 class="heading-4" i18n="item-page:thanks-to-heading|html">Thanks to</h2>
-            <div class="contributors">
-              <a ng-repeat="contributor in item.contributors" ng-click="itemService.goToProfile(contributor.user_id, $event)" href="{{ itemService.createUserProfileUrl(contributor.user_id) }}">
-                <img class="contributor" ng-src="{{ contributor.thumbnail_url }}" alt="{{ contributor.username }}" tooltip="{{ contributor.username }}">
-              </a>
-            </div>
+            <contributor-thumbs contributors="item.contributors"></contributor-thumbs>
             <!-- <a class="item-participate-link" ng-href="{{ createUrl('/') }}" i18n="item-page:participate-link-label|html">Participate</a> -->
           </div>
         </aside>
