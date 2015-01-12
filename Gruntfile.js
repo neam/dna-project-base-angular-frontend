@@ -369,7 +369,19 @@ module.exports = function(grunt) {
     karma: {
       unit: {
         configFile: 'karma.conf.js',
-        browsers: ['PhantomJS']
+        browsers: ['PhantomJS'],
+        coverageReporter: {
+          dir: '<%= paths.dist %>/coverage',
+          reporters: [
+            {
+              type: 'html',
+              subdir: '.'
+            },
+            {
+              type: 'text-summary'
+            }
+          ]
+        }
       }
     },
     'http-server': {
