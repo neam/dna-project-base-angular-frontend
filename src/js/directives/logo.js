@@ -6,6 +6,7 @@ angular.module('Gapminder').directive('logo', function(urlManager, assetUrl) {
     },
     controller: function($scope) {
       $scope.assetUrl = assetUrl;
+      $scope.createTemplateUrl = urlManager.createTemplateUrl;
     },
     templateUrl: urlManager.createTemplateUrl('/directives/logo.html')
   };

@@ -3,7 +3,6 @@ angular.module('Gapminder').directive('showMore', function($compile, $timeout, u
     restrict: 'AE',
     scope: {
     },
-    templateUrl: 'templates/directives/show-more.html',
     templateUrl: urlManager.createTemplateUrl('/directives/show-more.html'),
     transclude: true,
     link: function(scope, element, attrs, controller, transclude) {

@@ -1,4 +1,4 @@
-angular.module('Gapminder').config(function($stateProvider, $urlRouterProvider, $locationProvider, $sceDelegateProvider, assetUrl, html5Mode) {
+angular.module('Gapminder').config(function($stateProvider, $urlRouterProvider, $locationProvider, $sceDelegateProvider, assetUrl, html5Mode, version) {
   // HTML5 mode
   $locationProvider.html5Mode(html5Mode);
 
@@ -8,7 +8,8 @@ angular.module('Gapminder').config(function($stateProvider, $urlRouterProvider, 
     'http://static.gapminder.org/**'
   ]);
 
-  var routeTemplateBasePath = assetUrl + 'templates/states/';
+  var routeTemplateBasePath = assetUrl + 'templates/states/',
+      versionSuffix = '?' + version;
 
   // Define states
   var states = [
@@ -21,7 +22,7 @@ angular.module('Gapminder').config(function($stateProvider, $urlRouterProvider, 
   angular.forEach(states, function(state) {
     $stateProvider.state(state.name, {
       url: state.url,
-      templateUrl: routeTemplateBasePath + state.templateUrl,
+      templateUrl: routeTemplateBasePath + state.templateUrl + versionSuffix,
       layout: state.layout || 'layout-regular',
       access: state.access,
       controller: state.controller,
@@ -40,7 +41,7 @@ angular.module('Gapminder').config(function($stateProvider, $urlRouterProvider, 
   // Custom pages
   $stateProvider.state('wildcardPage', {
     url: ':id',
-    templateUrl: routeTemplateBasePath + 'wildcard-page.html',
+    templateUrl: routeTemplateBasePath + 'wildcard-page.html' + versionSuffix,
     controller: 'WildcardPageCtrl',
     access: {requiredLogin: false},
     resolve: {

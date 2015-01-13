@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('urlManager', function($window, $location, $rootScope, $injector, $sce, utils, uiTranslator, assetUrl, html5Mode) {
+angular.module('Gapminder').factory('urlManager', function($window, $location, $rootScope, $injector, $sce, utils, uiTranslator, assetUrl, testing, version, html5Mode) {
   var MOBILE_BASE_URL = 'http://m.gapminder.org';
 
   return {
@@ -79,6 +79,9 @@ angular.module('Gapminder').factory('urlManager', function($window, $location, $
      */
     createTemplateUrl: function(path) {
       path = utils.ensureLeadingSlash(path);
+      if (!testing) {
+        path = path + '?' + version; // append version
+      }
       return $sce.trustAsResourceUrl(assetUrl + 'templates' + path);
     },
 

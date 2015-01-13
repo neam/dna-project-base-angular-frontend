@@ -170,7 +170,8 @@ module.exports = function(grunt) {
           data: {
             baseApiUrl: baseApiUrlDevelopment,
             assetUrl: assetUrlDevelopment,
-            html5Mode: html5ModeDevelopment
+            html5Mode: html5ModeDevelopment,
+            version: '<%= pkg.version %>'
           }
         },
         files: {
@@ -182,7 +183,8 @@ module.exports = function(grunt) {
           data: {
             baseApiUrl: baseApiUrlProduction,
             assetUrl: assetUrlProduction,
-            html5Mode: html5ModeProduction
+            html5Mode: html5ModeProduction,
+            version: '<%= pkg.version %>'
           }
         },
         files: {
@@ -194,7 +196,8 @@ module.exports = function(grunt) {
           data: {
             baseApiUrl: baseApiUrlStage,
             assetUrl: assetUrlStage,
-            html5Mode: html5ModeStage
+            html5Mode: html5ModeStage,
+            version: '<%= pkg.version %>'
           }
         },
         files: {
