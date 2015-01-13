@@ -1,12 +1,12 @@
 module.exports = function(grunt) {
   require('jit-grunt')(grunt);
 
-  var baseApiUrlDevelopment = grunt.option('api') || 'http://localhost:1338/api',
-      baseApiUrlProduction = grunt.option('api') || 'http://cms.gapminder.org/api/v1',
-      baseApiUrlStage = grunt.option('api') || 'http://cms.gapminder.org/api/v1',
+  var baseApiUrlDevelopment = grunt.option('api') || '',
+      baseApiUrlProduction = grunt.option('api') || '',
+      baseApiUrlStage = grunt.option('api') || '',
       assetUrlDevelopment = grunt.option('assetUrl') || '',
-      assetUrlProduction = grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop/master/',
-      assetUrlStage = grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop-stage/',
+      assetUrlProduction = grunt.option('assetUrl') || '',
+      assetUrlStage = grunt.option('assetUrl') || '',
       html5ModeDevelopment = grunt.option('html5Mode') || false,
       html5ModeProduction = grunt.option('html5Mode') || true,
       html5ModeStage = grunt.option('html5Mode') || false,

@@ -10,36 +10,16 @@ fi
 # Local configuration
 source .env
 
-# Parameters
-ENVIRONMENT=$1
-API_BASE_URL_OVERRIDE=$2
-BRANCH_NAME=$2
+# General
+APPNAME=$1
+BUILD_CMD="grunt build-production"
+API_BASE_URL="http://$APPNAME.$TLD/api/v1"
 
-if [[ "$ENVIRONMENT" == "stage" ]]; then
-    DEPLOYMENT_DIR="s3://$S3_BUCKET/pages-desktop-stage"
-    ASSET_URL=""
-    BUILD_CMD="grunt build-stage"
-elif [[ "$ENVIRONMENT" == "stage-mock" ]]; then
-    DEPLOYMENT_DIR="s3://$S3_BUCKET/pages-desktop-stage-with-mock"
-    API_BASE_URL_OVERRIDE=$API_MOCK_BASE_URL # override API URL
-    ASSET_URL="http://$S3_BUCKET/pages-desktop-stage-with-mock/"
-    BUILD_CMD="grunt build-stage"
-elif [[ "$ENVIRONMENT" == "production" ]]; then
-    DEPLOYMENT_DIR="s3://$S3_BUCKET/pages-desktop/master"
-    ASSET_URL=""
-    BUILD_CMD="grunt build-production"
-elif [[ "$ENVIRONMENT" == "branch" ]]; then
-    if [ -z "$BRANCH_NAME" ]; then
-        BRANCH_NAME="release_pages-dec-1-2014" # default branch name
-    fi
-
-    API_BASE_URL_OVERRIDE="http://$BRANCH_NAME-cms.gapminderdev.org/api/v1" # override API URL
-    DEPLOYMENT_DIR="s3://$S3_BUCKET/pages-desktop/$BRANCH_NAME"
-    ASSET_URL="http://$S3_BUCKET/pages-desktop/$BRANCH_NAME/"
-    BUILD_CMD="grunt build-production"
+if [[ "$APPNAME" == "master-manager" ]]; then
+    DEPLOYMENT_DIR="s3://$S3_BUCKET"
 else
-    echo "Invalid environment. Please choose one of the following: stage, production, release"
-    exit 1
+    DEPLOYMENT_DIR="s3://$S3_BUCKET/stage/$BRANCH_NAME"
+    ASSET_URL="http://$S3_BUCKET/stage/$BRANCH_NAME/"
 fi
 
 # =================================================
