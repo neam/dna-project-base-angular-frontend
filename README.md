@@ -21,6 +21,8 @@ To install *Gapminder Pages for Desktop*, run:
     npm install
     bower install
 
+    cp .env.dist.gapminder .env
+
 ## Run in development
 
     grunt
