@@ -63,4 +63,4 @@ acl_public = True" > /tmp/.gapminder-s3.s3cfg
 export PAGES_S3_TARGET=$DEPLOYMENT_DIR
 
 # Upload to S3
-s3cmd -v --config=/tmp/.gapminder-s3.s3cfg --acl-public --recursive put dist/ "$PAGES_S3_TARGET/"
+s3cmd -v --config=/tmp/.gapminder-s3.s3cfg --acl-public --recursive sync dist/ "$PAGES_S3_TARGET/"
