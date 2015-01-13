@@ -30,7 +30,7 @@ describe('localeManager', function() {
   afterEach(function() {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
-    localeManager.setCurrentLocale('en_us');
+    localeManager.resetCurrentLocale();
   });
 
   it('should load locale options', function() {
@@ -50,7 +50,12 @@ describe('localeManager', function() {
     expect(localeManager.getTextDirection()).toBe('rtl');
   });
 
-  it('should set and get current locale', function() {
+  it('should detect current locale from browser', function() {
+    window.navigator.language = 'en_us'; // manually set browser language
+    expect(localeManager.getCurrentLocale()).toBe('en_us');
+  });
+
+  it('should get current locale from local storage', function() {
     localeManager.setCurrentLocale('es');
     expect(localeManager.getCurrentLocale()).toBe('es');
   });

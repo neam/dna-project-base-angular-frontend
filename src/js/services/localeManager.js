@@ -1,5 +1,6 @@
 angular.module('Gapminder').factory('localeManager', function($http, $q, $window, api) {
-  var localeOptions = {},
+  var LOCAL_STORAGE_KEY = 'locale',
+      localeOptions = {},
       currentLocale = determineLocale(),
       currentTextDirection;
 
@@ -9,7 +10,7 @@ angular.module('Gapminder').factory('localeManager', function($http, $q, $window
    * @private
    */
   function getLocaleFromStorage() {
-    return $window.localStorage.locale;
+    return $window.localStorage[LOCAL_STORAGE_KEY];
   }
 
   /**
@@ -58,7 +59,15 @@ angular.module('Gapminder').factory('localeManager', function($http, $q, $window
    * @private
    */
   function saveLocaleToStorage(locale) {
-    $window.localStorage.locale = locale;
+    $window.localStorage[LOCAL_STORAGE_KEY] = locale;
+  }
+
+  /**
+   * Removes a locale from local storage.
+   * @private
+   */
+  function removeLocaleFromStorage() {
+    delete $window.localStorage[LOCAL_STORAGE_KEY];
   }
 
   /**
@@ -151,6 +160,13 @@ angular.module('Gapminder').factory('localeManager', function($http, $q, $window
       saveLocaleToStorage(locale);
 
       setTextDirectionByLocale(locale);
+    },
+
+    /**
+     * Resets the current locale.
+     */
+    resetCurrentLocale: function() {
+      removeLocaleFromStorage();
     },
 
     /**
