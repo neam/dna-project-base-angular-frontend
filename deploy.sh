@@ -13,7 +13,7 @@ source .env
 # Parameters
 ENVIRONMENT=$1
 API_BASE_URL_OVERRIDE=$2
-BRANCH_NAME=$3
+BRANCH_NAME=$2
 
 if [[ "$ENVIRONMENT" == "stage" ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET/pages-desktop-stage"
