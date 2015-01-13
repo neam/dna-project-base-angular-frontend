@@ -50,13 +50,10 @@ karma start || { echo "Deployment failed: all tests must pass."; exit 1; }
 # =================================================
 # DEPLOY TO S3
 
-export PUBLIC_FILE_UPLOADERS_ACCESS_KEY=$S3_ACCESS_KEY
-export PUBLIC_FILE_UPLOADERS_SECRET=$S3_SECRET
-
 # Generate S3 configuration file
 echo "[default]
-access_key = $PUBLIC_FILE_UPLOADERS_ACCESS_KEY
-secret_key = $PUBLIC_FILE_UPLOADERS_SECRET
+access_key = $S3_ACCESS_KEY
+secret_key = $S3_SECRET
 acl_public = True" > /tmp/.gapminder-s3.s3cfg
 
 # Export target
