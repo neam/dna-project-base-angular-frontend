@@ -14,14 +14,16 @@ to its README.md file for setup instructions.
 
 To install *Gapminder Pages for Desktop*, run:
 
-    sudo gem install sass
-    sudo gem install compass
+    gem install sass compass
 
-    sudo npm install -g bower
-    sudo npm install -g karma-cli
+    npm install -g bower karma-cli
 
     npm install
     bower install
+
+    cp .env.dist.gapminder .env
+
+Add your S3 credentials to your local configuration file `.env`.
 
 ## Run in development
 
@@ -33,27 +35,27 @@ Now launch your web browser and navigate to `http://localhost:1335/#/exercises/e
 
 URL: [http://www.gapminder.org/{route}](http://www.gapminder.org/{route})
 
-    ./deploy.sh production <S3 ACCESS KEY> <S3 SECRET>
+    ./deploy.sh production
 
 Specify a different API base URL (e.g. http://www.gapminder.org/api/v2):
 
-    ./deploy.sh production <S3 ACCESS KEY> <S3 SECRET> <API BASE URL>
+    ./deploy.sh production <API BASE URL>
 
 ## Deploy to branch
 
 URL: [http://static.gapminder.org/pages-desktop/{branch}](http://static.gapminder.org/pages-desktop/{branch})
 
-    ./deploy.sh branch <S3 ACCESS KEY> <S3 SECRET> <BRANCH NAME>
+    ./deploy.sh branch <BRANCH NAME>
 
 ## Deploy to stage
 
 URL: [http://static.gapminder.org/pages-desktop-stage](http://static.gapminder.org/pages-desktop-stage)
 
-    ./deploy.sh stage <S3 ACCESS KEY> <S3 SECRET>
+    ./deploy.sh stage
 
 Specify a different API base URL (e.g. http://stage.gapminder.org/api/v2):
 
-    ./deploy.sh stage <S3 ACCESS KEY> <S3 SECRET> <API BASE URL>
+    ./deploy.sh stage <API BASE URL>
 
 ## Deploy to stage and use Mock API
 
@@ -61,7 +63,7 @@ URL: [http://static.gapminder.org/pages-desktop-stage-with-mock](http://static.g
 
 Deploy a stage version that uses the Gapminder Mock API:
 
-    ./deploy.sh stage-mock <S3 ACCESS KEY> <S3 SECRET>
+    ./deploy.sh stage-mock
 
 ## View unit test coverage
 
