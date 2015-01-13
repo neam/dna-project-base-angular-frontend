@@ -20,7 +20,7 @@ if [[ "$ENVIRONMENT" == "stage" ]]; then
     BUILD_CMD="grunt build-stage"
 elif [[ "$ENVIRONMENT" == "stage-mock" ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET/pages-desktop-stage-with-mock"
-    API_BASE_URL_OVERRIDE="http://cmsextmock.gapminderdev.org:1338/api" # override API URL
+    API_BASE_URL_OVERRIDE=$API_MOCK_BASE_URL # override API URL
     BUILD_CMD="grunt build-stage --assetUrl=http://$S3_BUCKET/pages-desktop-stage-with-mock/"
 elif [[ "$ENVIRONMENT" == "production" ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET/pages-desktop/master"
