@@ -10,7 +10,7 @@ fi
 # Local configuration
 source .env
 
-# Variables
+# Parameters
 ENVIRONMENT=$1
 API_BASE_URL_OVERRIDE=$2
 BRANCH_NAME=$3
