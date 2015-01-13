@@ -28,5 +28,8 @@
     "angular-ui-router": "~0.2.13",
     "device.js": "git@github.com:matthewhudson/device.js.git",
     "angular-bootstrap": "~0.12.0"
+  },
+  "resolutions": {
+    "angular": "~1.2.24"
   }
 }
