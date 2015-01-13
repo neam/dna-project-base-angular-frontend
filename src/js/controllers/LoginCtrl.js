@@ -1,5 +1,6 @@
 angular.module('Gapminder').controller('LoginCtrl', function($scope, $rootScope, $q, userManager, uiTranslator, urlManager) {
-  $scope.navigation.setTranslatedPageTitle('login', 'Login');
+  urlManager.setTranslatedPageTitle('login', 'Login');
+
   $scope.credentials = {};
 
   /**

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:ng="http://angularjs.org" ng-app="Gapminder" lang="{{ locale.getCurrentLocale() }}" dir="{{ locale.getTextDirection() }}">
+<html xmlns:ng="http://angularjs.org" ng-app="Gapminder" lang="{{ localeMgr.getCurrentLocale() }}" dir="{{ localeMgr.getTextDirection() }}">
 <head>
   <title ng-bind="getPageTitle()"></title>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Language" content="{{ locale.getCurrentLocale() }}">
+  <meta http-equiv="Content-Language" content="{{ localeMgr.getCurrentLocale() }}">
   <meta name="fragment" content="!">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="description" content="{{ getMetaDescription() }}">
   <meta name="prerender-status-code" content="{{ statusCode }}">
-  <link rel="alternate" media="only screen and (max-width: 767px)" href="{{ navigation.getMobileUrl() }}">
+  <link rel="alternate" media="only screen and (max-width: 767px)" href="{{ urlMgr.getMobileUrl() }}">
   <link rel="stylesheet" href="<%- assetUrl %>assets/css/main.css">
   <base ng-href="{{ getBaseRoute() }}">
 </head>
-<body ng-controller="MainCtrl" class="{{ layout }}" ng-init="init()" ng-show="load.pageFullyLoaded()" ng-cloak>
+<body ng-controller="MainCtrl" class="{{ layout }}" ng-init="init()" ng-show="pageLoader.pageFullyLoaded()" ng-cloak>
   <div ng-include="createTemplateUrl('/partials/navbar.html')"></div>
   <div ui-view class="page" ng-hide="pageNotFound"></div>
   <div ng-show="pageNotFound" ng-include="createTemplateUrl('/partials/404.html')"></div>

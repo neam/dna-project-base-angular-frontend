@@ -9,14 +9,14 @@
         <span class="icon-bar"></span>
       </button>
       -->
-      <a class="brand-link" href="http://www.gapminder.org" ng-click="navigation.redirectExternal('http://www.gapminder.org', $event)"><logo></logo></a>
+      <a class="brand-link" href="http://www.gapminder.org" ng-click="urlMgr.redirectExternal('http://www.gapminder.org', $event)"><logo></logo></a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-nav-left hidden-xs" nav-expandable items="expandedItems"></ul>
       <ul class="nav navbar-nav navbar-right visible-xs">
         <!--
-        <li ng-show="user.isAuthenticated"><a ng-click="logout()" ng-href="" id="logout" i18n="navbar:logout|html">Logout</a></li>
-        <li ng-hide="user.isAuthenticated"><a ng-href="{{ createUrl('/login') }}" i18n="navbar:login|html">Login</a></li>
+        <li ng-show="userMgr.isAuthenticated"><a ng-click="logout()" ng-href="" id="logout" i18n="navbar:logout|html">Logout</a></li>
+        <li ng-hide="userMgr.isAuthenticated"><a ng-href="{{ createUrl('/login') }}" i18n="navbar:login|html">Login</a></li>
         -->
       </ul>
       <ul class="nav navbar-nav navbar-right hidden-xs">
@@ -31,7 +31,7 @@
         <li class="search-box">
           <gcse:searchbox-only></gcse:searchbox-only>
         </li>
-        <li class="dropdown" ng-show="user.isAuthenticated">
+        <li class="dropdown" ng-show="userMgr.isAuthenticated">
           <a ng-href="" class="dropdown-toggle dropdown-user" data-toggle="dropdown">
             <img ng-src="{{ createAssetUrl('images/dummy/ola-small.png') }}">
             <span class="username">{{ getUsername() }}</span>
@@ -41,7 +41,7 @@
             <li><a ng-click="logout()" ng-href="" i18n="navbar:logout|html">Logout</a></li>
           </ul>
         </li>
-        <!-- <li ng-hide="user.isAuthenticated"><a class="hidden-xs" ng-href=" {{ createUrl('/login') }}" i18n="navbar:login|html">Login</a></li> -->
+        <!-- <li ng-hide="userMgr.isAuthenticated"><a class="hidden-xs" ng-href=" {{ createUrl('/login') }}" i18n="navbar:login|html">Login</a></li> -->
       </ul>
     </div>
   </div>

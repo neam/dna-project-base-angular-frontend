@@ -1,9 +1,8 @@
 angular.module('Gapminder').controller('MainCtrl', function($scope, $rootScope, $http, $location, userManager, api, localeManager, urlManager, uiTranslator, pageLoader) {
-  $rootScope.locale = localeManager;
-  $rootScope.load = pageLoader;
-  $rootScope.i18n = uiTranslator;
-  $rootScope.navigation = urlManager;
-  $scope.user = userManager;
+  $rootScope.pageLoader = pageLoader;
+  $rootScope.localeMgr = localeManager;
+  $rootScope.urlMgr = urlManager;
+  $rootScope.userMgr = userManager;
 
   /**
    * Initializes the controller.

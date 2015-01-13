@@ -22,8 +22,8 @@
           <a ng-href="{{ link.url }}">{{ link.label }}</a>
         </li>
         -->
-        <li><a href="http://www.gapminder.org/world" ng-click="navigation.redirectExternal('http://www.gapminder.org/world', $event)">Gapminder World</a></li>
-        <li><a href="http://www.gapminder.org/for-teachers" ng-click="navigation.redirectExternal('http://www.gapminder.org/for-teachers', $event)">For Teachers</a></li>
+        <li><a href="http://www.gapminder.org/world" ng-click="urlMgr.redirectExternal('http://www.gapminder.org/world', $event)">Gapminder World</a></li>
+        <li><a href="http://www.gapminder.org/for-teachers" ng-click="urlMgr.redirectExternal('http://www.gapminder.org/for-teachers', $event)">For Teachers</a></li>
       </ul>
     </div>
     <div class="footer-brand-links">
@@ -33,13 +33,13 @@
           <a ng-href="{{ link.url }}">{{ link.label }}</a>
         </li>
         -->
-        <li><a href="http://www.gapminder.org/about-gapminder" ng-click="navigation.redirectExternal('http://www.gapminder.org/about-gapminder', $event)">About</a></li>
-        <li><a href="http://www.gapminder.org/faq_frequently_asked_questions" ng-click="navigation.redirectExternal('http://www.gapminder.org/faq_frequently_asked_questions', $event)">Help</a></li>
-        <li><a href="http://www.gapminder.org/about-gapminder/contact" ng-click="navigation.redirectExternal('http://www.gapminder.org/about-gapminder/contact', $event)">Contact</a></li>
-        <li><a href="http://www.gapminder.org/news" ng-click="navigation.redirectExternal('http://www.gapminder.org/news', $event)">Blog</a></li>
-        <li><a href="https://docs.google.com/a/gapminder.org/document/pub?id=1POd-pBMc5vDXAmxrpGjPLaCSDSWuxX6FLQgq5DhlUhM" ng-click="navigation.redirectExternal('https://docs.google.com/a/gapminder.org/document/pub?id=1POd-pBMc5vDXAmxrpGjPLaCSDSWuxX6FLQgq5DhlUhM', $event)">Terms</a></li>
-        <li><a href="http://www.gapminder.org/donations" ng-click="navigation.redirectExternal('http://www.gapminder.org/donations', $event)">Donate</a></li>
-        <li><a href="http://www.gapminder.org/about-gapminder/press-and-media" ng-click="navigation.redirectExternal('http://www.gapminder.org/about-gapminder/press-and-media', $event)">Media</a></li>
+        <li><a href="http://www.gapminder.org/about-gapminder" ng-click="urlMgr.redirectExternal('http://www.gapminder.org/about-gapminder', $event)">About</a></li>
+        <li><a href="http://www.gapminder.org/faq_frequently_asked_questions" ng-click="urlMgr.redirectExternal('http://www.gapminder.org/faq_frequently_asked_questions', $event)">Help</a></li>
+        <li><a href="http://www.gapminder.org/about-gapminder/contact" ng-click="urlMgr.redirectExternal('http://www.gapminder.org/about-gapminder/contact', $event)">Contact</a></li>
+        <li><a href="http://www.gapminder.org/news" ng-click="urlMgr.redirectExternal('http://www.gapminder.org/news', $event)">Blog</a></li>
+        <li><a href="https://docs.google.com/a/gapminder.org/document/pub?id=1POd-pBMc5vDXAmxrpGjPLaCSDSWuxX6FLQgq5DhlUhM" ng-click="urlMgr.redirectExternal('https://docs.google.com/a/gapminder.org/document/pub?id=1POd-pBMc5vDXAmxrpGjPLaCSDSWuxX6FLQgq5DhlUhM', $event)">Terms</a></li>
+        <li><a href="http://www.gapminder.org/donations" ng-click="urlMgr.redirectExternal('http://www.gapminder.org/donations', $event)">Donate</a></li>
+        <li><a href="http://www.gapminder.org/about-gapminder/press-and-media" ng-click="urlMgr.redirectExternal('http://www.gapminder.org/about-gapminder/press-and-media', $event)">Media</a></li>
       </ul>
     </div>
     <div class="footer-bottom">
