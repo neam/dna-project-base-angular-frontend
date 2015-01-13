@@ -17,13 +17,16 @@ BRANCH_NAME=$3
 
 if [[ "$ENVIRONMENT" == "stage" ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET/pages-desktop-stage"
+    ASSET_URL=""
     BUILD_CMD="grunt build-stage"
 elif [[ "$ENVIRONMENT" == "stage-mock" ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET/pages-desktop-stage-with-mock"
     API_BASE_URL_OVERRIDE=$API_MOCK_BASE_URL # override API URL
-    BUILD_CMD="grunt build-stage --assetUrl=http://$S3_BUCKET/pages-desktop-stage-with-mock/"
+    ASSET_URL="http://$S3_BUCKET/pages-desktop-stage-with-mock/"
+    BUILD_CMD="grunt build-stage"
 elif [[ "$ENVIRONMENT" == "production" ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET/pages-desktop/master"
+    ASSET_URL=""
     BUILD_CMD="grunt build-production"
 elif [[ "$ENVIRONMENT" == "branch" ]]; then
     if [ -z "$BRANCH_NAME" ]; then
@@ -32,7 +35,8 @@ elif [[ "$ENVIRONMENT" == "branch" ]]; then
 
     API_BASE_URL_OVERRIDE="http://$BRANCH_NAME-cms.gapminderdev.org/api/v1" # override API URL
     DEPLOYMENT_DIR="s3://$S3_BUCKET/pages-desktop/$BRANCH_NAME"
-    BUILD_CMD="grunt build-production --assetUrl=http://$S3_BUCKET/pages-desktop/$BRANCH_NAME/"
+    ASSET_URL="http://$S3_BUCKET/pages-desktop/$BRANCH_NAME/"
+    BUILD_CMD="grunt build-production"
 else
     echo "Invalid environment. Please choose one of the following: stage, production, release"
     exit 1
@@ -42,9 +46,9 @@ fi
 # BUILD APPLICATION
 
 if [ ! -z $API_BASE_URL_OVERRIDE ]; then
-    $BUILD_CMD --api=$API_BASE_URL_OVERRIDE
+    $BUILD_CMD --api=$API_BASE_URL_OVERRIDE --assetUrl=$ASSET_URL
 else
-    $BUILD_CMD
+    $BUILD_CMD --assetUrl=$ASSET_URL
 fi
 
 karma start || { echo "Deployment failed: all tests must pass."; exit 1; }
