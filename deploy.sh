@@ -12,7 +12,7 @@ source .env
 
 # General
 APPNAME=$1
-BUILD_CMD="grunt build-production"
+BUILD_CMD="grunt build-production --userappId=$USERAPP_ID"
 API_BASE_URL="http://$APPNAME.$TLD/api/v1"
 
 if [[ "$APPNAME" == "master-manager" ]]; then

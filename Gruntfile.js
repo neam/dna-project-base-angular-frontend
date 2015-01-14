@@ -10,6 +10,9 @@ module.exports = function(grunt) {
       html5ModeDevelopment = grunt.option('html5Mode') || false,
       html5ModeProduction = grunt.option('html5Mode') || true,
       html5ModeStage = grunt.option('html5Mode') || false,
+      userappIdDevelopment = grunt.option('userappId') || '',
+      userappIdProduction = grunt.option('userappId') || '',
+      userappIdStage = grunt.option('userappId') || '',
       devHttpServerRoot = grunt.option('httpServerRoot') || './dist';
 
   grunt.initConfig({
@@ -171,6 +174,7 @@ module.exports = function(grunt) {
             baseApiUrl: baseApiUrlDevelopment,
             assetUrl: assetUrlDevelopment,
             html5Mode: html5ModeDevelopment,
+            userappId: userappIdDevelopment,
             version: '<%= pkg.version %>'
           }
         },
@@ -184,6 +188,7 @@ module.exports = function(grunt) {
             baseApiUrl: baseApiUrlProduction,
             assetUrl: assetUrlProduction,
             html5Mode: html5ModeProduction,
+            userappId: userappIdProduction,
             version: '<%= pkg.version %>'
           }
         },
@@ -197,6 +202,7 @@ module.exports = function(grunt) {
             baseApiUrl: baseApiUrlStage,
             assetUrl: assetUrlStage,
             html5Mode: html5ModeStage,
+            userappId: userappIdStage,
             version: '<%= pkg.version %>'
           }
         },
@@ -284,6 +290,14 @@ module.exports = function(grunt) {
                 'login.html',
                 'register.html'
             ],
+            dest: '<%= paths.tmpDist %>/'
+          },
+          {
+            // tmp userapp-init
+            cwd: '<%= paths.src %>/',
+            expand: true,
+            filter: 'isFile',
+            src: ['lib/**', 'partials/**'],
             dest: '<%= paths.tmpDist %>/'
           },
           {
