@@ -15,9 +15,9 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     paths: {
-      js: 'src/js',
-      sass: 'src/sass',
-      src: 'src',
+      js: 'fork-src/js',
+      sass: 'fork-src/sass',
+      src: 'fork-src',
       tests: 'tests',
       dist: 'dist',
       distAssets: 'dist/assets',
@@ -270,6 +270,20 @@ module.exports = function(grunt) {
             expand: true,
             filter: 'isFile',
             src: ['images/**', 'templates/**'],
+            dest: '<%= paths.tmpDist %>/'
+          },
+          {
+            // tmp inspinia-init
+            cwd: '<%= paths.src %>/',
+            expand: true,
+            filter: 'isFile',
+            src: ['js/**', 'css/**', 'fonts/**', 'templates/**', 'font-awesome/**', 'email_templates/**', 'img/**', 'views/**',
+                '404.html',
+                '500.html',
+                'lockscreen.html',
+                'login.html',
+                'register.html'
+            ],
             dest: '<%= paths.tmpDist %>/'
           },
           {
