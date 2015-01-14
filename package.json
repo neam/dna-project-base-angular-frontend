@@ -44,6 +44,7 @@
     "karma-jasmine": "~0.2.0",
     "karma-ng-html2js-preprocessor": "^0.1.2",
     "karma-phantomjs-launcher": "^0.1.4",
+    "load-grunt-config": "^0.16.0",
     "protractor": "^1.2.0"
   }
 }
