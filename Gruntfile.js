@@ -167,6 +167,23 @@ module.exports = function(grunt) {
         }
       }
     },
+    update_json: {
+      options: {
+        indent: '\t'
+      },
+      bower: {
+        src: 'package.json',
+        dest: 'bower.json',
+        fields: {
+          name: 'name',
+          version: 'version',
+          authors: 'authors',
+          description: 'description',
+          repository: 'repository',
+          license: 'license'
+        }
+      }
+    },
     template: {
       development: {
         options: {
@@ -413,6 +430,7 @@ module.exports = function(grunt) {
     'bower:main',
     'concat:vendor',
     'template:development',
+    'update_json:bower',
     'copy:assetsDevelopment',
     'copy:other',
     'copy:dist',
@@ -430,6 +448,7 @@ module.exports = function(grunt) {
     'concat:vendor',
     'uglify:production',
     'template:production',
+    'update_json:bower',
     'copy:assetsProduction',
     'copy:other',
     'copy:dist',
@@ -446,6 +465,7 @@ module.exports = function(grunt) {
     'concat:vendor',
     'uglify:production',
     'template:stage',
+    'update_json:bower',
     'copy:assetsProduction',
     'copy:other',
     'copy:dist',
