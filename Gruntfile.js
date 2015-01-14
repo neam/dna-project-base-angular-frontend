@@ -403,6 +403,7 @@ module.exports = function(grunt) {
 
   // Builds the app for development
   grunt.registerTask('build-development', [
+    'clean:tmp',
     'clean:dist',
     'sass:development',
     'concat:development',
@@ -419,6 +420,7 @@ module.exports = function(grunt) {
 
   // Builds the app for production
   grunt.registerTask('build-production', [
+    'clean:tmp',
     'clean:dist',
     'sass:production',
     'concat:production',
@@ -435,6 +437,7 @@ module.exports = function(grunt) {
 
   // Builds the app for stage
   grunt.registerTask('build-stage', [
+    'clean:tmp',
     'clean:dist',
     'sass:production',
     'concat:stage',
