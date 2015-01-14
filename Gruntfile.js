@@ -19,8 +19,4 @@ module.exports = function(grunt) {
       httpServerDir: './dist'
     }
   });
-
-  require('jit-grunt')(grunt)({
-    customTasksDir: 'grunt/tasks'
-  });
 };
