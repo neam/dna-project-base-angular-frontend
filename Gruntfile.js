@@ -42,6 +42,7 @@ module.exports = function(grunt) {
       },
       development: {
         src: [
+          '<%= paths.js %>/modules/**/*.js',
           '<%= paths.js %>/app.js',
           '<%= paths.js %>/base/**/*.js',
           '<%= paths.js %>/config/environments/development.js',
@@ -61,6 +62,7 @@ module.exports = function(grunt) {
       },
       production: {
         src: [
+          '<%= paths.js %>/modules/**/*.js',
           '<%= paths.js %>/app.js',
           '<%= paths.js %>/base/**/*.js',
           '<%= paths.js %>/config/environments/production.js',
@@ -80,6 +82,7 @@ module.exports = function(grunt) {
       },
       stage: {
         src: [
+          '<%= paths.js %>/modules/**/*.js',
           '<%= paths.js %>/app.js',
           '<%= paths.js %>/base/**/*.js',
           '<%= paths.js %>/config/environments/stage.js',

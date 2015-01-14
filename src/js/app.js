@@ -1,1 +1,1 @@
-angular.module('Gapminder', ['ui.router', 'ui.bootstrap', 'ngResource', 'ngSanitize']);
+angular.module('Gapminder', ['ui.router', 'ui.bootstrap', 'ngResource', 'ngSanitize', 'gapminderCore']);
