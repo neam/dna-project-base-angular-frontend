@@ -10,8 +10,12 @@ In production, the app is served statically from an Amazon S3 bucket while
 
 ## Setup
 
-Requirements: *Node*, *Ruby*, [*Gapminder Mock API*](https://github.com/Gapminder/gapminder-mock-api)
-(for development), [*s3cmd*](http://s3tools.org/s3cmd) (for deployment)
+Requirements:
+
+* Node
+* Ruby
+* [Gapminder Mock API](https://github.com/Gapminder/gapminder-mock-api) (for development)
+* [s3cmd](http://s3tools.org/s3cmd) (for deployment)
 
 To install *Gapminder Pages for Desktop*, run:
 
