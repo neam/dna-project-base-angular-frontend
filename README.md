@@ -15,7 +15,6 @@ to its README.md file for setup instructions.
 To install *Gapminder Pages for Desktop*, run:
 
     gem install sass compass
-
     npm install -g bower karma-cli
 
     npm install
