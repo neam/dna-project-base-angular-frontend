@@ -51,7 +51,7 @@ describe('localeManager', function() {
   });
 
   it('should detect current locale from browser', function() {
-    window.navigator.language = 'en_us'; // manually set browser language
+    localeManager.setCurrentLocale('en_us'); // manually set browser language
     expect(localeManager.getCurrentLocale()).toBe('en_us');
   });
 
