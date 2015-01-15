@@ -21,9 +21,9 @@ To install *Gapminder Pages for Desktop*, run:
     npm install
     bower install
 
-    cp .env.dist.gapminder .env
+    cp .env.dist .env
 
-Add your S3 credentials to your local configuration file `.env`.
+In the `.env` file, replace `YOUR_S3_ACCESS_KEY` and `YOUR_S3_SECRET` with your S3 credentials.
 
 ## Run in development
 

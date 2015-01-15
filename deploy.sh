@@ -21,7 +21,7 @@ if [[ "$ENVIRONMENT" == "stage" ]]; then
     BUILD_CMD="grunt build-stage"
 elif [[ "$ENVIRONMENT" == "stage-mock" ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET/pages-desktop-stage-with-mock"
-    API_BASE_URL_OVERRIDE=$API_MOCK_BASE_URL # override API URL
+    API_BASE_URL_OVERRIDE=$MOCK_API_BASE_URL # override API URL
     ASSET_URL="http://$S3_BUCKET/pages-desktop-stage-with-mock/"
     BUILD_CMD="grunt build-stage"
 elif [[ "$ENVIRONMENT" == "production" ]]; then
