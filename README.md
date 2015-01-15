@@ -10,7 +10,6 @@ Requirements: *Node*, *Ruby*, [*s3cmd*](http://s3tools.org/s3cmd) (for deploymen
 To install, run:
 
     gem install sass compass
-
     npm install -g bower karma-cli
 
     npm install
@@ -42,7 +41,7 @@ Specify a different API base URL (e.g. http://www.example.com/api/v2):
 
     ./deploy.sh <APPNAME> <API BASE URL>
 
-## View unit test coverage
+## Unit test coverage
 
 While your development server is running, browse to:
 
