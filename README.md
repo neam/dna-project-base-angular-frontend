@@ -6,11 +6,11 @@ the *Gapminder Mock API* for simulating real API calls in development and testin
 
 ## Setup
 
-Requirements: *Node*, *Ruby*, *Gapminder Mock API*, [*s3cmd*](http://s3tools.org/s3cmd) (for deployment)
+Requirements: *Node*, *Ruby*, [*Gapminder Mock API*](https://github.com/Gapminder/gapminder-mock-api),
+[*s3cmd*](http://s3tools.org/s3cmd) (for deployment)
 
-Before running this application in development, you will need to have the
-[Gapminder Mock API](https://github.com/Gapminder/gapminder-mock-api) installed. Please refer
-to its README.md file for setup instructions.
+Before running this application in development, you will need to have the Gapminder Mock API installed.
+Please refer to its README.md file for setup instructions.
 
 To install *Gapminder Pages for Desktop*, run:
 
