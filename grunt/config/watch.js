@@ -43,5 +43,14 @@ module.exports = {
       'copy:other',
       'sync:main'
     ]
+  },
+  packageJson: {
+    files: [
+      '<%= paths.root %>/package.json'
+    ],
+    tasks: [
+      'update_json:bower',
+      'build-development'
+    ]
   }
 };

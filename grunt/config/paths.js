@@ -1,4 +1,5 @@
 module.exports = {
+  root: '.',
   js: 'src/js',
   sass: 'src/sass',
   src: 'src',
