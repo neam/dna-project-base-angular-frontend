@@ -4,6 +4,10 @@ Gapminder Pages for Desktop
 This is the desktop version of the Gapminder Pages project. The app is built with AngularJS and utilizes
 the *Gapminder Mock API* for simulating real API calls in development and testing environments.
 
+In production, the app is served statically from an Amazon S3 bucket while
+[an nginx server](https://github.com/Gapminder/gapminder-nginx-configuration) is used for mapping
+*www.gapminder.org* based routes to their corresponding S3 endpoints.
+
 ## Setup
 
 Requirements: *Node*, *Ruby*, [*Gapminder Mock API*](https://github.com/Gapminder/gapminder-mock-api)
@@ -53,7 +57,7 @@ Specify a different API base URL (e.g. http://stage.gapminder.org/api/v2):
 
     ./deploy.sh stage <API BASE URL>
 
-## Deploy to stage and use Mock API
+## Deploy to stage and use Gapminder Mock API
 
 URL: [http://static.gapminder.org/pages-desktop-stage-with-mock](http://static.gapminder.org/pages-desktop-stage-with-mock)
 
@@ -61,7 +65,7 @@ Deploy a stage version that uses the Gapminder Mock API:
 
     ./deploy.sh stage-mock
 
-## View unit test coverage
+## Unit test coverage
 
 While your development server is running, browse to:
 
