@@ -1,5 +1,6 @@
 angular.module('Gapminder').factory('urlManager', function($window, $location, $rootScope, $injector, $sce, core, utils, uiTranslator, assetUrl, testing, version, buildHash, html5Mode) {
-  var MOBILE_BASE_URL = 'http://m.gapminder.org';
+  var CANONICAL_BASE_URL = 'http://www.gapminder.org',
+      MOBILE_BASE_URL = 'http://m.gapminder.org';
 
   return {
     /**
@@ -101,6 +102,45 @@ angular.module('Gapminder').factory('urlManager', function($window, $location, $
     },
 
     /**
+     * Creates a canonical URL.
+     * @param {string} route
+     * @returns {string}
+     */
+    createCanonicalUrl: function(route) {
+      return this.getCanonicalBaseUrl() + utils.ensureLeadingSlash(route);
+    },
+
+    /**
+     * Sets the prerender headers.
+     * @param {number} status
+     * @param {Object} item
+     */
+    setPrerenderHeaders: function(status, item) {
+      if (angular.isDefined(item.url)) {
+        if (this.isCurrentItemUrlCanonical(item)) {
+          $rootScope.prerenderStatusCode = status;
+          delete $rootScope.prerenderHeader;
+        } else {
+          $rootScope.prerenderStatusCode = 302;
+          $rootScope.prerenderHeader = 'Location: ' + this.createCanonicalUrl(item.url);
+        }
+      }
+    },
+
+    /**
+     * Checks if the current URL is canonical based on the given item.
+     * @param {Object} item
+     * @returns {boolean}
+     */
+    isCurrentItemUrlCanonical: function(item) {
+      if (angular.isDefined(item.url) && item.url) {
+        return this.getCurrentAbsoluteUrl() === this.createCanonicalUrl(item.url);
+      } else {
+        return false;
+      }
+    },
+
+    /**
      * Returns the mobile base URL.
      * @returns {string}
      */
@@ -114,6 +154,22 @@ angular.module('Gapminder').factory('urlManager', function($window, $location, $
      */
     getMobileUrl: function() {
       return this.getMobileBaseUrl() + this.getCurrentRoute();
+    },
+
+    /**
+     * Returns the canonical base URL.
+     * @returns {string}
+     */
+    getCanonicalBaseUrl: function() {
+      return CANONICAL_BASE_URL;
+    },
+
+    /**
+     * Returns a canonical URL for the current page.
+     * @returns {string}
+     */
+    getCanonicalUrl: function() {
+      return this.getCanonicalBaseUrl() + this.getCurrentRoute();
     },
 
     /**
@@ -264,6 +320,14 @@ angular.module('Gapminder').factory('urlManager', function($window, $location, $
      */
     getCurrentRoute: function() {
       return $location.$$path.replace(this.getBaseRoute(), '/');
+    },
+
+    /**
+     * Returns the current absolute URL.
+     * @returns {string}
+     */
+    getCurrentAbsoluteUrl: function() {
+      return $location.$$absUrl;
     },
 
     /**

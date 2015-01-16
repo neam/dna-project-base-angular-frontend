@@ -19,7 +19,7 @@ angular.module('Gapminder').factory('itemManager', function($http, $q, $window, 
 
       $http.get(apiUrl)
         .success(function(item, status) {
-          $rootScope.statusCode = status;
+          urlManager.setPrerenderHeaders(status, item);
           self.setMetaDescriptionFromItem(item);
           dfd.resolve(item);
         })
