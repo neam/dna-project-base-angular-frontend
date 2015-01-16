@@ -6,6 +6,7 @@
 (function () {
     angular.module('inspinia', [
         'ui.router',                    // Routing
+        'UserApp',                      // Userapp.io
         'ui.calendar',                  // Calendar
         'ui.bootstrap',                 // Bootstrap
         'ui.checkbox',                  // Custom checkbox

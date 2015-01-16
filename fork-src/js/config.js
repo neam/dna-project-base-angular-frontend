@@ -345,11 +345,48 @@ function config($stateProvider, $urlRouterProvider) {
             url: "/css_animations",
             templateUrl: "views/css_animation.html",
             data: { pageTitle: 'CSS Animations' }
-        });
+        })
+
+        // Userapp
+        .state('user', {
+            abstract: true,
+            url: "/user",
+            templateUrl: "views/common/content.html",
+        })
+        .state('user.login', {
+            url: "/login",
+            templateUrl: "partials/login.html",
+            data: { login: true, pageTitle: 'Login' }
+        })
+        .state('user.signup', {
+            url: "/signup",
+            templateUrl: "partials/signup.html",
+            data: { public: true, pageTitle: 'Signup' }
+        })
+        .state('user.verify-email', {
+            url: "/verify-email",
+            templateUrl: "partials/verify-email.html",
+            data: { verify_email: true, pageTitle: 'Verify email' }
+        })
+        .state('user.reset-password', {
+            url: "/reset-password",
+            templateUrl: "partials/reset-password.html",
+            data: { public: true, pageTitle: 'reset-password' }
+        })
+        .state('user.set-password', {
+            url: "/set-password",
+            templateUrl: "partials/set-password.html",
+            data: { set_password: true, pageTitle: 'set-password' }
+        })
+
+    ;
 }
 angular
     .module('inspinia')
     .config(config)
     .run(function($rootScope, $state) {
         $rootScope.$state = $state;
+    })
+    .run(function(user) {
+      user.init({ appId: window.userappId });
     });
