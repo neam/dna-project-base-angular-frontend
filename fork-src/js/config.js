@@ -8,7 +8,8 @@
  *
  */
 function config($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/dashboards/dashboard_1");
+    //$urlRouterProvider.otherwise("/dashboards/dashboard_1");
+    $urlRouterProvider.otherwise("/user/login");
     $stateProvider
 
         .state('dashboards', {
