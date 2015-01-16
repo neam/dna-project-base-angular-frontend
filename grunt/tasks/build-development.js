@@ -13,6 +13,6 @@ module.exports = function(grunt) {
     'copy:other',
     'copy:dist',
     'sync:main',
-    'karma:unit'
+    //'karma:unit'
   ]);
 };
