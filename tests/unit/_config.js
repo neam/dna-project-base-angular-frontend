@@ -5,4 +5,5 @@ angular.module('Gapminder')
   .constant('assetUrl', '')
   .constant('html5Mode', false)
   .constant('testing', true)
-  .constant('version', '1.0.0');
+  .constant('version', '1.0.0')
+  .constant('buildHash', '7d7c2f59a687628bafe49b38ca55e10311108833');

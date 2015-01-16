@@ -9,7 +9,7 @@
   <meta name="description" content="{{ getMetaDescription() }}">
   <meta name="prerender-status-code" content="{{ statusCode }}">
   <link rel="alternate" media="only screen and (max-width: 767px)" href="{{ urlMgr.getMobileUrl() }}">
-  <link rel="stylesheet" href="<%- assetUrl %>assets/css/main.css?<%- version %>">
+  <link rel="stylesheet" href="<%- assetUrl %>assets/css/main.css?<%- version %>-<%- buildHash %>">
   <base ng-href="{{ getBaseRoute() }}">
 </head>
 <body ng-controller="MainCtrl" class="{{ layout }}" ng-init="init()" ng-show="pageLoader.pageFullyLoaded()" ng-cloak>
@@ -17,8 +17,8 @@
   <div ui-view class="page" ng-hide="pageNotFound"></div>
   <div ng-show="pageNotFound" ng-include="createTemplateUrl('/partials/404.html')"></div>
   <footer ng-include="createTemplateUrl('/partials/footer.html')"></footer>
-  <script src="<%- assetUrl %>assets/js/vendor.js?<%- version %>"></script>
-  <script src="<%- assetUrl %>assets/js/main.js?<%- version %>"></script>
+  <script src="<%- assetUrl %>assets/js/vendor.js?<%- version %>-<%- buildHash %>"></script>
+  <script src="<%- assetUrl %>assets/js/main.js?<%- version %>-<%- buildHash %>"></script>
   <script>
     // Environment-specific configurations
     angular.module('Gapminder')
@@ -26,7 +26,8 @@
       .constant('assetUrl', '<%- assetUrl %>')
       .constant('html5Mode', <%- html5Mode %>)
       .constant('testing', false)
-      .constant('version', '<%- version %>');
+      .constant('version', '<%- version %>')
+      .constant('buildHash', '<%- buildHash %>');
   </script>
   <script>
     (function() {
