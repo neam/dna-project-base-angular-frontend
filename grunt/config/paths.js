@@ -1,8 +1,8 @@
 module.exports = {
   root: '.',
-  js: 'src/js',
-  sass: 'src/sass',
-  src: 'src',
+  js: 'fork-src/js',
+  sass: 'fork-src/sass',
+  src: 'fork-src',
   tests: 'tests',
   dist: 'dist',
   distAssets: 'dist/assets',

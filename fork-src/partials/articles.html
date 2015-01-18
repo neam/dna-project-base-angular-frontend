@@ -1,0 +1,14 @@
+<div class="container-fluid">
+	<div ng-show="loading" class="row">
+		Loading articles...
+	</div>
+	<div ng-show="!loading" class="row">
+		<div ng-repeat="article in articles" class="col-lg-4">
+			<h2>{{ article.title }}</h2>
+			<p>{{ article.body }}</p>
+		</div>
+		<div ng-show="error" class="alert alert-danger">
+			{{ error.message }} <a href="{{ error.link }}" target="_blank">{{ error.link }}</a>
+		</div>
+	</div>
+</div>

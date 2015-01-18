@@ -1,23 +1,13 @@
-Gapminder Pages for Desktop
+Angular Frontend
 ===========================
 
-This is the desktop version of the Gapminder Pages project. The app is built with AngularJS and utilizes
-the *Gapminder Mock API* for simulating real API calls in development and testing environments.
-
-In production, the app is served statically from an Amazon S3 bucket while
-[an nginx server](https://github.com/Gapminder/gapminder-nginx-configuration) is used for mapping
-*www.gapminder.org* based routes to their corresponding S3 endpoints.
+The frontend is built with AngularJS.
 
 ## Setup
 
-Requirements:
+Requirements: *Node*, *Ruby*, [*s3cmd*](http://s3tools.org/s3cmd) (for deployment)
 
-* Node
-* Ruby
-* [Gapminder Mock API](https://github.com/Gapminder/gapminder-mock-api) (for development)
-* [s3cmd](http://s3tools.org/s3cmd) (for deployment)
-
-To install *Gapminder Pages for Desktop*, run:
+To install, run:
 
     gem install sass compass
     npm install -g bower karma-cli
@@ -27,47 +17,34 @@ To install *Gapminder Pages for Desktop*, run:
 
     cp .env.dist .env
 
-In the `.env` file, replace `YOUR_S3_ACCESS_KEY` and `YOUR_S3_SECRET` with your S3 credentials.
+Add your S3 credentials to your local configuration file `.env`.
+
+Run erb to generate the published config file:
+
+    source .env
+    erb fork-src/js/env.js.erb > fork-src/js/env.js
 
 ## Run in development
 
     grunt
 
-Now launch your web browser and navigate to `http://localhost:1335/#/exercises/ejercicio-con-video`.
+Now launch your web browser and navigate to [http://localhost:1335/]().
 
 ## Deploy to production
 
-URL: [http://www.gapminder.org/{route}](http://www.gapminder.org/{route})
+URL: [http://www.example.com/{route}](http://www.example.com/{route})
 
-    ./deploy.sh production
+    ./deploy.sh master-manager
 
-Specify a different API base URL (e.g. http://www.gapminder.org/api/v2):
+## Deploy a specific branch to stage
 
-    ./deploy.sh production <API BASE URL>
+URL: [http://static.example.com/stage/{branch}](http://static.example.com/stage/{branch})
 
-## Deploy to branch
+    ./deploy.sh <APPNAME>
 
-URL: [http://static.gapminder.org/pages-desktop/{branch}](http://static.gapminder.org/pages-desktop/{branch})
+Specify a different API base URL (e.g. http://www.example.com/api/v2):
 
-    ./deploy.sh branch <BRANCH NAME>
-
-## Deploy to stage
-
-URL: [http://static.gapminder.org/pages-desktop-stage](http://static.gapminder.org/pages-desktop-stage)
-
-    ./deploy.sh stage
-
-Specify a different API base URL (e.g. http://stage.gapminder.org/api/v2):
-
-    ./deploy.sh stage <API BASE URL>
-
-## Deploy to stage and use Gapminder Mock API
-
-URL: [http://static.gapminder.org/pages-desktop-stage-with-mock](http://static.gapminder.org/pages-desktop-stage-with-mock)
-
-Deploy a stage version that uses the Gapminder Mock API:
-
-    ./deploy.sh stage-mock
+    ./deploy.sh <APPNAME> <API BASE URL>
 
 ## Unit test coverage
 

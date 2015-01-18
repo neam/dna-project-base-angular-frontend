@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
   grunt.registerTask('build-development', [
+    'clean:tmp',
     'clean:dist',
     'sass:development',
     'concat:development',
@@ -12,6 +13,6 @@ module.exports = function(grunt) {
     'copy:other',
     'copy:dist',
     'sync:main',
-    'karma:unit'
+    //'karma:unit'
   ]);
 };

@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
   grunt.registerTask('build-stage', [
+    'clean:tmp',
     'clean:dist',
     'sass:production',
     'concat:stage',

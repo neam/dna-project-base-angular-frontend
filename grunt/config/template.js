@@ -10,6 +10,7 @@ module.exports = {
         baseApiUrl: '<%= baseApiUrlDevelopment %>',
         assetUrl: '<%= assetUrlDevelopment %>',
         html5Mode: '<%= html5ModeDevelopment %>',
+        mixpanelId: '<%= mixpanelIdDevelopment %>',
         version: '<%= package.version %>',
         buildHash: buildHash
       }
@@ -24,6 +25,7 @@ module.exports = {
         baseApiUrl: '<%= baseApiUrlProduction %>',
         assetUrl: '<%= assetUrlProduction %>',
         html5Mode: '<%= html5ModeProduction %>',
+        mixpanelId: '<%= mixpanelIdProduction %>',
         version: '<%= package.version %>',
         buildHash: buildHash
       }
@@ -38,6 +40,7 @@ module.exports = {
         baseApiUrl: '<%= baseApiUrlStage %>',
         assetUrl: '<%= assetUrlStage %>',
         html5Mode: '<%= html5ModeStage %>',
+        mixpanelId: '<%= mixpanelIdStage %>',
         version: '<%= package.version %>',
         buildHash: buildHash
       }

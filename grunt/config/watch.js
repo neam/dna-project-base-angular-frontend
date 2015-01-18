@@ -14,13 +14,13 @@ module.exports = {
       'concat:development',
       'copy:assetsDevelopment',
       'sync:main',
-      'karma:unit'
+      //'karma:unit'
     ]
   },
-  tests: {
-    files: ['<%= paths.tests %>/**/*.js'],
+  /*tests: {
+    files: ['<%= paths.tests %>/** /*.js'],
     tasks: ['karma:unit']
-  },
+  },*/
   templates: {
     files: [
       '<%= paths.src %>/templates/**'

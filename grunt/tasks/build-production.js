@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
   grunt.registerTask('build-production', [
+    'clean:tmp',
     'clean:dist',
     'sass:production',
     'concat:production',

@@ -66,6 +66,28 @@ module.exports = {
         dest: '<%= paths.tmpDist %>/'
       },
       {
+        // tmp inspinia-init
+        cwd: '<%= paths.src %>/',
+        expand: true,
+        filter: 'isFile',
+        src: ['js/**', 'css/**', 'fonts/**', 'templates/**', 'font-awesome/**', 'email_templates/**', 'img/**', 'views/**',
+            '404.html',
+            '500.html',
+            'lockscreen.html',
+            'login.html',
+            'register.html'
+        ],
+        dest: '<%= paths.tmpDist %>/'
+      },
+      {
+        // tmp userapp-init
+        cwd: '<%= paths.src %>/',
+        expand: true,
+        filter: 'isFile',
+        src: ['lib/**', 'partials/**'],
+        dest: '<%= paths.tmpDist %>/'
+      },
+      {
         // Fonts
         cwd: '<%= paths.src %>/',
         expand: true,
