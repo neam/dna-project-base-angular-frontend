@@ -17,9 +17,9 @@ module.exports = function(grunt) {
       html5ModeDevelopment: grunt.option('html5Mode') || false,
       html5ModeProduction: grunt.option('html5Mode') || true,
       html5ModeStage: grunt.option('html5Mode') || false,
-      userappIdDevelopment: grunt.option('userappId') || '',
-      userappIdProduction: grunt.option('userappId') || '',
-      userappIdStage: grunt.option('userappId') || '',
+      mixpanelIdDevelopment: grunt.option('mixpanelId') || '',
+      mixpanelIdProduction: grunt.option('mixpanelId') || '',
+      mixpanelIdStage: grunt.option('mixpanelId') || '',
       httpServerDir: './dist'
 
     }
