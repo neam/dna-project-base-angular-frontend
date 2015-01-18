@@ -19,6 +19,11 @@ To install, run:
 
 Add your S3 credentials to your local configuration file `.env`.
 
+Run erb to generate the published config file:
+
+    source .env
+    erb fork-src/js/env.js.erb > fork-src/js/env.js
+
 ## Run in development
 
     grunt

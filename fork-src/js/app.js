@@ -5,6 +5,7 @@
  */
 (function () {
     angular.module('inspinia', [
+        'env',                          // Exported environment variables
         'ui.router',                    // Routing
         'UserApp',                      // Userapp.io
         'ui.calendar',                  // Calendar
