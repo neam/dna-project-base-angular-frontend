@@ -19,7 +19,7 @@ To install, run:
 
 Add your S3 credentials to your local configuration file `.env`.
 
-Run erb to generate the published config file:
+Run erb to generate env.js:
 
     source .env
     erb fork-src/js/env.js.erb > fork-src/js/env.js
@@ -29,6 +29,11 @@ Run erb to generate the published config file:
     grunt
 
 Now launch your web browser and navigate to [http://localhost:1335/]().
+
+## Offline development
+
+1. Run Userapp.io Mock API locally - Follow instructions at https://gist.github.com/motin/c0812bc687804b526a2b
+2. Uncomment `export USE_USERAPP_MOCK_API="true"` in your local .env file and re-generate env.js
 
 ## Deploy to production
 

@@ -1,17 +1,41 @@
-<form class="form" ua-login>
-  <h2 class="form-heading">Please Log In</h2>
-  <div class="form-fields">
-    <input name="login" placeholder="Email" type="text" class="form-control">
-		<input name="password" placeholder="Password" type="password" class="form-control">
-  </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="loading">
-		<span ng-show="!loading">Log In</span>
-		<img ng-show="loading" src="img/ajax-loader-blue.gif">
-	</button>
-  <div ng-show="error" class="alert alert-danger">{{ error.message }}</div>
-</form>
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
 
-<p style="text-align: center;">
-  <button ua-oauth-link="facebook" class="btn btn-lg btn-facebook"><i class="fa fa-facebook"></i></button>
-</p>
-<p style="text-align: center;"><a href="#/reset-password">Forgot your password?</a></p>
+                <!--<h1 class="logo-name">{{env.SITENAME}}</h1>-->
+
+            </div>
+
+            <h3>Welcome to {{env.SITENAME}}</h3>
+
+            <p>Login to access your dashboard.</p>
+
+            <form class="m-t" role="form" ua-login>
+                <div class="form-group">
+                    <input name="login" type="email" class="form-control" placeholder="Email" required="">
+                </div>
+                <div class="form-group">
+                    <input name="password" type="password" class="form-control" placeholder="Password" required="">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b" ng-disabled="loading">
+                    <span ng-show="!loading">Log In</span>
+                    <img ng-show="loading" src="img/ajax-loader-blue.gif">
+                </button>
+
+                <p style="text-align: center;">
+                    <button ua-oauth-link="facebook" class="btn btn-lg btn-facebook"><i class="fa fa-facebook"></i></button>
+                </p>
+
+                <div ng-show="error" class="alert alert-danger">{{ error.message }}</div>
+
+                <a href="#/user/reset-password"><small>Forgot password?</small></a>
+                <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="#/user/signup">Create an account</a>
+            </form>
+            <!--
+            <p class="m-t"> <small><a href="{{env.BRAND_HOME_URL}}" target="_blank">{{env.BRAND_COMPANY}}</a> &copy; 2014-2015</small> </p>
+            -->
+
+        </div>
+    </div>
+

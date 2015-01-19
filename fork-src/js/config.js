@@ -389,4 +389,9 @@ angular
         $rootScope.$state = $state;
         $rootScope.env = env;
         user.init({ appId: env.USERAPP_ID });
+        if (env.USE_USERAPP_MOCK_API === 'true') {
+            UserApp.setBaseAddress('127.0.0.1:3000');
+            UserApp.setSecure(false);
+            UserApp.setDebug(true);
+        }
     });

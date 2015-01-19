@@ -1,9 +1,26 @@
-<div ng-show="!error">
-	<div ng-show="loading">
-	  Verifying your email address, please wait...
-	</div>
-	<div ng-show="!loading">
-	  Your email address has been verified, <a href="#/login">click here</a> to log in.
-	</div>
-</div>
-<div ng-show="error" class="alert alert-danger">{{ error.message }}</div>
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <div>
+
+                <!--<h1 class="logo-name">{{env.SITENAME}}</h1>-->
+
+            </div>
+            <!--<h3>Verify email - {{env.SITENAME}}</h3>-->
+
+            <div ng-show="!error">
+                <div ng-show="!loading">
+                    <p class="text-muted text-center">Verifying your email address, please wait...</p>
+                </div>
+                <div ng-show="loading">
+                    <p class="text-muted text-center">Your email address has been verified</p>
+                    <a class="btn btn-sm btn-white btn-block" href="#/user/login">Login</a>
+                </div>
+            </div>
+            <div ng-show="error" class="alert alert-danger">{{ error.message }}</div>
+
+            <!--
+            <p class="m-t"> <small><a href="{{env.BRAND_HOME_URL}}" target="_blank">{{env.BRAND_COMPANY}}</a> &copy; 2014-2015</small> </p>
+            -->
+
+        </div>
+    </div>
