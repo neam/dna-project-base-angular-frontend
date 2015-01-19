@@ -7,11 +7,13 @@ module.exports = {
   development: {
     options: {
       data: {
-        baseApiUrl: '<%= baseApiUrlDevelopment %>',
-        assetUrl: '<%= assetUrlDevelopment %>',
-        html5Mode: '<%= html5ModeDevelopment %>',
-        version: '<%= package.version %>',
-        buildHash: buildHash
+        BASE_API_URL: '<%= BASE_API_URL_DEVELOPMENT %>',
+        ASSET_URL: '',
+        CANONICAL_BASE_URL: 'http://localhost:1335',
+        MOBILE_BASE_URL: 'http://localhost:1336',
+        HTML5_MODE: false,
+        VERSION: '<%= package.version %>',
+        BUILD_HASH: buildHash
       }
     },
     files: {
@@ -21,11 +23,13 @@ module.exports = {
   production: {
     options: {
       data: {
-        baseApiUrl: '<%= baseApiUrlProduction %>',
-        assetUrl: '<%= assetUrlProduction %>',
-        html5Mode: '<%= html5ModeProduction %>',
-        version: '<%= package.version %>',
-        buildHash: buildHash
+        BASE_API_URL: '<%= BASE_API_URL_PRODUCTION %>',
+        ASSET_URL: 'http://static.gapminder.org/pages-desktop/master/',
+        CANONICAL_BASE_URL: 'http://www.gapminder.org',
+        MOBILE_BASE_URL: 'http://m.gapminder.org',
+        HTML5_MODE: true,
+        VERSION: '<%= package.version %>',
+        BUILD_HASH: buildHash
       }
     },
     files: {
@@ -35,11 +39,13 @@ module.exports = {
   stage: {
     options: {
       data: {
-        baseApiUrl: '<%= baseApiUrlStage %>',
-        assetUrl: '<%= assetUrlStage %>',
-        html5Mode: '<%= html5ModeStage %>',
-        version: '<%= package.version %>',
-        buildHash: buildHash
+        BASE_API_URL: '<%= BASE_API_URL_STAGE %>',
+        ASSET_URL: 'http://static.gapminder.org/pages-desktop-stage/',
+        CANONICAL_BASE_URL: 'http://static.gapminder.org/pages-desktop-stage',
+        MOBILE_BASE_URL: 'http://static.gapminder.org/pages-mobile-stage',
+        HTML5_MODE: false,
+        VERSION: '<%= package.version %>',
+        BUILD_HASH: buildHash
       }
     },
     files: {

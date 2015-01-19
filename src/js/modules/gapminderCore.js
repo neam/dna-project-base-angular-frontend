@@ -35,19 +35,19 @@ angular.module('gapminderCore').provider('core', function(helperProvider) {
    * @param {string} path
    * @param {string} cacheBusterString
    * @param {string} assetUrl
-   * @param {boolean} testing (defaults to false)
+   * @param {boolean} TESTING (defaults to false)
    * @returns {string}
    */
-  function createTemplateUrl(path, cacheBusterString, assetUrl, testing) {
-    testing = testing || false;
+  function createTemplateUrl(path, cacheBusterString, ASSET_URL, TESTING) {
+    TESTING = TESTING || false;
 
-    if (!testing) {
+    if (!TESTING) {
       path = path + '?' + cacheBusterString;
     }
 
     path = helperProvider.ensureLeadingSlash(path);
 
-    return assetUrl + 'templates' + path;
+    return ASSET_URL + 'templates' + path;
   }
 
 

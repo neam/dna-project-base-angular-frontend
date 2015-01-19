@@ -1,6 +1,5 @@
 angular.module('Gapminder').factory('deviceRedirector', function($window, $location, urlManager) {
-  var REDIRECT_BASE_URL = 'http://m.gapminder.org',
-      SESSION_STORAGE_KEY = 'cancelDeviceRedirect',
+  var SESSION_STORAGE_KEY = 'cancelDeviceRedirect',
       QUERY_PARAM_ENABLE = 'enableRedirect',
       QUERY_PARAM_DISABLE = 'disableRedirect';
 
@@ -59,7 +58,7 @@ angular.module('Gapminder').factory('deviceRedirector', function($window, $locat
     redirect: function() {
       if ($window.device.mobile() && !this.isRedirectDisabled()) {
         var route = urlManager.getCurrentRoute();
-        $window.location.href = REDIRECT_BASE_URL + route;
+        $window.location.href = urlManager.getMobileBaseUrl() + route;
       }
     },
 
@@ -68,7 +67,7 @@ angular.module('Gapminder').factory('deviceRedirector', function($window, $locat
      */
     forceRedirect: function() {
       var route = urlManager.getCurrentRoute();
-      $window.location.href = REDIRECT_BASE_URL + route + '?disableRedirect';
+      $window.location.href = urlManager.getMobileBaseUrl() + route + '?disableRedirect';
     }
   };
 });

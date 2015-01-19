@@ -72,7 +72,7 @@ describe('urlManager', function() {
 
   it('should return a mobile URL', function() {
     setLocation('www.gapminder.org', '', '/ebola');
-    expect(urlManager.getMobileUrl()).toBe('http://m.gapminder.org/ebola');
+    expect(urlManager.getMobileUrl()).toBe('http://localhost:1336/ebola');
   });
 
   it('should not set prerender-header when current URL is canonical', function() {
@@ -80,7 +80,7 @@ describe('urlManager', function() {
       url: '/exercises/ejercicio-con-video'
     };
 
-    setLocation('www.gapminder.org', '', '/exercises/ejercicio-con-video');
+    setLocation('localhost:1335', '', '/#/exercises/ejercicio-con-video');
 
     urlManager.setPrerenderHeaders(200, item);
     var areHeadersSet = $rootScope.prerenderStatusCode === 302 && angular.isDefined($rootScope.prerenderHeader);
@@ -92,11 +92,10 @@ describe('urlManager', function() {
       url: '/exercises/ejercicio-con-video'
     };
 
-    setLocation('www.gapminder.org', '', '/100');
+    setLocation('localhost:1335', '', '/#/100');
 
     urlManager.setPrerenderHeaders(200, item);
-
-    var areHeadersSet = $rootScope.prerenderStatusCode === 302 && $rootScope.prerenderHeader === 'Location: http://www.gapminder.org/exercises/ejercicio-con-video';
+    var areHeadersSet = $rootScope.prerenderStatusCode === 302 && $rootScope.prerenderHeader === 'Location: http://localhost:1335/#/exercises/ejercicio-con-video';
     expect(areHeadersSet).toBeTruthy();
   });
 

@@ -7,16 +7,9 @@ module.exports = function(grunt) {
       customTasksDir: 'grunt/tasks'
     },
     data: {
-      baseApiUrlDevelopment: grunt.option('api') || 'http://localhost:1338/api',
-      baseApiUrlProduction: grunt.option('api') || 'http://cms.gapminder.org/api/v1',
-      baseApiUrlStage: grunt.option('api') || 'http://cms.gapminder.org/api/v1',
-      assetUrlDevelopment: grunt.option('assetUrl') || '',
-      assetUrlProduction: grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop/master/',
-      assetUrlStage: grunt.option('assetUrl') || 'http://static.gapminder.org/pages-desktop-stage/',
-      html5ModeDevelopment: grunt.option('html5Mode') || false,
-      html5ModeProduction: grunt.option('html5Mode') || true,
-      html5ModeStage: grunt.option('html5Mode') || false,
-      httpServerDir: './dist'
+      BASE_API_URL_DEVELOPMENT: grunt.option('api') || 'http://localhost:1338/api',
+      BASE_API_URL_PRODUCTION: grunt.option('api') || 'http://cms.gapminder.org/api/v1',
+      BASE_API_URL_STAGE: grunt.option('api') || 'http://cms.gapminder.org/api/v1'
     }
   });
 };
