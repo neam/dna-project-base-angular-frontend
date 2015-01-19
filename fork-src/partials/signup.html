@@ -1,16 +1,42 @@
-<form class="form" ua-signup>
-  <h2 class="form-heading">Please Sign Up</h2>
-  <div class="form-fields">
-    <input name="first_name" placeholder="First Name" type="text" class="form-control">
-    <input name="login" placeholder="Email" type="text" class="form-control" ua-is-email>
-    <input name="password" placeholder="Password" type="password" class="form-control">
-  </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="loading">
-    <span ng-show="!loading">Sign Up</span>
-    <img ng-show="loading" src="img/ajax-loader-blue.gif">
-  </button>
-  <div ng-show="error" class="alert alert-danger">{{ error.message }}</div>
-  <div ng-show="verificationEmailSent" class="alert alert-success">An email has been sent to your inbox. Click on the link to verify your account.</div>
-</form>
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <div>
 
-<p style="text-align: center;"><a href="" ua-oauth-link="facebook">Or sign up with Facebook</a></p>
+                <!--<h1 class="logo-name">{{env.SITENAME}}</h1>-->
+
+            </div>
+            <h3>Sign up - {{env.SITENAME}}</h3>
+            <!--<p>Create account to see it in action.</p>-->
+            <form class="m-t" role="form" ua-signup>
+                <div class="form-group">
+                    <input name="first_name" type="text" class="form-control" placeholder="Name" required="">
+                </div>
+                <div class="form-group">
+                    <input name="login" type="email" class="form-control" placeholder="Email" required="" ua-is-email>
+                </div>
+                <div class="form-group">
+                    <input name="password" type="password" class="form-control" placeholder="Password" required="">
+                </div>
+                <div class="form-group">
+                        <div class="checkbox i-checks"><label> <input type="checkbox" required=""><i></i> Agree to the <a href="{{env.TERMS_URL}}" target="_blank">terms</a> </label></div>
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b" ng-disabled="loading">
+                    <span ng-show="!loading">Sign Up</span>
+                    <img ng-show="loading" src="img/ajax-loader-blue.gif">
+                </button>
+
+                <p style="text-align: center;"><a href="" ua-oauth-link="facebook">Or sign up with Facebook</a></p>
+
+                <div ng-show="error" class="alert alert-danger">{{ error.message }}</div>
+                <div ng-show="verificationEmailSent" class="alert alert-success">An email has been sent to your inbox. Click on the link to verify your account.</div>
+
+                <p class="text-muted text-center"><small>Already have an account?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="#/user/login">Login</a>
+            </form>
+            <!--
+            <p class="m-t"> <small><a href="{{env.BRAND_HOME_URL}}" target="_blank">{{env.BRAND_COMPANY}}</a> &copy; 2014-2015</small> </p>
+            -->
+
+        </div>
+    </div>
+

@@ -103,20 +103,20 @@ mixpanel.init("<%- mixpanelId %>");</script><!-- end Mixpanel -->
 <div id="wrapper">
 
     <!-- Navigation -->
-    <div ng-include="'views/common/navigation.html'"></div>
+    <div ng-include="'views/common/navigation.html'" ng-show="user.authenticated"></div>
 
     <!-- Page wraper -->
     <!-- ng-class with current state name give you the ability to extended customization your view -->
-    <div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+    <div id="page-wrapper" class="gray-bg {{$state.current.name}}" ng-class="{'show-menu': user.authenticated}">
 
         <!-- Page wrapper -->
-        <div ng-include="'views/common/topnavbar.html'"></div>
+        <div ng-include="'views/common/topnavbar.html'" ng-show="user.authenticated"></div>
 
         <!-- Main view  -->
         <div ui-view></div>
 
         <!-- Footer -->
-        <div ng-include="'views/common/footer.html'"></div>
+        <div ng-include="'views/common/footer.html'" ng-show="user.authenticated"></div>
 
     </div>
     <!-- End page wrapper-->
@@ -194,6 +194,14 @@ mixpanel.init("<%- mixpanelId %>");</script><!-- end Mixpanel -->
 
 <!-- iCheck -->
 <script src="js/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+    });
+</script>
 
 <!-- Chosen -->
 <script src="js/plugins/chosen/chosen.jquery.js"></script>
