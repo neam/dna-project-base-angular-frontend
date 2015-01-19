@@ -75,6 +75,31 @@ describe('urlManager', function() {
     expect(urlManager.getMobileUrl()).toBe('http://m.gapminder.org/ebola');
   });
 
+  it('should not set prerender-header when current URL is canonical', function() {
+    var item = {
+      url: '/exercises/ejercicio-con-video'
+    };
+
+    setLocation('www.gapminder.org', '', '/exercises/ejercicio-con-video');
+
+    urlManager.setPrerenderHeaders(200, item);
+    var areHeadersSet = $rootScope.prerenderStatusCode === 302 && angular.isDefined($rootScope.prerenderHeader);
+    expect(areHeadersSet).toBeFalsy();
+  });
+
+  it('should set prerender-header when current URL is not canonical', function() {
+    var item = {
+      url: '/exercises/ejercicio-con-video'
+    };
+
+    setLocation('www.gapminder.org', '', '/100');
+
+    urlManager.setPrerenderHeaders(200, item);
+
+    var areHeadersSet = $rootScope.prerenderStatusCode === 302 && $rootScope.prerenderHeader === 'Location: http://www.gapminder.org/exercises/ejercicio-con-video';
+    expect(areHeadersSet).toBeTruthy();
+  });
+
   /**
    * Overrides $location.
    * @param {string} host
