@@ -34,9 +34,9 @@ function pageTitle($rootScope, $timeout) {
         link: function(scope, element) {
             var listener = function(event, toState, toParams, fromState, fromParams) {
                 // Default title - load on Dashboard 1
-                var title = env.SITENAME + ' | ' + env.DEFAULT_PAGE_TITLE;
+                var title = $rootScope.env.SITENAME + ' | ' + $rootScope.env.DEFAULT_PAGE_TITLE;
                 // Create your own title pattern
-                if (toState.data && toState.data.pageTitle) title = env.SITENAME + ' | ' + toState.data.pageTitle;
+                if (toState.data && toState.data.pageTitle) title = $rootScope.env.SITENAME + ' | ' + toState.data.pageTitle;
                 $timeout(function() {
                     element.text(title);
                 });
