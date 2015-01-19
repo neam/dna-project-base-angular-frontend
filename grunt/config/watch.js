@@ -44,6 +44,33 @@ module.exports = {
       'sync:main'
     ]
   },
+  inspinia: {
+    files: [
+      '<%= paths.src %>/404.html',
+      '<%= paths.src %>/500.html',
+      '<%= paths.src %>/fonts/**',
+      '<%= paths.src %>/img/**',
+      '<%= paths.src %>/font-awesome/**',
+      '<%= paths.src %>/email_templates/**',
+      '<%= paths.src %>/img/**',
+      '<%= paths.src %>/views/**'
+    ],
+    tasks: [
+      'template:development',
+      'copy:other',
+      'sync:main'
+    ]
+  },
+  userapp: {
+    files: [
+      '<%= paths.src %>/partials/**'
+    ],
+    tasks: [
+      'template:development',
+      'copy:other',
+      'sync:main'
+    ]
+  },
   packageJson: {
     files: [
       '<%= paths.root %>/package.json'
