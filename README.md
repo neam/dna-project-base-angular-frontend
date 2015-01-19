@@ -24,6 +24,13 @@ Run erb to generate env.js:
     source .env
     erb fork-src/js/env.js.erb > fork-src/js/env.js
 
+## Set up your project DNA files
+
+The DNA files are those that make the project different from others.
+
+    mkdir ../angular-frontend-dna
+    cp -r dna-boilerplate ../angular-frontend-dna
+
 ## Run in development
 
     grunt

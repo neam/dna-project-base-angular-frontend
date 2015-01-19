@@ -109,5 +109,19 @@ module.exports = {
         dest: '<%= paths.tmpDist %>/vendor'
       }
     ]
+  },
+  dna: {
+    files: [
+      {
+        cwd: '<%= paths.dna %>/',
+        expand: true,
+        filter: 'isFile',
+        src: [
+          '**',
+          '!.gitkeep'
+        ],
+        dest: '<%= paths.tmpDist %>/'
+      }
+    ]
   }
 };

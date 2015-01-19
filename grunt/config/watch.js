@@ -71,6 +71,15 @@ module.exports = {
       'sync:main'
     ]
   },
+  dna: {
+    files: [
+      '<%= paths.dna %>/**'
+    ],
+    tasks: [
+      'copy:dna',
+      'sync:main'
+    ]
+  },
   packageJson: {
     files: [
       '<%= paths.root %>/package.json'

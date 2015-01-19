@@ -11,6 +11,7 @@ module.exports = function(grunt) {
     'update_json:bower',
     'copy:assetsDevelopment',
     'copy:other',
+    'copy:dna',
     'copy:dist',
     'sync:main',
     //'karma:unit'

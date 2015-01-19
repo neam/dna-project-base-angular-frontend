@@ -3,6 +3,7 @@ module.exports = {
   js: 'fork-src/js',
   sass: 'fork-src/sass',
   src: 'fork-src',
+  dna: '<%= DNA_PATH %>',
   tests: 'tests',
   dist: 'dist',
   distAssets: 'dist/assets',

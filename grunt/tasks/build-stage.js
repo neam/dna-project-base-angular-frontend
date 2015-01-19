@@ -12,6 +12,7 @@ module.exports = function(grunt) {
     'update_json:bower',
     'copy:assetsProduction',
     'copy:other',
+    'copy:dna',
     'copy:dist',
     'sync:main'
   ]);
