@@ -1,6 +1,6 @@
-angular.module('Gapminder').config(function($stateProvider, $urlRouterProvider, $locationProvider, $sceDelegateProvider, coreProvider, assetUrl, html5Mode, version, buildHash, testing) {
+angular.module('Gapminder').config(function($stateProvider, $urlRouterProvider, $locationProvider, $sceDelegateProvider, coreProvider, ASSET_URL, HTML5_MODE, VERSION, BUILD_HASH, TESTING) {
   // HTML5 mode
-  $locationProvider.html5Mode(html5Mode);
+  $locationProvider.html5Mode(HTML5_MODE);
 
   // Allow resources from elsewhere
   $sceDelegateProvider.resourceUrlWhitelist([
@@ -16,12 +16,12 @@ angular.module('Gapminder').config(function($stateProvider, $urlRouterProvider, 
     {name: 'qna', url: '/qna/:id', templateUrl: 'states/go-item.html', controller: 'GoItemCtrl', access: {requiredLogin: false}}
   ];
 
-  var cacheBusterString = version + '-' + buildHash;
+  var cacheBusterString = VERSION + '-' + BUILD_HASH;
 
   angular.forEach(states, function(state) {
     $stateProvider.state(state.name, {
       url: state.url,
-      templateUrl: coreProvider.createTemplateUrl(state.templateUrl, cacheBusterString, assetUrl, testing),
+      templateUrl: coreProvider.createTemplateUrl(state.templateUrl, cacheBusterString, ASSET_URL, TESTING),
       layout: state.layout || 'layout-regular',
       access: state.access,
       controller: state.controller,
@@ -40,7 +40,7 @@ angular.module('Gapminder').config(function($stateProvider, $urlRouterProvider, 
   // Custom pages
   $stateProvider.state('wildcardPage', {
     url: ':id',
-    templateUrl: coreProvider.createTemplateUrl('states/wildcard-page.html', cacheBusterString, assetUrl, testing),
+    templateUrl: coreProvider.createTemplateUrl('states/wildcard-page.html', cacheBusterString, ASSET_URL, TESTING),
     controller: 'WildcardPageCtrl',
     access: {requiredLogin: false},
     resolve: {

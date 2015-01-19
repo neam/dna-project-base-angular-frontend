@@ -1,4 +1,4 @@
-angular.module('Gapminder').factory('api', function(configManager, utils, baseApiUrl) {
+angular.module('Gapminder').factory('api', function(configManager, utils, BASE_API_URL) {
   var compositionTypeToItemPathNameMap = {
     exercise: 'exercises',
     presentation: 'presentations'
@@ -12,7 +12,7 @@ angular.module('Gapminder').factory('api', function(configManager, utils, baseAp
      */
     getApiUrl: function(uri) {
       uri = utils.ensureLeadingSlash(uri);
-      return utils.stripTrailingSlash(baseApiUrl + uri)
+      return utils.stripTrailingSlash(BASE_API_URL + uri)
     },
 
     /**

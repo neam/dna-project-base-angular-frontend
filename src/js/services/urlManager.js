@@ -1,7 +1,4 @@
-angular.module('Gapminder').factory('urlManager', function($window, $location, $rootScope, $injector, $sce, core, utils, uiTranslator, assetUrl, testing, version, buildHash, html5Mode) {
-  var CANONICAL_BASE_URL = 'http://www.gapminder.org',
-      MOBILE_BASE_URL = 'http://m.gapminder.org';
-
+angular.module('Gapminder').factory('urlManager', function($window, $location, $rootScope, $injector, $sce, core, utils, uiTranslator, ASSET_URL, TESTING, VERSION, BUILD_HASH, HTML5_MODE, CANONICAL_BASE_URL, MOBILE_BASE_URL) {
   return {
     /**
      * Redirects to the given route.
@@ -61,7 +58,7 @@ angular.module('Gapminder').factory('urlManager', function($window, $location, $
       }
 
       route = utils.ensureLeadingSlash(route);
-      return html5Mode ? route : '#' + route;
+      return HTML5_MODE ? route : '#' + route;
     },
 
     /**
@@ -70,7 +67,7 @@ angular.module('Gapminder').factory('urlManager', function($window, $location, $
      * @returns {string}
      */
     createAssetUrl: function(path) {
-      return assetUrl + utils.stripLeadingSlash(path);
+      return ASSET_URL + utils.stripLeadingSlash(path);
     },
 
     /**
@@ -79,8 +76,8 @@ angular.module('Gapminder').factory('urlManager', function($window, $location, $
      * @returns {string}
      */
     createTemplateUrl: function(path) {
-      var cacheBusterString = version + '-' + buildHash;
-      return core.createTemplateUrl(path, cacheBusterString, assetUrl, testing);
+      var cacheBusterString = VERSION + '-' + BUILD_HASH;
+      return core.createTemplateUrl(path, cacheBusterString, ASSET_URL, TESTING);
     },
 
     /**
@@ -107,7 +104,8 @@ angular.module('Gapminder').factory('urlManager', function($window, $location, $
      * @returns {string}
      */
     createCanonicalUrl: function(route) {
-      return this.getCanonicalBaseUrl() + utils.ensureLeadingSlash(route);
+      var hashbang = HTML5_MODE ? '' : '/#';
+      return this.getCanonicalBaseUrl() + hashbang + utils.ensureLeadingSlash(route);
     },
 
     /**
@@ -328,6 +326,17 @@ angular.module('Gapminder').factory('urlManager', function($window, $location, $
      */
     getCurrentAbsoluteUrl: function() {
       return $location.$$absUrl;
+    },
+
+    /**
+     * Updates the pushstate.
+     * @param {Object} item
+     */
+    replaceState: function(item) {
+      if (!this.isCurrentItemUrlCanonical(item)) {
+        $location.replace();
+        $location.path(item.url);
+      }
     },
 
     /**

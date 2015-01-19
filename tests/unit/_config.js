@@ -1,9 +1,11 @@
 // Environment configurations (must be loaded in karma.conf.js files)
 
 angular.module('Gapminder')
-  .constant('baseApiUrl', 'http://localhost:1338/api')
-  .constant('assetUrl', '')
-  .constant('html5Mode', false)
-  .constant('testing', true)
-  .constant('version', '1.0.0')
-  .constant('buildHash', '7d7c2f59a687628bafe49b38ca55e10311108833');
+  .constant('BASE_API_URL', 'http://localhost:1338/api')
+  .constant('ASSET_URL', '')
+  .constant('CANONICAL_BASE_URL', 'http://localhost:1335')
+  .constant('MOBILE_BASE_URL', 'http://localhost:1336')
+  .constant('HTML5_MODE', false)
+  .constant('TESTING', true)
+  .constant('VERSION', '1.0.0')
+  .constant('BUILD_HASH', '7d7c2f59a687628bafe49b38ca55e10311108833');
