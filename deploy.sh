@@ -15,7 +15,7 @@ APPNAME=$1
 BUILD_CMD="grunt build-production --mixpanelId=$MIXPANEL_ID"
 API_BASE_URL="http://$APPNAME.$TLD/api/v1"
 
-if [[ "$APPNAME" == "master-manager" ]]; then
+if [[ "$APPNAME" == "master" ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET"
 else
     DEPLOYMENT_DIR="s3://$S3_BUCKET/stage/$BRANCH_NAME"

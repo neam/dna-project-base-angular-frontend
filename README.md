@@ -29,7 +29,7 @@ Run erb to generate env.js:
 The DNA files are those that make the project different from others.
 
     mkdir ../angular-frontend-dna
-    cp -r dna-boilerplate ../angular-frontend-dna
+    cp -r dna-boilerplate/* ../angular-frontend-dna/
 
 ## Run in development
 
@@ -46,11 +46,11 @@ Now launch your web browser and navigate to [http://localhost:1335/]().
 
 URL: [http://www.example.com/{route}](http://www.example.com/{route})
 
-    ./deploy.sh master-manager
+    ./deploy.sh master
 
-## Deploy a specific branch to stage
+## Deploy a specific directory for staging
 
-URL: [http://static.example.com/stage/{branch}](http://static.example.com/stage/{branch})
+URL: [http://static.example.com/stage/{branch}](http://static.example.com/stage/{appname})
 
     ./deploy.sh <APPNAME>
 
