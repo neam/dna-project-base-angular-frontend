@@ -10,6 +10,9 @@ fi
 # Local configuration
 source .env
 
+# Ensure we don't deploy a version using local mock api
+export USE_USERAPP_MOCK_API="false"
+
 # General
 APPNAME=$1
 BUILD_CMD="grunt build-production --mixpanelId=$MIXPANEL_ID"
