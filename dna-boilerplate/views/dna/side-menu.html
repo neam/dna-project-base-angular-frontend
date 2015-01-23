@@ -10,11 +10,12 @@
                                 <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
                             </span>
                     </a>
-                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a ui-sref="profile">Profile</a></li>
-                        <li><a ui-sref="contacts">Contacts</a></li>
-                        <li><a ui-sref="inbox">Mailbox</a></li>
-                        <li class="divider"></li>
+                    <ul class="dropdown-menu animated fadeIn m-t-xs">
+                        <li ui-sref-active="active" ng-show="!user.authenticated"><a ui-sref="user.login">Login</a></li>
+                        <li ui-sref-active="active" ng-show="!user.authenticated"><a ui-sref="user.signup">Signup</a></li>
+                        <li ui-sref-active="active" ng-show="false"><a ui-sref="user.verify-email">Verify email</a></li>
+                        <li ui-sref-active="active" ng-show="false"><a ui-sref="user.reset-password">Reset password</a></li>
+                        <li ui-sref-active="active" ng-show="user.authenticated"><a ui-sref="user.set-password">Set password</a></li>
                         <li ng-show="user.authenticated"><a href="" ua-logout>Log Out</a></li>
                     </ul>
                 </div>
@@ -92,8 +93,8 @@
                     <li ui-sref-active="active"><a ui-sref="app.timeline">Timeline</a></li>
                     <li ui-sref-active="active"><a ui-sref="app.pin_board">Pin board</a></li>
                     <li ui-sref-active="active"><a ui-sref="app.invoice">Invoice</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
+                    <li ui-sref-active="active"><a ui-sref="user.login">Login</a></li>
+                    <li ui-sref-active="active"><a ui-sref="user.signup">Signup</a></li>
                 </ul>
             </li>
             <li ng-class="{active: $state.includes('pages')}">
