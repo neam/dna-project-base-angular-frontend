@@ -406,7 +406,14 @@ angular
                 app_id: env.INTERCOM_ID,
                 name: user.current.first_name + " " + user.current.last_name,
                 email: user.current.email,
-                created_at: user.current.created_at
+                created_at: user.current.created_at,
+                "userapp_user_id": user.current.user_id,
+                "userapp_updated_at": user.current.updated_at,
+                "userapp_first_name": user.current.first_name,
+                "userapp_last_name": user.current.last_name,
+                "userapp_last_login_at": user.current.last_login_at,
+                //"userapp_subscription": user.current.subscription,
+                "userapp_email_verified": user.current.email_verified
             });
 
         });
