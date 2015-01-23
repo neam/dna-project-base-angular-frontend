@@ -11,9 +11,9 @@ module.exports = function(grunt) {
       BASE_API_URL_PRODUCTION: grunt.option('api') || 'http://cms.gapminder.org/api/v1',
       BASE_API_URL_STAGE: grunt.option('api') || 'http://cms.gapminder.org/api/v1',
       DNA_PATH: '../angular-frontend-dna',
-      MIXPANEL_ID_DEVELOPMENT: grunt.option('mixpanelId') || '',
-      MIXPANEL_ID_PRODUCTION: grunt.option('mixpanelId') || '',
-      MIXPANEL_ID_STAGE: grunt.option('mixpanelId') || ''
+      MIXPANEL_PROJECT_TOKEN_DEVELOPMENT: grunt.option('mixpanelId') || '',
+      MIXPANEL_PROJECT_TOKEN_PRODUCTION: grunt.option('mixpanelId') || '',
+      MIXPANEL_PROJECT_TOKEN_STAGE: grunt.option('mixpanelId') || ''
     }
   });
 

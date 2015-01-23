@@ -12,7 +12,7 @@ module.exports = {
         CANONICAL_BASE_URL: 'http://localhost:1335',
         MOBILE_BASE_URL: 'http://localhost:1336',
         HTML5_MODE: false,
-        MIXPANEL_ID: '<%= MIXPANEL_ID_DEVELOPMENT %>',
+        MIXPANEL_PROJECT_TOKEN: '<%= MIXPANEL_PROJECT_TOKEN_DEVELOPMENT %>',
         VERSION: '<%= package.version %>',
         BUILD_HASH: buildHash
       }
@@ -29,7 +29,7 @@ module.exports = {
         CANONICAL_BASE_URL: 'http://www.gapminder.org',
         MOBILE_BASE_URL: 'http://m.gapminder.org',
         HTML5_MODE: true,
-        MIXPANEL_ID: '<%= MIXPANEL_ID_PRODUCTION %>',
+        MIXPANEL_PROJECT_TOKEN: '<%= MIXPANEL_PROJECT_TOKEN_PRODUCTION %>',
         VERSION: '<%= package.version %>',
         BUILD_HASH: buildHash
       }
@@ -46,7 +46,7 @@ module.exports = {
         CANONICAL_BASE_URL: 'http://static.gapminder.org/pages-desktop-stage',
         MOBILE_BASE_URL: 'http://static.gapminder.org/pages-mobile-stage',
         HTML5_MODE: false,
-        MIXPANEL_ID: '<%= MIXPANEL_ID_STAGE %>',
+        MIXPANEL_PROJECT_TOKEN: '<%= MIXPANEL_PROJECT_TOKEN_STAGE %>',
         VERSION: '<%= package.version %>',
         BUILD_HASH: buildHash
       }
