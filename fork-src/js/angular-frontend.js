@@ -1,7 +1,6 @@
 (function () {
-    angular.module('app', [
+    angular.module('angular-frontend', [
         'env',                          // Exported environment variables
-        'dna',                          // The DNA files
         'ui.router',                    // Routing
         'UserApp',                      // Userapp.io
         'inspinia'                      // Inspinia-theme-related functionality
