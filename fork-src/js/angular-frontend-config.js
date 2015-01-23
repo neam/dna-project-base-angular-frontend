@@ -394,4 +394,27 @@ angular
             UserApp.setSecure(false);
             UserApp.setDebug(true);
         }
+
+        console.log('run() - $rootScope',$rootScope);
+
+        $rootScope.$on('user.login', function () {
+
+            console.log('user.login', user.current);
+
+            // Intercom
+            window.Intercom('boot', {
+                app_id: env.INTERCOM_ID,
+                name: user.current.first_name + " " + user.current.last_name,
+                email: user.current.email,
+                created_at: user.current.created_at
+            });
+
+        });
+
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+
+            window.Intercom('update');
+
+        });
+
     });
