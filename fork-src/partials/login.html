@@ -1,4 +1,4 @@
-    <div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div class="middle-box text-center loginscreen  animated fadeInDown" ng-show="!user.authenticated">
         <div>
             <div>
 
@@ -7,7 +7,7 @@
             </div>
 
             <h3>Welcome to {{env.SITENAME}}</h3>
-
+            
             <p>Login to access your dashboard.</p>
 
             <form class="m-t" role="form" ua-login>
@@ -35,6 +35,23 @@
             <!--
             <p class="m-t"> <small><a href="{{env.BRAND_HOME_URL}}" target="_blank">{{env.BRAND_COMPANY}}</a> &copy; 2014-2015</small> </p>
             -->
+
+        </div>
+    </div>
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown" ng-show="user.authenticated">
+        <div>
+            <div>
+
+                <!--<h1 class="logo-name">{{env.SITENAME}}</h1>-->
+
+            </div>
+
+            <h3>Welcome to {{env.SITENAME}}</h3>
+
+            <p>You are logged in</p>
+
+            <a ui-sref="{{env.DEFAULT_UI_STATE}}" class="btn btn-primary m-t">Continue</a>
 
         </div>
     </div>
