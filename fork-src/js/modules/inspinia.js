@@ -21,7 +21,7 @@
         'datatables',                   // Dynamic tables
         'localytics.directives',        // Chosen select
         'angles',                       // Charts js
-        'ui.map',                       // Google maps
+        //'ui.map',                       // Google maps
         'ngGrid',                       // ngGrid
         'ui.codemirror',                // Code editor
         'ui.tree',                      // Nestable list
