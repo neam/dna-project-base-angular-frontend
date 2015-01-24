@@ -7,7 +7,8 @@ function config($stateProvider, $urlRouterProvider) {
 
         .state('example-view', {
             url: "/example-view",
-            templateUrl: "views/example-view.html",
+            //templateUrl: "views/example-view.html",
+            templateUrl: "views/pre-launch.html",
             data: { pageTitle: 'Example view' }
         })
 
