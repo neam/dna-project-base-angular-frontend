@@ -395,11 +395,11 @@ angular
             UserApp.setDebug(true);
         }
 
-        console.log('run() - $rootScope',$rootScope);
+        //console.log('run() - $rootScope',$rootScope);
 
         $rootScope.$on('user.login', function () {
 
-            console.log('user.login', user.current);
+            //console.log('user.login', user.current);
 
             // Intercom
             window.Intercom('boot', {
