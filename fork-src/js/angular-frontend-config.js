@@ -399,7 +399,7 @@ angular
 
         $rootScope.$on('user.signup', function (event, newUser) {
 
-            console.log('user.signup', event, newUser);
+            //console.log('user.signup', event, newUser);
 
         });
 
