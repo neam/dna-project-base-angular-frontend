@@ -20,9 +20,12 @@
 
                 <input type="hidden" name="properties.signup_plan" placeholder="Plan" value="{{$state.current.data.plan}}">
 
+                <!--
+                TODO: set to non-required if terms url is empty
                 <div class="form-group" ng-show="env.TERMS_URL !== ''">
                         <div class="checkbox i-checks"><label> <input type="checkbox" required=""><i></i> Agree to the <a href="{{env.TERMS_URL}}" target="_blank">terms</a> </label></div>
                 </div>
+                -->
 
                 <button type="submit" class="btn btn-primary block full-width m-b" ng-disabled="loading">
                     <span ng-show="!loading">Sign Up</span>
