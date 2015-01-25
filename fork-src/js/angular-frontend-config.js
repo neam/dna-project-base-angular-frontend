@@ -397,6 +397,12 @@ angular
 
         //console.log('run() - $rootScope',$rootScope);
 
+        $rootScope.$on('user.signup', function (event, newUser) {
+
+            console.log('user.signup', event, newUser);
+
+        });
+
         $rootScope.$on('user.login', function () {
 
             //console.log('user.login', user.current);

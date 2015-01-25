@@ -427,6 +427,9 @@ var userappModule = angular.module('UserApp', []);
 
                 UserApp.User.save(user, function(error, result) {
                     if (!error) {
+
+                        $rootScope.$broadcast('user.signup', user);
+
                         // Check locks
                         if (result.locks && result.locks.length > 0 && result.locks[0].type == 'EMAIL_NOT_VERIFIED') {
                             callback && callback({ name: 'EMAIL_NOT_VERIFIED' }, result);
