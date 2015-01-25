@@ -5,7 +5,7 @@
                 <!--<h1 class="logo-name">{{env.SITENAME}}</h1>-->
 
             </div>
-            <h3>Sign up - {{env.SITENAME}}</h3>
+            <h3>Sign up - {{env.SITENAME}}<span ng-show="$state.current.data.plan !== 'default'"> - {{$state.current.data.plan | capitalize}}</span></h3>
             <!--<p>Create account to see it in action.</p>-->
             <form class="m-t" role="form" ua-signup>
                 <div class="form-group">
