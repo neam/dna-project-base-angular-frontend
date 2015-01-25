@@ -32,7 +32,11 @@
                     <img ng-show="loading" src="img/ajax-loader-blue.gif">
                 </button>
 
-                <p style="text-align: center;"><a href="" ua-oauth-link="facebook">Or sign up with Facebook</a></p>
+                <p style="text-align: center;">
+                    <button ua-oauth-link="facebook" class="btn btn-lg btn-facebook"><i class="fa fa-facebook"></i></button>
+                    <button ua-oauth-link="linkedin" class="btn btn-lg btn-linkedin"><i class="fa fa-linkedin"></i></button>
+                    <button ua-oauth-link="github" class="btn btn-lg btn-github"><i class="fa fa-github"></i></button>
+                </p>
 
                 <div ng-show="error" class="alert alert-danger">{{ error.message }}</div>
                 <div ng-show="verificationEmailSent" class="alert alert-success">An email has been sent to your inbox. Click on the link to verify your account.</div>
