@@ -421,6 +421,19 @@ angular
                 //"userapp_subscription": user.current.subscription,
                 "userapp_email_verified": user.current.email_verified
             });
+            // Facebook conversion tracking
+            var valuemap = {
+                'freemium': '0',
+                'default': '0',
+                'casual': '9',
+                'ambitious': '24',
+                'busy': '49',
+            }
+            var fb_conversion_data = {'value': valuemap[user.current.properties.signup_plan], 'currency': 'USD'};
+            console.log('fb_conversion_data', fb_conversion_data);
+            if (env.FB_CONVERSION_PIXEL_ID !== '') {
+                //window._fbq.push(['track', env.FB_CONVERSION_PIXEL_ID, fb_conversion_data]);
+            }
 
         });
 
