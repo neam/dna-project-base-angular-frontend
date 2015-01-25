@@ -408,11 +408,12 @@ angular
             //console.log('user.login', user.current);
 
             // Intercom
-            window.Intercom('boot', {
+            var intercom_data = {
                 app_id: env.INTERCOM_ID,
                 name: user.current.first_name + " " + user.current.last_name,
                 email: user.current.email,
                 created_at: user.current.created_at,
+                "signup_plan": user.current.properties.signup_plan,
                 "userapp_user_id": user.current.user_id,
                 "userapp_updated_at": user.current.updated_at,
                 "userapp_first_name": user.current.first_name,
@@ -420,7 +421,9 @@ angular
                 "userapp_last_login_at": user.current.last_login_at,
                 //"userapp_subscription": user.current.subscription,
                 "userapp_email_verified": user.current.email_verified
-            });
+            };
+            window.Intercom('boot', intercom_data);
+
             // Facebook conversion tracking
             var valuemap = {
                 'freemium': '0',
