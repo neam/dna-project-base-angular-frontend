@@ -362,7 +362,7 @@ function config($stateProvider, $urlRouterProvider) {
         .state('user.signup', {
             url: "/signup",
             templateUrl: "partials/signup.html",
-            data: { public: true, pageTitle: 'Signup' }
+            data: { public: true, plan: 'default', pageTitle: 'Signup' }
         })
         .state('user.verify-email', {
             url: "/verify-email",

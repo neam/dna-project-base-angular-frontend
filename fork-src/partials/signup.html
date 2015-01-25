@@ -17,6 +17,9 @@
                 <div class="form-group">
                     <input name="password" type="password" class="form-control" placeholder="Password" required="">
                 </div>
+
+                <input type="hidden" name="properties.signup_plan" placeholder="Plan" value="{{$state.current.data.plan}}">
+
                 <div class="form-group">
                         <div class="checkbox i-checks"><label> <input type="checkbox" required=""><i></i> Agree to the <a href="{{env.TERMS_URL}}" target="_blank">terms</a> </label></div>
                 </div>
