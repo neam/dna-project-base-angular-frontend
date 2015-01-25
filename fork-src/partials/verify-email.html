@@ -8,16 +8,20 @@
             <!--<h3>Verify email - {{env.SITENAME}}</h3>-->
 
             <div ng-show="!error">
-                <div ng-show="!loading">
-                    <p class="text-muted text-center">Verifying your email address, please wait...</p>
-                </div>
                 <div ng-show="loading">
-                    <p class="text-muted text-center">Your email address has been verified</p>
-                    <a class="btn btn-sm btn-white btn-block" href="#/user/login">Login</a>
+                    <h3>Verifying your email address, please wait...</h3>
+                    <p class="text-muted text-center">Taking to long? Try reloading the page</p>
+                </div>
+                <div ng-show="!loading">
+                    <h3>Your email address has been verified</h3>
+                    <a class="btn btn-primary block full-width m-b" href="#/user/login">Login</a>
                 </div>
             </div>
-            <div ng-show="error" class="alert alert-danger">{{ error.message }}</div>
-
+            <div ng-show="error">
+                    <div class="alert alert-danger">{{ error.message }}</div>
+                    <p class="text-muted text-center">Maybe your email address has already been verified? Try logging in:</p>
+                    <a class="btn btn-primary block full-width m-b" href="#/user/login">Login</a>
+            </div>
             <!--
             <p class="m-t"> <small><a href="{{env.BRAND_HOME_URL}}" target="_blank">{{env.BRAND_COMPANY}}</a> &copy; 2014-2015</small> </p>
             -->
