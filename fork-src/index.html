@@ -168,9 +168,11 @@
 
 <script type="text/javascript">
     mixpanel.track_links("a", "click link", {
+        "app": "manager",
         "referrer": document.referrer
     });
     mixpanel.track('page viewed', {
+        "app": "manager",
     'page name' : document.title,
     'url' : window.location.pathname
 });
