@@ -6,6 +6,18 @@
 
             </div>
             <h3>Sign up - {{env.SITENAME}}<span ng-show="$state.current.data.plan !== 'default'"> - {{$state.current.data.plan | capitalize}}</span></h3>
+
+                <p style="text-align: center;">Use your existing account:</p>
+
+                <p style="text-align: center;">
+                    <button ua-oauth-link="facebook" class="btn btn-lg btn-facebook"><i class="fa fa-facebook"></i></button>
+                    <button ua-oauth-link="google" class="btn btn-lg btn-google"><i class="fa fa-google"></i></button>
+                    <button ua-oauth-link="linkedin" class="btn btn-lg btn-linkedin"><i class="fa fa-linkedin"></i></button>
+                    <button ua-oauth-link="github" class="btn btn-lg btn-github"><i class="fa fa-github"></i></button>
+                </p>
+
+                <p style="text-align: center;">Or fill out the form:</p>
+
             <!--<p>Create account to see it in action.</p>-->
             <form novalidate class="m-t" role="form" name="signupForm"
                   ng-controller="SignupController as signupCtrl" ng-submit="signupForm.$valid" ua-signup>
@@ -35,13 +47,6 @@
                     <span ng-show="!loading">Sign Up</span>
                     <img ng-show="loading" src="img/ajax-loader-blue.gif">
                 </button>
-
-                <p style="text-align: center;">
-                    <button ua-oauth-link="facebook" class="btn btn-lg btn-facebook"><i class="fa fa-facebook"></i></button>
-                    <button ua-oauth-link="google" class="btn btn-lg btn-google"><i class="fa fa-google"></i></button>
-                    <button ua-oauth-link="linkedin" class="btn btn-lg btn-linkedin"><i class="fa fa-linkedin"></i></button>
-                    <button ua-oauth-link="github" class="btn btn-lg btn-github"><i class="fa fa-github"></i></button>
-                </p>
 
                 <div ng-show="error" class="alert alert-danger">{{ error.message }}</div>
                 <div ng-show="verificationEmailSent" class="alert alert-success">An email has been sent to your inbox. Click on the link to verify your account.</div>
