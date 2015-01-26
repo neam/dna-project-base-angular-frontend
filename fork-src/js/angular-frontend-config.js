@@ -419,7 +419,7 @@ angular
             var fb_conversion_data = {'value': (valuemap[newUser.properties.signup_plan] || '0'), 'currency': 'USD'};
             //console.log('fb_conversion_data', fb_conversion_data);
             if (env.FB_CONVERSION_PIXEL_ID !== '') {
-                window._fbq.push(['track', env.FB_CONVERSION_PIXEL_ID, fb_conversion_data]);
+                window._fbq && window._fbq.push(['track', env.FB_CONVERSION_PIXEL_ID, fb_conversion_data]);
             }
 
             // Google AdWords conversion tracking
@@ -432,9 +432,9 @@ angular
                 google_conversion_value: valuemap[newUser.properties.signup_plan] || '0',
                 google_conversion_currency: "USD"
             };
-            //console.log('adwords_conversion_data', adwords_conversion_data);
-            if (env.ADWORDS_CONVERSION_ID !== '' && window.google_trackConversion) {
-                window.google_trackConversion(adwords_conversion_data);
+            console.log('adwords_conversion_data', adwords_conversion_data);
+            if (env.ADWORDS_CONVERSION_ID !== '') {
+                window.google_trackConversion && window.google_trackConversion(adwords_conversion_data);
             }
 
         });
@@ -477,7 +477,7 @@ angular
                 "userapp_email_verified": user.current.email_verified
             };
             //console.log('intercom_data', intercom_data);
-            window.Intercom('boot', intercom_data);
+            window.Intercom && window.Intercom('boot', intercom_data);
 
         }
 
@@ -531,7 +531,7 @@ angular
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 
-            window.Intercom('update');
+            window.Intercom && window.Intercom('update');
 
         });
 
