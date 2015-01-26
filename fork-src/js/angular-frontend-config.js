@@ -401,28 +401,12 @@ angular
 
             //console.log('user.signup', event, newUser);
 
-        });
-
-        $rootScope.$on('user.login', function () {
-
-            //console.log('user.login', user.current);
-
-            // Intercom
-            var intercom_data = {
-                app_id: env.INTERCOM_ID,
-                name: user.current.first_name + " " + user.current.last_name,
-                email: user.current.email,
-                created_at: user.current.created_at,
-                "signup_plan": user.current.properties.signup_plan,
-                "userapp_user_id": user.current.user_id,
-                "userapp_updated_at": user.current.updated_at,
-                "userapp_first_name": user.current.first_name,
-                "userapp_last_name": user.current.last_name,
-                "userapp_last_login_at": user.current.last_login_at,
-                //"userapp_subscription": user.current.subscription,
-                "userapp_email_verified": user.current.email_verified
-            };
-            window.Intercom('boot', intercom_data);
+            // Mixpanel
+            mixpanel.track(
+                "user.signup", {
+                    "signup_plan": newUser.properties.signup_plan
+                }
+            );
 
             // Facebook conversion tracking
             var valuemap = {
@@ -432,10 +416,100 @@ angular
                 'ambitious': '24',
                 'busy': '49',
             }
-            var fb_conversion_data = {'value': valuemap[user.current.properties.signup_plan], 'currency': 'USD'};
-            console.log('fb_conversion_data', fb_conversion_data);
+            var fb_conversion_data = {'value': (valuemap[newUser.properties.signup_plan] || '0'), 'currency': 'USD'};
+            //console.log('fb_conversion_data', fb_conversion_data);
             if (env.FB_CONVERSION_PIXEL_ID !== '') {
-                //window._fbq.push(['track', env.FB_CONVERSION_PIXEL_ID, fb_conversion_data]);
+                window._fbq.push(['track', env.FB_CONVERSION_PIXEL_ID, fb_conversion_data]);
+            }
+
+        });
+
+        var updateTrackersAtLogin = function () {
+
+            // Mixpanel
+            mixpanel.identify(user.current.user_id)
+            mixpanel.track(
+                "user.login"
+            );
+            var last_login_at = new Date(user.current.last_login_at * 1000);
+            var created_at = new Date(user.current.created_at * 1000);
+            mixpanel_data = {
+                "$email": user.current.email,
+                "$first_name": user.current.first_name,
+                "$last_name": user.current.last_name,
+                "$created": created_at,
+                "$last_login": last_login_at,
+                "userapp_user_id": user.current.user_id,
+                "signup_plan": user.current.properties.signup_plan.value,
+            };
+            //console.log('mixpanel_data', mixpanel_data);
+            mixpanel.people.set(mixpanel_data);
+
+            // Intercom
+            var intercom_data = {
+                app_id: env.INTERCOM_ID,
+                name: user.current.first_name + " " + user.current.last_name,
+                email: user.current.email,
+                created_at: user.current.created_at,
+                "signup_plan": user.current.properties.signup_plan.value,
+                "original_mixpanel_distinct_id": user.current.properties.original_mixpanel_distinct_id.value,
+                "userapp_user_id": user.current.user_id,
+                "userapp_updated_at": user.current.updated_at,
+                "userapp_first_name": user.current.first_name,
+                "userapp_last_name": user.current.last_name,
+                "userapp_last_login_at": user.current.last_login_at,
+                //"userapp_subscription": user.current.subscription,
+                "userapp_email_verified": user.current.email_verified
+            };
+            //console.log('intercom_data', intercom_data);
+            window.Intercom('boot', intercom_data);
+
+        }
+
+        $rootScope.$on('user.login', function () {
+
+            //console.log('user.login', user.current);
+
+            // Mixpanel aliasing - once per user
+
+            //console.log('user.current.properties.original_mixpanel_distinct_id', user.current.properties.original_mixpanel_distinct_id.value);
+
+            var current_mixpanel_distinct_id = mixpanel.get_distinct_id();
+
+            //console.log('current_mixpanel_distinct_id', current_mixpanel_distinct_id);
+
+            var stored = user.current.properties.original_mixpanel_distinct_id.value;
+            if (!stored || stored === '') {
+
+                // All subsequent events sent bearing that distinct_id will have their distinct_id values over-written with the original value that had been sent by the user before alias was called
+                // Callback structure from http://stackoverflow.com/questions/18584550/how-can-i-trigger-a-callback-on-mixpanel-alias-success
+                mixpanel.track('$create_alias', {'alias': user.current.user_id}, function () {
+
+                    // Update the current user object
+                    user.current.properties.original_mixpanel_distinct_id.value = current_mixpanel_distinct_id;
+
+                    // Store property so that we don't run alias again for this user
+                    UserApp.User.save({
+                        user_id: "self",
+                        properties: {
+                            original_mixpanel_distinct_id: {
+                                value: current_mixpanel_distinct_id,
+                                override: true
+                            }
+                        }
+                    }, function (error, result) {
+                        // Handle error/result
+                        //console.log('save callback', error, result);
+
+                        // Continue flow
+                        updateTrackersAtLogin();
+                    });
+
+                });
+
+            } else {
+                // Continue flow
+                updateTrackersAtLogin();
             }
 
         });
