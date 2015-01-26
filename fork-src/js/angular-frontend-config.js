@@ -385,7 +385,7 @@ function config($stateProvider, $urlRouterProvider) {
 angular
     .module('inspinia')
     .config(config)
-    .run(function($rootScope, $state, env, user) {
+    .run(function ($rootScope, $state, env, user) {
         $rootScope.$state = $state;
         $rootScope.env = env;
         user.init({ appId: env.USERAPP_ID });
