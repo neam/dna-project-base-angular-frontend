@@ -64,11 +64,13 @@ module.exports = {
   },
   vendor: {
     src: [
+      /*
       '<%= paths.vendor %>/jquery/dist/jquery.js',
       '<%= paths.vendor %>/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js',
       '<%= paths.vendor %>/lodash/dist/lodash.js',
       '<%= paths.tmpCompile %>/vendor/js/angular.js',
-      '<%= paths.tmpCompile %>/vendor/js/**/*.js'
+      '<%= paths.tmpCompile %>/vendor/js/** /*.js'
+      */
     ],
     dest: '<%= paths.tmpDist %>/assets/js/vendor.js'
   }
