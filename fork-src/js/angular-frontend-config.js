@@ -422,6 +422,21 @@ angular
                 window._fbq.push(['track', env.FB_CONVERSION_PIXEL_ID, fb_conversion_data]);
             }
 
+            // Google AdWords conversion tracking
+            var adwords_conversion_data = {
+                google_conversion_id: env.ADWORDS_CONVERSION_ID,
+                google_conversion_language: "en",
+                google_conversion_format: "3",
+                google_conversion_color: "ffffff",
+                google_conversion_label: env.ADWORDS_CONVERSION_LABEL,
+                google_conversion_value: valuemap[newUser.properties.signup_plan] || '0',
+                google_conversion_currency: "USD"
+            };
+            //console.log('adwords_conversion_data', adwords_conversion_data);
+            if (env.ADWORDS_CONVERSION_ID !== '' && window.google_trackConversion) {
+                window.google_trackConversion(adwords_conversion_data);
+            }
+
         });
 
         var updateTrackersAtLogin = function () {
