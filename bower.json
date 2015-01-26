@@ -27,6 +27,7 @@
 		"mediaelement": "~2.16.2",
 		"angular-ui-router": "~0.2.13",
 		"device.js": "git@github.com:matthewhudson/device.js.git",
+		"angulartics": "~0.17.2",
 		"angular-bootstrap": "~0.12.0"
 	},
 	"resolutions": {

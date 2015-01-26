@@ -64,6 +64,10 @@ module.exports = {
   },
   vendor: {
     src: [
+      '<%= paths.vendor %>/angulartics/dist/angulartics.min.js',
+      '<%= paths.vendor %>/angulartics/dist/angulartics-scroll.min.js',
+      '<%= paths.vendor %>/angulartics/dist/angulartics-ga.min.js',
+      '<%= paths.vendor %>/angulartics/dist/angulartics-mixpanel.min.js'
       /*
       '<%= paths.vendor %>/jquery/dist/jquery.js',
       '<%= paths.vendor %>/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js',
