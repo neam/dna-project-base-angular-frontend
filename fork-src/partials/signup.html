@@ -7,21 +7,22 @@
             </div>
             <h3>Sign up - {{env.SITENAME}}<span ng-show="$state.current.data.plan !== 'default'"> - {{$state.current.data.plan | capitalize}}</span></h3>
             <!--<p>Create account to see it in action.</p>-->
-            <form class="m-t" role="form" ua-signup>
+            <form novalidate class="m-t" role="form" name="signupForm"
+                  ng-controller="SignupController as signupCtrl" ng-submit="signupForm.$valid" ua-signup>
                 <div class="form-group">
-                    <input name="first_name" type="text" class="form-control" placeholder="First Name" required="">
+                    <input name="first_name" ng-model="signupCtrl.user.first_name" type="text" class="form-control" placeholder="First Name">
                 </div>
                 <div class="form-group">
-                    <input name="last_name" type="text" class="form-control" placeholder="Last Name" required="">
+                    <input name="last_name" ng-model="signupCtrl.user.last_name" type="text" class="form-control" placeholder="Last Name">
                 </div>
                 <div class="form-group">
-                    <input name="login" type="email" class="form-control" placeholder="Email" required="" ua-is-email>
+                    <input name="login" ng-model="signupCtrl.user.login" type="email" class="form-control" placeholder="Email" required="" ua-is-email>
                 </div>
                 <div class="form-group">
-                    <input name="password" type="password" class="form-control" placeholder="Password" required="">
+                    <input name="password" ng-model="signupCtrl.user.password" type="password" class="form-control" placeholder="Password" required="" ng-minlength="5">
                 </div>
 
-                <input type="hidden" name="properties.signup_plan" placeholder="Plan" value="{{$state.current.data.plan}}">
+                <input type="hidden" ng-model="signupCtrl.user.properties.signup_plan" name="properties.signup_plan" placeholder="Plan" value="{{$state.current.data.plan}}">
 
                 <!--
                 TODO: set to non-required if terms url is empty
@@ -30,7 +31,7 @@
                 </div>
                 -->
 
-                <button type="submit" class="btn btn-primary block full-width m-b" ng-disabled="loading">
+                <button type="submit" class="btn btn-primary block full-width m-b" ng-disabled="loading || !signupForm.$valid">
                     <span ng-show="!loading">Sign Up</span>
                     <img ng-show="loading" src="img/ajax-loader-blue.gif">
                 </button>
