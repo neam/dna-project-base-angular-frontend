@@ -448,7 +448,7 @@ angular
             // Intercom
             var intercom_data = {
                 app_id: env.INTERCOM_ID,
-                name: user.current.first_name + " " + user.current.last_name,
+                name: user.current.first_name + (user.current.last_name ? ' ' + user.current.last_name : ''),
                 email: user.current.email,
                 created_at: user.current.created_at,
                 "signup_plan": user.current.properties.signup_plan.value,
