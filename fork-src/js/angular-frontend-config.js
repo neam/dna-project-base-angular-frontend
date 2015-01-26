@@ -432,7 +432,7 @@ angular
                 google_conversion_value: valuemap[newUser.properties.signup_plan] || '0',
                 google_conversion_currency: "USD"
             };
-            console.log('adwords_conversion_data', adwords_conversion_data);
+            //console.log('adwords_conversion_data', adwords_conversion_data);
             if (env.ADWORDS_CONVERSION_ID !== '') {
                 window.google_trackConversion && window.google_trackConversion(adwords_conversion_data);
             }
