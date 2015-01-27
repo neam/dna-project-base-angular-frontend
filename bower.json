@@ -28,7 +28,8 @@
 		"angular-ui-router": "~0.2.13",
 		"device.js": "git@github.com:matthewhudson/device.js.git",
 		"angulartics": "~0.17.2",
-		"angular-bootstrap": "~0.12.0"
+		"angular-bootstrap": "~0.12.0",
+		"angular-google-chart": "https://github.com/bouil/angular-google-chart.git#gh-pages"
 	},
 	"resolutions": {
 		"angular": "~1.2.24"

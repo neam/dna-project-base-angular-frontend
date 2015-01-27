@@ -20,7 +20,7 @@
         'datePicker',                   // Datapicker
         'datatables',                   // Dynamic tables
         'localytics.directives',        // Chosen select
-        'angles',                       // Charts js
+        //'angles',                       // Charts js - Conflicts with angular-google-chart
         //'ui.map',                       // Google maps
         'ngGrid',                       // ngGrid
         'ui.codemirror',                // Code editor

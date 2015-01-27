@@ -64,6 +64,7 @@ module.exports = {
   },
   vendor: {
     src: [
+      '<%= paths.vendor %>/angular-google-chart/ng-google-chart.js',
       '<%= paths.vendor %>/angulartics/dist/angulartics.min.js',
       '<%= paths.vendor %>/angulartics/dist/angulartics-scroll.min.js',
       '<%= paths.vendor %>/angulartics/dist/angulartics-ga.min.js',
