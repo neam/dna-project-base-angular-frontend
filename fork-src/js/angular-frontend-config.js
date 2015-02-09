@@ -380,6 +380,13 @@ function config($stateProvider, $urlRouterProvider) {
             data: { set_password: true, pageTitle: 'set-password' }
         })
 
+        // DC
+        .state('dc_nasdaq', {
+            url: "/dc_nasdaq",
+            templateUrl: "views/dc_nasdaq.html",
+            data: { pageTitle: 'DC Nasdaq Example' }
+        })
+
     ;
 }
 angular

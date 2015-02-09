@@ -9,6 +9,8 @@
         'angulartics.google.analytics',
         'angulartics.mixpanel',
         'googlechart',                  // angular-google-chart
+        'angularDc',
+        'angularJade',
         'angular-frontend-filters'      // angular-frontend-filters.js
     ])
 })();
