@@ -4,6 +4,7 @@ module.exports = function(grunt) {
     'clean:dist',
     'sass:development',
     'concat:development',
+    'concat:dna',
     'ngAnnotate:app',
     'bower:main',
     'concat:vendor',
