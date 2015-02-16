@@ -30,7 +30,7 @@
 		"angulartics": "~0.17.2",
 		"angular-bootstrap": "~0.12.0",
 		"angular-google-chart": "https://github.com/bouil/angular-google-chart.git#gh-pages",
-		"angular-dc": "~0.0.7"
+		"angular-dc": "git@github.com:motin/angular-dc.git#custom-chart-element"
 	},
 	"resolutions": {
 		"angular": "~1.2.24"

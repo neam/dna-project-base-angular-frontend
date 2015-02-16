@@ -80,7 +80,7 @@ module.exports = {
 
       '<%= paths.tmpCompile %>/vendor/js/angular.js',
       '<%= paths.js %>/angular/angular-jade-min.js',
-      '<%= paths.vendor %>/angular-dc/dist/angular-dc.min.js',
+      '<%= paths.vendor %>/angular-dc/src/angular-dc.js',
 
       '<%= paths.vendor %>/angular-google-chart/ng-google-chart.js',
       '<%= paths.vendor %>/angulartics/dist/angulartics.min.js',
