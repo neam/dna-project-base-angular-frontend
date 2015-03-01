@@ -2,6 +2,9 @@
 
 #set -x
 
+# Increase ulimit
+ulimit -n 10000
+
 # Local configuration
 source .env
 
