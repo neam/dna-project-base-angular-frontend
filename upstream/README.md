@@ -33,7 +33,9 @@ The DNA files are those that make the project different from others.
 
 ## Run in development
 
-    grunt
+    grunt live # to launch a browser sync server on your source files
+    grunt server # to launch a server on your optimized application
+    grunt build # to build an optimized version of your application in /dist
 
 Now launch your web browser and navigate to [http://localhost:1335/]().
 
