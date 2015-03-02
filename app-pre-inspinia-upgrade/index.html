@@ -4,7 +4,6 @@
 <head>
 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Page title set in pageTitle directive -->
@@ -30,7 +29,7 @@
     <!-- Font awesome -->
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <!-- Bootstrap and Fonts -->
+    <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Full Calendar -->
@@ -83,7 +82,7 @@
 
     <!-- Main Inspinia CSS files -->
     <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link id="loadBefore" href="css/style.css" rel="stylesheet">
 
     <!-- dc -->
     <link rel="stylesheet" type="text/css" href="css/dc.css"/>
@@ -115,62 +114,9 @@
 <!-- Main controller with serveral data used in Inspinia theme on diferent view -->
 <body ng-controller="MainCtrl as main">
 
-<!-- Wrapper-->
-<div id="wrapper">
+<!-- Main view  -->
+<div ui-view></div>
 
-    <!-- Navigation -->
-    <div ng-include="'views/common/navigation.html'" ng-show="user.authenticated"></div>
-
-    <!-- Page wraper -->
-    <!-- ng-class with current state name give you the ability to extended customization your view -->
-    <div id="page-wrapper" class="gray-bg {{$state.current.name}}" ng-class="{'show-menu': user.authenticated}">
-
-        <!-- Page wrapper -->
-        <div ng-include="'views/common/topnavbar.html'" ng-show="user.authenticated"></div>
-
-        <!-- Main view  -->
-        <div ui-view></div>
-
-        <!-- Footer -->
-        <div ng-include="'views/common/footer.html'"></div>
-
-    </div>
-    <!-- End page wrapper-->
-
-</div>
-<!-- End wrapper-->
-
-  <!-- Userapp -->
-
-  <!--
-  <div class="container">
-    <div class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle Navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Angular &amp; UserApp</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav" ng-show="user.authenticated">
-            <li><a href="#/articles" menu-item>Articles</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li ng-show="!user.authenticated"><a href="#/login" menu-item>Log In</a></li>
-            <li ng-show="!user.authenticated"><a href="#/signup" menu-item>Sign Up</a></li>
-            <li ng-show="user.authenticated"><a href="" ua-logout>Log Out</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div ng-view></div>
-  </div>
-  -->
 
 <script type="text/javascript">
     mixpanel.track_links("a", "click link", {
@@ -281,9 +227,11 @@
 <!-- Bower vendors - needs to be included between non-angular and angular dependencies -->
 <script src="assets/js/vendor.js?<%- BUILD_HASH %>"></script>
 
-<!-- Angular scripts-->
-<script src="js/ui-router/angular-ui-router.js"></script>
-<script src="js/bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>
+<!-- Main Angular scripts-->
+<script src="js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
+<script src="js/angular-translate/angular-translate.min.js"></script>
+<script src="js/ui-router/angular-ui-router.min.js"></script>
+<script src="js/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
 
 <!-- Angular Dependiences -->
 <script src="js/plugins/peity/angular-peity.js"></script>
@@ -316,7 +264,6 @@
 -->
 <!--
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70"></script>
-<script src="js/plugins/uimaps/ui-map.js"></script>
 -->
 
 <!-- Angular App Script -->
@@ -326,6 +273,7 @@
 <script src="js/angular-frontend.js"></script>
 <script src="js/angular-frontend-config.js"></script>
 <script src="js/angular-frontend-filters.js"></script>
+<script src="js/translations.js"></script>
 <script src="js/env.js"></script>
 
 <!--

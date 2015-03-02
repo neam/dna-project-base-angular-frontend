@@ -12,7 +12,7 @@
         module.exports = factory(require('angular'));
     }
     else if(typeof define === 'function' && define.amd) {
-        define(['../../../.'], factory);
+        define(['angular'], factory);
     }
     else {
         factory(root.angular);

@@ -656,4 +656,72 @@
     </div>
 </div>
 </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title  back-change">
+                <h5>ngImgCrop <small>https://github.com/alexk111/ngImgCrop</small></h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content" ng-controller="imageCrop">
+                <p>
+                    Simple Image Crop directive for AngularJS. Enables to crop a circle or a square out of an image.
+                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="m-b-md"><input type="file" id="fileInput" /></div>
+                        <div class="cropArea">
+                            <img-crop area-type="square" image="myImage" result-image="myCroppedImage"></img-crop>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Preview image</h4>
+                        <div class="m-b-md"><img ng-src="{{myCroppedImage}}" /></div>
+                        <h4>Avalible options</h4>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td><code>area-type="{circle|square}"</code></td>
+                                <td><code>change-on-fly="{boolean}"</code></td>
+
+                            </tr>
+                            <tr>
+                                <td><code>area-min-size="{number}"</code></td>
+                                <td><code>result-image-size="{number}"</code></td>
+
+                            </tr>
+                            <tr>
+                                <td><code>result-image-format="{string}"</code></td>
+                                <td><code>result-image-quality="{number}"</code></td>
+
+                            </tr>
+                            <tr>
+                                <td><code>on-change="{expression}"</code></td>
+                                <td><code>on-load-begin="{expression"</code></td>
+
+                            </tr>
+                            <tr>
+                                <td><code>on-load-done="{expression"</code></td>
+                                <td><code>on-load-error="{expression"</code></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+</div>
+
+<!-- Local style for demo purpose only -->
+<!-- You have to set your width/height it has to be in px -->
+<style>
+    .cropArea {
+        overflow: hidden;
+        width:400px;
+        height:300px;
+    }
+</style>

@@ -1,6 +1,6 @@
 /**
  * INSPINIA - Responsive Admin Theme
- * Copyright 2014 Webapplayers.com
+ * Copyright 2015 Webapplayers.com
  *
  * Main directives.js file
  * Define directives for used plugin
@@ -12,16 +12,12 @@
  *  - iboxTools
  *  - minimalizaSidebar
  *  - vectorMap
- *  - morrisArea
- *  - morrisBar
- *  - morrisLine
- *  - morrisDonut
  *  - sparkline
  *  - icheck
  *  - ionRangeSlider
  *  - dropZone
- *  - fancyBox
  *  - responsiveVideo
+
  *
  */
 
@@ -34,9 +30,9 @@ function pageTitle($rootScope, $timeout) {
         link: function(scope, element) {
             var listener = function(event, toState, toParams, fromState, fromParams) {
                 // Default title - load on Dashboard 1
-                var title = $rootScope.env.SITENAME + ' | ' + $rootScope.env.DEFAULT_PAGE_TITLE;
+                var title = 'INSPINIA | Responsive Admin Theme';
                 // Create your own title pattern
-                if (toState.data && toState.data.pageTitle) title = $rootScope.env.SITENAME + ' | ' + toState.data.pageTitle;
+                if (toState.data && toState.data.pageTitle) title = 'INSPINIA | ' + toState.data.pageTitle;
                 $timeout(function() {
                     element.text(title);
                 });
@@ -49,12 +45,15 @@ function pageTitle($rootScope, $timeout) {
 /**
  * sideNavigation - Directive for run metsiMenu on sidebar navigation
  */
-function sideNavigation() {
+function sideNavigation($timeout) {
     return {
         restrict: 'A',
         link: function(scope, element) {
             // Call the metsiMenu plugin and plug it to sidebar navigation
-            element.metisMenu();
+            $timeout(function(){
+                element.metisMenu();
+
+            });
         }
     };
 };
@@ -187,78 +186,6 @@ function vectorMap() {
 
 
 /**
- * morrisArea - Directive for Morris chart - type Area
- */
-function morrisArea() {
-    return {
-        restrict: 'A',
-        scope: {
-            chartOptions: '='
-        },
-        link: function(scope, element, attrs) {
-            var chartDetail = scope.chartOptions;
-            chartDetail.element = attrs.id;
-            var chart = new Morris.Area(chartDetail);
-            return chart;
-        }
-    }
-}
-
-/**
- * morrisBar - Directive for Morris chart - type Bar
- */
-function morrisBar() {
-    return {
-        restrict: 'A',
-        scope: {
-            chartOptions: '='
-        },
-        link: function(scope, element, attrs) {
-            var chartDetail = scope.chartOptions;
-            chartDetail.element = attrs.id;
-            var chart = new Morris.Bar(chartDetail);
-            return chart;
-        }
-    }
-}
-
-/**
- * morrisLine - Directive for Morris chart - type Line
- */
-function morrisLine() {
-    return {
-        restrict: 'A',
-        scope: {
-            chartOptions: '='
-        },
-        link: function(scope, element, attrs) {
-            var chartDetail = scope.chartOptions;
-            chartDetail.element = attrs.id;
-            var chart = new Morris.Line(chartDetail);
-            return chart;
-        }
-    }
-}
-
-/**
- * morrisDonut - Directive for Morris chart - type Donut
- */
-function morrisDonut() {
-    return {
-        restrict: 'A',
-        scope: {
-            chartOptions: '='
-        },
-        link: function(scope, element, attrs) {
-            var chartDetail = scope.chartOptions;
-            chartDetail.element = attrs.id;
-            var chart = new Morris.Donut(chartDetail);
-            return chart;
-        }
-    }
-}
-
-/**
  * sparkline - Directive for Sparkline chart
  */
 function sparkline() {
@@ -363,21 +290,6 @@ function dropZone() {
 }
 
 /**
- * fancyBox - Directive for Fancy Box plugin used in simple gallery view
- */
-function fancyBox() {
-    return {
-        restrict: 'A',
-        link: function(scope, element) {
-            element.fancybox({
-                openEffect	: 'none',
-                closeEffect	: 'none'
-            });
-        }
-    }
-}
-
-/**
  *
  * Pass all functions into module
  */
@@ -388,13 +300,8 @@ angular
     .directive('iboxTools', iboxTools)
     .directive('minimalizaSidebar', minimalizaSidebar)
     .directive('vectorMap', vectorMap)
-    .directive('morrisArea', morrisArea)
-    .directive('morrisBar', morrisBar)
-    .directive('morrisLine', morrisLine)
-    .directive('morrisDonut', morrisDonut)
     .directive('sparkline', sparkline)
     .directive('icheck', icheck)
     .directive('ionRangeSlider', ionRangeSlider)
     .directive('dropZone', dropZone)
-    .directive('fancyBox', fancyBox)
     .directive('responsiveVideo', responsiveVideo)

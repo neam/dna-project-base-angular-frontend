@@ -1,3 +1,16 @@
+<!-- Wrapper-->
+<div id="wrapper">
+
+<!-- Navigation -->
+<div ng-include="'views/common/navigation.html'"></div>
+
+<!-- Page wraper -->
+<!-- ng-class with current state name give you the ability to extended customization your view -->
+<div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+
+<!-- Page wrapper -->
+<div ng-include="'views/common/topnavbar.html'"></div>
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>Grid Options - based on Bootstrap Grid system overview</h2>
@@ -348,3 +361,12 @@
     </div>
 </div>
 </div>
+
+<!-- Footer -->
+<div ng-include="'views/common/footer.html'"></div>
+
+</div>
+<!-- End page wrapper-->
+
+</div>
+<!-- End wrapper-->
