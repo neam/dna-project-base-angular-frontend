@@ -15,7 +15,7 @@ export USE_USERAPP_MOCK_API="false"
 
 # General
 APPNAME=$1
-BUILD_CMD="grunt build-production --mixpanelId=$MIXPANEL_PROJECT_TOKEN"
+BUILD_CMD="grunt build"
 API_BASE_URL="http://$APPNAME.$TLD/api/v1"
 
 if [[ "$APPNAME" == "master" ]]; then
@@ -28,11 +28,7 @@ fi
 # =================================================
 # BUILD APPLICATION
 
-if [ ! -z $API_BASE_URL_OVERRIDE ]; then
-    $BUILD_CMD --api=$API_BASE_URL_OVERRIDE --assetUrl=$ASSET_URL
-else
-    $BUILD_CMD --assetUrl=$ASSET_URL
-fi
+$BUILD_CMD
 
 #karma start || { echo "Deployment failed: all tests must pass."; exit 1; }
 
