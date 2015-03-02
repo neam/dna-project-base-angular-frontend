@@ -49,8 +49,8 @@ acl_public = True" > /tmp/.$S3_BUCKET-s3.s3cfg
 export PAGES_S3_TARGET=$DEPLOYMENT_DIR
 
 # Run erb to generate the published config file
-erb dist/js/env.js.erb > dist/js/env.js
-rm dist/js/env.js.erb
+erb dist/scripts/env.js.erb > dist/scripts/env.js
+rm dist/scripts/env.js.erb
 
 # Upload to S3
 s3cmd -v --config=/tmp/.$S3_BUCKET-s3.s3cfg --acl-public --recursive sync dist/ "$PAGES_S3_TARGET/"
