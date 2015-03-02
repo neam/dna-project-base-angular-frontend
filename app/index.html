@@ -6,7 +6,7 @@
 -->
 
 <!DOCTYPE html>
-<html ng-app="inspinia">
+<html ng-app="app">
 
 <head>
 
@@ -15,6 +15,13 @@
 
     <!-- Page title set in pageTitle directive -->
     <title page-title></title>
+
+    <!-- start Mixpanel --><script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+    for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+    mixpanel.init("<%- MIXPANEL_PROJECT_TOKEN %>");</script><!-- end Mixpanel -->
+
+    <!-- Userapp boilerplate css -->
+    <link rel="stylesheet" href="styles/userapp.css"/>
 
     <!-- Google Open Sans -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
@@ -29,6 +36,10 @@
 
     <!-- Main Inspinia CSS files -->
     <link href="styles/animate.css" rel="stylesheet">
+
+    <!-- dc -->
+    <link rel="stylesheet" type="text/css" href="styles/dc.css"/>
+
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -36,7 +47,26 @@
     <link href="styles/style.css" rel="stylesheet">
     <!-- endbuild -->
 
+    <!-- Facebook Conversion Code -->
+    <script>(function() {
+      var _fbq = window._fbq || (window._fbq = []);
+      if (!_fbq.loaded) {
+        var fbds = document.createElement('script');
+        fbds.async = true;
+        fbds.src = '//connect.facebook.net/en_US/fbds.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(fbds, s);
+        _fbq.loaded = true;
+      }
+    })();
+    window._fbq = window._fbq || [];
+    </script>
 
+    <!-- Google AdWords Conversion Code -->
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" charset="utf-8">
+
+    <!-- Intercom.io -->
+    <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/ufyaww65';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
 
 </head>
 
@@ -47,6 +77,18 @@
 <!-- Main view  -->
 <div ui-view></div>
 
+<!-- Mixpanel basic link and page view tracking -->
+<script type="text/javascript">
+    mixpanel.track_links("a", "click link", {
+        "app": "manager",
+        "referrer": document.referrer
+    });
+    mixpanel.track('page viewed', {
+        "app": "manager",
+        'page name' : document.title,
+        'url' : window.location.pathname
+    });
+</script>
 
 <!-- build:js(.) scripts/vendor.js -->
 
@@ -64,27 +106,61 @@
 <!-- Peace JS -->
 <script src="bower_components/PACE/pace.min.js"></script>
 
-<!-- Angular scripts-->
+<!-- More vendor scripts -->
+<script src="bower_components/lodash/dist/lodash.min.js"></script>
+<script src="bower_components/d3/d3.min.js"></script>
+<script src="scripts/inspinia/plugins/rickshaw/rickshaw.min.js"></script>
+<script src="bower_components/crossfilter/crossfilter.min.js"></script>
+<script src="bower_components/dcjs/dc.min.js"></script>
+
+<!-- Angular and angular modules -->
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-
-<!-- Angular Dependiences -->
-<!--                      -->
-<!--                      -->
-<!--                      -->
+<script src="bower_components/angular-dc/src/angular-dc.js"></script>
+<script src="scripts/dc/angular-jade-min.js"></script>
+<script src="scripts/inspinia/plugins/rickshaw/angular-rickshaw.js"></script>
+<script src="bower_components/angular-google-chart/ng-google-chart.js"></script>
+<script src="bower_components/angulartics/dist/angulartics.min.js"></script>
+<script src="bower_components/angulartics/dist/angulartics-scroll.min.js"></script>
+<script src="bower_components/angulartics/dist/angulartics-ga.min.js"></script>
+<script src="bower_components/angulartics/dist/angulartics-mixpanel.min.js"></script>
 
 <!-- endbuild -->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <!-- Custom and plugin javascript -->
-<script src="scripts/inspinia.js"></script>
+<script src="scripts/inspinia/inspinia.js"></script>
 
-<!-- Anglar App Script -->
-<script src="scripts/app.js"></script>
-<script src="scripts/config.js"></script>
-<script src="scripts/directives.js"></script>
-<script src="scripts/controllers.js"></script>
+<!-- Angular App Script -->
+<script src="scripts/inspinia/module.js"></script>
+<script src="scripts/inspinia/directives.js"></script>
+<script src="scripts/inspinia/controllers.js"></script>
+<script src="scripts/angular-frontend.js"></script>
+<script src="scripts/angular-frontend-config.js"></script>
+<script src="scripts/angular-frontend-filters.js"></script>
+<script src="scripts/translations.js"></script>
+<script src="scripts/env.js"></script>
+
+<!--
+<script src="scripts/services.js"></script>
+-->
+
+<!-- DNA Javascript -->
+<script src="dna/dna.js"></script>
+<script src="dna/dna-vendor.js"></script>
+
+<!-- dc -->
+<script type="text/javascript" src="scripts/dc/colorbrewer.js"></script>
+<script type="text/javascript" src="scripts/dc/dc-nasdaq-controller.js"></script>
+
+<!--
+<script src="https://app.userapp.io/js/userapp.client.js"></script>
+<script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
+-->
+<script src="scripts/userapp/userapp.client.js"></script>
+<script src="scripts/userapp/angularjs.userapp.js"></script>
+
 <!-- endbuild -->
 
 </body>
