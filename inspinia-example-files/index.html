@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title set in pageTitle directive -->
+    <title page-title></title>
+
+    <!-- start Mixpanel --><script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+    for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+    mixpanel.init("<%- MIXPANEL_PROJECT_TOKEN %>");</script><!-- end Mixpanel -->
+
+    <!-- Userapp boilerplate css -->
+    <link rel="stylesheet" href="css/userapp.css"/>
+
+    <!-- Summernote -->
+    <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+
+    <!-- Angular notify -->
+    <link href="css/plugins/angular-notify/angular-notify.min.css" rel="stylesheet">
+
+    <!-- Colorpicker -->
+    <link href="css/plugins/colorpicker/colorpicker.css" rel="stylesheet">
+
+    <!-- Font awesome -->
+    <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Full Calendar -->
+    <link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+
+    <!-- Morris -->
+    <link href="css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+    <!-- Style for wizard - based on Steps plugin-->
+    <link href="css/plugins/steps/jquery.steps.css" rel="stylesheet">
+
+    <!-- FancyBox -->
+    <link href="js/plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- iCheck -->
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+
+    <!-- Chosen Plugin -->
+    <link href="css/plugins/chosen/chosen.css" rel="stylesheet">
+
+    <!-- Dropzone style -->
+    <link href="css/plugins/dropzone/basic.css" rel="stylesheet">
+    <link href="css/plugins/dropzone/dropzone.css" rel="stylesheet">
+
+    <!-- Switchery iOS style -->
+    <link href="css/plugins/switchery/switchery.css" rel="stylesheet">
+
+    <!-- noUiSlider for Range Slider-->
+    <link href="css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
+
+    <!-- DataPicker -->
+    <link href="css/plugins/datapicker/angular-datapicker.css" rel="stylesheet">
+
+    <!-- Ion Range Slider -->
+    <link href="css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+    <link href="css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+
+    <!-- Ng-Grid -->
+    <link href="js/plugins/nggrid/ng-grid.css" rel="stylesheet">
+
+    <!-- Code Mirror -->
+    <link href="css/plugins/codemirror/codemirror.css" rel="stylesheet">
+    <link href="css/plugins/codemirror/ambiance.css" rel="stylesheet">
+
+    <!-- ui Tree -->
+    <link href="css/plugins/uiTree/angular-ui-tree.min.css" rel="stylesheet">
+
+    <!-- Main Inspinia CSS files -->
+    <link href="styles/animate.css" rel="stylesheet">
+    <link id="loadBefore" href="css/style.css" rel="stylesheet">
+
+    <!-- dc -->
+    <link rel="stylesheet" type="text/css" href="css/dc.css"/>
+
+    <!-- Facebook Conversion Code -->
+    <script>(function() {
+      var _fbq = window._fbq || (window._fbq = []);
+      if (!_fbq.loaded) {
+        var fbds = document.createElement('script');
+        fbds.async = true;
+        fbds.src = '//connect.facebook.net/en_US/fbds.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(fbds, s);
+        _fbq.loaded = true;
+      }
+    })();
+    window._fbq = window._fbq || [];
+    </script>
+
+    <!-- Google AdWords Conversion Code -->
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" charset="utf-8">
+
+    <!-- Intercom.io -->
+    <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/ufyaww65';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+
+</head>
+
+<!-- ControllerAs syntax -->
+<!-- Main controller with serveral data used in Inspinia theme on diferent view -->
+<body ng-controller="MainCtrl as main">
+
+<!-- Main view  -->
+<div ui-view></div>
+
+<!-- Mixpanel basic link and page view tracking -->
+<script type="text/javascript">
+    mixpanel.track_links("a", "click link", {
+        "app": "manager",
+        "referrer": document.referrer
+    });
+    mixpanel.track('page viewed', {
+        "app": "manager",
+        'page name' : document.title,
+        'url' : window.location.pathname
+    });
+</script>
+
+<!-- jQuery and Bootstrap -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- MetsiMenu -->
+<script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+<!-- SlimScroll -->
+<script src="bower_components/slimScroll/jquery.slimscroll.min.js"></script>
+
+<!-- Flot -->
+<script src="js/plugins/flot/jquery.flot.js"></script>
+<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="js/plugins/flot/jquery.flot.spline.js"></script>
+<script src="js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="js/plugins/flot/curvedLines.js"></script>
+
+<!-- Peity -->
+<script src="js/plugins/peity/jquery.peity.min.js"></script>
+
+<!-- Morris -->
+<script src="js/plugins/morris/raphael-2.1.0.min.js"></script>
+<script src="js/plugins/morris/morris.js"></script>
+
+<!-- iCheck -->
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+    });
+</script>
+
+<!-- Chosen -->
+<script src="js/plugins/chosen/chosen.jquery.js"></script>
+
+<!-- Peace JS -->
+<script src="bower_components/PACE/pace.min.js"></script>
+
+<!-- Fancy box -->
+<script src="js/plugins/fancybox/jquery.fancybox.js"></script>
+
+<!-- Ion Range Slider-->
+<script src="js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+<!-- NouSlider -->
+<script src="js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+<!-- Jvectormap -->
+<script src="js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+<!-- Input Mask-->
+<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+<!-- Switchery -->
+<script src="js/plugins/switchery/switchery.js"></script>
+
+<!-- Data Tables -->
+<script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+<!-- EasyPIE -->
+<script src="js/plugins/easypiechart/easypiechart.js"></script>
+
+<!-- Sparkline -->
+<script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Dropzone -->
+<script src="js/plugins/dropzone/dropzone.js"></script>
+
+<!-- Cahrt JS -->
+<script src="js/plugins/chartJs/Chart.min.js"></script>
+
+<!-- Knob -->
+<script src="js/plugins/jsKnob/jquery.knob.js"></script>
+
+<!-- SUMMERNOTE -->
+<script src="js/plugins/summernote/summernote.min.js"></script>
+
+<!-- Full Calendar -->
+<script src="js/plugins/fullcalendar/fullcalendar.min.js"></script>
+
+<!-- Code Mirror -->
+<script src="js/plugins/codemirror/codemirror.js"></script>
+<script src="js/plugins/codemirror/mode/javascript/javascript.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="scripts/inspinia/inspinia.js"></script>
+
+<!-- Bower vendors - needs to be included between non-angular and angular dependencies -->
+<script src="assets/js/vendor.js?<%- BUILD_HASH %>"></script>
+
+<!-- Main Angular scripts-->
+<script src="js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
+<script src="js/angular-translate/angular-translate.min.js"></script>
+<script src="js/ui-router/angular-ui-router.min.js"></script>
+<script src="js/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+
+<!-- Angular Dependiences -->
+<script src="js/plugins/peity/angular-peity.js"></script>
+<script src="js/plugins/easypiechart/angular.easypiechart.js"></script>
+<script src="js/plugins/flot/angular-flot.js"></script>
+<script src="js/plugins/rickshaw/angular-rickshaw.js"></script>
+<script src="js/plugins/summernote/angular-summernote.min.js"></script>
+<script src="js/bootstrap/angular-bootstrap-checkbox.js"></script>
+<script src="js/plugins/jsKnob/angular-knob.js"></script>
+<script src="js/plugins/switchery/ng-switchery.js"></script>
+<script src="js/plugins/nouslider/angular-nouislider.js"></script>
+<script src="js/plugins/datapicker/datePicker.js"></script>
+<script src="js/plugins/chosen/chosen.js"></script>
+<script src="js/plugins/dataTables/angular-datatables.min.js"></script>
+<script src="js/plugins/fullcalendar/gcal.js"></script>
+<script src="js/plugins/fullcalendar/calendar.js"></script>
+<!--<script src="js/plugins/chartJs/angles.js"></script> Conflicts with angular-google-chart -->
+<script src="js/plugins/uievents/event.js"></script>
+<script src="js/plugins/nggrid/ng-grid-2.0.3.min.js"></script>
+<script src="js/plugins/ui-codemirror/ui-codemirror.min.js"></script>
+<script src="js/plugins/uiTree/angular-ui-tree.min.js"></script>
+<script src="js/plugins/angular-notify/angular-notify.min.js"></script>
+<script src="js/plugins/colorpicker/bootstrap-colorpicker-module.js"></script>
+
+<!--
+ You need to include this script on any page that has a Google Map.
+ When using Google Maps on your own site you MUST signup for your own API key at:
+ https://developers.google.com/maps/documentation/javascript/tutorial#api_key
+ After your sign up replace the key in the URL below..
+-->
+<!--
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70"></script>
+-->
+
+<!-- Angular App Script -->
+<script src="scripts/inspinia/module.js"></script>
+<script src="scripts/inspinia/directives.js"></script>
+<script src="scripts/inspinia/controllers.js"></script>
+<script src="scripts/angular-frontend.js"></script>
+<script src="scripts/angular-frontend-config.js"></script>
+<script src="scripts/angular-frontend-filters.js"></script>
+<script src="scripts/translations.js"></script>
+<script src="scripts/env.js"></script>
+
+<!--
+<script src="scripts/services.js"></script>
+-->
+
+<!-- DNA Javascript -->
+<script src="assets/js/dna.js"></script>
+<script src="assets/js/dna-vendor.js"></script>
+
+<!-- dc -->
+<script type="text/javascript" src="scripts/dc/colorbrewer.js"></script>
+<script type="text/javascript" src="scripts/dc/dc-nasdaq-controller.js"></script>
+
+<!--
+<script src="https://app.userapp.io/js/userapp.client.js"></script>
+<script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
+-->
+<script src="scripts/userapp/userapp.client.js"></script>
+<script src="scripts/userapp/angularjs.userapp.js"></script>
+
+</body>
+</html>
