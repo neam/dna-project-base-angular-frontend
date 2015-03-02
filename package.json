@@ -1,7 +1,7 @@
 {
-  "name": "INSPINIA",
-  "version": "1.8.0",
-  "description": "INSPINIA - Responsive Admin Theme",
+  "name": "angular-frontend",
+  "version": "1.0.0",
+  "description": "Angular frontend base",
   "dependencies": {
     "grunt": "^0.4.5"
   },
