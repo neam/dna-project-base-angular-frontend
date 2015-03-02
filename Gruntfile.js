@@ -10,14 +10,17 @@ module.exports = function (grunt) {
     // Configurable paths for the app
     var appConfig = {
         app: 'app',
-        dist: 'dist'
+        dist: 'dist',
+        dna: '../angular-frontend-dna/app',
+        tmp: '.tmp',
+        tmpCompile: '.tmp/compile',
     };
 
     // Grunt configuration
     grunt.initConfig({
 
         // Project settings
-        inspinia: appConfig,
+        paths: appConfig,
 
         // The grunt server settings
         connect: {
@@ -36,7 +39,8 @@ module.exports = function (grunt) {
                                 '/bower_components',
                                 connect.static('./bower_components')
                             ),
-                            connect.static(appConfig.app)
+                            connect.static(appConfig.app),
+                            connect.static(appConfig.dna)
                         ];
                     }
                 }
@@ -44,7 +48,7 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                     open: true,
-                    base: '<%= inspinia.dist %>'
+                    base: '<%= paths.dist %>'
                 }
             }
         },
@@ -56,22 +60,30 @@ module.exports = function (grunt) {
                     optimization: 2
                 },
                 files: {
-                    "app/styles/style.css": "app/less/style.less"
+                    ".tmp/styles/style.css": "<%= paths.tmpCompile %>/less/style.less"
                 }
             }
         },
         // Watch for changes in live edit
         watch: {
-            styles: {
-                files: ['app/less/**/*.less'],
-                tasks: ['less', 'copy:styles'],
+            less: {
+                files: ['<%= paths.app %>/less/*.less'],
+                tasks: ['copy:less', 'less'],
+                options: {
+                    nospawn: true,
+                    livereload: '<%= connect.options.livereload %>'
+                },
+            },
+            lessDna: {
+                files: ['<%= paths.dna %>/less/*.less'],
+                tasks: ['copy:lessDna', 'less'],
                 options: {
                     nospawn: true,
                     livereload: '<%= connect.options.livereload %>'
                 },
             },
             js: {
-                files: ['<%= inspinia.app %>/scripts/{,*/}*.js'],
+                files: ['<%= paths.app %>/scripts/{,*/}*.js','<%= paths.dna %>/{,*/}{,*/}*.js'],
                 options: {
                     livereload: '<%= connect.options.livereload %>'
                 }
@@ -81,10 +93,21 @@ module.exports = function (grunt) {
                     livereload: '<%= connect.options.livereload %>'
                 },
                 files: [
-                    '<%= inspinia.app %>/**/*.html',
+                    '<%= paths.app %>/**/*.html','<%= paths.dna %>/**/*.html',
                     '.tmp/styles/{,*/}*.css',
-                    '<%= inspinia.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                    '<%= paths.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
+            }
+        },
+        // Annotate angular source code with string-injection based syntax to be able to use uglify properly below
+        ngAnnotate: {
+            options: {
+                singleQuotes: true
+            },
+            dist: {
+                files: {
+                    '<%= paths.dist %>/assets/scripts/scripts.js': ['<%= paths.dist %>/assets/scripts/scripts.js']
+                }
             }
         },
         // If you want to turn on uglify you will need write your angular code with string-injection based syntax
@@ -92,7 +115,7 @@ module.exports = function (grunt) {
         // And string-injection based syntax is: ['$scope', '$rootScope', '$location', '$http', function exampleCtrl ($scope, $rootScope, $location, $http){}]
         uglify: {
             options: {
-                mangle: false
+                mangle: true
             }
         },
         // Clean dist folder
@@ -102,22 +125,67 @@ module.exports = function (grunt) {
                     dot: true,
                     src: [
                         '.tmp',
-                        '<%= inspinia.dist %>/{,*/}*',
-                        '!<%= inspinia.dist %>/.git*'
+                        '<%= paths.dist %>/{,*/}*',
+                        '!<%= paths.dist %>/.git*'
                     ]
                 }]
             },
             server: '.tmp'
         },
-        // Copies remaining files to places other tasks can use
         copy: {
+            // Merges files from the dna folder to the main app
+            dna: {
+                files: [
+                    {
+                        cwd: '<%= paths.dna %>/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: [
+                            '**',
+                            '!.gitkeep'
+                        ],
+                        dest: '.tmp/'
+                    }
+                ]
+            },
+            // Copies main app less styles to temporary compile directory
+            less: {
+                files: [
+                    {
+                        cwd: '<%= paths.app %>/less/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: [
+                            '**',
+                            '!.gitkeep'
+                        ],
+                        dest: '<%= paths.tmpCompile %>/less/'
+                    }
+                ]
+            },
+            // Copies dna less styles to temporary compile directory
+            lessDna: {
+                files: [
+                    {
+                        cwd: '<%= paths.dna %>/less/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: [
+                            '**',
+                            '!.gitkeep'
+                        ],
+                        dest: '<%= paths.tmpCompile %>/less/'
+                    }
+                ]
+            },
+            // Copies remaining files to places other tasks can use
             dist: {
                 files: [
                     {
                         expand: true,
                         dot: true,
-                        cwd: '<%= inspinia.app %>',
-                        dest: '<%= inspinia.dist %>',
+                        cwd: '<%= paths.app %>',
+                        dest: '<%= paths.dist %>',
                         src: [
                             '*.{ico,png,txt}',
                             '.htaccess',
@@ -132,20 +200,26 @@ module.exports = function (grunt) {
                         dot: true,
                         cwd: 'bower_components/fontawesome',
                         src: ['fonts/*.*'],
-                        dest: '<%= inspinia.dist %>'
+                        dest: '<%= paths.dist %>'
                     },
                     {
                         expand: true,
                         dot: true,
                         cwd: 'bower_components/bootstrap',
                         src: ['fonts/*.*'],
-                        dest: '<%= inspinia.dist %>'
+                        dest: '<%= paths.dist %>'
                     },
                 ]
             },
             styles: {
                 expand: true,
-                cwd: '<%= inspinia.app %>/styles',
+                cwd: '<%= paths.app %>/styles',
+                dest: '.tmp/styles/',
+                src: '{,*/}*.css'
+            },
+            stylesDna: {
+                expand: true,
+                cwd: '<%= paths.dna %>/styles',
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
             }
@@ -154,9 +228,9 @@ module.exports = function (grunt) {
         filerev: {
             dist: {
                 src: [
-                    '<%= inspinia.dist %>/scripts/{,*/}*.js',
-                    '<%= inspinia.dist %>/styles/{,*/}*.css',
-                    '<%= inspinia.dist %>/styles/fonts/*'
+                    '<%= paths.dist %>/scripts/{,*/}*.js',
+                    '<%= paths.dist %>/styles/{,*/}*.css',
+                    '<%= paths.dist %>/styles/fonts/*'
                 ]
             }
         },
@@ -171,14 +245,14 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= inspinia.dist %>',
+                    cwd: '<%= paths.dist %>',
                     src: ['*.html', 'views/{,*/}*.html'],
-                    dest: '<%= inspinia.dist %>'
+                    dest: '<%= paths.dist %>'
                 }]
             }
         },
         useminPrepare: {
-            html: 'app/index.html',
+            html: '<%= paths.dna %>/index.html',
             options: {
                 dest: 'dist'
             }
@@ -191,7 +265,11 @@ module.exports = function (grunt) {
     // Run live version of app
     grunt.registerTask('live', [
         'clean:server',
+        'copy:less',
+        'copy:lessDna',
+        'less',
         'copy:styles',
+        'copy:stylesDna',
         'connect:livereload',
         'watch'
     ]);
@@ -205,11 +283,15 @@ module.exports = function (grunt) {
     // Build version for production
     grunt.registerTask('build', [
         'clean:dist',
+        'copy:dna',
+        'copy:less',
+        'copy:lessDna',
         'less',
         'useminPrepare',
         'concat',
         'copy:dist',
         'cssmin',
+        'ngAnnotate:app',
         'uglify',
         'filerev',
         'usemin',

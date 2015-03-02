@@ -3,6 +3,7 @@
  * Each view is defined as state.
  */
 function config($stateProvider, $urlRouterProvider) {
+    //$urlRouterProvider.otherwise("/user/login");
     $stateProvider
 
         .state('example-view', {
@@ -17,10 +18,10 @@ function config($stateProvider, $urlRouterProvider) {
 angular
     .module('app')
     .config(config)
-    .run(function ($rootScope, $state, env, user) {
+    .run(function ($rootScope, $state, user) {
 
         $rootScope.$on('user.login', function () {
-            $state.go('example-view');
+            //$state.go('example-view');
         });
 
     });

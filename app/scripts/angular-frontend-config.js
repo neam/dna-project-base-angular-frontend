@@ -8,10 +8,28 @@
  *
  */
 function config($stateProvider, $urlRouterProvider) {
-    //$urlRouterProvider.otherwise("/dashboards/dashboard_1");
-    $urlRouterProvider.otherwise("/user/login");
+    //$urlRouterProvider.otherwise("/index/main");
     $stateProvider
 
+        /*
+        .state('index', {
+            abstract: true,
+            url: "/index",
+            templateUrl: "views/common/content.html",
+        })
+        .state('index.main', {
+            url: "/main",
+            templateUrl: "views/main.html",
+            data: { public: true, pageTitle: 'Example view' }
+        })
+        .state('index.minor', {
+            url: "/minor",
+            templateUrl: "views/minor.html",
+            data: { pageTitle: 'Example view' }
+        })
+        */
+
+        /*
         .state('dashboards', {
             abstract: true,
             url: "/dashboards",
@@ -347,6 +365,7 @@ function config($stateProvider, $urlRouterProvider) {
             templateUrl: "views/css_animation.html",
             data: { pageTitle: 'CSS Animations' }
         })
+        */
 
         // Userapp
         .state('user', {
@@ -356,34 +375,34 @@ function config($stateProvider, $urlRouterProvider) {
         })
         .state('user.login', {
             url: "/login",
-            templateUrl: "partials/login.html",
+            templateUrl: "views/userapp/login.html",
             data: { login: true, pageTitle: 'Login' }
         })
         .state('user.signup', {
             url: "/signup",
-            templateUrl: "partials/signup.html",
+            templateUrl: "views/userapp/signup.html",
             data: { public: true, plan: 'default', pageTitle: 'Signup' }
         })
         .state('user.verify-email', {
             url: "/verify-email",
-            templateUrl: "partials/verify-email.html",
+            templateUrl: "views/userapp/verify-email.html",
             data: { verify_email: true, pageTitle: 'Verify email' }
         })
         .state('user.reset-password', {
             url: "/reset-password",
-            templateUrl: "partials/reset-password.html",
+            templateUrl: "views/userapp/reset-password.html",
             data: { public: true, pageTitle: 'reset-password' }
         })
         .state('user.set-password', {
             url: "/set-password",
-            templateUrl: "partials/set-password.html",
+            templateUrl: "views/userapp/set-password.html",
             data: { set_password: true, pageTitle: 'set-password' }
         })
 
         // DC
         .state('dc_nasdaq', {
             url: "/dc_nasdaq",
-            templateUrl: "views/dc_nasdaq.html",
+            templateUrl: "views/dc/dc_nasdaq.html",
             data: { pageTitle: 'DC Nasdaq Example' }
         })
 
@@ -392,7 +411,7 @@ function config($stateProvider, $urlRouterProvider) {
 angular
     .module('inspinia')
     .config(config)
-    .run(function ($rootScope, $state, env, user) {
+    .run(function ($rootScope, $state, user) {
         $rootScope.$state = $state;
         $rootScope.env = env;
         user.init({ appId: env.USERAPP_ID });

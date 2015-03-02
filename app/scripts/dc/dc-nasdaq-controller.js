@@ -1,4 +1,4 @@
-angular.module("angular-frontend")
+angular.module("dcNasdaq", ["angularDc"])
     .controller('DcNasdaqController', function($scope) {
     d3.csv("/js/dc/ndx.csv", function (data) {
         /* since its a csv file we need to format the data a bit */
