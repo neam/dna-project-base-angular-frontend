@@ -9,12 +9,15 @@
     <!-- Page title set in pageTitle directive -->
     <title page-title></title>
 
+    <!-- Config from environment variables -->
+    <script src="scripts/env.js"></script>
+
     <!-- start Mixpanel --><script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
     for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
-    mixpanel.init("<%- MIXPANEL_PROJECT_TOKEN %>");</script><!-- end Mixpanel -->
+    mixpanel.init(env.MIXPANEL_PROJECT_TOKEN);</script><!-- end Mixpanel -->
 
-    <!-- Userapp boilerplate css -->
-    <link rel="stylesheet" href="css/userapp.css"/>
+    <!-- Google Open Sans -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 
     <!-- Summernote -->
     <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
@@ -82,10 +85,14 @@
 
     <!-- Main Inspinia CSS files -->
     <link href="styles/animate.css" rel="stylesheet">
-    <link id="loadBefore" href="css/style.css" rel="stylesheet">
+
+    <!-- Userapp boilerplate css -->
+    <link rel="stylesheet" href="styles/userapp.css"/>
 
     <!-- dc -->
-    <link rel="stylesheet" type="text/css" href="css/dc.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/dc.css"/>
+
+    <link id="loadBefore" href="css/style.css" rel="stylesheet">
 
     <!-- Facebook Conversion Code -->
     <script>(function() {
@@ -205,7 +212,7 @@
 <!-- Dropzone -->
 <script src="js/plugins/dropzone/dropzone.js"></script>
 
-<!-- Cahrt JS -->
+<!-- Chart JS -->
 <script src="js/plugins/chartJs/Chart.min.js"></script>
 
 <!-- Knob -->
@@ -217,9 +224,21 @@
 <!-- Full Calendar -->
 <script src="js/plugins/fullcalendar/fullcalendar.min.js"></script>
 
+<!-- dc -->
+<script type="text/javascript" src="scripts/dc/colorbrewer.js"></script>
+<script type="text/javascript" src="scripts/dc/dc-nasdaq-controller.js"></script>
+
+<!--
+<script src="https://app.userapp.io/js/userapp.client.js"></script>
+<script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
+-->
+<script src="scripts/userapp/userapp.client.js"></script>
+<script src="scripts/userapp/angularjs.userapp.js"></script>
+
 <!-- Code Mirror -->
-<script src="js/plugins/codemirror/codemirror.js"></script>
-<script src="js/plugins/codemirror/mode/javascript/javascript.js"></script>
+<script src="bower_components/codemirror/lib/codemirror.js"></script>
+<script src="bower_components/codemirror/mode/javascript/javascript.js"></script>
+<script src="scripts/inspinia/plugins/ui-codemirror/ui-codemirror.min.js"></script>
 
 <!-- Custom and plugin javascript -->
 <script src="scripts/inspinia/inspinia.js"></script>
@@ -274,26 +293,13 @@
 <script src="scripts/angular-frontend-config.js"></script>
 <script src="scripts/angular-frontend-filters.js"></script>
 <script src="scripts/translations.js"></script>
-<script src="scripts/env.js"></script>
-
 <!--
 <script src="scripts/services.js"></script>
 -->
 
 <!-- DNA Javascript -->
-<script src="assets/js/dna.js"></script>
-<script src="assets/js/dna-vendor.js"></script>
-
-<!-- dc -->
-<script type="text/javascript" src="scripts/dc/colorbrewer.js"></script>
-<script type="text/javascript" src="scripts/dc/dc-nasdaq-controller.js"></script>
-
-<!--
-<script src="https://app.userapp.io/js/userapp.client.js"></script>
-<script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
--->
-<script src="scripts/userapp/userapp.client.js"></script>
-<script src="scripts/userapp/angularjs.userapp.js"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/config.js"></script>
 
 </body>
 </html>
