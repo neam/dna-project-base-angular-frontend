@@ -6,7 +6,7 @@
 source .env
 
 # Run erb to generate the published config file
-erb fork-src/js/env.js.erb > fork-src/js/env.js
+erb app/scripts/env.js.erb > app/scripts/env.js
 
-# Run default grunt task
-grunt
+# Run grunt development server task
+grunt live
