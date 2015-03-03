@@ -511,6 +511,11 @@ angular
 
             //console.log('user.login', user.current);
 
+            if (!mixpanel || !mixpanel.get_distinct_id) {
+                console.log('Mixpanel not properly loaded - not tracking', mixpanel);
+                return;
+            }
+
             // Mixpanel aliasing - once per user
 
             //console.log('user.current.properties.original_mixpanel_distinct_id', user.current.properties.original_mixpanel_distinct_id.value);
