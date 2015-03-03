@@ -45,7 +45,8 @@
 
                 <button type="submit" class="btn btn-primary block full-width m-b" ng-disabled="loading || !signupForm.$valid">
                     <span ng-show="!loading">Sign Up</span>
-                    <img ng-show="loading" src="img/ajax-loader-blue.gif">
+                    <span ng-show="loading">Please wait...</span>
+                    <!--<img ng-show="loading" src="styles/img/loader.gif">-->
                 </button>
 
                 <div ng-show="error" class="alert alert-danger">{{ error.message }}</div>
