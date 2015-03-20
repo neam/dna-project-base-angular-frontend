@@ -7,9 +7,13 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
+# Local configuration
+source .env
+
 # General
-APPNAME=$1
-BUILD_CMD="grunt build"
+APPVHOST=$1
+#BUILD_CMD="grunt build"
+BUILD_CMD="grunt server --debug"
 
 # =================================================
 # BUILD APPLICATION

@@ -10,3 +10,5 @@ bower_components
 dist
 dist/coverage
 .env
+npm-debug.log
+.merged-app

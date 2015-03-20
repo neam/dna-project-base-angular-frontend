@@ -11,9 +11,9 @@ fi
 source .env
 
 # General
-APPNAME=$1
+APPVHOST=$1
 
-if [[ "$APPNAME" == "master" ]]; then
+if [[ "$APPVHOST" == app.* ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET"
 else
     DEPLOYMENT_DIR="s3://$S3_BUCKET/stage/$BRANCH_NAME"

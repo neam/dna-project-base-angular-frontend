@@ -48,6 +48,7 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                     open: true,
+                    livereload: false,
                     base: '<%= paths.dist %>'
                 }
             }
@@ -106,16 +107,24 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    '<%= paths.dist %>/assets/scripts/scripts.js': ['<%= paths.dist %>/assets/scripts/scripts.js']
+                    '.tmp/concat/scripts/vendor.js': ['.tmp/concat/scripts/vendor.js'],
+                    '.tmp/concat/scripts/scripts.js': ['.tmp/concat/scripts/scripts.js']
                 }
             }
         },
         // If you want to turn on uglify you will need write your angular code with string-injection based syntax
         // For example this is normal syntax: function exampleCtrl ($scope, $rootScope, $location, $http){}
         // And string-injection based syntax is: ['$scope', '$rootScope', '$location', '$http', function exampleCtrl ($scope, $rootScope, $location, $http){}]
+        // Note: Taken care of by ngAnnotate above
         uglify: {
             options: {
-                mangle: true
+                mangle: false,
+                sourceMap: true
+            }
+        },
+        concat: {
+            options: {
+                separator: grunt.util.linefeed + ';' + grunt.util.linefeed
             }
         },
         // Clean dist folder
@@ -125,6 +134,7 @@ module.exports = function (grunt) {
                     dot: true,
                     src: [
                         '.tmp',
+                        '.merged-app',
                         '<%= paths.dist %>/{,*/}*',
                         '!<%= paths.dist %>/.git*'
                     ]
@@ -133,9 +143,19 @@ module.exports = function (grunt) {
             server: '.tmp'
         },
         copy: {
-            // Merges files from the dna folder to the main app
-            dna: {
+            // Merges files from the dna and bower_components folder to the a merged app folder, similar to the one served during dev
+            preBuildMerge: {
                 files: [
+                    {
+                        cwd: '<%= paths.app %>/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: [
+                            '**',
+                            '!.gitkeep'
+                        ],
+                        dest: '.merged-app/'
+                    },
                     {
                         cwd: '<%= paths.dna %>/',
                         expand: true,
@@ -144,7 +164,17 @@ module.exports = function (grunt) {
                             '**',
                             '!.gitkeep'
                         ],
-                        dest: '.tmp/'
+                        dest: '.merged-app/'
+                    },
+                    {
+                        cwd: 'bower_components/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: [
+                            '**',
+                            '!.gitkeep'
+                        ],
+                        dest: '.merged-app/bower_components'
                     }
                 ]
             },
@@ -184,7 +214,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         dot: true,
-                        cwd: '<%= paths.app %>',
+                        cwd: '.merged-app/',
                         dest: '<%= paths.dist %>',
                         src: [
                             '*.{ico,png,txt}',
@@ -192,7 +222,18 @@ module.exports = function (grunt) {
                             '*.html',
                             'views/{,*/}*.html',
                             'styles/patterns/*.*',
+                            'scripts/env.js',
                             'img/{,*/}*.*'
+                        ]
+                    },
+                    {
+                        // To be able to debug using source maps
+                        expand: true,
+                        dot: true,
+                        cwd: '.tmp',
+                        dest: '<%= paths.dist %>/.tmp',
+                        src: [
+                            '**'
                         ]
                     },
                     {
@@ -252,7 +293,7 @@ module.exports = function (grunt) {
             }
         },
         useminPrepare: {
-            html: '<%= paths.dna %>/index.html',
+            html: '.merged-app/index.html',
             options: {
                 dest: 'dist'
             }
@@ -260,6 +301,10 @@ module.exports = function (grunt) {
         usemin: {
             html: ['dist/index.html']
         }
+    });
+
+    grunt.registerTask('dumpConfig', 'Dump grunt config', function(arg) {
+      grunt.log.writeln(JSON.stringify(grunt.config(), null, 2));
     });
 
     // Run live version of app
@@ -283,17 +328,20 @@ module.exports = function (grunt) {
     // Build version for production
     grunt.registerTask('build', [
         'clean:dist',
-        'copy:dna',
         'copy:less',
         'copy:lessDna',
         'less',
+        'copy:styles',
+        'copy:stylesDna',
+        'copy:preBuildMerge',
         'useminPrepare',
+        'dumpConfig',
         'concat',
         'copy:dist',
         'cssmin',
-        'ngAnnotate:app',
+        'ngAnnotate:dist',
         'uglify',
-        'filerev',
+        //'filerev', // awaiting merge of https://github.com/yeoman/grunt-filerev/pull/67
         'usemin',
         'htmlmin'
     ]);
