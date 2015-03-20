@@ -3,12 +3,12 @@
 #set -x
 
 if [ $# -lt 1 ]; then
-    echo "Invalid arguments: APPNAME"
+    echo "Invalid arguments: APPVHOST missing"
     exit 1
 fi
 
 # Local configuration
-source .env
+source .deploy-secrets
 
 # General
 APPVHOST=$1
@@ -16,8 +16,8 @@ APPVHOST=$1
 if [[ "$APPVHOST" == app.* ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET"
 else
-    DEPLOYMENT_DIR="s3://$S3_BUCKET/stage/$BRANCH_NAME"
-    #ASSET_URL="http://$S3_BUCKET/stage/$BRANCH_NAME/"
+    DEPLOYMENT_DIR="s3://$S3_BUCKET/stage/$APPVHOST"
+    #ASSET_URL="http://$S3_BUCKET/stage/$APPVHOST/"
 fi
 
 # =================================================
@@ -33,4 +33,4 @@ acl_public = True" > /tmp/.$S3_BUCKET-s3.s3cfg
 export PAGES_S3_TARGET=$DEPLOYMENT_DIR
 
 # Upload to S3
-#s3cmd -v --config=/tmp/.$S3_BUCKET-s3.s3cfg --acl-public --recursive sync dist/ "$PAGES_S3_TARGET/"
+s3cmd -v --config=/tmp/.$S3_BUCKET-s3.s3cfg --acl-public --recursive sync dist/ "$PAGES_S3_TARGET/"

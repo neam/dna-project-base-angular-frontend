@@ -2,33 +2,37 @@
 
 #set -x
 
-if [ $# -lt 1 ]; then
-    echo "Invalid arguments: Missing APPVHOST"
-    exit 1
-fi
-
 # Local configuration
-source .env
-
-# General
-APPVHOST=$1
-#BUILD_CMD="grunt build"
-BUILD_CMD="grunt server --debug"
+source ../angular-frontend-dna/.config
 
 # =================================================
 # Set app config
 
-# Api base url
-export API_BASE_URL="http://$APPVHOST/api/v1"
+# Arguments
+APPVHOST=$1
 
-# Ensure we don't deploy a version using local mock api
+# Ensure we don't build a version using local mock api
 export USE_USERAPP_MOCK_API="false"
+
+# Api base url
+if [ "$APPVHOST" == "" ]; then
+    # If we don't send APPVHOST, it means that we are bundling the frontend with the api, and we should use a relative url instead
+    export API_BASE_URL="/api"
+else
+    export API_BASE_URL="//$APPVHOST/api"
+fi
 
 # Run erb to generate the published config file
 erb app/scripts/env.js.erb > app/scripts/env.js
 
 # =================================================
 # BUILD APPLICATION
+
+if [ "$CI" == "1" ]; then
+    BUILD_CMD="grunt build --debug"
+else
+    BUILD_CMD="grunt server --debug"
+fi
 
 $BUILD_CMD
 
