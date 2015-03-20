@@ -10,27 +10,15 @@ fi
 # Local configuration
 source .env
 
-# Ensure we don't deploy a version using local mock api
-export USE_USERAPP_MOCK_API="false"
-
 # General
 APPNAME=$1
-BUILD_CMD="grunt build"
-API_BASE_URL="http://$APPNAME.$TLD/api/v1"
 
 if [[ "$APPNAME" == "master" ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET"
 else
     DEPLOYMENT_DIR="s3://$S3_BUCKET/stage/$BRANCH_NAME"
-    ASSET_URL="http://$S3_BUCKET/stage/$BRANCH_NAME/"
+    #ASSET_URL="http://$S3_BUCKET/stage/$BRANCH_NAME/"
 fi
-
-# =================================================
-# BUILD APPLICATION
-
-$BUILD_CMD
-
-#karma start || { echo "Deployment failed: all tests must pass."; exit 1; }
 
 # =================================================
 # DEPLOY TO S3
@@ -44,9 +32,5 @@ acl_public = True" > /tmp/.$S3_BUCKET-s3.s3cfg
 # Export target
 export PAGES_S3_TARGET=$DEPLOYMENT_DIR
 
-# Run erb to generate the published config file
-erb dist/scripts/env.js.erb > dist/scripts/env.js
-rm dist/scripts/env.js.erb
-
 # Upload to S3
-s3cmd -v --config=/tmp/.$S3_BUCKET-s3.s3cfg --acl-public --recursive sync dist/ "$PAGES_S3_TARGET/"
+#s3cmd -v --config=/tmp/.$S3_BUCKET-s3.s3cfg --acl-public --recursive sync dist/ "$PAGES_S3_TARGET/"
