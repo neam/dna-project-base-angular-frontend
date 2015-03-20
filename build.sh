@@ -16,11 +16,6 @@ APPVHOST=$1
 BUILD_CMD="grunt server --debug"
 
 # =================================================
-# BUILD APPLICATION
-
-$BUILD_CMD
-
-# =================================================
 # Set app config
 
 # Api base url
@@ -30,7 +25,12 @@ export API_BASE_URL="http://$APPVHOST/api/v1"
 export USE_USERAPP_MOCK_API="false"
 
 # Run erb to generate the published config file
-erb app/scripts/env.js.erb > dist/scripts/env.js
+erb app/scripts/env.js.erb > app/scripts/env.js
+
+# =================================================
+# BUILD APPLICATION
+
+$BUILD_CMD
 
 # =================================================
 # Test app
