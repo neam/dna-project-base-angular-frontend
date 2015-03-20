@@ -219,8 +219,7 @@ module.exports = function (grunt) {
                         src: [
                             '*.{ico,png,txt}',
                             '.htaccess',
-                            '*.html',
-                            'views/{,*/}*.html',
+                            '{,*/}{,*/}*.html',
                             'styles/patterns/*.*',
                             'scripts/env.js',
                             'img/{,*/}*.*'
@@ -287,7 +286,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= paths.dist %>',
-                    src: ['*.html', 'views/{,*/}*.html'],
+                    src: ['*.html', '{,*/}{,*/}*.html'],
                     dest: '<%= paths.dist %>'
                 }]
             }
