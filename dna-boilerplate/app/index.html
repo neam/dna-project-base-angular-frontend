@@ -26,7 +26,7 @@
     <!-- Google Open Sans -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 
-    <!-- build:css(.) styles/vendor.css -->
+    <!-- build:css({.tmp,.merged-app}) styles/vendor.css -->
 
     <!-- bower:css -->
     <!-- Font awesome -->
@@ -37,7 +37,7 @@
 
     <!-- Code Mirror -->
     <link href="bower_components/codemirror/lib/codemirror.css" rel="stylesheet">
-    <!--<link href="bower_components/codemirror/ambiance.css" rel="stylesheet">-->
+    <!--<link commented="bower_components/codemirror/ambiance.css" rel="stylesheet">-->
 
     <!-- Main Inspinia CSS files -->
     <link href="styles/animate.css" rel="stylesheet">
@@ -51,7 +51,7 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- build:css({.tmp,app}) styles/style.css -->
+    <!-- build:css({.tmp,.merged-app}) styles/style.css -->
     <link href="styles/style.css" rel="stylesheet">
     <!-- endbuild -->
 
@@ -98,7 +98,7 @@
     });
 </script>
 
-<!-- build:js(.) scripts/vendor.js -->
+<!-- build:js({.tmp,.merged-app}) scripts/vendor.js -->
 
 <!-- jQuery and Bootstrap -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -140,8 +140,8 @@
 <script type="text/javascript" src="scripts/dc/dc-nasdaq-controller.js"></script>
 
 <!--
-<script src="https://app.userapp.io/js/userapp.client.js"></script>
-<script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
+<script commented="https://app.userapp.io/js/userapp.client.js"></script>
+<script commented="https://app.userapp.io/js/angularjs.userapp.js"></script>
 -->
 <script src="scripts/userapp/userapp.client.js"></script>
 <script src="scripts/userapp/angularjs.userapp.js"></script>
@@ -153,7 +153,7 @@
 
 <!-- endbuild -->
 
-<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<!-- build:js({.tmp,.merged-app}) scripts/scripts.js -->
 <!-- Custom and plugin javascript -->
 <script src="scripts/inspinia/inspinia.js"></script>
 
@@ -165,11 +165,11 @@
 <script src="scripts/angular-frontend-config.js"></script>
 <script src="scripts/angular-frontend-filters.js"></script>
 <!--
-<script src="bower_components/angular-translate/angular-translate.min.js"></script>
-<script src="scripts/translations.js"></script>
+<script commented="bower_components/angular-translate/angular-translate.min.js"></script>
+<script commented="scripts/translations.js"></script>
 -->
 <!--
-<script src="scripts/services.js"></script>
+<script commented="scripts/services.js"></script>
 -->
 
 <!-- DNA Javascript -->
