@@ -11,6 +11,9 @@ fi
 # Increase ulimit
 ulimit -n 10000
 
+# General
+APPVHOST=$1
+
 # Local configuration
 source ../angular-frontend-dna/.config
 
