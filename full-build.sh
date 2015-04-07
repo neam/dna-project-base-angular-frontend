@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# fail on any error
+set -o errexit
+
 # run from script path
 cd $(dirname $0)
 
