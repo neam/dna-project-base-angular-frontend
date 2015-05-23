@@ -1,8 +1,7 @@
-cp -r dna-boilerplate ../angular-frontend-dna
+cp -r dna-boilerplate/* ../angular-frontend-dna/
 cp .deploy-secrets.dist .deploy-secrets
 
-npm install
-bower install
+npm install && bower install
 
 Grunt file is based on Yeoman angular generator with some changes. There are three main task that you can do:
 
