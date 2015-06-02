@@ -19,7 +19,7 @@
     "lodash": "~2.4.1",
     "angulartics": "~0.17.2",
     "angular-google-chart": "https://github.com/bouil/angular-google-chart.git#gh-pages",
-    "angular-dc": "git@github.com:motin/angular-dc.git#custom-chart-element",
+    "angular-dc": "git@github.com:motin/angular-dc.git#awaiting-prs",
     "jquery": "~2.1.1",
     "angular": "1.3.7",
     "angular-ui-router": "~0.2.13",
