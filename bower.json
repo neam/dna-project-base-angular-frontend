@@ -76,7 +76,8 @@
     "jquery.flot.spline": "https://raw.githubusercontent.com/AMKohn/flot/master/jquery.flot.spline.js",
     "jquery-jvectormap-world-mill-en": "http://jvectormap.com/js/jquery-jvectormap-world-mill-en.js",
     "angular-translate": "~2.5.2",
-    "blueimp-gallery": "~2.15.2"
+    "blueimp-gallery": "~2.15.2",
+    "ngHandsontable": "~0.5.2"
   },
   "resolutions": {
     "angular": "1.3.7",
@@ -85,6 +86,7 @@
     "nouislider": "~7.0.7",
     "fullcalendar": "~2.1.1",
     "rickshaw": "~1.5.0",
-    "switchery": "~0.6.2"
+    "switchery": "~0.6.2",
+    "moment": "2.9.0"
   }
 }
