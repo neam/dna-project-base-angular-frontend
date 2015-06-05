@@ -9,6 +9,7 @@
         'angulartics.mixpanel',
         'googlechart',                  // angular-google-chart
         'angularDc',
+        'ngHandsontable',
         //'angularJade',
         'angular-frontend-filters'      // angular-frontend-filters.js
     ])
