@@ -42,6 +42,17 @@
 
 </ul>
 <ul class="nav navbar-top-links navbar-right">
+    <li ng-class="{active: $state.includes('user')}" class="dropdown" dropdown>
+        <a class="dropdown-toggle" href dropdown-toggle> {{user.first_name}} <span class="caret"></span></a>
+        <ul role="menu" class="dropdown-menu" ng-class="{in: $state.includes('user')}">
+            <li ui-sref-active="active" ng-show="!user.authenticated"><a ui-sref="user.login">Login</a></li>
+            <li ui-sref-active="active" ng-show="!user.authenticated"><a ui-sref="user.signup">Signup</a></li>
+            <li ui-sref-active="active" ng-show="false"><a ui-sref="user.verify-email">Verify email</a></li>
+            <li ui-sref-active="active" ng-show="false"><a ui-sref="user.reset-password">Reset password</a></li>
+            <li ui-sref-active="active" ng-show="user.authenticated"><a ui-sref="user.set-password">Set password</a></li>
+            <li ng-show="user.authenticated"><a href="" ua-logout>Log Out</a></li>
+        </ul>
+    </li>
     <li>
         <a href="login.html">
             <i class="fa fa-sign-out"></i> Log out
