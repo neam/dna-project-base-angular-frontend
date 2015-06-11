@@ -1,4 +1,5 @@
 cp -r dna-boilerplate/* ../angular-frontend-dna/
+cp -r dna-boilerplate/.config ../angular-frontend-dna/
 cp .deploy-secrets.dist .deploy-secrets
 
 npm install && bower install
