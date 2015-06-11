@@ -524,6 +524,11 @@ angular
 
             //console.log('current_mixpanel_distinct_id', current_mixpanel_distinct_id);
 
+            if (!user.current.properties.original_mixpanel_distinct_id) {
+                console.log('Note: no user.current.properties.original_mixpanel_distinct_id');
+                return;
+            }
+
             var stored = user.current.properties.original_mixpanel_distinct_id.value;
             if (!stored || stored === '') {
 
