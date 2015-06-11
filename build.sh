@@ -2,6 +2,9 @@
 
 #set -x
 
+# fail on any error
+set -o errexit
+
 # Local configuration
 source ../angular-frontend-dna/.config
 

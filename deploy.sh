@@ -7,6 +7,9 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
+# fail on any error
+set -o errexit
+
 # Local configuration
 source .deploy-secrets
 

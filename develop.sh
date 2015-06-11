@@ -8,6 +8,9 @@ fi
 
 #set -x
 
+# fail on any error
+set -o errexit
+
 # Increase ulimit
 ulimit -n 10000
 
