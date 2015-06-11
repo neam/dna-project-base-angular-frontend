@@ -96,7 +96,7 @@ module.exports = function (grunt) {
                 files: [
                     '<%= paths.app %>/**/*.html','<%= paths.dna %>/**/*.html',
                     '.tmp/styles/{,*/}*.css',
-                    '<%= paths.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                    '<%= paths.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}','<%= paths.dna %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             }
         },
@@ -222,7 +222,7 @@ module.exports = function (grunt) {
                             '{,*/}{,*/}*.html',
                             'styles/patterns/*.*',
                             'scripts/env.js',
-                            'img/{,*/}*.*'
+                            'images/{,*/}*.*'
                         ]
                     },
                     {
