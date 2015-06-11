@@ -16,7 +16,7 @@ source .deploy-secrets
 # General
 APPVHOST=$1
 
-if [[ "$APPVHOST" == app.* ]]; then
+if [[ "$APPVHOST" == app* ]] || [[ "$APPVHOST" == manager* ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET"
 else
     DEPLOYMENT_DIR="s3://$S3_BUCKET/stage/$APPVHOST"
