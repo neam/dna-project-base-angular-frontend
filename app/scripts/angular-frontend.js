@@ -11,6 +11,7 @@
         'googlechart',                  // angular-google-chart
         'angularDc',
         'ngHandsontable',
+        'ui.ink',
         //'angularJade',
         'angular-frontend-filters'      // angular-frontend-filters.js
     ])

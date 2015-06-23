@@ -77,7 +77,8 @@
     "jquery-jvectormap-world-mill-en": "http://jvectormap.com/js/jquery-jvectormap-world-mill-en.js",
     "angular-translate": "~2.5.2",
     "blueimp-gallery": "~2.15.2",
-    "ngHandsontable": "~0.5.2"
+    "ngHandsontable": "~0.5.2",
+    "angular-ui-ink": "*"
   },
   "resolutions": {
     "angular": "1.3.15",
