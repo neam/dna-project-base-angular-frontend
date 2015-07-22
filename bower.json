@@ -79,7 +79,7 @@
     "blueimp-gallery": "~2.15.2",
     "ngHandsontable": "~0.6.0",
     "Handsontable-select2-editor": "https://github.com/motin/Handsontable-select2-editor.git#4ec18ace630816f00e7275ea04a2019f23ccf432",
-    "select2": "~3.5.2",
+    "select2": "~4.0.0",
     "angular-ui-ink": "*"
   },
   "resolutions": {
@@ -90,7 +90,7 @@
     "fullcalendar": "~2.1.1",
     "rickshaw": "~1.5.0",
     "switchery": "~0.6.2",
-    "moment": "2.9.0",
+    "moment": "^2.9.0",
     "handsontable": "~0.16.0",
     "pikaday": "^1.3.2"
   }
