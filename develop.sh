@@ -20,6 +20,11 @@ APPVHOST=$1
 # Local configuration
 source ../angular-frontend-dna/.config
 
+# Offline mode switch
+if [ "$2" == "offline" ]; then
+  export USE_USERAPP_MOCK_API="true"
+fi
+
 # Api base url
 export API_BASE_URL="//$APPVHOST/api"
 
