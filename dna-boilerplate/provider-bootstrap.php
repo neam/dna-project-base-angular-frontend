@@ -39,7 +39,8 @@ $columnFormats = [];
 // ---
 // Applying the configuration to the dependency injection container
 \Yii::$container->set(
-    'neam\gii2_workflow_ui_generators\yii1_crud\providers\CallbackProvider', // yii1_crud since re-using that generator's callback provider class
+    // yii1_crud since re-using that generator's callback provider class
+    'neam\gii2_workflow_ui_generators\yii1_crud\providers\CallbackProvider',
     [
         'activeFields' => $activeFields,
         'columnFormats' => $columnFormats
