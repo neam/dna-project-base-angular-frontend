@@ -40,7 +40,7 @@ INPUT;
 };
 
 $todo = function ($attribute, $model) {
-    return "<!-- \"$attribute TODO \" -->";
+    return "<!-- \"$attribute\" TODO -->";
 };
 
 // Mapping between attribute names and CRUD form input fields
