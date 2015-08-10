@@ -10,21 +10,27 @@ $handsontableOrdinaryColumn = function ($attribute, $model) {
 
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
 
     switch ($attributeInfo["type"]) {
         default:
-            return "    <!-- \"$attribute\" TYPE {$attributeInfo["type"]} TODO -->";
-            break;
+            return <<<INPUT
+        <!-- "$attribute" TYPE {$attributeInfo["type"]} TODO -->
+INPUT;
         case "primary-key":
+            return <<<INPUT
+        <hot-column data="attributes.$attribute" title="'Delete'" attribute-type="'delete-button'" renderer="{$lcfirstModelClass}Crud.handsontable.deleteButtonRenderer" readOnly></hot-column>
+        <hot-column data="attributes.$attribute" title="'$attribute'" attribute-type="'{$attributeInfo["type"]}'" readOnly></hot-column>
+        <hot-column data="item_label" title="'Label'" attribute-type="'{$attributeInfo["type"]}'" readOnly></hot-column>
+INPUT;
         case "ordinary":
             return <<<INPUT
-    <hot-column data="attributes.$attribute" title="'$attribute'" attribute-type="'{$attributeInfo["type"]}'"></hot-column>
+        <hot-column data="attributes.$attribute" title="'$attribute'" attribute-type="'{$attributeInfo["type"]}'"></hot-column>
 INPUT;
             break;
         case "has-one-relation":
-            $lcfirstModelClass = lcfirst(get_class($model));
             return <<<INPUT
-    <hot-column data="attributes.$attribute.id" title="'$attribute'" attribute-type="'has-one-relation'" renderer="{$lcfirstModelClass}Crud.handsontable.columnLogic.$attribute.cellRenderer" editor="'select2'" select2Options="{$lcfirstModelClass}Crud.handsontable.columnLogic.$attribute.select2Options"></hot-column>
+        <hot-column data="attributes.$attribute.id" title="'$attribute'" attribute-type="'has-one-relation'" renderer="{$lcfirstModelClass}Crud.handsontable.columnLogic.$attribute.cellRenderer" editor="'select2'" select2Options="{$lcfirstModelClass}Crud.handsontable.columnLogic.$attribute.select2Options"></hot-column>
 INPUT;
             break;
     }
@@ -34,8 +40,8 @@ INPUT;
 $handsontableCheckboxColumn = function ($attribute, $model) {
     $attribute = str_replace("hot-column.", "", $attribute);
     return <<<INPUT
-    <hot-column data="attributes.$attribute" title="'$attribute'" type="'checkbox'"
-            checkedTemplate="1" uncheckedTemplate="0"></hot-column>
+        <hot-column data="attributes.$attribute" title="'$attribute'" type="'checkbox'"
+                checkedTemplate="1" uncheckedTemplate="0"></hot-column>
 INPUT;
 };
 
@@ -46,7 +52,8 @@ $todo = function ($attribute, $model) {
 // Mapping between attribute names and CRUD form input fields
 $activeFields = [
 
-    'hot-column.*.is_*' => $handsontableCheckboxColumn,
+    'hot-column.*\.is_*' => $handsontableCheckboxColumn,
+    'hot-column.*\.*_enabled' => $handsontableCheckboxColumn,
     'hot-column.*' => $handsontableOrdinaryColumn,
     '.*' => $todo,
 
