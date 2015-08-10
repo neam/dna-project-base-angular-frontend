@@ -52,12 +52,14 @@
             .state('root.example-view', {
                 url: "/example-view",
                 templateUrl: "views/example-view.html",
+                /*
                 resolve: {
                     // Inject the metadata resolved in the root state
                     metadata: function (metadata) {
                         return metadata;
                     }
                 },
+                */
                 data: { pageTitle: 'Example view' }
             })
             .state('root.pre-launch', {
