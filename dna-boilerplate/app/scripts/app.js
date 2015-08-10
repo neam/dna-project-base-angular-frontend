@@ -23,15 +23,19 @@
             request: function (config) {
                 config.headers = config.headers || {};
                 if (UserApp.tokenStorage.get()) {
-                    //config.headers.Authorization = 'UserappToken ' + UserApp.tokenStorage.get();
+                    config.headers.Authorization = 'UserappToken ' + UserApp.tokenStorage.get();
                 }
-                config.withCredentials = true;
+                //config.withCredentials = true;
                 return config;
             },
             response: function (response) {
                 if (response.status === 401) {
                     // handle the case where the user is not authenticated
                     console.log('unauthorized request intercepted by authInterceptor');
+                }
+                if (response.status === 403) {
+                    // handle the case where the user is not authorized
+                    console.log('forbidden request intercepted by authInterceptor');
                 }
                 return response || $q.when(response);
             }
