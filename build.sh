@@ -17,12 +17,12 @@ APPVHOST=$1
 # Ensure we don't build a version using local mock api
 export USE_USERAPP_MOCK_API="false"
 
-# Api base url
+# Local api base url
 if [ "$APPVHOST" == "" ]; then
     # If we don't send APPVHOST, it means that we are bundling the frontend with the api, and we should use a relative url instead
-    export API_BASE_URL="/api"
+    export LOCAL_API_BASE_URL="/api"
 else
-    export API_BASE_URL="//$APPVHOST/api"
+    export LOCAL_API_BASE_URL="//$APPVHOST/api"
 fi
 
 # Run erb to generate the published config file
