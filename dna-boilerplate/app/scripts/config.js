@@ -11,13 +11,16 @@
             .state('root', {
                 abstract: true,
                 url: "",
+                //templateUrl: "views/common/content_top_navigation.html",
                 templateUrl: "views/common/content.html",
                 resolve: {
                     // this section ensures that metadata has been queried and is available before rendering any root child-state
+                    /*
                     metadataService: 'metadataService',
                     metadata: function (metadataService) {
                         return metadataService.getMetadataPromise();
                     }
+                     */
                 }
             })
             .state('root.main', {
