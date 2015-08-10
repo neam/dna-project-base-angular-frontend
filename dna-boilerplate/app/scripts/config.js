@@ -16,10 +16,10 @@
                 resolve: {
                     // this section ensures that metadata has been queried and is available before rendering any root child-state
                     /*
-                    metadataService: 'metadataService',
-                    metadata: function (metadataService) {
-                        return metadataService.getMetadataPromise();
-                    }
+                     metadataService: 'metadataService',
+                     metadata: function (metadataService) {
+                     return metadataService.getMetadataPromise();
+                     }
                      */
                 }
             })
@@ -65,46 +65,113 @@
                 data: { pageTitle: 'Example view' }
             })
 
+        /**
+         * Base route for routes that requires an api-endpoint
+         */
+            .state('root.api-endpoints', {
+                url: "",
+                templateUrl: "views/common/proxy.html",
+                resolve: {
+                    // all child states of root.api-endpoints needs a currently logged in user
+                    // why we need to resolve to a logged in userapp-user for these states
+                    userappService: 'user',
+                    loggedInUserappUser: function (user) {
+                        //console.log('root.api-endpoints - loggedInUserappUser, user.getCurrent()', user.getCurrent());
+                        return user.getCurrent();
+                    }
+                }
+            })
+
+        /**
+         * Route that allows the user to select current domain
+         */
+            .state('root.api-endpoints.choose', {
+                url: "/choose-account",
+                templateUrl: "views/domain/choose-current.html",
+                data: {pageTitle: 'Example view'}
+            })
+
+        /**
+         * Route that sets the current domain to one in the url and then shows the "start" view
+         */
+            .state('root.api-endpoints.existing', {
+                abstract: true,
+                url: "/:apiEndpoint",
+                templateUrl: "views/common/proxy.html",
+                resolve: {
+                    // all child states of root.api-endpoints.existing needs information about the current api endpoint to query rest api requests against
+                    // such information is stored in the route, why we need to read $stateParams and set the current api endpoint based on the route
+                    apiEndpointParam: function ($q, loggedInUserappUser, $stateParams, ApiEndpointService) {
+                        //console.log('root.api-endpoints.existing apiEndpointParam - apiEndpointParam, $stateParams, ApiEndpointService', $stateParams, ApiEndpointService);
+
+                        return $q(function (resolve, reject) {
+                            ApiEndpointService.apiEndpoints.$promise.then(function () {
+                                ApiEndpointService.setApiEndpoint($stateParams.apiEndpoint);
+                                resolve();
+                            }, function (error) {
+                                reject(error);
+                            });
+                        });
+                    }
+                },
+                data: {pageTitle: 'Example view'}
+            })
+
+            .state('root.api-endpoints.existing.start', {
+                url: "/",
+                templateUrl: "views/start.html",
+                data: {pageTitle: 'Example view'}
+            })
+
         ;
     }
 
     angular
         .module('app')
         .config(config)
-        .run(function ($rootScope, $state, user, $http, UserApp) {
+        .run(function ($rootScope, $state, user, $http, UserApp, ApiEndpointService) {
+
+            // Login/logout notifications for rest-api (not really used for other reasons than debugging and possibly stats later on)
 
             $rootScope.$on('user.login', function () {
-                //$state.go('report-time');
 
-                // update ua_session_token for rest-api so that api requests are authenticated using the same userapp user
-                // (this is a workaround for the fact that cookies are not shared across domains)
-                $http.post(env.API_BASE_URL + '/v0/auth/loginNotify', {
-                    token: UserApp.tokenStorage.get(),
-                    user: user
-                })
-                    .success(function (data, status, headers, config) {
-                        console.log('login rest api sync request successful');
+                ApiEndpointService.activeApiEndpoint.promise.then(function () {
+
+                    // update ua_session_token for rest-api so that api requests are authenticated using the same userapp user
+                    // (this is a workaround for the fact that cookies are not shared across api-endpoints)
+                    $http.post(env.API_BASE_URL + '/v0/auth/loginNotify', {
+                        token: UserApp.tokenStorage.get(),
+                        user: user
                     })
-                    .error(function (data, status, headers, config) {
-                        console.log('login rest api sync request not successful');
-                    });
+                        .success(function (data, status, headers, config) {
+                            console.log('login rest api sync request successful');
+                        })
+                        .error(function (data, status, headers, config) {
+                            console.log('login rest api sync request not successful');
+                        });
+
+                });
 
             });
 
             $rootScope.$on('user.logout', function () {
 
-                // destroy session also on rest-api so that api requests are no longer authenticated using the userapp user that was logged out
-                // (this is a workaround for the fact that cookies are not shared across domains)
-                $http.post(env.API_BASE_URL + '/v0/auth/logoutNotify', {
-                    token: UserApp.tokenStorage.get(),
-                    user: user
-                })
-                    .success(function (data, status, headers, config) {
-                        console.log('logout rest api sync request successful');
+                ApiEndpointService.activeApiEndpoint.promise.then(function () {
+
+                    // destroy session also on rest-api so that api requests are no longer authenticated using the userapp user that was logged out
+                    // (this is a workaround for the fact that cookies are not shared across api-endpoints)
+                    $http.post(env.API_BASE_URL + '/v0/auth/logoutNotify', {
+                        token: UserApp.tokenStorage.get(),
+                        user: user
                     })
-                    .error(function (data, status, headers, config) {
-                        console.log('logout rest api sync request not successful');
-                    });
+                        .success(function (data, status, headers, config) {
+                            console.log('logout rest api sync request successful');
+                        })
+                        .error(function (data, status, headers, config) {
+                            console.log('logout rest api sync request not successful');
+                        });
+
+                });
 
             });
 
