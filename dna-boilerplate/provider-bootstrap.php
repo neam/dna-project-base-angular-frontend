@@ -112,6 +112,14 @@ $handsontableOrdinaryColumn = function ($attribute, $model) {
     $attribute = str_replace("hot-column.", "", $attribute);
 
     $itemTypeAttributes = $model->itemTypeAttributes();
+
+    // Handle attributes that have no item type attribute information (ie for pure crud columns)
+    if (!array_key_exists($attribute, $itemTypeAttributes)) {
+            return <<<INPUT
+    <hot-column data="attributes.$attribute" title="'$attribute'" attribute-type="'crud'"></hot-column>
+INPUT;
+    }
+
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
 
