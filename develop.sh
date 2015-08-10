@@ -25,8 +25,8 @@ if [ "$2" == "offline" ]; then
   export USE_USERAPP_MOCK_API="true"
 fi
 
-# Api base url
-export API_BASE_URL="//$APPVHOST/api"
+# Local api base url
+export LOCAL_API_BASE_URL="//$APPVHOST/api"
 
 # Run erb to generate the published config file
 erb app/scripts/env.js.erb > app/scripts/env.js
