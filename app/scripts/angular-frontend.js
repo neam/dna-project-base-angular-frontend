@@ -98,11 +98,18 @@
 
     });
 
-    module.controller('ApiEndpointController', function (ApiEndpointService, $rootScope) {
+    module.controller('ApiEndpointController', function (ApiEndpointService, $scope) {
 
+        $scope.apiEndpoints = ApiEndpointService.apiEndpoints;
+        $scope.activeApiEndpoint = ApiEndpointService.activeApiEndpoint;
+        $scope.setApiEndpoint = ApiEndpointService.setApiEndpoint;
+
+        // Make globally available in all views
+        /*
         $rootScope.apiEndpoints = ApiEndpointService.apiEndpoints;
         $rootScope.activeApiEndpoint = ApiEndpointService.activeApiEndpoint;
         $rootScope.setApiEndpoint = ApiEndpointService.setApiEndpoint;
+        */
 
     });
 
