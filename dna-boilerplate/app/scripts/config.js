@@ -101,8 +101,13 @@
                 resolve: {
                     // all child states of root.api-endpoints.existing needs information about the current api endpoint to query rest api requests against
                     // such information is stored in the route, why we need to read $stateParams and set the current api endpoint based on the route
-                    apiEndpointParam: function ($q, loggedInUserappUser, $stateParams, ApiEndpointService) {
+                    apiEndpointParam: function ($q, loggedInUserappUser, $stateParams, ApiEndpointService, $rootScope) {
                         //console.log('root.api-endpoints.existing apiEndpointParam - apiEndpointParam, $stateParams, ApiEndpointService', $stateParams, ApiEndpointService);
+
+                        // Make api endpoint variables globally available in all child views
+                        $rootScope.apiEndpoints = ApiEndpointService.apiEndpoints;
+                        $rootScope.activeApiEndpoint = ApiEndpointService.activeApiEndpoint;
+                        $rootScope.setApiEndpoint = ApiEndpointService.setApiEndpoint;
 
                         return $q(function (resolve, reject) {
                             ApiEndpointService.apiEndpoints.$promise.then(function () {
