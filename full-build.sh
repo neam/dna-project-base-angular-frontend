@@ -10,4 +10,4 @@ npm install
 bower install --allow-root --config.interactive=false
 
 export CI=1
-./build.sh
+./build.sh $@
