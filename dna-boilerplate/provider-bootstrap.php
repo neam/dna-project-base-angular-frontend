@@ -3,6 +3,87 @@
 // Angular UI Giiant `CallbackProvider` configuration
 // -------------------------
 
+// Text input
+
+$textInput = function ($attribute, $model) {
+
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
+
+    return <<<INPUT
+<label for="$lcfirstModelClass.attributes.$attribute">{$attributeInfo["label"]}</label>
+<input type="text" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
+INPUT;
+
+};
+
+// "Boolean" tri-state (0,1,NULL) radio inputs
+
+$tristateRadioInput = function ($attribute, $model) {
+
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
+
+    return <<<INPUT
+<div>
+    <label>{$attributeInfo["label"]}</label>
+    <div class="radio">
+        <label>
+            <input icheck type="radio" ng-model="$lcfirstModelClass.attributes.$attribute"
+                   ng-value="'1'"
+                   name="$attribute" ng-change="submit()"/> Yes
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input icheck type="radio" ng-model="$lcfirstModelClass.attributes.$attribute"
+                   ng-value="'0'"
+                   name="$attribute" ng-change="submit()"/> No
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input icheck type="radio" ng-model="$lcfirstModelClass.attributes.$attribute"
+                   ng-value="null"
+                   name="$attribute" ng-change="submit()"/> Don't know
+        </label>
+    </div>
+</div>
+INPUT;
+
+};
+
+// Default input
+
+$defaultInput = function ($attribute, $model) use ($textInput) {
+
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
+
+    switch ($attributeInfo["type"]) {
+        default:
+            return <<<INPUT
+<!-- "$attribute" TYPE {$attributeInfo["type"]} TODO -->
+INPUT;
+        case "primary-key":
+            return <<<INPUT
+<!-- "$attribute" TYPE {$attributeInfo["type"]} TODO -->
+INPUT;
+        case "ordinary":
+            return $textInput($attribute, $model);
+            break;
+        case "has-one-relation":
+            return <<<INPUT
+<!-- "$attribute" TYPE {$attributeInfo["type"]} TODO -->
+INPUT;
+            break;
+    }
+
+};
+
 // Handsontable inputs
 
 $handsontableOrdinaryColumn = function ($attribute, $model) {
@@ -55,7 +136,11 @@ $activeFields = [
     'hot-column.*\.is_*' => $handsontableCheckboxColumn,
     'hot-column.*\.*_enabled' => $handsontableCheckboxColumn,
     'hot-column.*' => $handsontableOrdinaryColumn,
-    '.*' => $todo,
+    '\.is_*' => $tristateRadioInput,
+    '\.*_enabled' => $tristateRadioInput,
+    'owner' => $todo,
+    'node' => $todo,
+    '.*' => $defaultInput,
 
 ];
 
@@ -65,7 +150,7 @@ $columnFormats = [];
 // ---
 // Applying the configuration to the dependency injection container
 \Yii::$container->set(
-    // yii1_crud since re-using that generator's callback provider class
+// yii1_crud since re-using that generator's callback provider class
     'neam\gii2_workflow_ui_generators\yii1_crud\providers\CallbackProvider',
     [
         'activeFields' => $activeFields,
