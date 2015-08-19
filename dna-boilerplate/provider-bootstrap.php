@@ -33,21 +33,21 @@ $tristateRadioInput = function ($attribute, $model) {
         <label>
             <input icheck type="radio" ng-model="$lcfirstModelClass.attributes.$attribute"
                    ng-value="'1'"
-                   name="$attribute" ng-change="submit()"/> Yes
+                   name="$attribute"/> Yes
         </label>
     </div>
     <div class="radio">
         <label>
             <input icheck type="radio" ng-model="$lcfirstModelClass.attributes.$attribute"
                    ng-value="'0'"
-                   name="$attribute" ng-change="submit()"/> No
+                   name="$attribute"/> No
         </label>
     </div>
     <div class="radio">
         <label>
             <input icheck type="radio" ng-model="$lcfirstModelClass.attributes.$attribute"
                    ng-value="null"
-                   name="$attribute" ng-change="submit()"/> Don't know
+                   name="$attribute"/> Don't know
         </label>
     </div>
 </div>
