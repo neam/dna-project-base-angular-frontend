@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Angular frontend base",
   "dependencies": {
+    "connect-pushstate": "^1.0.0",
     "grunt": "^0.4.5"
   },
   "devDependencies": {

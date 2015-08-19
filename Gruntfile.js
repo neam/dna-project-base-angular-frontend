@@ -16,6 +16,9 @@ module.exports = function (grunt) {
         tmpCompile: '.tmp/compile',
     };
 
+    // https://www.npmjs.com/package/connect-pushstate
+    var pushState = require('connect-pushstate');
+
     // Grunt configuration
     grunt.initConfig({
 
@@ -35,6 +38,7 @@ module.exports = function (grunt) {
                     middleware: function (connect) {
                         return [
                             connect.static('.tmp'),
+                            connect().use(pushState()),
                             connect().use(
                                 '/bower_components',
                                 connect.static('./bower_components')
