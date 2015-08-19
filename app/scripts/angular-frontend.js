@@ -24,7 +24,6 @@
 
         //console.log('ApiEndpointService');
 
-        var activeApiEndpoint = null;
         var activeApiEndpoint = $q.defer();
 
         var apiEndpoints = [];
