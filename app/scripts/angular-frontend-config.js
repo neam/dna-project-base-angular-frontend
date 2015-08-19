@@ -411,8 +411,9 @@ function config($stateProvider, $urlRouterProvider) {
 angular
     .module('inspinia')
     .config(config)
-    .run(function ($rootScope, $state, user) {
+    .run(function ($rootScope, $state, $location, user) {
         $rootScope.$state = $state;
+        $rootScope.$location = $location;
         $rootScope.env = env;
         user.init({ appId: env.USERAPP_ID });
         if (env.USE_USERAPP_MOCK_API === 'true') {
