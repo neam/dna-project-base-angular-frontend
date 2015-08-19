@@ -32,4 +32,4 @@ export LOCAL_API_BASE_URL="//$APPVHOST/api"
 erb app/scripts/env.js.erb > app/scripts/env.js
 
 # Run grunt development server task
-grunt live
+grunt live --debug
