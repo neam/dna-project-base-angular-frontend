@@ -81,7 +81,9 @@
     "Handsontable-select2-editor": "https://github.com/motin/Handsontable-select2-editor.git#af3e5147c1bbbf58121e463c804345e2d7702a66",
     "select2": "~4.0.0",
     "angular-ui-ink": "*",
-    "stormpath-sdk-angularjs": "~0.5.2"
+    "stormpath-sdk-angularjs": "~0.5.2",
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.5.0",
+    "mousetrap": "~1.5.2"
   },
   "resolutions": {
     "angular": "1.3.15",

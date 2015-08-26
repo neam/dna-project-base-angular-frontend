@@ -15,6 +15,7 @@
         'angularDc',
         'ngHandsontable',
         'ui.ink',
+        'cfp.hotkeys',                   // angular-hotkeys
         //'angularJade',
         'angular-frontend-filters'      // angular-frontend-filters.js
     ]);
