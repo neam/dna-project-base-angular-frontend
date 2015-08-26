@@ -3,6 +3,8 @@
     var module = angular.module('angular-frontend', [
         'ui.router',                    // Routing
         'ngResource',                   // $resource
+        'stormpath',                    // Stormpath user management
+        'stormpath.templates',          // Stormpath user management
         'UserApp',                      // Userapp.io
         'inspinia',                     // Inspinia-theme-related functionality
         'angulartics',                  // angulartics + plugins

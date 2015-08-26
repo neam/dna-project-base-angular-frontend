@@ -80,7 +80,8 @@
     "ngHandsontable": "~0.6.0",
     "Handsontable-select2-editor": "https://github.com/motin/Handsontable-select2-editor.git#af3e5147c1bbbf58121e463c804345e2d7702a66",
     "select2": "~4.0.0",
-    "angular-ui-ink": "*"
+    "angular-ui-ink": "*",
+    "stormpath-sdk-angularjs": "~0.5.2"
   },
   "resolutions": {
     "angular": "1.3.15",
