@@ -233,7 +233,7 @@
 
                     // update ua_session_token for rest-api so that api requests are authenticated using the same userapp user
                     // (this is a workaround for the fact that cookies are not shared across api-endpoints)
-                    $http.post(env.API_BASE_URL + '/v0/auth/loginNotify', {
+                    $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/auth/loginNotify', {
                         token: UserApp.tokenStorage.get(),
                         user: user
                     })
@@ -254,7 +254,7 @@
 
                     // destroy session also on rest-api so that api requests are no longer authenticated using the userapp user that was logged out
                     // (this is a workaround for the fact that cookies are not shared across api-endpoints)
-                    $http.post(env.API_BASE_URL + '/v0/auth/logoutNotify', {
+                    $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/auth/logoutNotify', {
                         token: UserApp.tokenStorage.get(),
                         user: user
                     })
