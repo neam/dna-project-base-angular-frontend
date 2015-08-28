@@ -139,6 +139,9 @@
     angular
         .module('app')
         .config(config)
+        .config(function(hotkeysProvider) {
+            //hotkeysProvider.cheatSheetHotkey = 'k';
+        })
         .run(function ($rootScope, $state, user, $http, UserApp, ApiEndpointService) {
 
             // Login/logout notifications for rest-api (not really used for other reasons than debugging and possibly stats later on)
