@@ -4,7 +4,7 @@
      * App uses AngularUI Router to manage routing and views
      * Each view is defined as state.
      */
-    function config($stateProvider, $urlRouterProvider, $provide) {
+    function config($stateProvider, $urlRouterProvider, $locationProvider) {
         $urlRouterProvider.otherwise("/");
         $stateProvider
 
@@ -129,6 +129,11 @@
             })
 
         ;
+
+        // enable html5Mode for pushstate ('#'-less URLs)
+        $locationProvider.html5Mode(true);
+        $locationProvider.hashPrefix('!');
+
     }
 
     angular
