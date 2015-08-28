@@ -3,13 +3,16 @@
         'angular-frontend'
     ]);
 
+    /**
+     * Service to fetch metadata from the api (not sure if still used)
+     */
     app.factory('metadataService', function ($http) {
 
         var factory = {};
 
         factory.getMetadataPromise = function () {
             return $http({
-                url: env.API_BASE_URL + '/v0/metadata',
+                url: env.API_BASE_URL + '/' + env.API_VERSION + '/metadata',
                 method: 'GET'
             });
         };
@@ -18,6 +21,9 @@
 
     });
 
+    /**
+     * Service that injects the auth token in rest api requests when the user is authenticated
+     */
     app.factory('authInterceptor', function ($rootScope, $q, UserApp) {
         return {
             request: function (config) {

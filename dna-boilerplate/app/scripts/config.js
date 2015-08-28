@@ -168,7 +168,7 @@
 
             .state('root.api-endpoints.existing.foos.existing.edit.edit-foo', {
                 abstract: true,
-                url: "/edit-campaign",
+                url: "/edit-foo",
                 template: "<ui-view/>"
             })
 

@@ -120,7 +120,7 @@
      * for instance:
      * open('modals/foo.html', 'lg')
      */
-    app.controller('GeneralModalController', function ($scope, $modal, $log) {
+    module.controller('GeneralModalController', function ($scope, $modal, $log) {
 
         $scope.open = function (template, size) {
 
@@ -149,7 +149,7 @@
 
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
-    app.controller('GeneralModalInstanceController', function ($scope, $modalInstance /*, items */) {
+    module.controller('GeneralModalInstanceController', function ($scope, $modalInstance /*, items */) {
 
         //$scope.items = items;
 
