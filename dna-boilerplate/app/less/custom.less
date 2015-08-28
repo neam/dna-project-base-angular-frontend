@@ -1,16 +1,18 @@
-/* Only demo */
-@media (max-width: 1000px) {
-  .welcome-message {
-    display: none;
-  }
-}
-
 /* Workaround for handsontable 0.16 + ngHandsontable 0.6.0 height issue */
 .wtHolder {
   height: auto !important;
 }
 
+/* Base background color */
+
+body{
+
+	background-color: #f3f3f4;
+
+}
+
 /* Handsontable currently selected row/column styles */
+
 .handsontable td.current-row {
   background-color: #ccc;
 }
@@ -19,7 +21,154 @@
   background-color: #ccc;
 }
 
+/* Start page */
+
+#start {
+
+	#hero {
+
+		text-align: center;
+		margin: 0;
+		padding: 0;
+		background: url(../images/start.jpg) no-repeat #222;
+		background-size: auto 120%;
+		background-position:center top;
+		width: 100%;
+		height: 500px;
+		min-height: 500px;
+		color: #fff;
+		font-size: 18px;
+		position: relative;
+		overflow: hidden;
+
+		h1 {
+
+			font-size: 60px;
+			color: #fff;
+			background-color: transparent;
+			margin-top: 0;
+			padding-top: 90px;
+			padding-bottom: 50px;
+
+
+		}
+
+		.btn {
+
+			padding: 15px 30px;
+			color: #fff;
+			background-color: #7DC8C0;
+			transition: background .25s ease-in-out;
+	   -moz-transition: background .25s ease-in-out;
+	   -webkit-transition: background .25s ease-in-out;
+
+
+			&:hover {
+
+				text-decoration: none;
+				background: darken(#7DC8C0, 10%);
+
+
+			}
+
+
+		}
+
+		span {
+
+			display: block;
+			margin: 20px 0;
+
+		}
+
+		a {
+
+			color: #018A82;
+
+			&:hover {
+
+				text-decoration: underline;
+
+			}
+
+		}
+
+		.banner {
+
+			padding: 38px;
+			background-color: rgba(0, 0, 0, 0.3);
+			position: absolute;
+			bottom: -3px;
+			width: 100%;
+
+
+		}
+
+		video {
+
+			min-width: 100%;
+			min-height: 100%;
+			height: auto;
+			width: auto;
+			background: #111;
+
+
+
+}
+
+
+	}
+
+	#content {
+
+
+		margin: 40px;
+		padding: 40px;
+		background-color: #fff;
+		-webkit-box-shadow: 0px 0px 5px 0px rgba(204,204,204,1);
+		-moz-box-shadow: 0px 0px 5px 0px rgba(204,204,204,1);
+		box-shadow: 0px 0px 5px 0px rgba(204,204,204,1);
+		text-align: center;
+
+			.fa {
+
+				color: #7DC8C0;
+				font-size: 60px;
+
+
+
+			}
+
+			h2 {
+
+				font-size: 18px;
+				color: #7DC8C0;
+				font-weight: 700;
+
+
+
+
+			}
+
+			p {
+
+				text-align: left;
+				width: 80%;
+				margin: 0 auto;
+
+
+			}
+
+
+
+
+
+		}
+
+}
+
 /* For hybrid (top+side) navigation style */
+
 .navbar-static-top, .navbar-brand {
 
 	height: 65px;
@@ -283,6 +432,31 @@ nav.navbar-static-top {
 	padding:40px;
 }
 
+.navbar-static-side {
+	background-color:#444;
+
+	li {
+
+		a {
+		 padding: 10px 20px 10px 25px !important;
+		}
+	ul {
+
+		li {
+
+			a {
+
+			padding: 10px 20px 10px 45px !important;
+			font-size:11px;
+
+			}
+
+		}
+	}
+
+	}
+
+}
 #side-menu {
 	font-size:12px;
 	background:#444;
@@ -298,7 +472,7 @@ nav.navbar-static-top {
 
 	.nav-header-wrapper {
 
-		background:url(../images/zinfandel.jpg) center center no-repeat;
+		background:url(../images/foo.jpg) center center no-repeat;
 		display:block;
 		min-height:100px;
 		background-size:110% auto;
@@ -319,3 +493,8 @@ nav.navbar-static-top {
 	}
 
 }
+
+/* App custom css */
+/* ... */
+
+.footer { display:none;}

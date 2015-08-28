@@ -67,6 +67,29 @@
             })
 
         /**
+         * Default "start" route
+         */
+            .state('root.start', {
+                url: "/",
+                templateUrl: "views/start.html",
+                data: {pageTitle: 'Start'}
+            })
+            .state('root.start2', {
+                url: "",
+                templateUrl: "views/start.html",
+                data: {pageTitle: 'Start'}
+            })
+
+        /**
+         * FAQ route
+         */
+            .state('root.faq', {
+                url: "/",
+                templateUrl: "views/faq.html",
+                data: {pageTitle: 'FAQ'}
+            })
+
+        /**
          * Base route for routes that requires an api-endpoint
          */
             .state('root.api-endpoints', {

@@ -1,0 +1,103 @@
+<div id="start" ng-controller="ApiEndpointController">
+    <div id="hero">
+        <!--
+    <video autoplay loop>
+        
+    <source src="http://static.foo.com/bgvideo/bgvideo.m4v" type="video/mp4"/>
+    <source src="http://static.foo.com/bgvideo/bgvideo.webm" type="video/webm"/>
+    <source src="http://static.foo.com/bgvideo/bgvideo.ogv" type="video/ogv"/>
+
+
+    </video>
+    -->
+
+        <h1>Big headline</h1>
+
+
+        <div ng-show="activeApiEndpoint.promise.$$state.status === 1">
+
+            <a ui-sref="root.api-endpoints.existing.foos.list({apiEndpoint: activeApiEndpoint.slug})"
+                        class="btn btn-primary btn-lg" href="#">Go to foos &gt;</a></span>
+
+            <!--
+            <a ui-sref="root.api-endpoints.existing.campaigns.create({apiEndpoint: activeApiEndpoint.slug})" href="#"
+               class="btn btn-primary btn-lg">Create a new campaign &gt;</a>
+            <span>or <a ui-sref="root.api-endpoints.existing.campaigns.list({apiEndpoint: activeApiEndpoint.slug})"
+                        href="#">edit an existing one</a></span>
+            -->
+
+        </div>
+
+        <div class="banner">Create <a href="#">interactive foos</a>, do stuffs, achieve everything.
+        </div>
+
+    </div>
+
+    <div id="content">
+
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <i class="fa fa-dashboard"></i>
+
+                <h2>Suited foos</h2>
+
+                <p>
+
+                    Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum
+                    dolor sit amet,
+
+                </p>
+
+            </div>
+            <div class="col-md-3">
+
+                <i class="fa fa-dashboard"></i>
+
+                <h2>Increase your reach</h2>
+
+                <p>
+
+                    Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum
+                    dolor sit amet,
+
+                </p>
+
+            </div>
+            <div class="col-md-3">
+
+                <i class="fa fa-dashboard"></i>
+
+                <h2>Get statistics</h2>
+
+                <p>
+
+                    Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum
+                    dolor sit amet,
+
+                </p>
+
+            </div>
+            <div class="col-md-3">
+
+                <i class="fa fa-dashboard"></i>
+
+                <h2>Live updates</h2>
+
+                <p>
+
+                    Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum
+                    dolor sit amet,
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
