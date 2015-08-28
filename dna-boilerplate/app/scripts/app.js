@@ -4,6 +4,59 @@
     ]);
 
     /**
+     * Service to handle data-change suggestions via the angular ui
+     */
+    app.service('suggestionsService', function ($http, $location, $injector) {
+
+        var suggestionsService = {
+            suggest: function (suggestions, save) {
+
+                console.log('suggest - suggestions, save', suggestions, save);
+
+                var params = angular.extend({}, $location.search(), {
+                    'suggestions': suggestions,
+                    'save': save,
+                    'default_page': 1,
+                    'default_limit': 100
+                });
+
+                $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/suggestions', params).
+                    then(function (response) {
+                        // this callback will be called asynchronously
+                        // when the response is available
+
+                        console.log('suggestions received', response);
+
+                        _.each(response.data, function (value, key, list) {
+
+                            $injector.invoke([key, function (resource) {
+
+                                resource.replace(value.items);
+
+                            }]);
+
+                        });
+
+
+                    }, function (response) {
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+
+                        console.log('error during suggestions received', response);
+
+                    });
+
+            },
+            bar: function () {
+
+            }
+        };
+
+        return suggestionsService;
+
+    });
+
+    /**
      * Service to fetch metadata from the api (not sure if still used)
      */
     app.factory('metadataService', function ($http) {
