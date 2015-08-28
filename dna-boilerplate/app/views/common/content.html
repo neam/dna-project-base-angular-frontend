@@ -2,14 +2,14 @@
 <div id="wrapper">
 
     <!-- Navigation -->
-    <div ng-include="'views/common/navigation.html'" ng-show="user.authenticated"></div>
+    <!--<div ng-include="'views/common/navigation.html'" ng-show="user.authenticated"></div>-->
 
     <!-- Page wraper -->
     <!-- ng-class with current state name give you the ability to extended customization your view -->
     <div id="page-wrapper" class="gray-bg {{$state.current.name}}" ng-class="{'side-menu-shown': user.authenticated}">
 
         <!-- Page wrapper -->
-        <div ng-include="'views/common/topnavbar.html'" ng-show="user.authenticated"></div>
+        <!--<div ng-include="'views/common/topnavbar.html'" ng-show="user.authenticated"></div>-->
 
         <!-- Main view  -->
         <div ui-view></div>
