@@ -4,15 +4,16 @@
      * App uses AngularUI Router to manage routing and views
      * Each view is defined as state.
      */
-    function config($stateProvider, $urlRouterProvider, $locationProvider) {
+    function config($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/");
         $stateProvider
 
             .state('root', {
                 abstract: true,
                 url: "",
+                templateUrl: "views/common/content_hybrid_navigation.html",
                 //templateUrl: "views/common/content_top_navigation.html",
-                templateUrl: "views/common/content.html",
+                //templateUrl: "views/common/content.html",
                 resolve: {
                     // this section ensures that metadata has been queried and is available before rendering any root child-state
                     /*
@@ -70,7 +71,7 @@
          */
             .state('root.api-endpoints', {
                 url: "",
-                templateUrl: "views/common/proxy.html",
+                template: "<ui-view/>",
                 resolve: {
                     // all child states of root.api-endpoints needs a currently logged in user
                     // why we need to resolve to a logged in userapp-user for these states
@@ -97,7 +98,7 @@
             .state('root.api-endpoints.existing', {
                 abstract: true,
                 url: "/:apiEndpoint",
-                templateUrl: "views/common/proxy.html",
+                template: "<ui-view/>",
                 resolve: {
                     // all child states of root.api-endpoints.existing needs information about the current api endpoint to query rest api requests against
                     // such information is stored in the route, why we need to read $stateParams and set the current api endpoint based on the route
@@ -128,19 +129,76 @@
                 data: {pageTitle: 'Example view'}
             })
 
-        ;
+            .state('root.api-endpoints.existing.foos', {
+                abstract: true,
+                url: "/foos",
+                template: "<ui-view/>"
+            })
 
-        // enable html5Mode for pushstate ('#'-less URLs)
-        $locationProvider.html5Mode(true);
-        $locationProvider.hashPrefix('!');
+            .state('root.api-endpoints.existing.foos.list', {
+                url: "/list",
+                templateUrl: "crud/foo/list.html",
+                data: {pageTitle: 'List Campaigns'}
+            })
+
+            .state('root.api-endpoints.existing.foos.create', {
+                url: "/new",
+                templateUrl: "crud/foo/form.html",
+                data: {pageTitle: 'New Campaign'}
+            })
+
+            .state('root.api-endpoints.existing.foos.existing', {
+                abstract: true,
+                url: "/:fooId",
+                controller: "editFooController",
+                template: "<ui-view/>"
+            })
+
+            .state('root.api-endpoints.existing.foos.existing.view', {
+                url: "/view",
+                templateUrl: "crud/foo/view.html",
+                data: {pageTitle: 'View Campaign'}
+            })
+
+            .state('root.api-endpoints.existing.foos.existing.edit', {
+                abstract: true,
+                url: "/edit",
+                templateUrl: "crud/foo/form.html"
+            })
+
+            .state('root.api-endpoints.existing.foos.existing.edit.edit-foo', {
+                abstract: true,
+                url: "/edit-campaign",
+                template: "<ui-view/>"
+            })
+
+            .state('root.api-endpoints.existing.foos.existing.edit.edit-foo.basic-info', {
+                abstract: true,
+                url: "/basic-info",
+                template: "<ui-view/>"
+            })
+
+            .state('root.api-endpoints.existing.foos.existing.edit.edit-foo.basic-info.foo-step', {
+                url: "/foo-step",
+                onEnter: function () {
+                },
+                data: {pageTitle: 'Edit Foo'}
+            })
+
+        ;
 
     }
 
     angular
         .module('app')
         .config(config)
-        .config(function(hotkeysProvider) {
+        .config(function (hotkeysProvider) {
             //hotkeysProvider.cheatSheetHotkey = 'k';
+        })
+        .config(function ($locationProvider) {
+            // enable html5Mode for pushstate ('#'-less URLs)
+            $locationProvider.html5Mode(true);
+            $locationProvider.hashPrefix('!');
         })
         .run(function ($rootScope, $state, user, $http, UserApp, ApiEndpointService) {
 

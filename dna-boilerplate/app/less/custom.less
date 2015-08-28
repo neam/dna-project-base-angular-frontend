@@ -18,3 +18,304 @@
 .handsontable td.current-column {
   background-color: #ccc;
 }
+
+/* For hybrid (top+side) navigation style */
+.navbar-static-top, .navbar-brand {
+
+	height: 65px;
+
+	ul.nav li {
+
+		height: 65px;
+
+		a {
+
+			padding: 22px 20px;
+
+		}
+	}
+
+}
+
+#navbar {
+
+	background: #151515;
+
+}
+
+.top-navigation .nav > li.active,
+.top-navigation .nav > li.active a,
+.top-navigation .nav > li,
+.top-navigation .nav > li a {
+
+}
+
+.top-navigation {
+
+	.nav {
+
+		li {
+
+			background: #151515;
+			color: #999999;
+
+			&:hover {background: transparent; color: #018a82;}
+			&:focus {background: transparent; color: #018a82;}
+
+				a {
+
+					background: #151515;
+					color: #999999;
+
+					&:hover {background: transparent; color: #018a82;}
+					&:focus {background: transparent; color: #018a82;}
+
+				}
+
+			&.active {
+
+				background: #151515;
+				color: #fff;
+
+				&:hover {background: transparent; color: #018a82;}
+				&:focus {background: transparent; color: #018a82;}
+
+					a {
+
+						background: #151515;
+						color: #fff;
+
+						&:hover {background: transparent; color: #018a82;}
+						&:focus {background: transparent; color: #018a82;}
+
+					}
+
+			}
+
+		}
+}
+
+	.navbar-brand {
+
+		background: #018a82;
+		padding: 18px 65px;
+
+	}
+}
+
+
+nav.navbar-static-top {
+
+	#navbar {
+
+		background-color:#018a82 !important;
+
+		li {
+
+			background: #018a82;
+			color: #fff;
+
+			&:hover {background: transparent; color: #fff;}
+			&:focus {background: transparent; color: #fff;}
+
+				a {
+
+					background: #018a82;
+					color: #fff;
+
+					&:hover {background: transparent; color: #fff;}
+					&:focus {background: transparent; color: #fff;}
+
+				}
+
+			&.active {
+
+				background: #018a82;
+				color: #fff;
+
+				&:hover {background: transparent; color: #fff;}
+				&:focus {background: transparent; color: #fff;}
+
+					a {
+
+						background: #018a82;
+						color: #fff;
+
+						&:hover {background: transparent; color: #fff;}
+						&:focus {background: transparent; color: #fff;}
+
+						}
+
+					}
+
+			}
+		}
+}
+
+.top-navigation #page-wrapper.side-menu-shown {
+
+	margin: 0 0 0 220px;
+	padding:0 15px;
+
+}
+
+#page-wrapper {
+	padding:0;
+}
+
+
+.page-heading {
+	padding: 0 40px 20px 40px;
+}
+
+.new-campaign .page-heading {
+	padding: 0 18px 20px;
+}
+
+.page-heading.side-menu-shown {
+	margin:  0px -15px 20px -15px;
+    padding: 15px 10px 15px 10px;
+
+}
+
+.navbar-static-side {
+
+
+	background: #1f1f1f;
+	height: 100%;
+
+}
+
+.top-navigation .nav li {
+
+	background: transparent;
+	color: #fff;
+
+	a {
+
+		background: transparent;
+		color: #fff;
+
+	}
+
+}
+
+
+.top-navigation .nav-tabs {
+
+	li {
+
+		color: #018a82;
+		background:transparent !important;
+		margin-bottom:-1px;
+		margin-left: -4px;
+		overflow: hidden;
+		padding: 5px 3px 0 4px;
+
+		&.active {
+			background:transparent !important;
+
+
+
+			a {
+
+				background-color: #fff;
+				color: #000;
+				border-bottom:0 !important;
+				box-shadow: 0 0 5px 0 #ccc;
+
+				&:hover {
+
+					background-color: #fff;
+					color: #000;
+					box-shadow: none;
+					border:0 !important;
+
+
+				}
+
+				&:focus {
+
+					background-color: #fff;
+					color: #000;
+					box-shadow: none;
+					border:0 !important;
+
+
+				}
+
+
+			}
+
+
+		}
+
+		&.disabled {
+			pointer-events: none;
+			cursor: default;
+
+			a {
+				color:#aaa;
+			}
+		}
+
+		a {
+
+			color: #018a82;
+			border:0 !important;
+
+		}
+
+
+	}
+
+
+
+}
+
+.top-navigation #page-wrapper.side-menu-shown .wrapper.wrapper-content, #page-wrapper.side-menu-shown .wrapper-content {
+
+	padding:20px 10px 40px;
+}
+
+.top-navigation .wrapper.wrapper-content, .wrapper-content {
+
+	padding:40px;
+}
+
+#side-menu {
+	font-size:12px;
+	background:#444;
+
+	hr {
+		border-color:#555;
+		margin:0;
+	}
+
+	li > a {font-weight:400 !important;}
+	li.active:hover, li.active > a:hover, li > a:hover {background:#151515 !important;}
+	.nav-title {padding: 20px 20px 5px 25px; letter-spacing:1px; text-transform:uppercase; color:#bababa; font-size:12px;}
+
+	.nav-header-wrapper {
+
+		background:url(../images/zinfandel.jpg) center center no-repeat;
+		display:block;
+		min-height:100px;
+		background-size:110% auto;
+		height:120px;
+
+		.nav-header {
+
+			text-align:left;
+			background:url(../images/black-shader.png) left bottom repeat-x !important;
+			padding-bottom:10px;
+			height:100%;
+
+
+			h3 {font-weight:100 !important; font-size:24px; margin-top: 20px; }
+			.label {font-size:9px;}
+		}
+
+	}
+
+}

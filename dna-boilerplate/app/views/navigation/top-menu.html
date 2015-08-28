@@ -1,8 +1,15 @@
 <ul class="nav navbar-nav">
     <li class="active">
-        <a ui-sref="root.main" href="#"> Back to sidebar main </a>
+        <a ui-sref="root.start" href="#"> Start </a>
 
     </li>
+
+    <li class="active" ng-show="activeApiEndpoint.promise.$$state.status === 1">
+        <a ui-sref="root.api-endpoints.existing.foos.list({apiEndpoint: activeApiEndpoint.slug})" href="#">
+            Foos </a>
+
+    </li>
+
     <li class="dropdown" dropdown>
         <a class="dropdown-toggle" href dropdown-toggle> Menu item <span class="caret"></span></a>
         <ul role="menu" class="dropdown-menu">
@@ -12,6 +19,7 @@
             <li><a href="#">Menu item</a></li>
         </ul>
     </li>
+
     <li class="dropdown" dropdown>
         <a class="dropdown-toggle" href dropdown-toggle> Menu item <span class="caret"></span></a>
         <ul role="menu" class="dropdown-menu">
@@ -21,27 +29,24 @@
             <li><a href="#">Menu item</a></li>
         </ul>
     </li>
-    <li class="dropdown" dropdown>
-        <a class="dropdown-toggle" href dropdown-toggle> Menu item <span class="caret"></span></a>
-        <ul role="menu" class="dropdown-menu">
-            <li><a href="#">Menu item</a></li>
-            <li><a href="#">Menu item</a></li>
-            <li><a href="#">Menu item</a></li>
-            <li><a href="#">Menu item</a></li>
-        </ul>
-    </li>
-    <li class="dropdown" dropdown>
-        <a class="dropdown-toggle" href dropdown-toggle> Menu item <span class="caret"></span></a>
-        <ul role="menu" class="dropdown-menu">
-            <li><a href="#">Menu item</a></li>
-            <li><a href="#">Menu item</a></li>
-            <li><a href="#">Menu item</a></li>
-            <li><a href="#">Menu item</a></li>
-        </ul>
+
+    <li class="active">
+        <a ui-sref="root.faq" href="#"> FAQ </a>
+
     </li>
 
 </ul>
 <ul class="nav navbar-top-links navbar-right">
+    <li class="dropdown" dropdown ng-show="apiEndpoints.length > 1 && activeApiEndpoint.promise.$$state.status !== 1">
+        <a class="dropdown-toggle" href dropdown-toggle> <span ng-show="activeApiEndpoint.promise.$$state.status !== 1">Choose</span><span
+                ng-show="activeApiEndpoint.promise.$$state.status === 1">Switch</span> account <span class="caret"></span></a>
+        <ul role="menu" class="dropdown-menu" ng-class="">
+            <li ng-repeat="apiEndpoint in apiEndpoints" ng-class="{active: apiEndpoint == activeApiEndpoint}"><a
+                    href="javascript:void(0);" ng-click="setApiEndpoint(apiEndpoint.slug);"><i
+                    class="fa fa-dashboard"
+                    ng-show="apiEndpoint == activeApiEndpoint"></i>{{apiEndpoint.slug}}</a></li>
+        </ul>
+    </li>
     <li ng-class="{active: $state.includes('user')}" class="dropdown" dropdown>
         <a class="dropdown-toggle" href dropdown-toggle> {{user.first_name}} <span class="caret"></span></a>
         <ul role="menu" class="dropdown-menu" ng-class="{in: $state.includes('user')}">
@@ -51,12 +56,12 @@
             <li ui-sref-active="active" ng-show="false"><a ui-sref="user.reset-password">Reset password</a></li>
             <li ui-sref-active="active" ng-show="user.authenticated"><a ui-sref="user.set-password">Set password</a>
             </li>
-            <li ng-show="user.authenticated"><a href="" ua-logout>Log Out</a></li>
+            <li ng-show="user.authenticated"><a href="" ua-logout><i class="fa fa-sign-out"></i> Log Out</a></li>
         </ul>
     </li>
-    <li>
+    <!--<li>
         <a href="login.html">
             <i class="fa fa-sign-out"></i> Log out
         </a>
-    </li>
+    </li>-->
 </ul>
