@@ -16,6 +16,7 @@
         'ngHandsontable',
         'ui.ink',
         'cfp.hotkeys',                   // angular-hotkeys
+        '3-way-merge',                  // 3-way-merge
         //'angularJade',
         'angular-frontend-filters'      // angular-frontend-filters.js
     ]);
