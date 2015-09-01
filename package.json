@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "Angular frontend base",
   "dependencies": {
-    "connect-pushstate": "^1.0.0",
-    "grunt": "^0.4.5"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
+    "connect-pushstate": "^1.0.0",
     "grunt-concurrent": "^1.0.0",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-concat": "^0.5.0",
