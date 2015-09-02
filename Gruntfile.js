@@ -344,7 +344,7 @@ module.exports = function (grunt) {
         'cssmin',
         'ngAnnotate:dist',
         'uglify',
-        //'filerev', // awaiting merge of https://github.com/yeoman/grunt-filerev/pull/67
+        'filerev',
         'usemin',
         'htmlmin'
     ]);
