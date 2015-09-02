@@ -11,6 +11,16 @@ body{
 
 }
 
+/* Decorating only touched and unsaved inputs as invalid/valid */
+
+input.ng-invalid.ng-touched.ng-dirty {
+    border-color: red;
+}
+
+input.ng-valid.ng-touched.ng-dirty {
+    border-color: green;
+}
+
 /* Handsontable currently selected row/column styles */
 
 .handsontable td.current-row {
