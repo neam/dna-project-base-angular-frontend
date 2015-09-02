@@ -186,7 +186,14 @@
             .state('root.api-endpoints.existing.foos.existing.edit', {
                 abstract: true,
                 url: "/edit",
+                views: {
+                    '': {
                 templateUrl: "crud/foo/form.html"
+                    },
+                    'sidebar@root': {
+                        templateUrl: "crud/foo/navigation.html"
+                    }
+                }
             })
 
             .state('root.api-endpoints.existing.foos.existing.edit.edit-foo', {
