@@ -84,7 +84,7 @@
     "stormpath-sdk-angularjs": "~0.5.2",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.5.0",
     "mousetrap": "~1.5.2",
-    "angular-select2": "~1.4.1"
+    "angular-select2": "https://github.com/motin/angular-select2.git#select2-4.0-support-wip"
   },
   "resolutions": {
     "angular": "1.3.15",
