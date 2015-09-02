@@ -188,7 +188,7 @@
                 url: "/edit",
                 views: {
                     '': {
-                templateUrl: "crud/foo/form.html"
+                        templateUrl: "crud/foo/form.html"
                     },
                     'sidebar@root': {
                         templateUrl: "crud/foo/navigation.html"
@@ -230,7 +230,12 @@
             $locationProvider.html5Mode(true);
             $locationProvider.hashPrefix('!');
         })
-        .run(function ($rootScope, $state, user, $http, UserApp, ApiEndpointService) {
+        .run(function ($rootScope, $state, suggestionsService, hotkeys, user, $http, UserApp, ApiEndpointService) {
+
+            // Make suggestions and hotkey services globally available in all views
+
+            $rootScope.suggestionsService = suggestionsService;
+            $rootScope.hotkeys = hotkeys;
 
             // Login/logout notifications for rest-api (not really used for other reasons than debugging and possibly stats later on)
 
