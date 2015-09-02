@@ -16,7 +16,8 @@ source .deploy-secrets
 # General
 APPVHOST=$1
 
-if [[ "$APPVHOST" == app* ]] || [[ "$APPVHOST" == manager* ]]; then
+# Deploy to production/root by specifying "root", "prod" or "live" as deploy destination
+if [[ "$APPVHOST" == root ]] || [[ "$APPVHOST" == prod ]] || [[ "$APPVHOST" == live ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET"
 else
     DEPLOYMENT_DIR="s3://$S3_BUCKET/stage/$APPVHOST"
