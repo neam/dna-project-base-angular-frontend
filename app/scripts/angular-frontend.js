@@ -15,7 +15,7 @@
         'angularDc',
         'ngHandsontable',
         'ui.ink',
-        'cfp.hotkeys',                   // angular-hotkeys
+        'cfp.hotkeys',                  // angular-hotkeys
         '3-way-merge',                  // 3-way-merge
         'rt.select2',                   // angular-select2
         //'angularJade',
