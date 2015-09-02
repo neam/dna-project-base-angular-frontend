@@ -55,9 +55,33 @@ INPUT;
 
 };
 
+// Has-one-relation select2 input
+
+$hasOneRelationSelect2Input = function ($attribute, $model) {
+
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
+
+    return <<<INPUT
+<label for="$lcfirstModelClass.attributes.$attribute.id">{$attributeInfo["label"]}</label>
+<div class="select2 m-b">
+    <select2 ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute.id" id="$lcfirstModelClass.attributes.$attribute.id">
+        <option value="" ng-selected="{{{$lcfirstModelClass}.attributes.$attribute.id === null}}">&lt;none&gt;</option>
+        <option ng-repeat="itemOption in {$lcfirstModelClass}Crud.relations.$attribute.relatedCollection"
+                value="{{itemOption.id}}"
+                ng-selected="{{itemOption.id == $lcfirstModelClass.attributes.$attribute.id}}">
+            {{itemOption.item_label}}
+        </option>
+    </select2>
+</div>
+INPUT;
+
+};
+
 // Default input
 
-$defaultInput = function ($attribute, $model) use ($textInput) {
+$defaultInput = function ($attribute, $model) use ($textInput, $hasOneRelationSelect2Input) {
 
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
@@ -76,9 +100,7 @@ INPUT;
             return $textInput($attribute, $model);
             break;
         case "has-one-relation":
-            return <<<INPUT
-<!-- "$attribute" TYPE {$attributeInfo["type"]} TODO -->
-INPUT;
+            return $hasOneRelationSelect2Input($attribute, $model);
             break;
     }
 
