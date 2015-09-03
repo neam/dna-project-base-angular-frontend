@@ -409,7 +409,7 @@ function config($stateProvider, $urlRouterProvider) {
     ;
 }
 angular
-    .module('inspinia')
+    .module('angular-frontend')
     .config(config)
     .run(function ($rootScope, $state, $location, user) {
         $rootScope.$state = $state;
