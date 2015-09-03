@@ -1,18 +1,18 @@
 <div ng-controller="ApiEndpointController">
 
-    <div ng-show="apiEndpoints.$promise.$$state.status === 0">Loading</div>
-    <div ng-show="apiEndpoints.$promise.$$state.status === 1">
+    <div ng-show="!apiEndpoints.available">Loading</div>
+    <div ng-show="apiEndpoints.available">
 
-        <span ng-show="!activeApiEndpoint.promise.$$state === 1">Choose</span><span ng-show="activeApiEndpoint.promise.$$state.status === 1">Switch</span> account:
+        <span ng-show="!activeApiEndpoint.available">Choose</span><span ng-show="activeApiEndpoint.available">Switch</span> account:
 
         <ul>
             <li ng-repeat="apiEndpoint in apiEndpoints">
-                <i class="fa fa-dashboard" ng-show="apiEndpoint == activeApiEndpoint"></i>
+                <i class="fa fa-dashboard" ng-show="apiEndpoint.slug === activeApiEndpoint.slug"></i>
                 <a href="javascript:void(0);" ng-click="setApiEndpoint(apiEndpoint.slug);">{{apiEndpoint.slug}}</a>
             </li>
         </ul>
 
     </div>
-    <div ng-show="apiEndpoints.$promise.$$state.status === 2">Error loading api endpoints list</div>
+    <!--<div ng-show="apiEndpoints.error">Error loading api endpoints list</div>-->
 
 </div>

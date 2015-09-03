@@ -13,7 +13,7 @@
 
         <h1>Big headline</h1>
 
-        <div ng-show="activeApiEndpoint.promise.$$state.status === 1">
+        <div ng-show="activeApiEndpoint.available">
 
             <a ui-sref="root.api-endpoints.existing.foos.list({apiEndpoint: activeApiEndpoint.slug})"
                         class="btn btn-primary btn-lg" href="#">Go to foos &gt;</a></span>

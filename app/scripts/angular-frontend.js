@@ -3,10 +3,8 @@
     var module = angular.module('angular-frontend', [
         'ui.router',                    // Routing
         'ngResource',                   // $resource
-        'stormpath',                    // Stormpath user management
-        'stormpath.templates',          // Stormpath user management
-        'UserApp',                      // Userapp.io
         'inspinia',                     // Inspinia-theme-related functionality
+        'auth',                         // Authentication logic summarized in auth.js
         'angulartics',                  // angulartics + plugins
         'angulartics.scroll',
         'angulartics.google.analytics',
@@ -25,74 +23,84 @@
     /**
      * Services whose purpose is to supply the "apiEndpoints" array and "setApiEndpoint" function
      */
-    module.service('ApiEndpointService', function ($q, user) {
+    module.service('ApiEndpointService', function ($q, auth, AuthService, $rootScope) {
 
         //console.log('ApiEndpointService');
 
-        var activeApiEndpoint = $q.defer();
-
         var apiEndpoints = [];
-        apiEndpoints.$promise = $q(function (resolve, reject) {
+        apiEndpoints.available = false;
 
-            user.getCurrent().then(function () {
+        $rootScope.$on('user.login', function (event, profile) {
 
-                // Add base urls from user property
-                apiEndpoints = _.extend(apiEndpoints, angular.fromJson(user.current.properties.api_endpoints.value));
+            // Ignore if no information is available
+            if (!profile.user_metadata || !profile.user_metadata.api_endpoints) {
+                return;
+            }
 
-                resolve();
+            // Add api endpoints from user property
+            apiEndpoints = profile.user_metadata.api_endpoints;
+            apiEndpoints.available = true;
 
-            }, function (error) {
-                reject(error);
-            });
+            console.log('user.login apiEndpoints', apiEndpoints);
+
+            if (!activeApiEndpoint.available) {
+
+                // If has default, set active
+                if (apiEndpoints.length === 1) {
+                    setApiEndpoint(apiEndpoints[0].slug);
+                }
+                if (profile.user_metadata.default_api_endpoint_slug) {
+                    setApiEndpoint(profile.user_metadata.default_api_endpoint_slug);
+                }
+
+            }
 
         });
+
+        $rootScope.$on('user.logout', function () {
+
+            var apiEndpoints = [];
+            setApiEndpoint(null);
+            apiEndpoints.available = false;
+
+        });
+
+        var activeApiEndpoint = $q.defer();
 
         var setApiEndpoint = function (slug) {
 
-            //console.log('setApiEndpoint', slug);
+            console.log('setApiEndpoint', slug);
 
-            var apiEndpoint = _.find(apiEndpoints, function (apiEndpoint) {
-                return apiEndpoint.slug === slug;
+            if (!slug) {
+                activeApiEndpoint.available = null;
+                return;
+            }
+
+            auth.profilePromise.then(function () {
+
+                var chosenApiEndpoint = _.find(apiEndpoints, function (apiEndpoint) {
+                    return apiEndpoint.slug === slug;
+                });
+
+                // Add the value of the active endpoint slug to the promise for direct access in views
+                activeApiEndpoint.slug = chosenApiEndpoint.slug;
+                activeApiEndpoint.available = true;
+                activeApiEndpoint.resolve();
+
+                if (slug === 'local') {
+                    env.API_BASE_URL = env.LOCAL_API_BASE_URL;
+                    env.API_VERSION = env.LOCAL_API_VERSION;
+                } else {
+                    env.API_BASE_URL = chosenApiEndpoint.API_BASE_URL;
+                    env.API_VERSION = chosenApiEndpoint.API_VERSION;
+                }
+
+                //console.log('chosen base-url: ', apiEndpoint);
+
             });
 
-            // Set the value of the promise to the active endpoint
-            activeApiEndpoint = _.extend(activeApiEndpoint, apiEndpoint);
-            activeApiEndpoint.resolve();
 
-            if (slug === 'local') {
-                env.API_BASE_URL = env.LOCAL_API_BASE_URL;
-                env.API_VERSION = env.LOCAL_API_VERSION;
-            } else {
-                env.API_BASE_URL = apiEndpoint.API_BASE_URL;
-                env.API_VERSION = apiEndpoint.API_VERSION;
-            }
-
-            console.log('chosen base-url: ', apiEndpoint);
         };
-
-        apiEndpoints.$promise.then(function () {
-            //console.log('ApiEndpointService apiEndpoints resolved. apiEndpoints, user.current.properties.default_api_endpoint_slug.value', apiEndpoints, user.current.properties.default_api_endpoint_slug.value);
-
-            // if has default, set active
-            if (apiEndpoints.length === 1) {
-                setApiEndpoint(apiEndpoints[0].slug);
-            }
-            if (user.current.properties.default_api_endpoint_slug.value) {
-                setApiEndpoint(user.current.properties.default_api_endpoint_slug.value);
-            }
-
-            //console.log('ApiEndpointService apiEndpoints resolved. activeApiEndpoint, activeApiEndpoint', activeApiEndpoint, activeApiEndpoint);
-
-        }, function () {
-
-        });
-
-        activeApiEndpoint.promise.then(function () {
-            //console.log('ApiEndpointService activeApiEndpoint resolved');
-
-        }, function () {
-
-        });
 
         return {
             apiEndpoints: apiEndpoints,
@@ -110,10 +118,10 @@
 
         // Make globally available in all views
         /*
-        $rootScope.apiEndpoints = ApiEndpointService.apiEndpoints;
-        $rootScope.activeApiEndpoint = ApiEndpointService.activeApiEndpoint;
-        $rootScope.setApiEndpoint = ApiEndpointService.setApiEndpoint;
-        */
+         $rootScope.apiEndpoints = ApiEndpointService.apiEndpoints;
+         $rootScope.activeApiEndpoint = ApiEndpointService.activeApiEndpoint;
+         $rootScope.setApiEndpoint = ApiEndpointService.setApiEndpoint;
+         */
 
     });
 

@@ -7,7 +7,9 @@
     <base href="/" />
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Note: ", maximum-scale=1.0, user-scalable=no" is a recommendation from Auth0 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- Page title set in pageTitle directive -->
     <title page-title></title>
@@ -37,9 +39,6 @@
 
     <!-- Main Inspinia CSS files -->
     <link href="styles/animate.css" rel="stylesheet">
-
-    <!-- Userapp boilerplate css -->
-    <link rel="stylesheet" href="styles/userapp.css"/>
 
     <!-- dc -->
     <link rel="stylesheet" type="text/css" href="styles/dc.css"/>
@@ -171,16 +170,13 @@
 <script type="text/javascript" src="scripts/dc/colorbrewer.js"></script>
 <script type="text/javascript" src="scripts/dc/dc-nasdaq-controller.js"></script>
 
-<!--
-<script commented="https://app.userapp.io/js/userapp.client.js"></script>
-<script commented="https://app.userapp.io/js/angularjs.userapp.js"></script>
--->
-<script src="scripts/userapp/userapp.client.js"></script>
-<script src="scripts/userapp/angularjs.userapp.js"></script>
-
-<!-- Stormpath -->
-<script src="bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.min.js"></script>
-<script src="bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.tpls.min.js"></script>
+<!-- Auth0 -->
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/auth0-lock/build/auth0-lock.js"></script>
+<script src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
+<script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
+<script src="bower_components/auth0-angular/build/auth0-angular.js"> </script>
 
 <!-- Code Mirror -->
 <script src="bower_components/codemirror/lib/codemirror.js"></script>
@@ -207,6 +203,7 @@
 <script src="scripts/angular-frontend.js"></script>
 <script src="scripts/angular-frontend-config.js"></script>
 <script src="scripts/angular-frontend-filters.js"></script>
+<script src="scripts/auth.js"></script>
 <!--
 <script commented="bower_components/angular-translate/angular-translate.min.js"></script>
 <script commented="scripts/translations.js"></script>

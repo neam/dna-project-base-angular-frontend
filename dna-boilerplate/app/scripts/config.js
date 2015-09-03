@@ -72,12 +72,12 @@
          * Default "start" route
          */
             .state('root.start', {
-                url: "/",
+                url: "",
                 templateUrl: "views/start.html",
                 data: {pageTitle: 'Start'}
             })
-            .state('root.start2', {
-                url: "",
+            .state('root.starttrailingslash', {
+                url: "/",
                 templateUrl: "views/start.html",
                 data: {pageTitle: 'Start'}
             })
@@ -86,7 +86,7 @@
          * FAQ route
          */
             .state('root.faq', {
-                url: "/",
+                url: "/faq",
                 templateUrl: "views/faq.html",
                 data: {pageTitle: 'FAQ'}
             })
@@ -97,6 +97,10 @@
             .state('root.api-endpoints', {
                 url: "",
                 template: "<ui-view/>",
+                data: {
+                    requiresLogin: true
+                },
+                /*
                 resolve: {
                     // all child states of root.api-endpoints needs a currently logged in user
                     // why we need to resolve to a logged in userapp-user for these states
@@ -106,6 +110,7 @@
                         return user.getCurrent();
                     }
                 }
+                */
             })
 
         /**
@@ -127,7 +132,7 @@
                 resolve: {
                     // all child states of root.api-endpoints.existing needs information about the current api endpoint to query rest api requests against
                     // such information is stored in the route, why we need to read $stateParams and set the current api endpoint based on the route
-                    apiEndpointParam: function ($q, loggedInUserappUser, $stateParams, ApiEndpointService, $rootScope) {
+                    apiEndpointParam: function ($q, $stateParams, ApiEndpointService, $rootScope) {
                         //console.log('root.api-endpoints.existing apiEndpointParam - apiEndpointParam, $stateParams, ApiEndpointService', $stateParams, ApiEndpointService);
 
                         // Make api endpoint variables globally available in all child views
@@ -135,14 +140,11 @@
                         $rootScope.activeApiEndpoint = ApiEndpointService.activeApiEndpoint;
                         $rootScope.setApiEndpoint = ApiEndpointService.setApiEndpoint;
 
-                        return $q(function (resolve, reject) {
-                            ApiEndpointService.apiEndpoints.$promise.then(function () {
-                                ApiEndpointService.setApiEndpoint($stateParams.apiEndpoint);
-                                resolve();
-                            }, function (error) {
-                                reject(error);
-                            });
-                        });
+                        // Set active endpoint based on state param
+                        ApiEndpointService.setApiEndpoint($stateParams.apiEndpoint);
+
+                        return ApiEndpointService.activeApiEndpoint;
+
                     }
                 },
                 data: {pageTitle: 'Example view'}
@@ -232,12 +234,16 @@
             $locationProvider.html5Mode(true);
             $locationProvider.hashPrefix('!');
         })
-        .run(function ($rootScope, $state, suggestionsService, hotkeys, user, $http, UserApp, ApiEndpointService) {
+        .run(function ($rootScope, $state, suggestionsService, hotkeys, auth, $http, ApiEndpointService) {
 
             // Make suggestions and hotkey services globally available in all views
 
             $rootScope.suggestionsService = suggestionsService;
             $rootScope.hotkeys = hotkeys;
+
+            // Make auto0 service available in all views
+
+            $rootScope.auth = auth;
 
             // Login/logout notifications for rest-api (not really used for other reasons than debugging and possibly stats later on)
 
@@ -248,8 +254,7 @@
                     // update ua_session_token for rest-api so that api requests are authenticated using the same userapp user
                     // (this is a workaround for the fact that cookies are not shared across api-endpoints)
                     $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/auth/loginNotify', {
-                        token: UserApp.tokenStorage.get(),
-                        user: user
+                        profile: auth.profile
                     })
                         .success(function (data, status, headers, config) {
                             console.log('login rest api sync request successful');
@@ -269,8 +274,7 @@
                     // destroy session also on rest-api so that api requests are no longer authenticated using the userapp user that was logged out
                     // (this is a workaround for the fact that cookies are not shared across api-endpoints)
                     $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/auth/logoutNotify', {
-                        token: UserApp.tokenStorage.get(),
-                        user: user
+                        profile: auth.profile
                     })
                         .success(function (data, status, headers, config) {
                             console.log('logout rest api sync request successful');

@@ -1,13 +1,12 @@
 <ul class="nav navbar-nav">
 
-    <li class="active" ng-show="!$state.includes('root.start')">
+    <li ui-sref-active="active" ng-show="!$state.includes('root.start')">
         <a ui-sref="root.start" href="#"><i class="fa fa-arrow-left"></i> <span class="nav-label">Back</span></a>
     </li>
 
-    <li class="active" ng-show="activeApiEndpoint.promise.$$state.status === 1">
+    <li ui-sref-active="active" ng-show="activeApiEndpoint.available">
         <a ui-sref="root.api-endpoints.existing.foos.list({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
                 class="fa fa-building"></i> Foos </a>
-
     </li>
 
     <li class="dropdown" dropdown>
@@ -37,28 +36,26 @@
     </li>
 
 </ul>
-<ul class="nav navbar-top-links navbar-right">
-    <li class="dropdown" dropdown ng-show="apiEndpoints.length > 1 && activeApiEndpoint.promise.$$state.status !== 1">
-        <a class="dropdown-toggle" href dropdown-toggle> <span ng-show="activeApiEndpoint.promise.$$state.status !== 1">Choose</span><span
-                ng-show="activeApiEndpoint.promise.$$state.status === 1">Switch</span> account <span
+<ul class="nav navbar-top-links navbar-right" ng-controller="LoginController">
+    <li class="dropdown" dropdown ng-show="apiEndpoints.length > 1 && activeApiEndpoint.available">
+        <a class="dropdown-toggle" href dropdown-toggle> <span ng-show="activeApiEndpoint.available">Choose</span><span
+                ng-show="activeApiEndpoint.available">Switch</span> account <span
                 class="caret"></span></a>
         <ul role="menu" class="dropdown-menu" ng-class="">
-            <li ng-repeat="apiEndpoint in apiEndpoints" ng-class="{active: apiEndpoint == activeApiEndpoint}"><a
+            <li ng-repeat="apiEndpoint in apiEndpoints" ng-class="{active: apiEndpoint.slug == activeApiEndpoint.slug}"><a
                     href="javascript:void(0);" ng-click="setApiEndpoint(apiEndpoint.slug);"><i
                     class="fa fa-dashboard"
-                    ng-show="apiEndpoint == activeApiEndpoint"></i>{{apiEndpoint.slug}}</a></li>
+                    ng-show="apiEndpoint.slug == activeApiEndpoint.slug"></i>{{apiEndpoint.slug}}</a></li>
         </ul>
     </li>
+
     <li ng-class="{active: $state.includes('user')}" class="dropdown" dropdown>
-        <a class="dropdown-toggle" href dropdown-toggle> {{user.first_name || 'User menu'}} <span class="caret"></span></a>
+        <a class="dropdown-toggle" href dropdown-toggle> {{auth.profile.nickname || 'User menu'}} <span class="caret"></span></a>
         <ul role="menu" class="dropdown-menu" ng-class="{in: $state.includes('user')}">
-            <li ui-sref-active="active" ng-show="!user.authenticated"><a ui-sref="user.login">Login</a></li>
-            <li ui-sref-active="active" ng-show="!user.authenticated"><a ui-sref="user.signup">Signup</a></li>
-            <li ui-sref-active="active" ng-show="false"><a ui-sref="user.verify-email">Verify email</a></li>
-            <li ui-sref-active="active" ng-show="false"><a ui-sref="user.reset-password">Reset password</a></li>
-            <li ui-sref-active="active" ng-show="user.authenticated"><a ui-sref="user.set-password">Change password</a>
-            </li>
-            <li ng-show="user.authenticated"><a href="" ua-logout><i class="fa fa-sign-out"></i> Log Out</a></li>
+            <li ui-sref-active="active" ng-show="!auth.profilePromise"><a ui-sref="root.start.user.login" ui-sref-opts="{reload: true}">Log In</a></li>
+            <li ui-sref-active="active" ng-show="!auth.profilePromise"><a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}">Sign Up</a></li>
+            <li ui-sref-active="active" ng-show="true"><a ui-sref="root.start.user.reset-password" ui-sref-opts="{reload: true}">Reset Ppassword</a></li>
+            <li ng-show="auth.profilePromise"><a ui-sref="root.start.user.logout"><i class="fa fa-sign-out"></i> Log Out</a></li>
         </ul>
     </li>
     <!--<li>

@@ -75,15 +75,12 @@
     });
 
     /**
-     * Service that injects the auth token in rest api requests when the user is authenticated
+     * Service that intercepts requests, can be used to show general error messages on failed requests
      */
-    app.factory('authInterceptor', function ($rootScope, $q, UserApp) {
+    app.factory('appInterceptor', function ($rootScope, $q) {
         return {
             request: function (config) {
                 config.headers = config.headers || {};
-                if (UserApp.tokenStorage.get()) {
-                    config.headers.Authorization = 'UserappToken ' + UserApp.tokenStorage.get();
-                }
                 //config.withCredentials = true;
                 return config;
             },
@@ -102,7 +99,7 @@
     });
 
     app.config(function ($httpProvider) {
-        $httpProvider.interceptors.push('authInterceptor');
+        $httpProvider.interceptors.push('appInterceptor');
     });
 
 })();

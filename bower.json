@@ -84,7 +84,12 @@
     "stormpath-sdk-angularjs": "~0.5.2",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.5.0",
     "mousetrap": "~1.5.2",
-    "angular-select2": "https://github.com/motin/angular-select2.git#select2-4.0-support-wip"
+    "angular-select2": "https://github.com/motin/angular-select2.git#select2-4.0-support-wip",
+    "auth0-angular": "~4.0.5",
+    "a0-angular-storage": "~0.0.12",
+    "angular-jwt": "~0.0.9",
+    "angular-cookies": "~1.4.5",
+    "angular-route": "~1.4.5"
   },
   "resolutions": {
     "angular": "~1.4",
