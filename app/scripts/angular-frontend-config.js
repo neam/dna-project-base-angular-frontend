@@ -467,7 +467,7 @@ angular
                 app_id: env.INTERCOM_ID,
                 name: profile.name,
                 email: profile.email,
-                created_at: created_at,
+                created_at: Math.floor(created_at / 1000),
                 "signup_plan": profile.user_metadata.signup_plan,
                 "picture": profile.picture,
                 "original_mixpanel_distinct_id": profile.user_metadata.original_mixpanel_distinct_id,
