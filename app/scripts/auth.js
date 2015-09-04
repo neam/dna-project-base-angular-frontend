@@ -69,7 +69,12 @@
         AuthService.loggedInPromise = $q.defer();
 
         AuthService.login = function () {
-            auth.signin({}, function (profile, token, accessToken, state, refreshToken) {
+            auth.signin({
+                sso: false,
+                authParams: {
+                    scope: 'openid email app_metadata'
+                }
+            }, function (profile, token, accessToken, state, refreshToken) {
                 // Success callback
                 store.set('profile', profile);
                 store.set('token', token);
@@ -85,7 +90,7 @@
             auth.signup({
                 sso: false,
                 authParams: {
-                    scope: 'openid profile' // This is if you want the full JWT
+                    scope: 'openid email app_metadata'
                 }
             }, function (profile, token, accessToken, state, refreshToken) {
                 // Success callback
