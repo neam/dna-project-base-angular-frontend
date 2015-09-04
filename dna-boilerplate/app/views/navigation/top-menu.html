@@ -54,7 +54,7 @@
         <ul role="menu" class="dropdown-menu" ng-class="{in: $state.includes('user')}">
             <li ui-sref-active="active" ng-show="!auth.profilePromise"><a ui-sref="root.start.user.login" ui-sref-opts="{reload: true}">Log In</a></li>
             <li ui-sref-active="active" ng-show="!auth.profilePromise"><a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}">Sign Up</a></li>
-            <li ui-sref-active="active" ng-show="true"><a ui-sref="root.start.user.reset-password" ui-sref-opts="{reload: true}">Reset Ppassword</a></li>
+            <li ui-sref-active="active" ng-show="true"><a ui-sref="root.start.user.reset-password" ui-sref-opts="{reload: true}">Reset Password</a></li>
             <li ng-show="auth.profilePromise"><a ui-sref="root.start.user.logout"><i class="fa fa-sign-out"></i> Log Out</a></li>
         </ul>
     </li>
