@@ -447,7 +447,7 @@ angular
             var mixpanel_data = {
                 "$email": profile.email,
                 "$first_name": profile.given_name ? profile.given_name : profile.name.split(' ').slice(0, -1).join(' '),
-                "$last_name": profile.last_name ? profile.last_name : profile.name.split(' ').slice(-1).join(' '),
+                "$last_name": profile.family_name ? profile.family_name : profile.name.split(' ').slice(-1).join(' '),
                 "$created": created_at,
                 "$last_login": last_login_at,
                 "signup_plan": profile.user_metadata.signup_plan,
@@ -473,11 +473,19 @@ angular
                 "original_mixpanel_distinct_id": profile.user_metadata.original_mixpanel_distinct_id,
                 "auth0_user_id": profile.user_id,
                 "auth0_updated_at": profile.updated_at,
-                "auth0_first_name": profile.first_name,
-                "auth0_last_name": profile.last_name,
+                "auth0_given_name": profile.given_name,
+                "auth0_family_name": profile.family_name,
                 "auth0_last_login_at": last_login_at,
                 "auth0_email_verified": profile.email_verified
             };
+            // Replicate data into app-specific data for multi-app tracking/detection
+            intercom_data[env.INTERCOM_APP_TAG + '_original_mixpanel_distinct_id'] = intercom_data.original_mixpanel_distinct_id;
+            intercom_data[env.INTERCOM_APP_TAG + '_auth0_user_id'] = intercom_data.auth0_user_id;
+            intercom_data[env.INTERCOM_APP_TAG + '_auth0_updated_at'] = intercom_data.auth0_updated_at;
+            intercom_data[env.INTERCOM_APP_TAG + '_auth0_given_name'] = intercom_data.auth0_given_name;
+            intercom_data[env.INTERCOM_APP_TAG + '_auth0_family_name'] = intercom_data.auth0_family_name;
+            intercom_data[env.INTERCOM_APP_TAG + '_auth0_last_login_at'] = intercom_data.auth0_last_login_at;
+            intercom_data[env.INTERCOM_APP_TAG + '_auth0_email_verified'] = intercom_data.auth0_email_verified;
             //console.log('intercom_data', intercom_data);
             window.Intercom && window.Intercom('boot', intercom_data);
 
