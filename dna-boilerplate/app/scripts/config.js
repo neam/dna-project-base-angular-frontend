@@ -99,18 +99,7 @@
                 template: "<ui-view/>",
                 data: {
                     requiresLogin: true
-                },
-                /*
-                resolve: {
-                    // all child states of root.api-endpoints needs a currently logged in user
-                    // why we need to resolve to a logged in userapp-user for these states
-                    userappService: 'user',
-                    loggedInUserappUser: function (user) {
-                        //console.log('root.api-endpoints - loggedInUserappUser, user.getCurrent()', user.getCurrent());
-                        return user.getCurrent();
-                    }
                 }
-                */
             })
 
         /**
@@ -143,7 +132,7 @@
                         // Set active endpoint based on state param
                         ApiEndpointService.setApiEndpoint($stateParams.apiEndpoint);
 
-                        return ApiEndpointService.activeApiEndpoint;
+                        return ApiEndpointService.activeApiEndpoint.promise;
 
                     }
                 },

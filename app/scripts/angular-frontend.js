@@ -82,11 +82,7 @@
                     return apiEndpoint.slug === slug;
                 });
 
-                // Add the value of the active endpoint slug to the promise for direct access in views
-                activeApiEndpoint.slug = chosenApiEndpoint.slug;
-                activeApiEndpoint.available = true;
-                activeApiEndpoint.resolve();
-
+                // Set general env vars for custom requests
                 if (slug === 'local') {
                     env.API_BASE_URL = env.LOCAL_API_BASE_URL;
                     env.API_VERSION = env.LOCAL_API_VERSION;
@@ -95,12 +91,24 @@
                     env.API_VERSION = chosenApiEndpoint.API_VERSION;
                 }
 
-                //console.log('chosen base-url: ', apiEndpoint);
+                // Add the value of the active endpoint slug to the promise for direct access in views
+                activeApiEndpoint.slug = chosenApiEndpoint.slug;
+                activeApiEndpoint.API_BASE_URL = chosenApiEndpoint.API_BASE_URL;
+                activeApiEndpoint.API_VERSION = chosenApiEndpoint.API_VERSION;
+
+                activeApiEndpoint.available = true;
+                activeApiEndpoint.resolve(chosenApiEndpoint);
+
+                //console.log('chosen api endpoint: ', chosenApiEndpoint, env.API_VERSION, env.API_BASE_URL);
 
             });
 
 
         };
+
+        activeApiEndpoint.promise.then(function (chosenApiEndpoint) {
+            //console.log('activeApiEndpoint resolved: ', chosenApiEndpoint, env.API_VERSION, env.API_BASE_URL);
+        });
 
         return {
             apiEndpoints: apiEndpoints,
