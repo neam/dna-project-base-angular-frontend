@@ -224,7 +224,13 @@
                 },
                 data: {pageTitle: 'reset-password'}
             })
-
+            .state('root.start.user.contact', {
+                url: "/contact",
+                onEnter: function (AuthService) {
+                    Intercom('show');
+                },
+                data: {pageTitle: 'contact'}
+            })
 
     });
 
