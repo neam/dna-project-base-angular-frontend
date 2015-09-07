@@ -83,6 +83,21 @@
             })
 
         /**
+         * Request invite
+         */
+
+            .state('root.start.user.request-invite', {
+                url: "/request-invite",
+                onEnter: function () {
+                    Intercom('showNewMessage', 'Hi! I would like to get Beta access to ' + env.SITENAME);
+                },
+                onExit: function () {
+                    Intercom('hide');
+                },
+                data: {pageTitle: 'request-invite'}
+            })
+
+        /**
          * FAQ route
          */
             .state('root.faq', {

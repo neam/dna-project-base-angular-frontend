@@ -49,7 +49,8 @@
         </ul>
     </li>
 
-    <li ng-class="{active: $state.includes('user')}" class="dropdown" dropdown>
+    <li ui-sref-active="active" ng-show="!auth.profilePromise"><a ui-sref="root.start.user.login" ui-sref-opts="{reload: true}"><i class="fa fa-user"></i> Log In</a></li>
+    <li ng-class="{active: $state.includes('user')}" class="dropdown" dropdown ng-show="auth.profilePromise">
         <a class="dropdown-toggle" href dropdown-toggle> {{auth.profile.first_name || auth.profile.name || 'User menu'}} <span class="caret"></span></a>
         <ul role="menu" class="dropdown-menu" ng-class="{in: $state.includes('user')}">
             <li ui-sref-active="active" ng-show="!auth.profilePromise"><a ui-sref="root.start.user.login" ui-sref-opts="{reload: true}">Log In</a></li>
