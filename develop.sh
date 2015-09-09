@@ -22,7 +22,7 @@ source ../angular-frontend-dna/.config
 
 # Offline mode switch
 if [ "$2" == "offline" ]; then
-  export USE_USERAPP_MOCK_API="true"
+  export OFFLINE_DEV="true"
 fi
 
 # Local api base url

@@ -15,7 +15,7 @@ source ../angular-frontend-dna/.config
 APPVHOST=$1
 
 # Ensure we don't build a version using local mock api
-export USE_USERAPP_MOCK_API="false"
+export OFFLINE_DEV="false"
 
 # Local api base url
 if [ "$APPVHOST" == "" ]; then

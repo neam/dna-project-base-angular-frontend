@@ -147,6 +147,16 @@
      */
     module.config(function (authProvider) {
 
+        // Support offline dev
+        if (env.OFFLINE_DEV === 'true') {
+            env.AUTH0_DOMAIN = '127.0.0.1:3000';
+            env.AUTH0_CLIENT_ID = 'auth0mockapiclientid';
+            window.auth0mockdata = {
+                profile: {"name":"John Doe","given_name":"John","family_name":"Doe","gender":"male","picture":"http://placehold.it/150x150","age_range":{"min":21},"devices":[{"hardware":"iPhone","os":"iOS"}],"updated_time":"2015-09-07T08:55:46+0000","installed":true,"is_verified":false,"locale":"en_US","name_format":"{first} {last}","verified":true,"nickname":"auth0mockapi","user_metadata":{"api_endpoints":[{"slug":"local"}],"default_api_endpoint_slug":"local","original_mixpanel_distinct_id":"mock-original_mixpanel_distinct_id","signup_tracked":true},"email":"john.doe@example.com","app_metadata":{"r0":{"permissions":{"example":{"superuser":0,"groups":[]}}}},"email_verified":true,"clientID":"foobar","updated_at":"2015-09-09T07:25:39.429Z","user_id":"auth0mockapi|123123123123123123","identities":[{"access_token":"foobar","provider":"auth0mockapi","user_id":"123123123123123123","connection":"auth0mockapi","isSocial":true}],"created_at":"2015-09-03T10:10:43.432Z","global_client_id":"foobar"},
+                idToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJnaXZlbl9uYW1lIjoiSm9obiIsImZhbWlseV9uYW1lIjoiRG9lIiwiZ2VuZGVyIjoibWFsZSIsInBpY3R1cmUiOiJodHRwOi8vcGxhY2Vob2xkLml0LzE1MHgxNTAiLCJhZ2VfcmFuZ2UiOnsibWluIjoyMX0sImRldmljZXMiOlt7ImhhcmR3YXJlIjoiaVBob25lIiwib3MiOiJpT1MifV0sInVwZGF0ZWRfdGltZSI6IjIwMTUtMDktMDdUMDg6NTU6NDYrMDAwMCIsImluc3RhbGxlZCI6dHJ1ZSwiaXNfdmVyaWZpZWQiOmZhbHNlLCJsb2NhbGUiOiJlbl9VUyIsIm5hbWVfZm9ybWF0Ijoie2ZpcnN0fSB7bGFzdH0iLCJ2ZXJpZmllZCI6dHJ1ZSwibmlja25hbWUiOiJhdXRoMG1vY2thcGkiLCJ1c2VyX21ldGFkYXRhIjp7ImFwaV9lbmRwb2ludHMiOlt7InNsdWciOiJsb2NhbCJ9XSwiZGVmYXVsdF9hcGlfZW5kcG9pbnRfc2x1ZyI6ImxvY2FsIiwib3JpZ2luYWxfbWl4cGFuZWxfZGlzdGluY3RfaWQiOiJtb2NrLW9yaWdpbmFsX21peHBhbmVsX2Rpc3RpbmN0X2lkIiwic2lnbnVwX3RyYWNrZWQiOnRydWV9LCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwiYXBwX21ldGFkYXRhIjp7InIwIjp7InBlcm1pc3Npb25zIjp7ImV4YW1wbGUiOnsic3VwZXJ1c2VyIjowLCJncm91cHMiOltdfX19fSwiZW1haWxfdmVyaWZpZWQiOnRydWUsImNsaWVudElEIjoiZm9vYmFyIiwidXBkYXRlZF9hdCI6IjIwMTUtMDktMDlUMDc6MjU6MzkuNDI5WiIsInVzZXJfaWQiOiJhdXRoMG1vY2thcGl8MTIzMTIzMTIzMTIzMTIzMTIzIiwiaWRlbnRpdGllcyI6W3siYWNjZXNzX3Rva2VuIjoiZm9vYmFyIiwicHJvdmlkZXIiOiJhdXRoMG1vY2thcGkiLCJ1c2VyX2lkIjoiMTIzMTIzMTIzMTIzMTIzMTIzIiwiY29ubmVjdGlvbiI6ImF1dGgwbW9ja2FwaSIsImlzU29jaWFsIjp0cnVlfV0sImNyZWF0ZWRfYXQiOiIyMDE1LTA5LTAzVDEwOjEwOjQzLjQzMloiLCJnbG9iYWxfY2xpZW50X2lkIjoiZm9vYmFyIn0._HkQuZs6Y6N38biAnksnWg3Ayf3qnE2hwBkeMKfxbiE'
+            };
+        }
+
         // Configure Auth0
         authProvider.init({
             domain: env.AUTH0_DOMAIN,
@@ -154,13 +164,6 @@
             // Here include the URL to redirect to if the user tries to access a resource when not authenticated.
             loginState: 'root.start.user.login'
         });
-
-        // TODO for Auth0
-        if (env.USE_USERAPP_MOCK_API === 'true') {
-            TODO.setBaseAddress('127.0.0.1:3000');
-            TODO.setSecure(false);
-            TODO.setDebug(true);
-        }
 
     });
 
