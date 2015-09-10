@@ -78,7 +78,7 @@
     "angular-translate": "~2.5.2",
     "blueimp-gallery": "~2.15.2",
     "ngHandsontable": "~0.7.0",
-    "Handsontable-select2-editor": "https://github.com/motin/Handsontable-select2-editor.git#3d3e28fbe7f128085794cf72ab92cd485c57edb6",
+    "Handsontable-select2-editor": "https://github.com/motin/Handsontable-select2-editor.git#80f0b7988f31305e63dae2e5b44a063e8b48741c",
     "select2": "~4.0.0",
     "angular-ui-ink": "*",
     "stormpath-sdk-angularjs": "~0.5.2",
@@ -99,8 +99,6 @@
     "fullcalendar": "~2.1.1",
     "rickshaw": "~1.5.0",
     "switchery": "~0.6.2",
-    "moment": "^2.9.0",
-    "select2": "~4.0.0",
-    "handsontable": "~0.17.0"
+    "moment": "^2.9.0"
   }
 }
