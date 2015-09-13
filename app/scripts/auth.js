@@ -68,19 +68,21 @@
 
         AuthService.loggedInPromise = $q.defer();
 
+        var onSigninSignupSuccess = function (profile, token, accessToken, state, refreshToken) {
+            // Success callback
+            store.set('profile', profile);
+            store.set('token', token);
+            onLogin();
+            goAfterLogin();
+        };
+
         AuthService.login = function () {
             auth.signin({
                 sso: false,
                 authParams: {
                     scope: 'openid email app_metadata'
                 }
-            }, function (profile, token, accessToken, state, refreshToken) {
-                // Success callback
-                store.set('profile', profile);
-                store.set('token', token);
-                onLogin();
-                goAfterLogin();
-            }, function (err) {
+            }, onSigninSignupSuccess, function (err) {
                 // Error callback
                 console.log('AuthService error callback signin');
                 goAfterLogin();
@@ -92,13 +94,7 @@
                 authParams: {
                     scope: 'openid email app_metadata'
                 }
-            }, function (profile, token, accessToken, state, refreshToken) {
-                // Success callback
-                store.set('profile', profile);
-                store.set('token', token);
-                onLogin();
-                goAfterLogin();
-            }, function (err) {
+            }, onSigninSignupSuccess, function (err) {
                 // Error callback
                 console.log('AuthService error callback signup');
                 goAfterLogin();
