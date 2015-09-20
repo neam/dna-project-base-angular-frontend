@@ -7,3 +7,6 @@
 [submodule "bower_components-git-repos/ngHandsontable"]
 	path = bower_components-git-repos/ngHandsontable
 	url = git@github.com:motin/ngHandsontable.git
+[submodule "bower_components-git-repos/angular-select2"]
+	path = bower_components-git-repos/angular-select2
+	url = git@github.com:motin/angular-select2.git
