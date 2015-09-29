@@ -140,20 +140,19 @@
      */
     module.controller('GeneralModalController', function ($scope, $modal, $log) {
 
-        $scope.open = function (template, size) {
+        $scope.open = function (template, size, params) {
 
+            $scope.params = params;
             var modalInstance = $modal.open({
                 animation: true,
                 templateUrl: template,
                 controller: 'GeneralModalInstanceController',
-                size: size
-                /*
-                 resolve: {
-                 items: function () {
-                 return $scope.items;
-                 }
-                 }
-                 */
+                size: size,
+                resolve: {
+                    modalParams: function () {
+                        return $scope.params;
+                    }
+                }
             });
 
             modalInstance.result.then(function (/*selectedItem*/) {
