@@ -38,7 +38,7 @@
             }
 
             // Add api endpoints from user property
-            apiEndpoints = profile.user_metadata.api_endpoints;
+            apiEndpoints.list = profile.user_metadata.api_endpoints;
             apiEndpoints.available = true;
 
             console.log('user.login apiEndpoints', apiEndpoints);
@@ -78,7 +78,7 @@
 
             auth.profilePromise.then(function () {
 
-                var chosenApiEndpoint = _.find(apiEndpoints, function (apiEndpoint) {
+                var chosenApiEndpoint = _.find(apiEndpoints.list, function (apiEndpoint) {
                     return apiEndpoint.slug === slug;
                 });
 
