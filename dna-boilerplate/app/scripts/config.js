@@ -139,11 +139,6 @@
                     apiEndpointParam: function ($stateParams, ApiEndpointService, $rootScope) {
                         //console.log('root.api-endpoints.existing apiEndpointParam - apiEndpointParam, $stateParams, ApiEndpointService', $stateParams, ApiEndpointService);
 
-                        // Make api endpoint variables globally available in all child views
-                        $rootScope.apiEndpoints = ApiEndpointService.apiEndpoints;
-                        $rootScope.activeApiEndpoint = ApiEndpointService.activeApiEndpoint;
-                        $rootScope.setApiEndpoint = ApiEndpointService.setApiEndpoint;
-
                         // Set active endpoint based on state param
                         ApiEndpointService.setApiEndpoint($stateParams.apiEndpoint);
 
@@ -245,6 +240,12 @@
             $locationProvider.hashPrefix('!');
         })
         .run(function ($rootScope, $state, suggestionsService, hotkeys, auth, $http, ApiEndpointService, $location) {
+
+            // Make api endpoint variables globally available in all child views
+
+            $rootScope.apiEndpoints = ApiEndpointService.apiEndpoints;
+            $rootScope.activeApiEndpoint = ApiEndpointService.activeApiEndpoint;
+            $rootScope.setApiEndpoint = ApiEndpointService.setApiEndpoint;
 
             // Make suggestions and hotkey services globally available in all views
 

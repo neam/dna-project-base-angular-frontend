@@ -6,7 +6,7 @@
         <span ng-show="!activeApiEndpoint.available">Choose</span><span ng-show="activeApiEndpoint.available">Switch</span> account:
 
         <ul>
-            <li ng-repeat="apiEndpoint in apiEndpoints">
+            <li ng-repeat="apiEndpoint in apiEndpoints.list">
                 <i class="fa fa-dashboard" ng-show="apiEndpoint.slug === activeApiEndpoint.slug"></i>
                 <a href="javascript:void(0);" ng-click="setApiEndpoint(apiEndpoint.slug);">{{apiEndpoint.slug}}</a>
             </li>

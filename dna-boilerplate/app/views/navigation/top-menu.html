@@ -52,20 +52,18 @@
 
 </ul>
 <ul class="nav navbar-top-links navbar-right" ng-controller="LoginController">
-    <li class="dropdown" dropdown ng-show="apiEndpoints.length > 1 && activeApiEndpoint.available">
-        <a class="dropdown-toggle" href dropdown-toggle> <span ng-show="activeApiEndpoint.available">Choose</span><span
+    <li class="dropdown" dropdown ng-show="apiEndpoints.list.length > 1">
+        <a class="dropdown-toggle" href dropdown-toggle> <span ng-show="!activeApiEndpoint.available">Choose</span><span
                 ng-show="activeApiEndpoint.available">Switch</span> account <span
                 class="caret"></span></a>
         <ul role="menu" class="dropdown-menu" ng-class="">
-            <li ng-repeat="apiEndpoint in apiEndpoints" ng-class="{active: apiEndpoint.slug == activeApiEndpoint.slug}"><a
+            <li ng-repeat="apiEndpoint in apiEndpoints.list" ng-class="{active: apiEndpoint.slug == activeApiEndpoint.slug}"><a
                     href="javascript:void(0);" ng-click="setApiEndpoint(apiEndpoint.slug);"><i
-                    class="fa fa-dashboard"
-                    ng-show="apiEndpoint.slug == activeApiEndpoint.slug"></i>{{apiEndpoint.slug}}</a></li>
+                    class="fa" ng-class="{'fa-check-circle-o': apiEndpoint.slug == activeApiEndpoint.slug, 'fa-circle-o': apiEndpoint.slug !== activeApiEndpoint.slug}"></i> {{apiEndpoint.slug}}</a></li>
         </ul>
     </li>
 
-    <li ui-sref-active="active" ng-show="!auth.profilePromise"><a ui-sref="root.start.user.login" ui-sref-opts="{reload: true}"><i class="fa fa-user"></i> Log In</a></li>
-    <li ng-class="{active: $state.includes('user')}" class="dropdown" dropdown ng-show="auth.profilePromise">
+    <li ng-class="{active: $state.includes('user')}" class="dropdown" dropdown>
         <a class="dropdown-toggle" href dropdown-toggle> {{auth.profile.first_name || auth.profile.name || 'User menu'}} <span class="caret"></span></a>
         <ul role="menu" class="dropdown-menu" ng-class="{in: $state.includes('user')}">
             <li ui-sref-active="active" ng-show="!auth.profilePromise"><a ui-sref="root.start.user.login" ui-sref-opts="{reload: true}">Log In</a></li>
