@@ -75,6 +75,15 @@
     });
 
     /**
+     * Service for route-based filters, such as when visiting an item's page, only show items related to that item
+     */
+    app.service('routeBasedFilters', function () {
+
+        return {};
+
+    });
+
+    /**
      * Service that intercepts requests, can be used to show general error messages on failed requests
      */
     app.factory('appInterceptor', function ($rootScope, $q) {

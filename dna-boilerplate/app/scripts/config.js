@@ -194,6 +194,12 @@
             .state('root.api-endpoints.existing.foos.existing.edit', {
                 abstract: true,
                 url: "/edit",
+                resolve: {
+                    setRouteBasedFilters: function (routeBasedFilters, $stateParams) {
+                        routeBasedFilters.Bar_order = 'Foo.id DESC';
+                        routeBasedFilters.Bar_foo_id = $stateParams.fooId;
+                    }
+                },
                 views: {
                     '': {
                         templateUrl: "crud/foo/form.html"
@@ -238,7 +244,7 @@
             $locationProvider.html5Mode(true);
             $locationProvider.hashPrefix('!');
         })
-        .run(function ($rootScope, $state, suggestionsService, hotkeys, auth, $http, ApiEndpointService) {
+        .run(function ($rootScope, $state, suggestionsService, hotkeys, auth, $http, ApiEndpointService, $location) {
 
             // Make suggestions and hotkey services globally available in all views
 
@@ -248,6 +254,25 @@
             // Make auto0 service available in all views
 
             $rootScope.auth = auth;
+
+            // Save $location.search() params between state changes
+
+            var locationSearch;
+
+            locationSearch = $location.search();
+            console.log('on load - locationSearch', locationSearch);
+
+            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+                //save location.search so we can add it back after transition is done
+                locationSearch = $location.search();
+                console.log('$stateChangeStart - locationSearch', locationSearch);
+            });
+
+            $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+                //restore all query string parameters back to $location.search
+                $location.search(locationSearch);
+                console.log('$stateChangeSuccess - locationSearch', locationSearch);
+            });
 
             // Login/logout notifications for rest-api (not really used for other reasons than debugging and possibly stats later on)
 
