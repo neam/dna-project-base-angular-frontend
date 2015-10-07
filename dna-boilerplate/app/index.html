@@ -154,6 +154,12 @@
 
 <!-- Handsontable -->
 <script src="bower_components/handsontable/dist/handsontable.full.js"></script>
+<script src="bower_components/ruleJS/dist/full/ruleJS.all.full.js"></script>
+<script src="bower_components/handsontable-ruleJS/src/handsontable.formula.js"></script>
+<script type="application/javascript">
+    // Necessary for ngHandsontable to accept the "formulas" setting
+    Handsontable.DefaultSettings.prototype.formulas = {};
+</script>
 <script src="bower_components/ngHandsontable/dist/ngHandsontable.js"></script>
 
 <!-- Handsontable-select2-editor -->
