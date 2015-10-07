@@ -66,13 +66,9 @@ $hasOneRelationSelect2Input = function ($attribute, $model) {
     return <<<INPUT
 <label for="$lcfirstModelClass.attributes.$attribute.id">{$attributeInfo["label"]}</label>
 <div class="select2 m-b">
-    <select2 ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute.id" id="$lcfirstModelClass.attributes.$attribute.id">
-        <option value="" ng-selected="{{{$lcfirstModelClass}.attributes.$attribute.id === null}}">&lt;none&gt;</option>
-        <option ng-repeat="itemOption in {$lcfirstModelClass}Crud.relations.$attribute.relatedCollection"
-                value="{{itemOption.id}}"
-                ng-selected="{{itemOption.id == $lcfirstModelClass.attributes.$attribute.id}}">
-            {{itemOption.item_label}}
-        </option>
+    <select2 ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute.id" id="$lcfirstModelClass.attributes.$attribute.id"
+    options="{$lcfirstModelClass}Crud.relations.$attribute.select2Options">
+        <option value="{{{$lcfirstModelClass}.attributes.$attribute.id}}">{{{$lcfirstModelClass}.attributes.$attribute.item_label}}</option>
     </select2>
 </div>
 INPUT;
@@ -130,9 +126,9 @@ INPUT;
 INPUT;
         case "primary-key":
             return <<<INPUT
-        <hot-column data="attributes.$attribute" title="'Delete'" attribute-type="'delete-button'" renderer="{$lcfirstModelClass}Crud.handsontable.deleteButtonRenderer" readOnly></hot-column>
-        <hot-column data="attributes.$attribute" title="'$attribute'" attribute-type="'{$attributeInfo["type"]}'" readOnly></hot-column>
-        <hot-column data="item_label" title="'Label'" attribute-type="'{$attributeInfo["type"]}'" readOnly></hot-column>
+        <hot-column data="attributes.$attribute" title="'Delete'" attribute-type="'delete-button'" renderer="{$lcfirstModelClass}Crud.handsontable.deleteButtonRenderer" read-only></hot-column>
+        <hot-column data="attributes.$attribute" title="'$attribute'" attribute-type="'{$attributeInfo["type"]}'" read-only></hot-column>
+        <hot-column data="item_label" title="'Label'" attribute-type="'{$attributeInfo["type"]}'" read-only></hot-column>
 INPUT;
         case "ordinary":
             return <<<INPUT
@@ -141,7 +137,7 @@ INPUT;
             break;
         case "has-one-relation":
             return <<<INPUT
-        <hot-column data="attributes.$attribute.id" title="'$attribute'" attribute-type="'has-one-relation'" renderer="{$lcfirstModelClass}Crud.handsontable.columnLogic.$attribute.cellRenderer" editor="'select2'" select2Options="{$lcfirstModelClass}Crud.handsontable.columnLogic.$attribute.select2Options"></hot-column>
+        <hot-column data="attributes.$attribute.id" title="'$attribute'" attribute-type="'has-one-relation'" renderer="{$lcfirstModelClass}Crud.handsontable.columnLogic.$attribute.cellRenderer" editor="'select2'" select2-options="{$lcfirstModelClass}Crud.handsontable.columnLogic.$attribute.select2Options"></hot-column>
 INPUT;
             break;
     }
@@ -152,7 +148,7 @@ $handsontableCheckboxColumn = function ($attribute, $model) {
     $attribute = str_replace("hot-column.", "", $attribute);
     return <<<INPUT
         <hot-column data="attributes.$attribute" title="'$attribute'" type="'checkbox'"
-                checkedTemplate="1" uncheckedTemplate="0"></hot-column>
+                checked-template="true" unchecked-template="false"></hot-column>
 INPUT;
 };
 

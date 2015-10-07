@@ -13,17 +13,19 @@
 
         <h1><span ng-show="!activeApiEndpoint.available && !auth.profilePromise">Big headline</span>
             <span ng-show="!activeApiEndpoint.available && auth.profilePromise">Thank you for signing up!</span>
-            <span ng-show="activeApiEndpoint.available">Welcome!</span></h1>
+            <span ng-show="activeApiEndpoint.available && auth.profilePromise">Welcome!</span></h1>
 
         <div ng-show="!activeApiEndpoint.available && !auth.profilePromise">
 
-            <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}" class="btn btn-primary btn-lg">Sign up &gt;</a></span>
+            <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}" class="btn btn-primary btn-lg">Sign up &nbsp; <i class="fa fa-lg fa-long-arrow-right"></i></a></span>
 
             <div>
                 <span><!--<a ui-sref="root.faq">Find out how</a> or--> <a ui-sref="root.start.user.login"
                                                                    ui-sref-opts="{reload: true}">Log in</a> if you already have an account</span>
             </div>
 
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
             <!--
             <a ui-sref="root.start.user.login"
                         class="btn btn-primary btn-lg" href="#">Log In</a></span>
@@ -37,7 +39,7 @@
                 <span>We are in private beta and are thrilled to get you on board!<br/>Tell us a bit about what you hope to achieve with {{env.SITENAME}} and we will invite you to the beta:</span>
             </div>
 
-            <a ui-sref="root.start.user.request-invite" ui-sref-opts="{reload: true}" class="btn btn-primary btn-lg">Request invite now by chat &gt;</a></span>
+            <a ui-sref="root.start.user.request-invite" ui-sref-opts="{reload: true}" class="btn btn-primary btn-lg">Request invite now by chat &nbsp; <i class="fa fa-lg fa-long-arrow-right"></i></a></span>
 
             <div>
                 <span>All users with beta access will get a FREE lifetime standard account of {{env.SITENAME}}!</span>
@@ -56,10 +58,14 @@
             <span>or <a ui-sref="root.api-endpoints.existing.campaigns.list({apiEndpoint: activeApiEndpoint.slug})"
                         href="#">edit an existing one</a></span>
             -->
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
 
         </div>
 
-        <div class="banner">Create <a href="#">interactive foos</a>, do stuffs, achieve everything.
+        <div class="banner">{{env.SITENAME}} helps users create <a href="#">interactive foos</a>, do stuffs, achieve everything.
         </div>
 
     </div>
@@ -72,7 +78,8 @@
 
                 <i class="fa fa-dashboard"></i>
 
-                <h2>Suited foos</h2>
+                <h2><a ui-sref="root.api-endpoints.existing.foo({apiEndpoint: activeApiEndpoint.slug})" href="#">
+                    <span class="nav-label">Suited foos</span></a></h2>
 
                 <p>
 
@@ -86,7 +93,8 @@
 
                 <i class="fa fa-dashboard"></i>
 
-                <h2>Increase your reach</h2>
+                <h2><a ui-sref="root.api-endpoints.existing.foo({apiEndpoint: activeApiEndpoint.slug})" href="#">
+                    <span class="nav-label">Increase your reach</span></a></h2>
 
                 <p>
 
@@ -100,7 +108,8 @@
 
                 <i class="fa fa-dashboard"></i>
 
-                <h2>Get statistics</h2>
+                <h2><a ui-sref="root.api-endpoints.existing.foo({apiEndpoint: activeApiEndpoint.slug})" href="#">
+                    <span class="nav-label">Get statistics</span></a></h2>
 
                 <p>
 
@@ -114,7 +123,8 @@
 
                 <i class="fa fa-dashboard"></i>
 
-                <h2>Live updates</h2>
+                <h2><a ui-sref="root.api-endpoints.existing.foo({apiEndpoint: activeApiEndpoint.slug})" href="#">
+                    <span class="nav-label">Live updates</span></a></h2>
 
                 <p>
 

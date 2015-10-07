@@ -6,7 +6,22 @@
 
     <li ui-sref-active="active" ng-show="activeApiEndpoint.available">
         <a ui-sref="root.api-endpoints.existing.foos.list({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
-                class="fa fa-building"></i> Foos </a>
+                class="fa fa-building"></i>Suited foos</a>
+    </li>
+
+    <li ui-sref-active="active" ng-show="activeApiEndpoint.available">
+        <a ui-sref="root.api-endpoints.existing.foo({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
+                class="fa fa-cloud-download"></i> <span class="nav-label">Increase your reach</span></a>
+    </li>
+
+    <li ui-sref-active="active" ng-show="activeApiEndpoint.available">
+        <a ui-sref="root.api-endpoints.existing.foo({apiEndpoint: activeApiEndpoint.slug})"
+           href="#"><i class="fa fa-calendar"></i> <span class="nav-label">Get statistics</span></a>
+    </li>
+
+    <li ui-sref-active="active" ng-show="activeApiEndpoint.available">
+        <a ui-sref="root.api-endpoints.existing.foo({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
+                class="fa fa-clock-o"></i> <span class="nav-label">Live updates</span></a>
     </li>
 
     <li class="dropdown" dropdown>
