@@ -6,20 +6,36 @@
     /**
      * Service to handle data-change suggestions via the angular ui
      */
-    app.service('suggestionsService', function ($http, $location, $injector) {
+    app.service('suggestionsService', function ($http, $location, $injector, routeBasedFilters) {
+
+        var statuses = {
+            ACTIVE: 'active',
+            INACTIVE: 'inactive',
+            LOADING: 'loading',
+            ERROR: 'error'
+        };
+
+        var status = statuses.INACTIVE;
 
         var suggestionsService = {
+            status: status,
+            statuses: statuses,
             suggest: function (suggestions, save) {
 
                 console.log('suggest - suggestions, save', suggestions, save);
 
-                var params = angular.extend({}, $location.search(), {
+                // Filters are stored in $location.search and the service routeBasedFilters
+                var filters = angular.merge($location.search(), routeBasedFilters);
+
+                var params = angular.extend({}, {
                     'suggestions': suggestions,
                     'save': save,
+                    'filters': filters,
                     'default_page': 1,
                     'default_limit': 100
                 });
 
+                status = statuses.LOADING;
                 $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/suggestions', params).
                     then(function (response) {
                         // this callback will be called asynchronously
@@ -32,23 +48,30 @@
                             $injector.invoke([key, function (resource) {
 
                                 resource.replace(value.items);
+                                resource.$metadata = value._meta;
 
                             }]);
 
                         });
 
+                        if (save) {
+                            status = statuses.INACTIVE;
+                        } else {
+                            status = statuses.ACTIVE;
+                        }
 
                     }, function (response) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
 
+                        status = statuses.ERROR;
                         console.log('error during suggestions received', response);
 
                     });
 
             },
-            bar: function () {
-
+            status: function () {
+                return status;
             }
         };
 
