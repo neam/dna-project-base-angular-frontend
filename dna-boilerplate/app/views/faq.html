@@ -1,26 +1,19 @@
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Frequently asked questions</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="index.html">This is</a>
-            </li>
-            <li class="active">
-                <strong>Breadcrumb</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <a href="" class="btn btn-primary">This is action area</a>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="wrapper wrapper-content">
+<div class="wrapper wrapper-content">
+    <h1>Frequently asked questions</h1>
 
-FAQ
+    <div class="row">
+        <div class="col-lg-12">
+
+            <h2>When will you open {{env.SITENAME}} to the public?</h2>
+
+            <p>As soon as we have tested and made sure that doing so will not negatively affect our existing users.</p>
+
+            <h2>Who is behind {{env.SITENAME}}?</h2>
+
+            <p>A company called <a href="{{env.BRAND_HOME_URL}}" target="_blank">{{env.BRAND_COMPANY}}</a>.</p>
+
+            <a ui-sref="root.start.user.contact" ui-sref-opts="{reload: true}" class="btn btn-primary btn-lg">Ask us
+                a new question &gt;</a></span>
 
         </div>
     </div>
