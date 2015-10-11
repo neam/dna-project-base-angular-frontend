@@ -109,10 +109,14 @@
     /**
      * Service that intercepts requests, can be used to show general error messages on failed requests
      */
-    app.factory('appInterceptor', function ($rootScope, $q) {
+    app.factory('appInterceptor', function ($rootScope, $q, auth) {
         return {
             request: function (config) {
                 config.headers = config.headers || {};
+                // Supply header indicating which data profile we should use for the request
+                if (auth.profile && auth.profile.user_metadata) {
+                    config.headers['X-Data-Profile'] = auth.profile.user_metadata.data || 'example';
+                }
                 //config.withCredentials = true;
                 return config;
             },
