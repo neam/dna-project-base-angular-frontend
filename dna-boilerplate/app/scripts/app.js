@@ -109,13 +109,13 @@
     /**
      * Service that intercepts requests, can be used to show general error messages on failed requests
      */
-    app.factory('appInterceptor', function ($rootScope, $q, auth) {
+    app.factory('appInterceptor', function ($rootScope, $q, ApiEndpointService) {
         return {
             request: function (config) {
                 config.headers = config.headers || {};
                 // Supply header indicating which data profile we should use for the request
-                if (auth.profile && auth.profile.user_metadata) {
-                    config.headers['X-Data-Profile'] = auth.profile.user_metadata.data || 'example';
+                if (ApiEndpointService.activeApiEndpoint.available) {
+                    config.headers['X-Data-Profile'] = env.DATA || 'clean-db';
                 }
                 //config.withCredentials = true;
                 return config;
