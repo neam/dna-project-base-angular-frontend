@@ -23,7 +23,7 @@
     /**
      * Services whose purpose is to supply the "apiEndpoints" array and "setApiEndpoint" function
      */
-    module.service('ApiEndpointService', function ($q, auth, AuthService, $rootScope) {
+    module.service('ApiEndpointService', function ($q, auth, $rootScope) {
 
         //console.log('ApiEndpointService');
 
@@ -83,12 +83,14 @@
                 });
 
                 // Set general env vars for custom requests
-                if (slug === 'local') {
+                if (slug.indexOf("@local") !== -1) {
                     env.API_BASE_URL = env.LOCAL_API_BASE_URL;
                     env.API_VERSION = env.LOCAL_API_VERSION;
+                    env.DATA = chosenApiEndpoint.DATA;
                 } else {
                     env.API_BASE_URL = chosenApiEndpoint.API_BASE_URL;
                     env.API_VERSION = chosenApiEndpoint.API_VERSION;
+                    env.DATA = chosenApiEndpoint.DATA;
                 }
 
                 // Add the value of the active endpoint slug to the promise for direct access in views
