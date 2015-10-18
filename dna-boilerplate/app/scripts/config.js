@@ -24,49 +24,6 @@
                      */
                 }
             })
-            .state('root.main', {
-                url: "/",
-                templateUrl: "views/main.html",
-                data: { pageTitle: 'Example view' }
-            })
-            .state('root.minor', {
-                url: "/minor",
-                templateUrl: "views/minor.html",
-                data: { pageTitle: 'Example view' }
-            })
-            .state('topnav', {
-                abstract: true,
-                url: "/topnav",
-                templateUrl: "views/common/content_top_navigation.html",
-            })
-            .state('topnav.main', {
-                url: "/",
-                templateUrl: "views/main.html",
-                data: { pageTitle: 'Example view' }
-            })
-            .state('topnav.minor', {
-                url: "/minor",
-                templateUrl: "views/minor.html",
-                data: { pageTitle: 'Example view' }
-            })
-            .state('root.example-view', {
-                url: "/example-view",
-                templateUrl: "views/example-view.html",
-                /*
-                resolve: {
-                    // Inject the metadata resolved in the root state
-                    metadata: function (metadata) {
-                        return metadata;
-                    }
-                },
-                */
-                data: { pageTitle: 'Example view' }
-            })
-            .state('root.pre-launch', {
-                url: "/pre-launch",
-                templateUrl: "views/pre-launch.html",
-                data: { pageTitle: 'Example view' }
-            })
 
         /**
          * Default "start" route
