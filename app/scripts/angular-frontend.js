@@ -82,8 +82,12 @@
                     return apiEndpoint.slug === slug;
                 });
 
+                function endsWith(str, suffix) {
+                    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+                }
+
                 // Set general env vars for custom requests
-                if (slug.indexOf("@local") !== -1) {
+                if (endsWith(slug, "local")) {
                     env.API_BASE_URL = env.LOCAL_API_BASE_URL;
                     env.API_VERSION = env.LOCAL_API_VERSION;
                     env.DATA = chosenApiEndpoint.DATA;
