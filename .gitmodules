@@ -10,3 +10,6 @@
 [submodule "bower_components-git-repos/angular-select2"]
 	path = bower_components-git-repos/angular-select2
 	url = git@github.com:motin/angular-select2.git
+[submodule "bower_components-git-repos/angular-simple-handsontable"]
+	path = bower_components-git-repos/angular-simple-handsontable
+	url = git@github.com:neam/angular-simple-handsontable.git

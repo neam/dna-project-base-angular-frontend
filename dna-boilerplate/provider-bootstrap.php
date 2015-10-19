@@ -102,8 +102,128 @@ INPUT;
 
 };
 
+// Handsontable column settings
+
+$handsontableOrdinaryColumn = function ($attribute, $model) {
+    $attribute = str_replace("handsontable-column-settings.", "", $attribute);
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $attribute = str_replace("hot-column.", "", $attribute);
+    $attributeInfo["label"] = json_encode($attributeInfo["label"]);
+    return <<<INPUT
+            {
+                data: 'attributes.$attribute',
+                title: {$attributeInfo["label"]},
+            },
+INPUT;
+};
+
+$handsontableCheckboxColumn = function ($attribute, $model) {
+    $attribute = str_replace("handsontable-column-settings.", "", $attribute);
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $attribute = str_replace("hot-column.", "", $attribute);
+    $attributeInfo["label"] = json_encode($attributeInfo["label"]);
+    return <<<INPUT
+            {
+                data: 'attributes.$attribute',
+                title: {$attributeInfo["label"]},
+                type: 'checkbox',
+                checkedTemplate: true,
+                uncheckedTemplate: false,
+            },
+INPUT;
+};
+
+$handsontablePrimaryKeyColumn = function ($attribute, $model) {
+    $attribute = str_replace("handsontable-column-settings.", "", $attribute);
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
+    $attribute = str_replace("hot-column.", "", $attribute);
+    $attributeInfo["label"] = json_encode($attributeInfo["label"]);
+    return <<<INPUT
+            {
+                data: 'attributes.$attribute',
+                title: 'Delete',
+                renderer: {$lcfirstModelClass}Crud.handsontable.deleteButtonRenderer,
+                readOnly: true,
+            },{
+                data: 'attributes.$attribute',
+                title: {$attributeInfo["label"]},
+                readOnly: true,
+            },{
+                data: 'item_label',
+                title: 'Summary',
+                readOnly: true,
+            },
+INPUT;
+};
+
+$handsontableHasOneRelationColumn = function ($attribute, $model) {
+    $attribute = str_replace("handsontable-column-settings.", "", $attribute);
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
+    $attribute = str_replace("hot-column.", "", $attribute);
+    $attributeInfo["label"] = json_encode($attributeInfo["label"]);
+    return <<<INPUT
+            {
+                data: 'attributes.$attribute.id',
+                title: {$attributeInfo["label"]},
+                renderer: {$lcfirstModelClass}Crud.handsontable.columnLogic.$attribute.cellRenderer,
+                editor: 'select2',
+                select2Options: {$lcfirstModelClass}Crud.handsontable.columnLogic.$attribute.select2Options,
+            },
+INPUT;
+};
+
+$handsontableAutoDetectColumn = function ($attribute, $model) use (
+    $handsontableOrdinaryColumn,
+    $handsontableCheckboxColumn,
+    $handsontablePrimaryKeyColumn,
+    $handsontableHasOneRelationColumn
+) {
+    $attribute = str_replace("handsontable-column-settings.", "", $attribute);
+    $itemTypeAttributes = $model->itemTypeAttributes();
+
+    // Handle attributes that have no item type attribute information (ie for pure crud columns)
+    if (!array_key_exists($attribute, $itemTypeAttributes)) {
+        return <<<INPUT
+            {
+                data: 'attributes.$attribute',
+                title: '$attribute',
+            },
+INPUT;
+    }
+
+    $attributeInfo = $itemTypeAttributes[$attribute];
+
+    switch ($attributeInfo["type"]) {
+        default:
+            return <<<INPUT
+            // "$attribute" TYPE {$attributeInfo["type"]} TODO
+INPUT;
+        case "internal":
+            return <<<INPUT
+            // "$attribute" TYPE {$attributeInfo["type"]}
+INPUT;
+            break;
+        case "ordinary":
+            return $handsontableOrdinaryColumn($attribute, $model);
+        case "boolean":
+            return $handsontableCheckboxColumn($attribute, $model);
+        case "primary-key":
+            return $handsontablePrimaryKeyColumn($attribute, $model);
+        case "has-one-relation":
+            return $handsontableHasOneRelationColumn($attribute, $model);
+    }
+
+};
+
 // Handsontable inputs
 
+/*
 $handsontableOrdinaryColumn = function ($attribute, $model) {
     $attribute = str_replace("hot-column.", "", $attribute);
 
@@ -151,6 +271,7 @@ $handsontableCheckboxColumn = function ($attribute, $model) {
                 checked-template="true" unchecked-template="false"></hot-column>
 INPUT;
 };
+*/
 
 $todo = function ($attribute, $model) {
     return "<!-- \"$attribute\" TODO -->";
@@ -159,9 +280,9 @@ $todo = function ($attribute, $model) {
 // Mapping between attribute names and CRUD form input fields
 $activeFields = [
 
-    'hot-column.*\.is_*' => $handsontableCheckboxColumn,
-    'hot-column.*\.*_enabled' => $handsontableCheckboxColumn,
-    'hot-column.*' => $handsontableOrdinaryColumn,
+    'handsontable-column-settings.*\.is_*' => $handsontableCheckboxColumn,
+    'handsontable-column-settings.*\.*_enabled' => $handsontableCheckboxColumn,
+    'handsontable-column-settings.*' => $handsontableAutoDetectColumn,
     '\.is_*' => $tristateRadioInput,
     '\.*_enabled' => $tristateRadioInput,
     'owner' => $todo,

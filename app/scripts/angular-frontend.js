@@ -11,7 +11,8 @@
         'angulartics.mixpanel',
         'googlechart',                  // angular-google-chart
         'angularDc',
-        'ngHandsontable',
+        //'ngHandsontable',
+        'simpleHandsontable',
         'ui.ink',
         'cfp.hotkeys',                  // angular-hotkeys
         '3-way-merge',                  // 3-way-merge
