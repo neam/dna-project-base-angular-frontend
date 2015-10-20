@@ -13,3 +13,6 @@
 [submodule "bower_components-git-repos/angular-simple-handsontable"]
 	path = bower_components-git-repos/angular-simple-handsontable
 	url = git@github.com:neam/angular-simple-handsontable.git
+[submodule "bower_components-git-repos/angular-ui-ink"]
+	path = bower_components-git-repos/angular-ui-ink
+	url = git@github.com:neam/angular-ui-ink.git
