@@ -92,10 +92,11 @@
     "angular-cookies": "~1.4.5",
     "angular-route": "~1.4.5",
     "ruleJS": "~0.0.5",
-    "handsontable-ruleJS": "https://github.com/handsontable/handsontable-ruleJS.git#~0.0.4"
+    "handsontable-ruleJS": "https://github.com/handsontable/handsontable-ruleJS.git#~0.0.4",
+    "angular-model-factory": "~1.0.2"
   },
   "resolutions": {
-    "angular": "~1.4",
+    "angular": "~1.4.0",
     "jquery": "~2.x",
     "jquery-ui": "~1.11.1",
     "nouislider": "~7.0.7",
