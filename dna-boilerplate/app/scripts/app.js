@@ -2,6 +2,8 @@
     var app = angular.module('app', [
         'angular-frontend',
         'ngResource',                   // $resource
+        //'modelFactory',                 // angular-model-factory
+        //'multiStepForm',                // angular-multi-step-form
         'googlechart',                  // angular-google-chart
         'angularDc',
         //'ngHandsontable',
