@@ -2,23 +2,13 @@
 
     var module = angular.module('angular-frontend', [
         'ui.router',                    // Routing
-        'ngResource',                   // $resource
         'inspinia',                     // Inspinia-theme-related functionality
+        'angular-frontend-filters',     // angular-frontend-filters.js
         'auth',                         // Authentication logic summarized in auth.js
         'angulartics',                  // angulartics + plugins
         'angulartics.scroll',
         'angulartics.google.analytics',
         'angulartics.mixpanel',
-        'googlechart',                  // angular-google-chart
-        'angularDc',
-        //'ngHandsontable',
-        'simpleHandsontable',
-        'ui.ink',
-        'cfp.hotkeys',                  // angular-hotkeys
-        '3-way-merge',                  // 3-way-merge
-        'rt.select2',                   // angular-select2
-        //'angularJade',
-        'angular-frontend-filters'      // angular-frontend-filters.js
     ]);
 
     /**

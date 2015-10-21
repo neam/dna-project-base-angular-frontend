@@ -1,6 +1,16 @@
 (function () {
     var app = angular.module('app', [
-        'angular-frontend'
+        'angular-frontend',
+        'ngResource',                   // $resource
+        'googlechart',                  // angular-google-chart
+        'angularDc',
+        //'ngHandsontable',
+        'simpleHandsontable',
+        'ui.ink',
+        'cfp.hotkeys',                  // angular-hotkeys
+        '3-way-merge',                  // 3-way-merge
+        'rt.select2',                   // angular-select2
+        //'angularJade',        
     ]);
 
     /**
