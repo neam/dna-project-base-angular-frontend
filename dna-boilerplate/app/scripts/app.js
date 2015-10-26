@@ -150,4 +150,23 @@
         $httpProvider.interceptors.push('appInterceptor');
     });
 
+    app.directive('dnaFileSelectionWidget', function () {
+        return {
+            restrict: 'E',
+            require: '?ngModel',
+            scope: {
+                mediaLibrary: '@', // none, select2, file-manager
+                multiple: '@', // true, false
+                existingSelection: '@', // unmodified, replace, add
+                restrictions: '@'
+            },
+            templateUrl: 'views/widgets/dna-file-selection-widget.html',
+            link: function (scope, element, attrs, ctrl) {
+
+                console.log('dnaFileSelectionWidget link', scope, element, attrs, ctrl);
+
+            }
+        };
+    })
+
 })();

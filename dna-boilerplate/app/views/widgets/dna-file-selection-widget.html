@@ -1,0 +1,30 @@
+<h2>File selection widget wip</h2>
+
+<input name="foo4" type="filepicker-dragdrop" ng-model="files"
+       data-fp-apikey="AJewNegLbQcSkwfpZTotxz"
+       data-fp-mimetypes="*/*" data-fp-container="modal" data-fp-multiple="true"
+       data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT">
+
+<input name="foo2" type="filepicker-dragdrop" ng-model="files"
+       data-fp-apikey="AJewNegLbQcSkwfpZTotxz"
+       data-fp-mimetypes="image/*" data-fp-container="modal" data-fp-multiple="false"
+       data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT">
+
+<ul>
+    <li ng-repeat="file in files">{{file}}</li>
+</ul>
+<pre>
+{{ files | json }}
+</pre>
+
+<!-- The actual main input -->
+<label for="campaign.attributes.thumbnailMedia.id">Thumbnail Media</label>
+<div class="select2 m-b">
+    <select2 ng-model="campaign.attributes.thumbnailMedia.id" name="campaign.attributes.thumbnailMedia.id"
+             id="campaign.attributes.thumbnailMedia.id"
+             options="campaignCrud.relations.thumbnailMedia.select2Options">
+        <option value="{{campaign.attributes.thumbnailMedia.id}}">{{campaign.attributes.thumbnailMedia.item_label}}
+        </option>
+    </select2>
+</div>
+
