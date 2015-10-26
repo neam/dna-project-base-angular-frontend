@@ -22,7 +22,8 @@
                      return metadataService.getMetadataPromise();
                      }
                      */
-                }
+                },
+                data: {showSideMenu: false}
             })
 
         /**
