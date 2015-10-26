@@ -193,8 +193,8 @@
         })
         .config(function ($locationProvider) {
             // enable html5Mode for pushstate ('#'-less URLs)
-            $locationProvider.html5Mode(true);
-            $locationProvider.hashPrefix('!');
+            //$locationProvider.html5Mode(true);
+            //$locationProvider.hashPrefix('!');
         })
         .run(function ($rootScope, $state, suggestionsService, hotkeys, auth, $http, ApiEndpointService, $location) {
 
