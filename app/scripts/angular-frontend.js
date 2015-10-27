@@ -88,6 +88,11 @@
                     env.DATA = chosenApiEndpoint.DATA;
                 }
 
+                // Offline mode: set a dummy DATA flag used offline in requests, ignored by the rest api which instead responds according to LOCAL_OFFLINE_DATA
+                if (env.OFFLINE_DEV === 'true') {
+                    env.DATA = 'offline';
+                }
+
                 // Add the value of the active endpoint slug to the promise for direct access in views
                 activeApiEndpoint.slug = chosenApiEndpoint.slug;
                 activeApiEndpoint.API_BASE_URL = chosenApiEndpoint.API_BASE_URL;
