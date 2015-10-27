@@ -526,8 +526,6 @@ STEPSTATESSTART;
 
             // Determine if there are sub-steps for the current steps
             // TODO
-            // Determine has-many-relations for the current step
-            // TODO
 
             $stepStates .= <<<STEPSTATES
 
