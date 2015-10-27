@@ -518,6 +518,9 @@ STATESSTART;
 
 STEPSTATESSTART;
 
+        // Keep track of which states are already defined
+        $defined = [];
+
         foreach ($flowSteps as $stepReference => $stepAttributes):
 
             // Determine level of step
@@ -527,11 +530,56 @@ STEPSTATESSTART;
             $jsonEncodedStepCaption = json_encode($stepCaption);
             $htmlEncodedStepCaption = Html::encode($stepCaption);
 
-            // Determine if there are sub-steps for the current steps
-            // TODO
+            // Add necessary abstract states if the current step is a seb-step
+            if (count($stepHierarchy) > 1) {
+                $fullStepReference = "{$parentState}.{$modelClassPluralId}.existing.edit.{$stepHierarchy[0]}";
+                if (!in_array($fullStepReference, $defined)) {
+                    $defined[] = $fullStepReference;
+                    $stepStates .= <<<STEPSTATES
+            .state('{$fullStepReference}', {
+                abstract: true,
+                url: "/{$stepHierarchy[0]}",
+                template: "<ui-view/>"
+            })
+
+
+STEPSTATES;
+                }
+            }
+
+            if (count($stepHierarchy) > 2) {
+                $fullStepReference = "{$parentState}.{$modelClassPluralId}.existing.edit.{$stepHierarchy[0]}.{$stepHierarchy[1]}";
+                if (!in_array($fullStepReference, $defined)) {
+                    $defined[] = $fullStepReference;
+                    $stepStates .= <<<STEPSTATES
+            .state('{$fullStepReference}', {
+                abstract: true,
+                url: "/{$stepHierarchy[1]}",
+                template: "<ui-view/>"
+            })
+
+
+STEPSTATES;
+                }
+            }
+
+            if (count($stepHierarchy) > 3) {
+                $fullStepReference = "{$parentState}.{$modelClassPluralId}.existing.edit.{$stepHierarchy[0]}.{$stepHierarchy[1]}.{$stepHierarchy[2]}";
+                if (!in_array($fullStepReference, $defined)) {
+                    $defined[] = $fullStepReference;
+                    $stepStates .= <<<STEPSTATES
+            .state('{$fullStepReference}', {
+                abstract: true,
+                url: "/{$stepHierarchy[2]}",
+                template: "<ui-view/>"
+            })
+
+
+STEPSTATES;
+                }
+            }
 
             $stepStates .= <<<STEPSTATES
-
             // {$jsonEncodedStepCaption}
             .state('{$parentState}.{$modelClassPluralId}.existing.edit.{$stepReference}', {
                 url: "/{$step}",
