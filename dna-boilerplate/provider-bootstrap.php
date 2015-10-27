@@ -18,8 +18,16 @@ $textInput = function ($attribute, $model) {
     $lcfirstModelClass = lcfirst(get_class($model));
 
     return <<<INPUT
-<label for="$lcfirstModelClass.attributes.$attribute">{$attributeInfo["label"]}</label>
-<input type="text" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
+<div class="col-sm-2">
+    <label for="$lcfirstModelClass.attributes.$attribute">{$attributeInfo["label"]}</label>
+</div>
+<div class="col-sm-10">
+    <input type="text" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
+</div>
+
+INPUT;
+
+};
 
 // File selection widget
 
