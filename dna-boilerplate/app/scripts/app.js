@@ -150,6 +150,13 @@
         $httpProvider.interceptors.push('appInterceptor');
     });
 
+    // http://stackoverflow.com/a/24519069/682317
+    app.filter('trusted', ['$sce', function ($sce) {
+        return function (url) {
+            return $sce.trustAsResourceUrl(url);
+        };
+    }]);
+
     app.directive('dnaFileSelectionWidget', function () {
         return {
             restrict: 'E',
