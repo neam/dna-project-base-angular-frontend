@@ -20,6 +20,23 @@ $textInput = function ($attribute, $model) {
     return <<<INPUT
 <label for="$lcfirstModelClass.attributes.$attribute">{$attributeInfo["label"]}</label>
 <input type="text" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
+
+// File selection widget
+
+$fileSelectionWidget = function ($attribute, $model) {
+
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
+
+    return <<<INPUT
+<div class="col-sm-2">
+    <label for="$lcfirstModelClass.attributes.$attribute">{$attributeInfo["label"]}</label>
+</div>
+<div class="col-sm-10">
+    <dna-file-selection-widget ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b"></dna-file-selection-widget>
+</div>
+
 INPUT;
 
 };
@@ -715,6 +732,7 @@ $activeFields = [
     'ui-router-item-type-states.*' => $uiRouterItemTypeStates['item-type-template'],
     '\.is_*' => $tristateRadioInput,
     '\.*_enabled' => $tristateRadioInput,
+    '\.*Media' => $fileSelectionWidget,
     'owner' => $todo,
     'node' => $todo,
     '.*' => $defaultInput,
