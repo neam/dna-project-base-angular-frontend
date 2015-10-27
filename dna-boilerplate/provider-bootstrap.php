@@ -20,6 +20,7 @@ INPUT;
 
 };
 
+
 // "Boolean" tri-state (0,1,NULL) radio inputs
 
 $tristateRadioInput = function ($attribute, $model) {
@@ -376,7 +377,6 @@ $uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $p
     }
 
     $statesStart = <<<STATESSTART
-
             .state('{$parentState}.{$modelClassPluralId}', {
                 abstract: true,
                 url: "/{$unprefixedModelClassPluralId}",
@@ -465,6 +465,7 @@ $uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $p
                 }
             })
 
+
 STATESSTART;
 
     $stepStates = '';
@@ -515,7 +516,6 @@ STEPSTATESSTART;
 
 
 STEPSTATES;
-
 
 
             foreach ($stepAttributes as $attribute):
@@ -629,7 +629,6 @@ $uiRouterStepAttributeStates['has-many-relation'] = function ($attribute, $model
     $relatedModelClassLcfirstPlural = lcfirst($relatedModelClassPlural);
 
     $stateStart = <<<STATESTART
-
         /**
          * START $modelClassSingular has-many-relation {$attributeInfo["label"]} editing functionality in step $parentState.$stepReference
          */
@@ -643,6 +642,7 @@ STATESTART;
         /**
          * END $modelClassSingular has-many-relation {$attributeInfo["label"]} editing functionality in step $parentState.$stepReference
          */
+
 
 STATEEND;
 
@@ -687,6 +687,7 @@ STATE;
                 url: "/$attribute",
                 template: "<ui-view/>"
             })
+
 
 STATE;
         case "has-many-relation":
