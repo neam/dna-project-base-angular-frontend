@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Inflector;
+use yii\helpers\Html;
 
 // Config
 
@@ -523,6 +524,7 @@ STEPSTATESSTART;
             $stepHierarchy = explode(".", $stepReference);
             $step = end($stepHierarchy);
             $jsonEncodedStepCaption = json_encode(!empty($stepCaptions[$step]) ? $stepCaptions[$step] : ucfirst($step));
+            $htmlEncodedStepCaption = Html::encode($stepCaption);
 
             // Determine if there are sub-steps for the current steps
             // TODO
