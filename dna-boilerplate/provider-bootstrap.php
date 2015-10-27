@@ -523,7 +523,8 @@ STEPSTATESSTART;
             // Determine level of step
             $stepHierarchy = explode(".", $stepReference);
             $step = end($stepHierarchy);
-            $jsonEncodedStepCaption = json_encode(!empty($stepCaptions[$step]) ? $stepCaptions[$step] : ucfirst($step));
+            $stepCaption = !empty($stepCaptions[$step]) ? $stepCaptions[$step] : ucfirst($step);
+            $jsonEncodedStepCaption = json_encode($stepCaption);
             $htmlEncodedStepCaption = Html::encode($stepCaption);
 
             // Determine if there are sub-steps for the current steps
@@ -535,7 +536,10 @@ STEPSTATESSTART;
             .state('{$parentState}.{$modelClassPluralId}.existing.edit.{$stepReference}', {
                 url: "/{$step}",
                 templateUrl: "crud/{$modelClassSingularId}/steps/{$stepReference}.html",
-                data: {pageTitle: 'Edit {$labelSingular} - Step \'{$stepReference}\''}
+                data: {
+                    pageTitle: 'Edit {$labelSingular} - Step \'{$stepReference}\'',
+                    stepCaption: $jsonEncodedStepCaption,
+                }
             })
 
             .state('{$parentState}.{$modelClassPluralId}.existing.edit.$stepReference.attributes', {
