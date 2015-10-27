@@ -2,6 +2,10 @@
 
 use yii\helpers\Inflector;
 
+// Config
+
+$recursionLevelLimit = 2;
+
 // Angular UI Giiant `CallbackProvider` configuration
 // -------------------------
 
@@ -321,7 +325,7 @@ INPUT;
 
 $uiRouterItemTypeStates = [];
 
-$uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $params) {
+$uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $params) use ($recursionLevelLimit) {
 
     $step = $params["step"];
     $stepReference = $params["stepReference"];
@@ -330,7 +334,7 @@ $uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $p
     $recursionLevel = $params["recursionLevel"];
     $generator = $params["generator"];
 
-    if ($recursionLevel >= 3) {
+    if ($recursionLevel >= $recursionLevelLimit) {
 
         // Prevent infinite loops and giant state trees
         return '        // Recursion limit reached';
