@@ -85,7 +85,8 @@ div.select2 .select2-container {
 			&:hover {
 
 				text-decoration: none;
-				background: darken(#229bd4, 10%);
+				background: darken(@navy, 10%);
+				border-color: darken(@navy, 10%);
 
 
 			}
@@ -122,19 +123,6 @@ div.select2 .select2-container {
 
 
 		}
-
-		video {
-
-			min-width: 100%;
-			min-height: 100%;
-			height: auto;
-			width: auto;
-			background: #111;
-
-
-
-}
-
 
 	}
 
@@ -197,7 +185,7 @@ div.select2 .select2-container {
 
 		a {
 
-			padding: 22px 20px;
+			padding: 20px 20px;
 
 		}
 	}
@@ -218,107 +206,99 @@ div.select2 .select2-container {
 }
 
 .top-navigation {
-
-	.nav {
-
-		li {
-
-			background: #151515;
-			color: #999999;
-
-			&:hover {background: transparent; color: @navbar-bg-color;}
-			&:focus {background: transparent; color: @navbar-bg-color;}
-
-				a {
-
-					background: #151515;
-					color: #999999;
-
-					&:hover {background: transparent; color: @navbar-bg-color;}
-					&:focus {background: transparent; color: @navbar-bg-color;}
-
-				}
-
-			&.active {
-
-				background: #151515;
-				/*color: #fff;*/
-
-				&:hover {background: transparent; color: @navbar-bg-color;}
-				&:focus {background: transparent; color: @navbar-bg-color;}
-
-					a {
-
-						background: #151515;
-						/*color: #fff;*/
-
-						&:hover {background: transparent; color: @navbar-bg-color;}
-						&:focus {background: transparent; color: @navbar-bg-color;}
-
-					}
-
-			}
-
-		}
-}
-
 	.navbar-brand {
 
 		background: @navbar-bg-color;
 		padding: 0px 0px;
         width: 235px;
+	  	margin-left: 7px;
+	  	margin-right: 17px;
 
 	}
 }
 
+.dropdown-menu {
+  background: @navy;
+}
+.navbar-fixed-top, .navbar-static-top {
+  background: @navbar-bg-color;
+}
+.navbar-toggle {
+  margin-right: 5%;
+}
 
 nav.navbar-static-top {
 
-	#navbar {
+  #navbar {
 
-		background-color:@navbar-bg-color !important;
+	background-color: @navbar-bg-color;
 
-		li {
+	li {
 
+	  background: @navbar-bg-color;
+	  color: #fff;
+
+	  &:hover {
+		background: @navy;
+		color: #fff;
+	  }
+	  &:focus {
+		background: @navy;
+		color: #fff;
+	  }
+
+	  a {
+
+		background: @navbar-bg-color;
+		color: #fff;
+
+		&:hover {
+		  background: @navbar-bg-color;
+		  color: #fff;
+		}
+		&:focus {
+		  background: @navbar-bg-color;
+		  color: #fff;
+		}
+
+	  }
+
+	  &.active {
+
+		background: @navy;
+		color: #fff;
+
+		&:hover {
+		  background: @navy;
+		  color: #fff;
+		}
+		&:focus {
+		  background: @navy;
+		  color: #fff;
+		}
+
+		a {
+
+		  background: @navy;
+		  color: #fff;
+
+		  &:hover {
 			background: @navbar-bg-color;
 			color: #fff;
+		  }
+		  &:focus {
+			background: @navy;
+			color: #fff;
+		  }
 
-			&:hover {background: transparent; color: #fff;}
-			&:focus {background: transparent; color: #fff;}
-
-				a {
-
-					background: @navbar-bg-color;
-					color: #fff;
-
-					&:hover {background: transparent; color: #fff;}
-					&:focus {background: transparent; color: #fff;}
-
-				}
-
-			&.active {
-
-				background: @navbar-bg-color;
-				color: #fff;
-
-				&:hover {background: transparent; color: #fff;}
-				&:focus {background: transparent; color: #fff;}
-
-					a {
-
-						background: @navbar-bg-color;
-						color: #fff;
-
-						&:hover {background: transparent; color: #fff;}
-						&:focus {background: transparent; color: #fff;}
-
-						}
-
-					}
-
-			}
 		}
+
+	  }
+
+	}
+  }
 }
+
 
 .top-navigation #page-wrapper.side-menu-shown {
 
