@@ -225,6 +225,7 @@ module.exports = function (grunt) {
                             '.htaccess',
                             '*.html', '**/*.html', '!bower_components/**/*.html', '!scripts/**/*.html',
                             'styles/patterns/*.*',
+                            'fonts/*.*',
                             'scripts/env.js',
                             'images/{,*/}*.*'
                         ]
@@ -274,7 +275,7 @@ module.exports = function (grunt) {
                 src: [
                     '<%= paths.dist %>/scripts/{,*/}*.js',
                     '<%= paths.dist %>/styles/{,*/}*.css',
-                    '<%= paths.dist %>/styles/fonts/*'
+                    //'<%= paths.dist %>/fonts/*'
                 ]
             }
         },
