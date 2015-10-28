@@ -81,7 +81,7 @@
     "angular-simple-handsontable": "https://github.com/neam/angular-simple-handsontable.git#develop",
     "Handsontable-select2-editor": "https://github.com/motin/Handsontable-select2-editor.git#80f0b7988f31305e63dae2e5b44a063e8b48741c",
     "select2": "~4.0.0",
-    "angular-ui-ink": "*",
+    "angular-ui-ink": "git://github.com/neam/angular-ui-ink.git#174b624",
     "stormpath-sdk-angularjs": "~0.5.2",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.5.0",
     "mousetrap": "~1.5.2",
