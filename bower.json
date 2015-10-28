@@ -97,7 +97,7 @@
     "angular-multi-step-form": "~1.2.0"
   },
   "resolutions": {
-    "angular": "~1.4.0",
+    "angular": "~1.4.7",
     "jquery": "~2.x",
     "jquery-ui": "~1.11.1",
     "nouislider": "~7.0.7",
