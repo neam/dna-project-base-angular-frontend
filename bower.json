@@ -77,9 +77,9 @@
     "jquery-jvectormap-world-mill-en": "http://jvectormap.com/js/jquery-jvectormap-world-mill-en.js",
     "angular-translate": "~2.5.2",
     "blueimp-gallery": "~2.15.2",
-    "ngHandsontable": "~0.7.0",
     "angular-simple-handsontable": "https://github.com/neam/angular-simple-handsontable.git#develop",
     "Handsontable-select2-editor": "https://github.com/motin/Handsontable-select2-editor.git#80f0b7988f31305e63dae2e5b44a063e8b48741c",
+    "handsontable": "~0.19.0",
     "select2": "~4.0.0",
     "angular-ui-ink": "git://github.com/neam/angular-ui-ink.git#174b624",
     "stormpath-sdk-angularjs": "~0.5.2",
@@ -105,7 +105,7 @@
     "rickshaw": "~1.5.0",
     "switchery": "~0.6.2",
     "moment": "^2.9.0",
-    "handsontable": "~0.17.0",
+    "handsontable": "~0.19.0",
     "pikaday": "^1.3.2"
   }
 }
