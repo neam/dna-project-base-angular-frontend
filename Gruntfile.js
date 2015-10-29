@@ -228,6 +228,7 @@ module.exports = function (grunt) {
                             'fonts/*.*',
                             'bower_components/select2/dist/css/select2.min.css', // manually included due to breakage upon build
                             'bower_components/iCheck/skins/*/*.*', // manually included due to breakage upon build
+                            'scripts/dc/*.*', // for demo purposes
                             'scripts/env.js',
                             'images/{,*/}*.*'
                         ]
