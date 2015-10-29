@@ -5,6 +5,7 @@
         //'modelFactory',                 // angular-model-factory
         //'multiStepForm',                // angular-multi-step-form
         'googlechart',                  // angular-google-chart
+        'ng-optimizely',                // optimizely
         'angularDc',
         //'ngHandsontable',
         'simpleHandsontable',

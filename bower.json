@@ -94,7 +94,8 @@
     "ruleJS": "~0.0.5",
     "handsontable-ruleJS": "https://github.com/handsontable/handsontable-ruleJS.git#~0.0.4",
     "angular-model-factory": "~1.0.2",
-    "angular-multi-step-form": "~1.2.0"
+    "angular-multi-step-form": "~1.2.0",
+    "ng-optimizely": "~0.2.1"
   },
   "resolutions": {
     "angular": "~1.4.7",

@@ -16,3 +16,6 @@
 [submodule "bower_components-git-repos/angular-ui-ink"]
 	path = bower_components-git-repos/angular-ui-ink
 	url = git@github.com:neam/angular-ui-ink.git
+[submodule "bower_components-git-repos/ng-optimizely"]
+	path = bower_components-git-repos/ng-optimizely
+	url = git@github.com:neam/ng-optimizely.git
