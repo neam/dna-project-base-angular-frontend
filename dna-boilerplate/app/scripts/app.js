@@ -12,6 +12,7 @@
         'cfp.hotkeys',                  // angular-hotkeys
         '3-way-merge',                  // 3-way-merge
         'rt.select2',                   // angular-select2
+        'dcNasdaq',                     // necessary for scripts/dc/dc-nasdaq-controller.js
         //'angularJade',
     ]);
 
@@ -162,6 +163,9 @@
             restrict: 'E',
             require: '?ngModel',
             scope: {
+                crud:'=',
+                label:'=',
+                ngModel:'=',
                 mediaLibrary: '@', // none, select2, file-manager
                 multiple: '@', // true, false
                 existingSelection: '@', // unmodified, replace, add

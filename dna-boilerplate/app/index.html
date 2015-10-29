@@ -43,20 +43,21 @@
     <!-- dc -->
     <link rel="stylesheet" type="text/css" href="styles/dc.css"/>
 
-    <!-- Select2 -->
-    <link href="bower_components/select2/dist/css/select2.css" rel="stylesheet" />
-
     <!-- Handsontable -->
     <link rel="stylesheet" media="screen" href="bower_components/handsontable/dist/handsontable.full.css">
-
-    <!-- iCheck -->
-    <link rel="stylesheet" type="text/css" href="bower_components/iCheck/skins/all.css">
 
     <!-- Angular hotkeys -->
     <link rel="stylesheet" type="text/css" href="bower_components/angular-hotkeys/src/hotkeys.css">
 
     <!-- endbower -->
     <!-- endbuild -->
+
+    <!-- These assets break when built, thus excluding from build currently -->
+    <!-- Select2 -->
+    <link href="bower_components/select2/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- iCheck -->
+    <link rel="stylesheet" type="text/css" href="bower_components/iCheck/skins/square/green.css">
 
     <!-- build:css({.tmp,.merged-app}) styles/style.css -->
     <link href="styles/style.css" rel="stylesheet">
@@ -135,6 +136,7 @@
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="bower_components/angular-dc/src/angular-dc.js"></script>
+<script src="scripts/dc/dc-nasdaq-controller.js"></script>
 <script src="scripts/dc/angular-jade-min.js"></script>
 <script src="scripts/inspinia/plugins/rickshaw/angular-rickshaw.js"></script>
 <script src="bower_components/angular-google-chart/ng-google-chart.js"></script>

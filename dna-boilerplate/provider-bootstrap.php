@@ -18,9 +18,19 @@ $textInput = function ($attribute, $model) {
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
 
+    // Sanitize
+    $label = Html::encode($attributeInfo["label"]);
+    $hint = htmlspecialchars($attributeInfo["hint"]);
+
+    // Includ hint markup if hint is not empty
+    $hintMarkup =<<<HINT
+<span class="badge badge-primary adoveo-badge" tooltip-placement="right" data-tooltip-html-unsafe="$hint">?</span>
+HINT;
+    $hintMarkup = !empty($hint) ? $hintMarkup : "";
+
     return <<<INPUT
 <div class="col-sm-2">
-    <label for="$lcfirstModelClass.attributes.$attribute">{$attributeInfo["label"]}</label>
+    <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label> $hintMarkup
 </div>
 <div class="col-sm-10">
     <input type="text" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
@@ -40,7 +50,7 @@ $fileSelectionWidget = function ($attribute, $model) {
 
     return <<<INPUT
 <div class="col-sm-2">
-    <label for="$lcfirstModelClass.attributes.$attribute">{$attributeInfo["label"]}</label>
+    <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$attributeInfo["label"]}</label>
 </div>
 <div class="col-sm-10">
     <dna-file-selection-widget ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b"></dna-file-selection-widget>
@@ -97,7 +107,7 @@ $hasOneRelationSelect2Input = function ($attribute, $model) {
     $lcfirstModelClass = lcfirst(get_class($model));
 
     return <<<INPUT
-<label for="$lcfirstModelClass.attributes.$attribute.id">{$attributeInfo["label"]}</label>
+<label for="$lcfirstModelClass.attributes.$attribute.id" class="label-left control-label">{$attributeInfo["label"]}</label>
 <div class="select2 m-b">
     <select2 ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute.id" id="$lcfirstModelClass.attributes.$attribute.id"
     options="{$lcfirstModelClass}Crud.relations.$attribute.select2Options">
@@ -116,11 +126,13 @@ $hasManyRelationEditing = function ($attribute, $model) {
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
 
+    $_ = explode("RelatedBy", $attribute);
+    $relationAttribute = $_[0];
     $relations = $model->relations();
-    if (!isset($relations[$attribute])) {
-        throw new Exception("Model " . get_class($model) . " does not have a relation '$attribute'");
+    if (!isset($relations[$relationAttribute])) {
+        throw new Exception("Model " . get_class($model) . " does not have a relation '$relationAttribute'");
     }
-    $relationInfo = $relations[$attribute];
+    $relationInfo = $relations[$relationAttribute];
     $relatedModelClass = $relationInfo[1];
 
     $relatedModelClassSingular = $relatedModelClass;
@@ -691,11 +703,13 @@ $uiRouterStepAttributeStates['has-many-relation'] = function ($attribute, $model
     $modelClassSingular = get_class($model);
     $modelClassLcfirstSingular = lcfirst($modelClassSingular);
 
+    $_ = explode("RelatedBy", $attribute);
+    $relationAttribute = $_[0];
     $relations = $model->relations();
-    if (!isset($relations[$attribute])) {
-        throw new Exception("Model " . get_class($model) . " does not have a relation '$attribute'");
+    if (!isset($relations[$relationAttribute])) {
+        throw new Exception("Model " . get_class($model) . " does not have a relation '$relationAttribute'");
     }
-    $relationInfo = $relations[$attribute];
+    $relationInfo = $relations[$relationAttribute];
     $relatedModelClass = $relationInfo[1];
 
     $relatedModel = $relatedModelClass::model();
@@ -751,6 +765,7 @@ $uiRouterStepAttributeStates['default-ui-router-attribute-states'] = function ($
     if (!array_key_exists($attribute, $itemTypeAttributes)) {
         return <<<STATE
             // "$attribute" NO MATCHING ITEM TYPE ATTRIBUTE
+
 STATE;
     }
 
@@ -763,14 +778,15 @@ STATE;
         case "has-one-relation":
             return <<<STATE
             // "$attribute" TYPE {$attributeInfo["type"]} TODO scrollto/mark -->
+
+STATE;
+/*
             .state('{$parentState}.$attribute', {
                 abstract: true,
                 url: "/$attribute",
                 template: "<ui-view/>"
             })
-
-
-STATE;
+*/
         case "has-many-relation":
             return $uiRouterStepAttributeStates['has-many-relation']($attribute, $model, $params);
             break;
