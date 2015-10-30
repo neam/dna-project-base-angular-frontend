@@ -22,6 +22,9 @@
                      return metadataService.getMetadataPromise();
                      }
                      */
+                    optimizely: function (optimizely) {
+                        return optimizely.loadProject(env.OPTIMIZELY_ACCOUNT_ID, '$stateChangeSuccess');
+                    }
                 },
                 data: {showSideMenu: false}
             })

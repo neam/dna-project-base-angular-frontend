@@ -11,38 +11,47 @@
     </video>
     -->
 
-        <h1><span ng-show="!activeApiEndpoint.available && !auth.profilePromise">Big headline</span>
-            <span ng-show="!activeApiEndpoint.available && auth.profilePromise">Thank you for signing up!</span>
-            <span ng-show="activeApiEndpoint.available && auth.profilePromise">Welcome!</span></h1>
+        <h1><span
+                ng-show="!activeApiEndpoint.available && !auth.profilePromise" data-t="main heading">&nbsp;</span>
+            <span ng-show="!activeApiEndpoint.available && auth.profilePromise" data-t="account activation heading"></span>
+                    <span ng-show="activeApiEndpoint.available && auth.profilePromise">Good day<span
+                            style="display:inline;" ng-show="auth.profile.gender === 'male'">, Sir</span><span
+                            style="display:inline;" ng-show="auth.profile.gender === 'female'">, Ma'am</span>! {{env.SITENAME}} is ready for you!</span>
+        </h1>
 
         <div ng-show="!activeApiEndpoint.available && !auth.profilePromise">
 
-            <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}" class="btn btn-primary btn-lg">Sign up &nbsp; <i class="fa fa-lg fa-long-arrow-right"></i></a></span>
+            <div>
+                <span data-t="main info"></span>
+            </div>
+
+            <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}" class="btn btn-primary btn-lg" style="white-space: inherit;"><span data-t="main button text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; <i
+                        class="fa fa-lg fa-long-arrow-right"></i></a>
+            <br>
 
             <div>
-                <span><!--<a ui-sref="root.faq">Find out how</a> or--> <a ui-sref="root.start.user.login"
-                                                                   ui-sref-opts="{reload: true}">Log in</a> if you already have an account</span>
+                <span data-t="main subtext"><!--<a ui-sref="root.faq">Find out how</a> or--> <a ui-sref="root.start.user.login"
+                                                                          ui-sref-opts="{reload: true}" class="et_pb_promo_button">Log in</a> if you already have an account</span>
             </div>
 
             <p>&nbsp;</p>
+
             <p>&nbsp;</p>
-            <!--
-            <a ui-sref="root.start.user.login"
-                        class="btn btn-primary btn-lg" href="#">Log In</a></span>
-            -->
 
         </div>
 
         <div ng-show="!activeApiEndpoint.available && auth.profilePromise">
 
             <div>
-                <span>We are in private beta and are thrilled to get you on board!<br/>Tell us a bit about what you hope to achieve with {{env.SITENAME}} and we will invite you to the beta:</span>
+                <span data-t="account activation info">&nbsp;</span>
             </div>
 
-            <a ui-sref="root.start.user.request-invite" ui-sref-opts="{reload: true}" class="btn btn-primary btn-lg">Request invite now by chat &nbsp; <i class="fa fa-lg fa-long-arrow-right"></i></a></span>
+            <a ui-sref="root.start.user.request-invite" ui-sref-opts="{reload: true}"
+               class="btn btn-primary btn-lg" style="white-space: inherit;"><span data-t="account activation button text"></span> &nbsp; <i
+                    class="fa fa-lg fa-long-arrow-right"></i></a></span>
 
             <div>
-                <span>All users with beta access will get a FREE lifetime standard account of {{env.SITENAME}}!</span>
+                <span data-t="account activation subtext">&nbsp;</span>
             </div>
 
         </div>
@@ -58,20 +67,103 @@
             <span>or <a ui-sref="root.api-endpoints.existing.foos.list({apiEndpoint: activeApiEndpoint.slug})"
                         href="#">edit an existing one</a></span>
             -->
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
 
         </div>
 
-        <div class="banner">{{env.SITENAME}} helps users create <a href="#">interactive foos</a>, do stuffs, achieve everything.
+        <div class="banner">
+        <div ng-show="!activeApiEndpoint.available && !auth.profilePromise">
+            <span data-t="main banner">&nbsp;<br/>&nbsp;<br/></span>
+        </div>
+        <div ng-show="!activeApiEndpoint.available && auth.profilePromise">
+            <span data-t="account activation banner">&nbsp;<br/>&nbsp;<br/></span>
+        </div>
         </div>
 
     </div>
 
     <div id="content">
 
+        <div ng-show="!activeApiEndpoint.available && !auth.profilePromise">
+
+        <div class="row" ng-repeat="row in [0,1,2,3,4]">
+            <div class="col-md-3">
+
+                <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                       href="#"><i data-t="info {{4*row+1}} class" class="fa fa-circle-thin"></i></a>
+
+                <h2>
+                    <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                       href="#"><span class="nav-label" data-t="info {{4*row+1}} heading"></span></a></h2>
+
+                <p data-t="info {{4*row+1}} subtext">
+                        &nbsp;<br/>
+                        &nbsp;<br/>
+
+
+
+                </p>
+
+            </div>
+            <div class="col-md-3">
+
+                <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                       href="#"><i data-t="info {{4*row+2}} class" class="fa fa-circle-thin"></i></a>
+
+                <h2>
+                    <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                       href="#"><span class="nav-label" data-t="info {{4*row+2}} heading"></span></a></h2>
+
+                <p data-t="info {{4*row+2}} subtext">
+                        &nbsp;<br/>
+                        &nbsp;<br/>
+
+
+
+                </p>
+
+            </div>
+            <div class="col-md-3">
+
+                <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                       href="#"><i data-t="info {{4*row+3}} class" class="fa fa-circle-thin"></i></a>
+
+                <h2><a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                       href="#">
+                    <span class="nav-label" data-t="info {{4*row+3}} heading"></span></a></h2>
+
+                <p data-t="info {{4*row+3}} subtext">
+                        &nbsp;<br/>
+                        &nbsp;<br/>
+
+
+
+                </p>
+
+            </div>
+            <div class="col-md-3">
+
+                <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                       href="#"><i data-t="info {{4*row+4}} class" class="fa fa-circle-thin"></i></a>
+
+                <h2>
+                    <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                       href="#">
+                        <span class="nav-label" data-t="info {{4*row+4}} heading"></span></a></h2>
+
+                <p data-t="info {{4*row+4}} subtext">
+                        &nbsp;<br/>
+                        &nbsp;<br/>
+
+
+                </p>
+
+            </div>
+
+        </div>
+
+        </div>
+
+        <div ng-show="auth.profilePromise">
 
         <div class="row">
             <div class="col-md-3">
@@ -137,6 +229,7 @@
 
         </div>
 
+        </div>
 
     </div>
 
