@@ -25,13 +25,13 @@
                 <span data-t="main info"></span>
             </div>
 
-            <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}" class="btn btn-primary btn-lg" style="white-space: inherit;"><span data-t="main button text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; <i
+            <a ui-sref="root.start.user.signup" class="btn btn-primary btn-lg" style="white-space: inherit;"><span data-t="main button text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; <i
                         class="fa fa-lg fa-long-arrow-right"></i></a>
             <br>
 
             <div>
-                <span data-t="main subtext"><!--<a ui-sref="root.faq">Find out how</a> or--> <a ui-sref="root.start.user.login"
-                                                                          ui-sref-opts="{reload: true}" class="et_pb_promo_button">Log in</a> if you already have an account</span>
+                <span><!--  data-t="main subtext" --><!--<a ui-sref="root.faq">Find out how</a> or--> <a ui-sref="root.start.user.login"
+                                                                          class="btn btn-primary btn-sm">Log in</a> if you already have an account</span>
             </div>
 
             <p>&nbsp;</p>
@@ -46,8 +46,8 @@
                 <span data-t="account activation info">&nbsp;</span>
             </div>
 
-            <a ui-sref="root.start.user.request-invite" ui-sref-opts="{reload: true}"
-               class="btn btn-primary btn-lg" style="white-space: inherit;"><span data-t="account activation button text"></span> &nbsp; <i
+            <a ui-sref="root.start.user.request-invite"
+               class="btn btn-primary btn-lg" style="white-space: inherit;"><span data-t="account activation button text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; <i
                     class="fa fa-lg fa-long-arrow-right"></i></a></span>
 
             <div>
@@ -58,8 +58,9 @@
 
         <div ng-show="activeApiEndpoint.available && auth.profilePromise">
 
-            <a ui-sref="root.api-endpoints.existing.foos.list({apiEndpoint: activeApiEndpoint.slug})"
-                        class="btn btn-primary btn-lg" href="#">Go to foos &nbsp; <i class="fa fa-lg fa-long-arrow-right"></i></a></span>
+            <a ui-sref="root.api-endpoints.existing.get-things-done({apiEndpoint: activeApiEndpoint.slug})"
+               class="btn btn-primary btn-lg" href="#">Get things done &nbsp; <i
+                    class="fa fa-lg fa-long-arrow-right"></i></a></span>
 
             <!--
             <a ui-sref="root.api-endpoints.existing.foos.create({apiEndpoint: activeApiEndpoint.slug})" href="#"
@@ -88,11 +89,11 @@
         <div class="row" ng-repeat="row in [0,1,2,3,4]">
             <div class="col-md-3">
 
-                <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                <a ui-sref="root.start.user.signup"
                        href="#"><i data-t="info {{4*row+1}} class" class="fa fa-circle-thin"></i></a>
 
                 <h2>
-                    <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                    <a ui-sref="root.start.user.signup"
                        href="#"><span class="nav-label" data-t="info {{4*row+1}} heading"></span></a></h2>
 
                 <p data-t="info {{4*row+1}} subtext">
@@ -106,11 +107,11 @@
             </div>
             <div class="col-md-3">
 
-                <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                <a ui-sref="root.start.user.signup"
                        href="#"><i data-t="info {{4*row+2}} class" class="fa fa-circle-thin"></i></a>
 
                 <h2>
-                    <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                    <a ui-sref="root.start.user.signup"
                        href="#"><span class="nav-label" data-t="info {{4*row+2}} heading"></span></a></h2>
 
                 <p data-t="info {{4*row+2}} subtext">
@@ -124,10 +125,10 @@
             </div>
             <div class="col-md-3">
 
-                <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                <a ui-sref="root.start.user.signup"
                        href="#"><i data-t="info {{4*row+3}} class" class="fa fa-circle-thin"></i></a>
 
-                <h2><a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                <h2><a ui-sref="root.start.user.signup"
                        href="#">
                     <span class="nav-label" data-t="info {{4*row+3}} heading"></span></a></h2>
 
@@ -142,11 +143,11 @@
             </div>
             <div class="col-md-3">
 
-                <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                <a ui-sref="root.start.user.signup"
                        href="#"><i data-t="info {{4*row+4}} class" class="fa fa-circle-thin"></i></a>
 
                 <h2>
-                    <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"
+                    <a ui-sref="root.start.user.signup"
                        href="#">
                         <span class="nav-label" data-t="info {{4*row+4}} heading"></span></a></h2>
 
@@ -198,9 +199,9 @@
             </div>
             <div class="col-md-3">
 
-                <a ui-sref="root.api-endpoints.existing.get-things-done({apiEndpoint: activeApiEndpoint.slug})" href="#"><i class="fa fa-calendar"></i></a>
+                <a ui-sref="root.api-endpoints.existing.get-things-done.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i class="fa fa-calendar"></i></a>
 
-                <h2><a ui-sref="root.api-endpoints.existing.get-things-done({apiEndpoint: activeApiEndpoint.slug})"
+                <h2><a ui-sref="root.api-endpoints.existing.get-things-done.overview({apiEndpoint: activeApiEndpoint.slug})"
                        href="#"><span class="nav-label">3. Get things done</span></a></h2>
 
                 <p>
@@ -213,9 +214,9 @@
             </div>
             <div class="col-md-3">
 
-                <a ui-sref="root.api-endpoints.existing.up-to-date({apiEndpoint: activeApiEndpoint.slug})" href="#"><i class="fa fa-clock-o"></i></a>
+                <a ui-sref="root.api-endpoints.existing.up-to-date.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i class="fa fa-clock-o"></i></a>
 
-                <h2><a ui-sref="root.api-endpoints.existing.up-to-date({apiEndpoint: activeApiEndpoint.slug})" href="#">
+                <h2><a ui-sref="root.api-endpoints.existing.up-to-date.overview({apiEndpoint: activeApiEndpoint.slug})" href="#">
                     <span class="nav-label">4. Stay up-to-date</span></a></h2>
 
                 <p>

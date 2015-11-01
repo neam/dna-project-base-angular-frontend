@@ -5,6 +5,7 @@
 
     <!-- For html5 pushstate to work -->
     <base href="/" />
+    <script language="javascript"> if (typeof(window.history.pushState) == 'function') { window.history.pushState(null, "Entry page", window.location.hash.substring(2)); } else { window.location.hash = window.location.hash.substring(2); } </script>
 
     <meta charset="utf-8">
 
@@ -37,6 +38,7 @@
     <!-- build:css({.tmp,.merged-app}) styles/vendor.css -->
 
     <!-- bower:css -->
+
     <!-- Font awesome -->
     <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
 
@@ -154,6 +156,9 @@
 <script src="bower_components/angulartics/dist/angulartics-scroll.min.js"></script>
 <script src="bower_components/angulartics/dist/angulartics-ga.min.js"></script>
 <script src="bower_components/angulartics/dist/angulartics-mixpanel.min.js"></script>
+
+<!-- Angular optimizely -->
+<script src="bower_components/ng-optimizely/ng-optimizely.js"></script>
 
 <!-- 3-way-merge -->
 <script src="scripts/angular-3-way-merge/merge.js"></script>
