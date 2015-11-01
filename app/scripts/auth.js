@@ -32,7 +32,7 @@
 
             // Go to default ui state in case there is no previous state
             if (!$rootScope.previousState || $rootScope.previousState.name === '' || $rootScope.previousState.name === auth.config.loginState || $rootScope.previousState.name.indexOf("user.") > -1) {
-                $state.go(env.DEFAULT_UI_STATE);
+                $state.go(env.DEFAULT_UI_STATE, {}, { reload: true });
             } else {
                 $state.go($rootScope.previousState.name, $rootScope.previousState.params);
             }
@@ -103,6 +103,7 @@
             });
         };
         AuthService.reset = function () {
+            auth.config.auth0lib.once('hidden', goAfterLogin);
             auth.reset({}, function () {
                 // Success callback
                 $state.go(env.DEFAULT_UI_STATE);
@@ -116,7 +117,7 @@
             auth.signout();
             store.remove('profile');
             store.remove('token');
-            $state.go(env.DEFAULT_UI_STATE);
+            goAfterLogin();
         };
         AuthService.updateProfile = function (profile, updatedAttributes, success, error) {
             var url = 'https://' + env.AUTH0_DOMAIN + '/api/v2/users/' + profile.user_id;
