@@ -58,7 +58,7 @@
                 class="caret"></span></a>
         <ul role="menu" class="dropdown-menu" ng-class="">
             <li ng-repeat="apiEndpoint in apiEndpoints.list" ng-class="{active: apiEndpoint.slug == activeApiEndpoint.slug}"><a
-                    href="javascript:void(0);" ng-click="setApiEndpoint(apiEndpoint.slug);"><i
+                    ui-sref="root.api-endpoints.existing.start({apiEndpoint: apiEndpoint.slug})" ng-click="setApiEndpoint(apiEndpoint.slug);"><i
                     class="fa" ng-class="{'fa-check-circle-o': apiEndpoint.slug == activeApiEndpoint.slug, 'fa-circle-o': apiEndpoint.slug !== activeApiEndpoint.slug}"></i> {{apiEndpoint.slug}}</a></li>
         </ul>
     </li>
