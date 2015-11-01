@@ -229,7 +229,13 @@
             .state('root.start.user.contact', {
                 url: "/contact",
                 onEnter: function (AuthService) {
+                    Intercom('onHide', function() {
+                        AuthService.goAfterLogin();
+                    });
                     Intercom('show');
+                },
+                onExit: function (AuthService) {
+                    Intercom('hide');
                 },
                 data: {pageTitle: 'contact'}
             })

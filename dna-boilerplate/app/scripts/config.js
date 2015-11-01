@@ -49,7 +49,10 @@
 
             .state('root.start.user.request-invite', {
                 url: "/request-invite",
-                onEnter: function () {
+                onEnter: function (AuthService) {
+                    Intercom('onHide', function() {
+                        AuthService.goAfterLogin();
+                    });
                     Intercom('showNewMessage', 'Hi! I would like to get Beta access to ' + env.SITENAME);
                 },
                 onExit: function () {
