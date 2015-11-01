@@ -77,6 +77,7 @@
         };
 
         AuthService.login = function () {
+            auth.config.auth0lib.once('hidden', goAfterLogin);
             auth.signin({
                 sso: false,
                 authParams: {
@@ -89,6 +90,7 @@
             });
         };
         AuthService.signup = function () {
+            auth.config.auth0lib.once('hidden', goAfterLogin);
             auth.signup({
                 sso: false,
                 authParams: {
