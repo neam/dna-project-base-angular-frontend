@@ -16,8 +16,8 @@ module.exports = function (grunt) {
         tmpCompile: '.tmp/compile',
     };
 
-    // https://www.npmjs.com/package/connect-pushstate
-    var pushState = require('connect-pushstate');
+    // https://stackoverflow.com/questions/24283653/angularjs-html5mode-using-grunt-connect-grunt-0-4-5/24384293#24384293
+    var modRewrite = require('connect-modrewrite');
 
     // Grunt configuration
     grunt.initConfig({
@@ -37,8 +37,8 @@ module.exports = function (grunt) {
                     open: true,
                     middleware: function (connect) {
                         return [
+                            modRewrite(['^/([^\\.]+)$ /#!/$1 [NC,NE,R=302]']),
                             connect.static('.tmp'),
-                            connect().use(pushState()),
                             connect().use(
                                 '/bower_components',
                                 connect.static('./bower_components')
