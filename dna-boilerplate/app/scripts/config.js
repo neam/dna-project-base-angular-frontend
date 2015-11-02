@@ -23,7 +23,7 @@
                      }
                      */
                     optimizely: function (optimizely) {
-                        return optimizely.loadProject(env.OPTIMIZELY_ACCOUNT_ID, '$stateChangeSuccess');
+                        return optimizely.loadProject(env.OPTIMIZELY_ACCOUNT_ID /*, '$stateChangeSuccess' */);
                     }
                 },
                 data: {showSideMenu: false}
