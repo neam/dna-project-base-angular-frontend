@@ -229,9 +229,9 @@
             .state('root.start.user.contact', {
                 url: "/contact",
                 onEnter: function (AuthService) {
-                    Intercom('onHide', function() {
+                    Intercom('onHide', _.once(function() {
                         AuthService.goAfterLogin();
-                    });
+                    }));
                     Intercom('show');
                 },
                 onExit: function (AuthService) {
