@@ -58,7 +58,7 @@
 
         <div ng-show="activeApiEndpoint.available && auth.profilePromise">
 
-            <a ui-sref="root.api-endpoints.existing.get-things-done({apiEndpoint: activeApiEndpoint.slug})"
+            <a ui-sref="root.api-endpoints.existing.get-things-done.overview({apiEndpoint: activeApiEndpoint.slug})"
                class="btn btn-primary btn-lg" href="#">Get things done &nbsp; <i
                     class="fa fa-lg fa-long-arrow-right"></i></a></span>
 
@@ -69,6 +69,10 @@
                         href="#">edit an existing one</a></span>
             -->
 
+            <p>&nbsp;</p>
+
+            <p>&nbsp;</p>
+
         </div>
 
         <div class="banner">
@@ -77,6 +81,9 @@
         </div>
         <div ng-show="!activeApiEndpoint.available && auth.profilePromise">
             <span data-t="account activation banner">&nbsp;<br/>&nbsp;<br/></span>
+        </div>
+        <div ng-show="activeApiEndpoint.available && auth.profilePromise">
+            <span>The main workflow of {{env.SITENAME}} is shown below:</span>
         </div>
         </div>
 
@@ -172,12 +179,11 @@
                 <a ui-sref="root.api-endpoints.existing.basic-info.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i class="fa fa-building"></i></a>
 
                 <h2><a ui-sref="root.api-endpoints.existing.basic-info.overview({apiEndpoint: activeApiEndpoint.slug})" href="#">
-                    <span class="nav-label">1. Supply basic info</span></a></h2>
+                    <span class="nav-label">1. Decide how to use the tool</span></a></h2>
 
                 <p>
 
-                    Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum
-                    dolor sit amet,
+                    Learn about the typical {{env.SITENAME}} workflows and decide how and during what processes you or your team best can use the tool.
 
                 </p>
 

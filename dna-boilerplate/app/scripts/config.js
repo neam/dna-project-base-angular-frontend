@@ -47,6 +47,46 @@
             })
 
             /**
+             * Scroll-to sections on start page
+             */
+            .state('root.start.features', {
+                url: "/",
+                onEnter: function(smoothScroll) {
+                    // scroll to #content
+                    var element = document.getElementById('content');
+                    smoothScroll(element);
+                },
+                data: {pageTitle: 'Start'}
+            })
+            .state('root.start.pricing', {
+                url: "/",
+                onEnter: function(smoothScroll) {
+                    // scroll to #main-plan
+                    var element = document.getElementById('main-plan');
+                    smoothScroll(element);
+                },
+                data: {pageTitle: 'Start'}
+            })
+            .state('root.start.processes', {
+                url: "/",
+                onEnter: function(smoothScroll) {
+                    // scroll to #processes
+                    var element = document.getElementById('processes');
+                    smoothScroll(element);
+                },
+                data: {pageTitle: 'Start'}
+            })
+            .state('root.start.contact', {
+                url: "/",
+                onEnter: function(smoothScroll) {
+                    // scroll to #faq
+                    var element = document.getElementById('contact');
+                    smoothScroll(element);
+                },
+                data: {pageTitle: 'Start'}
+            })
+
+            /**
              * Request invite
              */
 
@@ -71,6 +111,136 @@
                 url: "/faq",
                 templateUrl: "views/faq.html",
                 data: {pageTitle: 'FAQ'}
+            })
+
+            /**
+             * WITHOUT END-POINT Section - 1. Supply basic info
+             */
+            .state('root.basic-info', {
+                abstract: true,
+                url: "/basic-info",
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: "BasicInfoController"
+                    },
+                    'sidebar@root': {
+                        templateUrl: "sections/basic-info/navigation.html"
+                    }
+                },
+                data: {
+                    pageTitle: '1. Supply basic info',
+                    showSideMenu: true
+                }
+            })
+
+            .state('root.basic-info.overview', {
+                url: "/overview",
+                templateUrl: "sections/basic-info/overview.html",
+                data: {pageTitle: 'Basic Info'}
+            })
+
+            /**
+             * WITHOUT END-POINT Section - 2. Get things done | Connect spent time with business value
+             */
+            .state('root.get-things-done', {
+                abstract: true,
+                url: "/connect-spent-time-with-business-value",
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: "GetThingsDoneController",
+                    },
+                    'sidebar@root': {
+                        templateUrl: "sections/get-things-done/navigation.html",
+                    }
+                },
+                resolve: {
+                    /*
+                     // Inject the metadata resolved in the root state
+                     metadata: function (metadata) {
+                     return metadata;
+                     }
+                     */
+                },
+                data: {
+                    pageTitle: '2. Connect spent time with business value',
+                    showSideMenu: true
+                }
+
+            })
+
+            .state('root.get-things-done.overview', {
+                url: "/overview",
+                templateUrl: "sections/get-things-done/overview.html",
+                data: {pageTitle: 'Connect spent time with business value'}
+            })
+
+            /**
+             * WITHOUT END-POINT Section - 3. Generate reports | Share | Export
+             */
+            .state('root.export', {
+                abstract: true,
+                url: "/export",
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: "ExportController",
+                    },
+                    'sidebar@root': {
+                        templateUrl: "sections/export/navigation.html"
+                    }
+                },
+                data: {
+                    pageTitle: '3. Generate reports',
+                    showSideMenu: true
+                }
+            })
+
+            .state('root.export.overview', {
+                url: "/overview",
+                templateUrl: "sections/export/overview.html",
+                controller: "ReportedTimeController",
+                deepStateRedirect: true,
+                resolve: {
+                    /*
+                    // Inject the metadata resolved in the root state
+                    metadata: function (metadata) {
+                        return metadata;
+                    }
+                    */
+                },
+                data: {
+                    pageTitle: 'Export',
+                    drillDownData: null
+                }
+            })
+
+            /**
+             * WITHOUT END-POINT Section - 4. Stay up-to-date
+             */
+            .state('root.up-to-date', {
+                abstract: true,
+                url: "/stay-up-to-date",
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: "UpToDateController",
+                    },
+                    'sidebar@root': {
+                        templateUrl: "sections/up-to-date/navigation.html",
+                    }
+                },
+                data: {
+                    pageTitle: '4. Stay up-to-date',
+                    showSideMenu: true
+                }
+            })
+
+            .state('root.up-to-date.overview', {
+                url: "/overview",
+                templateUrl: "sections/up-to-date/overview.html",
+                data: {pageTitle: 'Stay up-to-date'}
             })
 
             /**
@@ -191,6 +361,174 @@
                 data: {pageTitle: 'Edit Foo'}
             })
 
+            /**
+             * Section - 1. Supply basic info
+             */
+            .state('root.api-endpoints.existing.basic-info', {
+                abstract: true,
+                url: "/basic-info",
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: "BasicInfoController"
+                    },
+                    'sidebar@root': {
+                        templateUrl: "sections/basic-info/navigation.html"
+                    }
+                },
+                /*
+                 resolve: {
+                 // Inject the metadata resolved in the root state
+                 metadata: function (metadata) {
+                 return metadata;
+                 }
+                 },
+                 */
+                data: {
+                    pageTitle: '1. Supply basic info',
+                    showSideMenu: true
+                }
+            })
+
+            .state('root.api-endpoints.existing.basic-info.overview', {
+                url: "/overview",
+                templateUrl: "sections/basic-info/overview.html",
+                data: {pageTitle: 'Basic Info'}
+            })
+
+            .state('root.api-endpoints.existing.basic-info.my-tax-entities', {
+                url: "/my-tax-entities",
+                templateUrl: "sections/basic-info/my-tax-entities.html",
+                data: {pageTitle: 'Basic Info'}
+            })
+
+            .state('root.api-endpoints.existing.basic-info.financials', {
+                url: "/financials",
+                templateUrl: "sections/basic-info/financials.html",
+                data: {pageTitle: 'Basic Info'}
+            })
+
+            /**
+             * Section - 2. Get things done | Connect spent time with business value
+             */
+            .state('root.api-endpoints.existing.get-things-done', {
+                abstract: true,
+                url: "/connect-spent-time-with-business-value",
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: "GetThingsDoneController",
+                    },
+                    'sidebar@root': {
+                        templateUrl: "sections/get-things-done/navigation.html",
+                    }
+                },
+                resolve: {
+                    setRouteBasedFiltersLevel0: function (routeBasedFilters, $stateParams) {
+                        routeBasedFilters.NeamtimeClientCostPool_order = 'ordinal ASC';
+                        routeBasedFilters.NeamtimeProject_order = 'ordinal ASC';
+                        //routeBasedFilters.Bar_foo_id = $stateParams.fooId;
+                    },
+                    /*
+                     // Inject the metadata resolved in the root state
+                     metadata: function (metadata) {
+                     return metadata;
+                     }
+                     */
+                },
+                data: {
+                    pageTitle: '2. Connect spent time with business value',
+                    showSideMenu: true
+                }
+
+            })
+
+            .state('root.api-endpoints.existing.get-things-done.overview', {
+                url: "/overview",
+                templateUrl: "sections/get-things-done/overview.html",
+                data: {pageTitle: 'Connect spent time with business value'}
+            })
+
+            /**
+             * Section - 3. Generate reports | Share | Export
+             */
+            .state('root.api-endpoints.existing.export', {
+                abstract: true,
+                url: "/export",
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: "ExportController",
+                    },
+                    'sidebar@root': {
+                        templateUrl: "sections/export/navigation.html"
+                    }
+                },
+                /*
+                 resolve: {
+                 // Inject the metadata resolved in the root state
+                 metadata: function (metadata) {
+                 return metadata;
+                 }
+                 },
+                 */
+                data: {
+                    pageTitle: '3. Generate reports',
+                    showSideMenu: true
+                }
+            })
+
+            .state('root.api-endpoints.existing.export.overview', {
+                url: "/overview",
+                templateUrl: "sections/export/overview.html",
+                controller: "ReportedTimeController",
+                deepStateRedirect: true,
+                resolve: {
+                    // Inject the metadata resolved in the root state
+                    metadata: function (metadata) {
+                        return metadata;
+                    }
+                },
+                data: {
+                    pageTitle: 'Export',
+                    drillDownData: null
+                }
+            })
+
+            /**
+             * Section - 4. Stay up-to-date
+             */
+            .state('root.api-endpoints.existing.up-to-date', {
+                abstract: true,
+                url: "/stay-up-to-date",
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: "UpToDateController",
+                    },
+                    'sidebar@root': {
+                        templateUrl: "sections/up-to-date/navigation.html",
+                    }
+                },
+                /*
+                 resolve: {
+                 // Inject the metadata resolved in the root state
+                 metadata: function (metadata) {
+                 return metadata;
+                 }
+                 },
+                 */
+                data: {
+                    pageTitle: '4. Stay up-to-date',
+                    showSideMenu: true
+                }
+            })
+
+            .state('root.api-endpoints.existing.up-to-date.overview', {
+                url: "/overview",
+                templateUrl: "sections/up-to-date/overview.html",
+                data: {pageTitle: 'Stay up-to-date'}
+            })
         ;
 
     }

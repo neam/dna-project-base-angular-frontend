@@ -47,7 +47,7 @@ div.select2 .select2-container {
 
 /* Start page */
 
-#start {
+#start,#basic-info {
 
 	#hero {
 
@@ -112,6 +112,7 @@ div.select2 .select2-container {
 
 			display: block;
 			margin: 20px 0;
+			text-shadow: 1px 1px 1px #000;
 
 		}
 
@@ -174,6 +175,7 @@ div.select2 .select2-container {
 				text-align: center;
 				width: 80%;
 				margin: 0 auto;
+			    margin-bottom: 4em;
 
 
 
@@ -185,6 +187,17 @@ div.select2 .select2-container {
 
 		}
 
+}
+
+@media only screen and ( max-width: 400px ) {
+	#start,#basic-info {
+		#hero {
+			h1 {
+				padding-top: 10px;
+				padding-bottom: 0px;
+			}
+		}
+	}
 }
 
 /* For hybrid (top+side) navigation style */
@@ -224,7 +237,7 @@ div.select2 .select2-container {
 
 		background: @navbar-bg-color;
 		padding: 0px 0px;
-        width: 235px;
+        width: 230px;
 	  	margin-left: 7px;
 	  	margin-right: 17px;
 
@@ -313,10 +326,9 @@ nav.navbar-static-top {
   }
 }
 
-
 .top-navigation #page-wrapper.side-menu-shown {
 
-	margin: 0 0 0 220px;
+	margin: 0 0 0 235px;
 	padding:0;
 
 }
@@ -345,6 +357,7 @@ nav.navbar-static-top {
 
 	background: #1f1f1f;
 	height: 100%;
+	width: 240px;
 
 }
 
@@ -471,6 +484,7 @@ nav.navbar-static-top {
 #side-menu {
 	font-size:13px;
 	background:#444;
+    width:235px;
 
 	hr {
 		border-color:#555;
@@ -503,6 +517,11 @@ nav.navbar-static-top {
 
 	}
 
+}
+
+/* Override the default white text color */
+.dc-chart g.row text {
+  fill: black;
 }
 
 /* App custom css */

@@ -1,29 +1,44 @@
-<ul class="nav navbar-nav">
+<ul class="nav navbar-nav" ng-show="!activeApiEndpoint.available && !auth.profilePromise">
 
     <li ui-sref-active="active" ng-show="false && !$state.includes('root.start')">
         <a ui-sref="root.start" href="#"><i class="fa fa-arrow-left"></i> <span class="nav-label">Back</span></a>
     </li>
 
-    <li ui-sref-active="active" ng-show="activeApiEndpoint.available">
-        <a ui-sref="root.api-endpoints.existing.basic-info.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
-                class="fa fa-building"></i> <span class="nav-building">1. Supply basic info</span></a>
+    <!--
+    <li ui-sref-active="active" ng-show="!activeApiEndpoint.available">
+        <a ui-sref="root.start.features" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label">Features</span></a>
     </li>
 
-    <li ui-sref-active="active" ng-show="activeApiEndpoint.available">
-        <a ui-sref="root.api-endpoints.existing.import.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
-                class="fa fa-cloud-download"></i> <span class="nav-label">2. Import</span></a>
+    <li ui-sref-active="active" ng-show="!activeApiEndpoint.available">
+        <a ui-sref="root.start.pricing" href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Pricing</span></a>
     </li>
 
-    <li ui-sref-active="active" ng-show="activeApiEndpoint.available">
-        <a ui-sref="root.api-endpoints.existing.get-things-done.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
-                class="fa fa-cloud-download"></i> <span class="nav-label">3. Get things done</span></a>
+    <li ui-sref-active="active" ng-show="!activeApiEndpoint.available">
+        <a ui-sref="root.start.processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label">Processes</span></a>
+    </li>
+    -->
+
+    <li ng-show="!activeApiEndpoint.available">
+        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="content" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label">Features</span></a>
+        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.features" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label">Features</span></a>
     </li>
 
-    <li ui-sref-active="active" ng-show="activeApiEndpoint.available">
-        <a ui-sref="root.api-endpoints.existing.up-to-date.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
-                class="fa fa-clock-o"></i> <span class="nav-label">4. Stay up-to-date</span></a>
+    <li ng-show="!activeApiEndpoint.available">
+        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="main-plan" href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Pricing</span></a>
+        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.pricing" href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Pricing</span></a>
     </li>
 
+    <li ng-show="!activeApiEndpoint.available">
+        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label">Processes</span></a>
+        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label">Processes</span></a>
+    </li>
+
+    <li ng-show="!activeApiEndpoint.available">
+        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label">About us</span></a>
+        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label">About us</span></a>
+    </li>
+
+    <!--
     <li class="dropdown" dropdown>
         <a class="dropdown-toggle" href dropdown-toggle> Menu item <span class="caret"></span></a>
         <ul role="menu" class="dropdown-menu">
@@ -43,14 +58,66 @@
             <li><a href="#">Menu item</a></li>
         </ul>
     </li>
+    -->
 
+    <!--
     <li ui-sref-active="active">
         <a ui-sref="root.faq" href="#"><i
                 class="fa fa-question-circle"></i> <span class="nav-label">FAQ</span> </a>
 
     </li>
+    -->
 
 </ul>
+
+<ul class="nav navbar-nav" ng-show="auth.profilePromise && !activeApiEndpoint.available">
+
+    <li ui-sref-active="active">
+        <a ui-sref="root.basic-info.overview" href="#"><i
+                class="fa fa-building"></i> <span class="nav-building">1. Decide how to use the tool</span></a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="root.api-endpoints.existing.import.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
+                class="fa fa-cloud-download"></i> <span class="nav-label">2. Import</span></a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="root.api-endpoints.existing.get-things-done.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
+                class="fa fa-cloud-download"></i> <span class="nav-label">3. Get things done</span></a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="root.up-to-date.overview" href="#"><i
+                class="fa fa-clock-o"></i> <span class="nav-label">4. Stay up-to-date</span></a>
+    </li>
+
+</ul>
+
+<ul class="nav navbar-nav" ng-show="auth.profilePromise && activeApiEndpoint.available">
+
+    <li ui-sref-active="active">
+        <a ui-sref="root.api-endpoints.existing.basic-info.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
+                class="fa fa-building"></i> <span class="nav-building">1. Decide how to use the tool</span></a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="root.api-endpoints.existing.import.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
+                class="fa fa-cloud-download"></i> <span class="nav-label">2. Import</span></a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="root.api-endpoints.existing.get-things-done.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
+                class="fa fa-cloud-download"></i> <span class="nav-label">3. Get things done</span></a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="root.api-endpoints.existing.up-to-date.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
+                class="fa fa-clock-o"></i> <span class="nav-label">4. Stay up-to-date</span></a>
+    </li>
+
+</ul>
+
 <ul class="nav navbar-top-links navbar-right" ng-controller="LoginController">
     <li class="dropdown" dropdown ng-show="apiEndpoints.list.length > 1">
         <a class="dropdown-toggle" href dropdown-toggle> <span ng-show="!activeApiEndpoint.available">Choose</span><span

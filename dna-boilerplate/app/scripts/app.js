@@ -13,6 +13,7 @@
         'cfp.hotkeys',                  // angular-hotkeys
         '3-way-merge',                  // 3-way-merge
         'rt.select2',                   // angular-select2
+        'smoothScroll',                 // ngSmoothScroll
         'dcNasdaq',                     // necessary for scripts/dc/dc-nasdaq-controller.js
         //'angularJade',
     ]);
