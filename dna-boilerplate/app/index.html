@@ -3,10 +3,18 @@
 
 <head>
 
-    <!-- For html5 pushstate to work -->
+    <!-- For html5 pushstate -->
+    <meta name="fragment" content="!">
     <base href="/" />
-    <script language="javascript"> if (typeof(window.history.pushState) == 'function') { window.history.pushState(null, "Entry page", window.location.hash.substring(2)); } else { window.location.hash = window.location.hash.substring(2); } </script>
+    <script language="javascript">
+        if (typeof(window.history.pushState) == 'function') {
+            window.history.pushState(null, "Entry page", window.location.hash.substring(2));
+        } else {
+            window.location.hash = window.location.hash.substring(2);
+        }
+    </script>
 
+    <!-- Charset -->
     <meta charset="utf-8">
 
     <!-- Note: ", maximum-scale=1.0, user-scalable=no" is a recommendation from Auth0 -->
