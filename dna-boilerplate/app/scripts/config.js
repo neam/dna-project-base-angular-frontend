@@ -23,15 +23,18 @@
                      }
                      */
                     optimizely: function (optimizely) {
+                        if (env.OFFLINE_DEV === 'true') {
+                            return true;
+                        }
                         return optimizely.loadProject(env.OPTIMIZELY_ACCOUNT_ID /*, '$stateChangeSuccess' */);
                     }
                 },
                 data: {showSideMenu: false}
             })
 
-        /**
-         * Default "start" route
-         */
+            /**
+             * Default "start" route
+             */
             .state('root.start', {
                 url: "",
                 templateUrl: "views/start.html",
@@ -43,14 +46,14 @@
                 data: {pageTitle: 'Start'}
             })
 
-        /**
-         * Request invite
-         */
+            /**
+             * Request invite
+             */
 
             .state('root.start.user.request-invite', {
                 url: "/request-invite",
                 onEnter: function (AuthService) {
-                    Intercom('onHide', _.once(function() {
+                    Intercom('onHide', _.once(function () {
                         AuthService.goAfterLogin();
                     }));
                     Intercom('showNewMessage', 'Hi! I would like to get Beta access to ' + env.SITENAME);
@@ -61,18 +64,18 @@
                 data: {pageTitle: 'request-invite'}
             })
 
-        /**
-         * FAQ route
-         */
+            /**
+             * FAQ route
+             */
             .state('root.faq', {
                 url: "/faq",
                 templateUrl: "views/faq.html",
                 data: {pageTitle: 'FAQ'}
             })
 
-        /**
-         * Base route for routes that requires an api-endpoint
-         */
+            /**
+             * Base route for routes that requires an api-endpoint
+             */
             .state('root.api-endpoints', {
                 url: "",
                 template: "<ui-view/>",
@@ -81,18 +84,18 @@
                 }
             })
 
-        /**
-         * Route that allows the user to select current domain
-         */
+            /**
+             * Route that allows the user to select current domain
+             */
             .state('root.api-endpoints.choose', {
                 url: "/choose-account",
                 templateUrl: "views/domain/choose-current.html",
                 data: {pageTitle: 'Example view'}
             })
 
-        /**
-         * Route that sets the current domain to one in the url and then shows the "start" view
-         */
+            /**
+             * Route that sets the current domain to one in the url and then shows the "start" view
+             */
             .state('root.api-endpoints.existing', {
                 abstract: true,
                 url: "/:apiEndpoint",
@@ -203,6 +206,11 @@
             $locationProvider.html5Mode(true);
             $locationProvider.hashPrefix('!');
         })
+        .run(function ($rootScope) {
+            $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+                $rootScope.Intercom = window.Intercom;
+            });
+        })
         .run(function ($rootScope, $state, suggestionsService, hotkeys, auth, $http, ApiEndpointService, $location) {
 
             // Make api endpoint variables globally available in all child views
@@ -248,8 +256,8 @@
                     // update ua_session_token for rest-api so that api requests are authenticated using the same userapp user
                     // (this is a workaround for the fact that cookies are not shared across api-endpoints)
                     $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/auth/loginNotify', {
-                        profile: auth.profile
-                    })
+                            profile: auth.profile
+                        })
                         .success(function (data, status, headers, config) {
                             console.log('login rest api sync request successful');
                         })
@@ -268,8 +276,8 @@
                     // destroy session also on rest-api so that api requests are no longer authenticated using the userapp user that was logged out
                     // (this is a workaround for the fact that cookies are not shared across api-endpoints)
                     $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/auth/logoutNotify', {
-                        profile: auth.profile
-                    })
+                            profile: auth.profile
+                        })
                         .success(function (data, status, headers, config) {
                             console.log('logout rest api sync request successful');
                         })
