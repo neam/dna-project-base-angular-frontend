@@ -1,4 +1,4 @@
-/* Workaround for handsontable 0.16 + ngHandsontable 0.6.0 height issue */
+/* Workaround for handsontable 0.16-0.19 height issue */
 
 .wtHolder {
   height: auto !important;
@@ -13,26 +13,26 @@
 
 /* Base background color */
 
-body{
+body {
 
-	background-color: #f3f3f4;
+  background-color: #f3f3f4;
 
 }
 
 /* Decorating only touched and unsaved inputs as invalid/valid */
 
 input.ng-invalid.ng-touched.ng-dirty {
-    border-color: red;
+  border-color: red;
 }
 
 input.ng-valid.ng-touched.ng-dirty {
-    border-color: green;
+  border-color: green;
 }
 
 /* Select 2 form control styling */
 
 div.select2 .select2-container {
-    width: 100% !important;
+  width: 100% !important;
 }
 
 /* Handsontable currently selected row/column styles */
@@ -47,181 +47,167 @@ div.select2 .select2-container {
 
 /* Start page */
 
-#start,#basic-info {
+#start, #basic-info {
 
-	#hero {
+  #hero {
 
-		text-align: center;
-		margin: 0;
-		padding: 0;
-		background: url(../images/start.jpg) no-repeat #2d6492 !important;
-		background-size: auto 120%;
-		background-position:center top;
-		width: 100%;
-		/*height: 500px;*/
-		min-height: 500px;
-		color: #fff;
-		font-size: 18px;
-		position: relative;
-		overflow: hidden;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background: url(../images/start.jpg) no-repeat #2d6492 !important;
+    background-size: auto 120%;
+    background-position: center top;
+    width: 100%;
+    /*height: 500px;*/
+    min-height: 500px;
+    color: #fff;
+    font-size: 18px;
+    position: relative;
+    overflow: hidden;
 
-		h1 {
+    h1 {
 
-			font-size: 50px;
-			color: #fff;
-			background-color: transparent;
-			margin-top: 0;
-			padding-top: 90px;
-			padding-bottom: 10px;
-			width: 100%;
-			font-weight:100;
+      font-size: 50px;
+      color: #fff;
+      background-color: transparent;
+      margin-top: 0;
+      padding-top: 90px;
+      padding-bottom: 10px;
+      width: 100%;
+      font-weight: 100;
 
+    }
 
-		}
+    .btn {
 
-		.btn {
+      padding: 15px 30px;
+      color: #fff;
+      background-color: @navy;
+      transition: background .25s ease-in-out;
+      -moz-transition: background .25s ease-in-out;
+      -webkit-transition: background .25s ease-in-out;
 
-			padding: 15px 30px;
-			color: #fff;
-			background-color: @navy;
-			transition: background .25s ease-in-out;
-	   -moz-transition: background .25s ease-in-out;
-	   -webkit-transition: background .25s ease-in-out;
+      &:hover {
 
+        text-decoration: none;
+        background: darken(@navy, 10%);
+        border-color: darken(@navy, 10%);
 
-			&:hover {
+      }
 
-				text-decoration: none;
-				background: darken(@navy, 10%);
-				border-color: darken(@navy, 10%);
+      span {
 
+        display: inline;
+        margin: 0;
 
-			}
+      }
 
-		  span {
+    }
 
-			display: inline;
-			margin: 0;
+    span {
 
-		  }
+      display: block;
+      margin: 20px 0;
+      text-shadow: 1px 1px 1px #000;
 
+    }
 
-		}
+    a {
 
-		span {
+      color: @navy;
 
-			display: block;
-			margin: 20px 0;
-			text-shadow: 1px 1px 1px #000;
+      &:hover {
 
-		}
+        text-decoration: underline;
 
-		a {
+      }
 
-			color: @navy;
+    }
 
-			&:hover {
+    .banner {
 
-				text-decoration: underline;
+      padding: 38px;
+      background-color: rgba(0, 0, 0, 0.5);
+      /*position: absolute;
+      bottom: -3px;*/
+      width: 100%;
 
-			}
+    }
 
-		}
+  }
 
-		.banner {
+  #content {
 
-			padding: 38px;
-			background-color: rgba(0, 0, 0, 0.5);
-			/*position: absolute;
-			bottom: -3px;*/
-			width: 100%;
+    margin: 40px;
+    padding: 40px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    text-align: center;
 
+    .fa {
 
-		}
+      font-size: 60px;
 
-	}
+    }
 
-	#content {
+    h2 {
 
+      font-size: 18px;
+      color: @text-color;
+      font-weight: 700;
 
-		margin: 40px;
-		padding: 40px;
-		background-color: #fff;
-		border:1px solid #eee;
-		text-align: center;
+      a {
+        color: @text-color;
+      }
 
-			.fa {
+    }
 
-				color: @navy;
-				font-size: 60px;
+    p {
 
+      text-align: center;
+      width: 80%;
+      margin: 0 auto;
+      margin-bottom: 4em;
 
+    }
 
-			}
-
-			h2 {
-
-				font-size: 18px;
-				color: @navy;
-				font-weight: 700;
-
-
-
-
-			}
-
-			p {
-
-				text-align: center;
-				width: 80%;
-				margin: 0 auto;
-			    margin-bottom: 4em;
-
-
-
-			}
-
-
-
-
-
-		}
+  }
 
 }
 
 @media only screen and ( max-width: 400px ) {
-	#start,#basic-info {
-		#hero {
-			h1 {
-				padding-top: 10px;
-				padding-bottom: 0px;
-			}
-		}
-	}
+  #start, #basic-info {
+    #hero {
+      h1 {
+        padding-top: 10px;
+        padding-bottom: 0px;
+      }
+    }
+  }
 }
 
 /* For hybrid (top+side) navigation style */
 
 .navbar-static-top, .navbar-brand {
 
-	height: 65px;
+  height: 65px;
 
-	ul.nav li {
+  ul.nav li {
 
-		height: 65px;
+    height: 65px;
 
-		a {
+    a {
 
-			padding: 20px 20px;
+      padding: 20px 20px;
 
-		}
-	}
+    }
+  }
 
 }
 
 #navbar {
 
-	background: #151515;
+  background: #151515;
 
 }
 
@@ -233,23 +219,25 @@ div.select2 .select2-container {
 }
 
 .top-navigation {
-	.navbar-brand {
+  .navbar-brand {
 
-		background: @navbar-bg-color;
-		padding: 0px 0px;
-        width: 230px;
-	  	margin-left: 7px;
-	  	margin-right: 17px;
+    background: @navbar-bg-color;
+    padding: 0px 0px;
+    width: 230px;
+    margin-left: 7px;
+    margin-right: 17px;
 
-	}
+  }
 }
 
 .dropdown-menu {
   background: @navy;
 }
+
 .navbar-fixed-top, .navbar-static-top {
   background: @navbar-bg-color;
 }
+
 .navbar-toggle {
   margin-right: 5%;
 }
@@ -260,262 +248,265 @@ nav.navbar-static-top {
 
 	background-color: @navbar-bg-color;
 
-	li {
+    li {
 
-	  background: @navbar-bg-color;
-	  color: #fff;
+      background: @navbar-bg-color;
+      color: #fff;
 
-	  &:hover {
+      &:hover {
 		background: @navy;
-		color: #fff;
-	  }
-	  &:focus {
+        color: #fff;
+      }
+      &:focus {
 		background: @navy;
-		color: #fff;
-	  }
+        color: #fff;
+      }
 
-	  a {
+      a {
 
-		background: @navbar-bg-color;
-		color: #fff;
+        background: @navbar-bg-color;
+        color: #fff;
 
-		&:hover {
+        &:hover {
 		  background: @navbar-bg-color;
-		  color: #fff;
-		}
-		&:focus {
+          color: #fff;
+        }
+        &:focus {
 		  background: @navbar-bg-color;
-		  color: #fff;
-		}
+          color: #fff;
+        }
 
-	  }
+      }
 
-	  &.active {
+      &.active {
 
-		background: @navy;
-		color: #fff;
+        background: @navy;
+        color: #fff;
 
-		&:hover {
-		  background: @navy;
-		  color: #fff;
-		}
-		&:focus {
-		  background: @navy;
-		  color: #fff;
-		}
+        &:hover {
+          background: @navy;
+          color: #fff;
+        }
+        &:focus {
+          background: @navy;
+          color: #fff;
+        }
 
-		a {
+        a {
 
-		  background: @navy;
-		  color: #fff;
+          background: @navy;
+          color: #fff;
 
-		  &:hover {
-			background: @navbar-bg-color;
-			color: #fff;
-		  }
-		  &:focus {
-			background: @navy;
-			color: #fff;
-		  }
+          &:hover {
+            background: @navbar-bg-color;
+            color: #fff;
+          }
+          &:focus {
+            background: @navy;
+            color: #fff;
+          }
 
-		}
+        }
 
-	  }
+      }
 
-	}
+    }
   }
 }
 
 .top-navigation #page-wrapper.side-menu-shown {
 
-	margin: 0 0 0 235px;
-	padding:0;
+  margin: 0 0 0 235px;
+  padding: 0;
 
 }
 
 #page-wrapper {
-	padding:0;
+  padding: 0;
 }
 
-
 .page-heading {
-	padding: 0 40px 20px 40px;
+  padding: 0 40px 20px 40px;
 }
 
 .new-campaign .page-heading {
-	padding: 0 18px 20px;
+  padding: 0 18px 20px;
 }
 
 .page-heading.side-menu-shown {
-	margin:  0px -15px 20px -15px;
-    padding: 15px 10px 15px 10px;
+  margin: 0px -15px 20px -15px;
+  padding: 15px 10px 15px 10px;
 
 }
 
 .navbar-static-side {
 
-
-	background: #1f1f1f;
-	height: 100%;
-	width: 240px;
+  background: #1f1f1f;
+  height: 100%;
+  width: 240px;
 
 }
 
 .top-navigation .nav li {
 
-	background: transparent;
-	color: #fff;
+  background: transparent;
+  color: #fff;
 
-	a {
+  a {
 
-		background: transparent;
-		color: #fff;
+    background: transparent;
+    color: #fff;
 
-	}
+  }
 
 }
 
-
 .top-navigation .nav-tabs {
 
-	li {
+  li {
 
-		color: @navy;
-		background:transparent !important;
-		overflow: hidden;
+    color: @navy;
+    background: transparent !important;
+    overflow: hidden;
 
-		&.active {
-			background:transparent !important;
+    &.active {
+      background: transparent !important;
 
+      a {
 
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #e7eaec;
+        border-bottom: 0 !important;
 
-			a {
+        &:hover {
 
-				background-color: #fff;
-				color: #000;
-				border:1px solid #e7eaec;
-				border-bottom:0 !important;
+          background-color: #fff;
+          color: #000;
+          box-shadow: none;
 
-				&:hover {
+        }
 
-					background-color: #fff;
-					color: #000;
-					box-shadow: none;
+        &:focus {
 
+          background-color: #fff;
+          color: #000;
+          box-shadow: none;
 
+        }
 
-				}
+      }
 
-				&:focus {
+    }
 
-					background-color: #fff;
-					color: #000;
-					box-shadow: none;
+    &.disabled {
+      pointer-events: none;
+      cursor: default;
 
+      a {
+        color: #aaa;
+      }
+    }
 
+    a {
 
-				}
+      color: @navy;
+      border: 0;
+      padding-top: 16px;
 
+    }
 
-			}
-
-
-		}
-
-		&.disabled {
-			pointer-events: none;
-			cursor: default;
-
-			a {
-				color:#aaa;
-			}
-		}
-
-		a {
-
-			color: @navy;
-			border:0;
-			padding-top:16px;
-
-		}
-
-
-	}
-
-
+  }
 
 }
 
 .top-navigation #page-wrapper.side-menu-shown .wrapper.wrapper-content, #page-wrapper.side-menu-shown .wrapper-content {
 
-	padding:0px 10px 40px;
+  padding: 0px 10px 40px;
 }
 
 .top-navigation .wrapper.wrapper-content, .wrapper-content {
 
-	padding:40px;
+  padding: 40px;
 }
 
 .navbar-static-side {
-	background-color:#444;
+  background-color: #444;
 
-	li {
+  li {
 
-		a {
-		 padding: 10px 20px 10px 25px !important;
-		}
-	ul {
+    a {
+      padding: 10px 20px 10px 25px !important;
+    }
+    ul {
 
-		li {
+      li {
 
-			a {
+        a {
 
-			padding: 10px 20px 10px 45px !important;
-			font-size:11px;
+          padding: 10px 20px 10px 45px !important;
+          font-size: 11px;
 
-			}
+        }
 
-		}
-	}
+      }
+    }
 
-	}
+  }
 
 }
+
 #side-menu {
-	font-size:13px;
-	background:#444;
-    width:235px;
+  font-size: 13px;
+  background: #444;
+  width: 235px;
 
-	hr {
-		border-color:#555;
-		margin:0;
-	}
+  hr {
+    border-color: #555;
+    margin: 0;
+  }
 
-	li > a {font-weight:400 !important;}
-	li.active:hover, li.active > a:hover, li > a:hover {background:#151515 !important;}
-	.nav-title {padding: 20px 25px 15px 25px; letter-spacing:1px; text-transform:uppercase; color:#bababa; font-size:12px;}
+  li > a {
+    font-weight: 400 !important;
+  }
+  li.active:hover, li.active > a:hover, li > a:hover {
+    background: #151515 !important;
+    color: @navy;
+  }
+  .nav-title {
+    padding: 20px 25px 15px 25px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #bababa;
+    font-size: 12px;
+  }
 
-	.nav-header-wrapper {
+  .nav-header-wrapper {
 
-		background:url(../images/foo.jpg) center center no-repeat;
-		display:block;
-		min-height:100px;
-		background-size:110% auto;
-		height:120px;
+    background: url(../images/foo.jpg) center center no-repeat;
+    display: block;
+    min-height: 100px;
+    background-size: 110% auto;
+    height: 120px;
 
-		.nav-header {
+    .nav-header {
 
-			text-align:left;
-			background:url(../images/black-shader.png) left bottom repeat-x !important;
-			padding-bottom:10px;
-			height:100%;
+      text-align: left;
+      background: url(../images/black-shader.png) left bottom repeat-x !important;
+      padding-bottom: 10px;
+      height: 100%;
 
+      h3 {
+        font-weight: 100 !important;
+        font-size: 24px;
+        margin-top: 20px;
+      }
+      .label {
+        font-size: 9px;
+      }
+    }
 
-			h3 {font-weight:100 !important; font-size:24px; margin-top: 20px; }
-			.label {font-size:9px;}
-		}
-
-	}
+  }
 
 }
 
@@ -524,7 +515,16 @@ nav.navbar-static-top {
   fill: black;
 }
 
+dna-file-selection-widget {
+
+  margin-bottom: 15px;
+  display: block;
+
+}
+
 /* App custom css */
 /* ... */
 
-.footer { display:none;}
+.footer {
+  display: none;
+}
