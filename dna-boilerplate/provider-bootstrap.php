@@ -22,7 +22,7 @@ $textInput = function ($attribute, $model) {
     $label = Html::encode($attributeInfo["label"]);
     $hint = htmlspecialchars($attributeInfo["hint"]);
 
-    // Includ hint markup if hint is not empty
+    // Include hint markup if hint is not empty
     $hintMarkup =<<<HINT
 <span class="badge badge-primary adoveo-badge" tooltip-placement="right" data-tooltip-html-unsafe="$hint">?</span>
 HINT;

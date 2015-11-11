@@ -409,59 +409,18 @@
             })
 
             /**
-             * Section - 2. Get things done | Connect spent time with business value
+             * Section - 2. Import
              */
-            .state('root.api-endpoints.existing.get-things-done', {
+            .state('root.api-endpoints.existing.import', {
                 abstract: true,
-                url: "/connect-spent-time-with-business-value",
+                url: "/import",
                 views: {
                     '': {
                         template: "<ui-view/>",
-                        controller: "GetThingsDoneController",
+                        controller: "ImportController",
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/get-things-done/navigation.html",
-                    }
-                },
-                resolve: {
-                    setRouteBasedFiltersLevel0: function (routeBasedFilters, $stateParams) {
-                        routeBasedFilters.NeamtimeClientCostPool_order = 'ordinal ASC';
-                        routeBasedFilters.NeamtimeProject_order = 'ordinal ASC';
-                        //routeBasedFilters.Bar_foo_id = $stateParams.fooId;
-                    },
-                    /*
-                     // Inject the metadata resolved in the root state
-                     metadata: function (metadata) {
-                     return metadata;
-                     }
-                     */
-                },
-                data: {
-                    pageTitle: '2. Connect spent time with business value',
-                    showSideMenu: true
-                }
-
-            })
-
-            .state('root.api-endpoints.existing.get-things-done.overview', {
-                url: "/overview",
-                templateUrl: "sections/get-things-done/overview.html",
-                data: {pageTitle: 'Connect spent time with business value'}
-            })
-
-            /**
-             * Section - 3. Generate reports | Share | Export
-             */
-            .state('root.api-endpoints.existing.export', {
-                abstract: true,
-                url: "/export",
-                views: {
-                    '': {
-                        template: "<ui-view/>",
-                        controller: "ExportController",
-                    },
-                    'sidebar@root': {
-                        templateUrl: "sections/export/navigation.html"
+                        templateUrl: "sections/import/navigation.html"
                     }
                 },
                 /*
@@ -473,25 +432,53 @@
                  },
                  */
                 data: {
-                    pageTitle: '3. Generate reports',
+                    pageTitle: '2. Import',
                     showSideMenu: true
                 }
             })
 
-            .state('root.api-endpoints.existing.export.overview', {
+            .state('root.api-endpoints.existing.import.overview', {
                 url: "/overview",
-                templateUrl: "sections/export/overview.html",
-                controller: "ReportedTimeController",
-                deepStateRedirect: true,
-                resolve: {
-                    // Inject the metadata resolved in the root state
-                    metadata: function (metadata) {
-                        return metadata;
+                templateUrl: "sections/import/overview.html",
+                data: {pageTitle: 'Import'}
+            })
+
+            /**
+             * Section - 3. Get things done
+             */
+            .state('root.api-endpoints.existing.get-things-done', {
+                abstract: true,
+                url: "/get-things-done",
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: "GetThingsDoneController",
+                    },
+                    'sidebar@root': {
+                        templateUrl: "sections/get-things-done/navigation.html"
                     }
                 },
+                /*
+                 resolve: {
+                 // Inject the metadata resolved in the root state
+                 metadata: function (metadata) {
+                 return metadata;
+                 }
+                 },
+                 */
                 data: {
-                    pageTitle: 'Export',
-                    drillDownData: null
+                    pageTitle: '3. Get things done',
+                    showSideMenu: true
+                }
+            })
+
+            .state('root.api-endpoints.existing.get-things-done.overview', {
+                url: "/overview",
+                templateUrl: "sections/get-things-done/overview.html",
+                controller: "GetThingsDoneController",
+                data: {
+                    pageTitle: '3. Get things done',
+                    showSideMenu: true
                 }
             })
 
