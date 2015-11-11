@@ -16,12 +16,13 @@
         'smoothScroll',                 // ngSmoothScroll
         'dcNasdaq',                     // necessary for scripts/dc/dc-nasdaq-controller.js
         //'angularJade',
+        //'section-basic-info',
     ]);
 
     /**
      * Service to handle data-change suggestions via the angular ui
      */
-    app.service('suggestionsService', function ($http, $location, $injector, routeBasedFilters) {
+    app.service('suggestionsService', function ($http, $location, $injector, contentFilters) {
 
         var statuses = {
             ACTIVE: 'active',
@@ -39,50 +40,47 @@
 
                 console.log('suggest - suggestions, save', suggestions, save);
 
-                // Filters are stored in $location.search and the service routeBasedFilters
-                var filters = angular.merge($location.search(), routeBasedFilters);
-
                 var params = angular.extend({}, {
                     'suggestions': suggestions,
                     'save': save,
-                    'filters': filters,
+                    'filters': contentFilters.all(),
                     'default_page': 1,
                     'default_limit': 100
                 });
 
                 status = statuses.LOADING;
                 $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/suggestions', params).
-                    then(function (response) {
-                        // this callback will be called asynchronously
-                        // when the response is available
+                then(function (response) {
+                    // this callback will be called asynchronously
+                    // when the response is available
 
-                        console.log('suggestions received', response);
+                    console.log('suggestions received', response);
 
-                        _.each(response.data, function (value, key, list) {
+                    _.each(response.data, function (value, key, list) {
 
-                            $injector.invoke([key, function (resource) {
+                        $injector.invoke([key, function (resource) {
 
-                                resource.replace(value.items);
-                                resource.$metadata = value._meta;
+                            resource.replace(value.items);
+                            resource.$metadata = value._meta;
 
-                            }]);
-
-                        });
-
-                        if (save) {
-                            status = statuses.INACTIVE;
-                        } else {
-                            status = statuses.ACTIVE;
-                        }
-
-                    }, function (response) {
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-
-                        status = statuses.ERROR;
-                        console.log('error during suggestions received', response);
+                        }]);
 
                     });
+
+                    if (save) {
+                        status = statuses.INACTIVE;
+                    } else {
+                        status = statuses.ACTIVE;
+                    }
+
+                }, function (response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+
+                    status = statuses.ERROR;
+                    console.log('error during suggestions received', response);
+
+                });
 
             },
             status: function () {
@@ -113,11 +111,100 @@
     });
 
     /**
-     * Service for route-based filters, such as when visiting an item's page, only show items related to that item
+     * Service used to hold information about route-based content filters, such as when visiting an item's page, only show items related to that item
      */
-    app.service('routeBasedFilters', function () {
+    app.service('routeBasedContentFilters', function () {
 
         return {};
+
+    });
+
+    /**
+     * Service to extract information about current content filters
+     * Content filters are stored in $location.search (prefixed with cf_) and the service routeBasedContentFilters
+     */
+    app.service('contentFilters', function ($location, routeBasedContentFilters) {
+
+        return {
+            all: function () {
+
+                // Filter by cf_ namespace
+                var locationBasedContentFilters = _.reduce($location.search(), function (obj, val, key) {
+                    if (key.indexOf("cf_") === 0) {
+                        obj[key.replace("cf_", "")] = val;
+                    }
+                    return obj;
+                }, {});
+
+                var allContentFilters = angular.merge({}, locationBasedContentFilters, routeBasedContentFilters);
+
+                return allContentFilters;
+
+            },
+            itemTypeSpecific: function(itemType) {
+
+                var allContentFilters = this.all();
+
+                // Filter on item type by item type namespace
+                return _.reduce(allContentFilters, function (obj, val, key) {
+                    if (key.indexOf(itemType + "_") === 0) {
+                        obj[key] = val;
+                    }
+                    return obj;
+                }, {});
+
+            }
+        };
+
+    });
+
+    /**
+     * Service used to hold information about route-based visibility settings, such as when visiting a specific curate step, only show columns relevant to that step
+     */
+    app.service('routeBasedVisibilitySettings', function () {
+
+        return {};
+
+    });
+
+    /**
+     * Service to extract information about current visibility settings
+     * Content visibility settings are stored in $location.search (prefixed with vs_) and the service routeBasedVisibilitySettings
+     */
+    app.service('visibilitySettings', function ($location, routeBasedVisibilitySettings) {
+
+        var visibilitySettings = {
+            all: function () {
+
+                // Filter by vs_ namespace
+                var locationBasedVisibilitySettings = _.reduce($location.search(), function (obj, val, key) {
+                    if (key.indexOf("vs_") === 0) {
+                        obj[key.replace("vs_", "")] = val;
+                    }
+                    return obj;
+                }, {});
+
+                var allVisibilitySettings = angular.merge({}, locationBasedVisibilitySettings, routeBasedVisibilitySettings);
+
+                return allVisibilitySettings;
+
+            },
+            itemTypeSpecific: function(itemType) {
+
+                var allVisibilitySettings = this.all();
+
+                // Filter on item type by item type namespace
+                return _.reduce(allVisibilitySettings, function (obj, val, key) {
+                    if (key.indexOf(itemType + "_") === 0) {
+                        obj[key] = val;
+                    }
+                    return obj;
+                }, {});
+
+            }
+        };
+
+        return visibilitySettings;
 
     });
 
@@ -165,15 +252,37 @@
             restrict: 'E',
             require: '?ngModel',
             scope: {
-                crud:'=',
-                label:'=',
-                ngModel:'=',
+                crud: '=',
+                label: '=',
+                ngModel: '=',
                 mediaLibrary: '@', // none, select2, file-manager
                 multiple: '@', // true, false
                 existingSelection: '@', // unmodified, replace, add
                 restrictions: '@'
             },
             templateUrl: 'views/widgets/dna-file-selection-widget.html',
+            link: function (scope, element, attrs, ctrl) {
+
+                console.log('dnaFileSelectionWidget link', scope, element, attrs, ctrl);
+
+            }
+        };
+    })
+
+    /**
+     * A widget to encapsulate paginated viewing and editing of a collection
+     */
+    app.directive('dnaCollectionCurationWidget', function () {
+        return {
+            restrict: 'E',
+            require: '?collection',
+            scope: {
+                crud: '=',
+                label: '=',
+                templateUrl: '=',
+                collection: '='
+            },
+            templateUrl: 'views/widgets/dna-collection-curation-widget.html',
             link: function (scope, element, attrs, ctrl) {
 
                 console.log('dnaFileSelectionWidget link', scope, element, attrs, ctrl);

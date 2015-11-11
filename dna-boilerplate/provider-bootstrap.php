@@ -232,7 +232,7 @@ $handsontablePrimaryKeyColumn = function ($attribute, $model) {
             {
                 data: 'attributes.$attribute',
                 title: 'Delete',
-                renderer: {$lcfirstModelClass}Crud.handsontable.deleteButtonRenderer,
+                renderer: handsontable.deleteButtonRenderer,
                 readOnly: true,
             },{
                 data: 'attributes.$attribute',
@@ -257,9 +257,9 @@ $handsontableHasOneRelationColumn = function ($attribute, $model) {
             {
                 data: 'attributes.$attribute.id',
                 title: {$attributeInfo["label"]},
-                renderer: {$lcfirstModelClass}Crud.handsontable.columnLogic.$attribute.cellRenderer,
+                renderer: handsontable.columnLogic.$attribute.cellRenderer,
                 editor: 'select2',
-                select2Options: {$lcfirstModelClass}Crud.handsontable.columnLogic.$attribute.select2Options,
+                select2Options: handsontable.columnLogic.$attribute.select2Options,
             },
 INPUT;
 };
@@ -387,6 +387,7 @@ $uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $p
     $modelClassSingularWords = Inflector::camel2words($modelClassSingular);
     $modelClassPluralWords = Inflector::pluralize($modelClassSingularWords);
     $modelClassPlural = Inflector::camelize($modelClassPluralWords);
+    $modelClassLcfirstPlural = lcfirst($modelClassPlural);
     $modelClassPluralId = Inflector::camel2id($modelClassPlural);
     $labelSingular = ItemTypes::label($modelClassSingular, 1);
     $labelPlural = ItemTypes::label($modelClassSingular, 2);
@@ -412,13 +413,32 @@ $uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $p
 
     // Route-based filter recursive resolve hack
     if ($recursionLevel === 0) {
-        $setRouteBasedFiltersLevelResolveLine = "setRouteBasedFiltersLevel{$recursionLevel}: function (routeBasedFilters, \$stateParams) {";
+        $setRouteBasedContentFiltersLevelResolveLine = "setRouteBasedContentFiltersLevel{$recursionLevel}: function (routeBasedContentFilters, \$stateParams) {";
     } else {
         $parentRecursionLevel = $recursionLevel - 1;
-        $setRouteBasedFiltersLevelResolveLine = "setRouteBasedFiltersLevel{$recursionLevel}: function (setRouteBasedFiltersLevel{$parentRecursionLevel}, routeBasedFilters, \$stateParams) {";
+        $setRouteBasedContentFiltersLevelResolveLine = "setRouteBasedContentFiltersLevel{$recursionLevel}: function (setRouteBasedContentFiltersLevel{$parentRecursionLevel}, routeBasedContentFilters, \$stateParams) {";
+    }
+    if ($recursionLevel === 0) {
+        $setRouteBasedVisibilitySettingsLevelResolveLine = "setRouteBasedVisibilitySettingsLevel{$recursionLevel}: function (routeBasedVisibilitySettings, \$stateParams) {";
+    } else {
+        $parentRecursionLevel = $recursionLevel - 1;
+        $setRouteBasedVisibilitySettingsLevelResolveLine = "setRouteBasedVisibilitySettingsLevel{$recursionLevel}: function (setRouteBasedVisibilitySettingsLevel{$parentRecursionLevel}, routeBasedVisibilitySettings, \$stateParams) {";
     }
 
-    $statesStart = <<<STATESSTART
+    /*
+     * Overview of states:
+     *  - item type root state
+     *  - list
+     *  - curate
+     *  - curate step states
+     *  - single item root state
+     *  - edit
+     *  - edit step and attribute states
+     */
+
+    $states = "";
+
+    $states .= <<<STATES
             .state('{$parentState}.{$modelClassPluralId}', {
                 abstract: true,
                 url: "/{$unprefixedModelClassPluralId}",
@@ -430,10 +450,171 @@ $uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $p
                 views: {
                     '@{$rootCrudState}': {
                         templateUrl: "crud/{$modelClassSingularId}/list.html",
+                        controller: "list{$modelClassPlural}Controller",
                     }
                 },
                 data: {pageTitle: 'List {$labelPlural}'}
             })
+
+
+STATES;
+
+    $curateStepStates = <<<CURATESTEPSSTATESSTART
+            .state('{$parentState}.{$modelClassPluralId}.curate', {
+                abstract: true,
+                url: "/curate",
+                views: {
+                    '@{$rootCrudState}': {
+                        template: "<ui-view/>",
+                        controller: "list{$modelClassPlural}Controller",
+                    }
+                },
+                data: {pageTitle: 'Curate {$labelPlural}'}
+            })
+
+
+CURATESTEPSSTATESSTART;
+
+    if (in_array($modelClassSingular, array_keys(\ItemTypes::where('is_workflow_item')))):
+        $stepCaptions = $model->flowStepCaptions();
+
+        $flowSteps = $model->flowSteps();
+        $flowStepReferences = array_keys($flowSteps);
+        $firstStepReference = reset($flowStepReferences);
+
+        // Determine level of step
+        $stepReference = $firstStepReference;
+        $stepHierarchy = explode(".", $stepReference);
+        $step = end($stepHierarchy);
+        $stepCaption = !empty($stepCaptions[$step]) ? $stepCaptions[$step] : ucfirst($step);
+
+        // Summarize metadata
+        $stepMetadata = compact("stepReference", "step", "stepAttributes");
+
+        // Json encode
+        $jsonEncodedStepCaption = json_encode($stepCaption);
+        $jsonEncodedStepMetadata = json_encode((object) $stepMetadata);
+
+        $curateStepStates .= <<<STEPSTATESSTART
+            // Add initial alias for "first-step" TODO: Refactor to have dynamic step logic in angular logic instead of repeated code
+            .state('{$parentState}.{$modelClassPluralId}.curate.continue-editing', {
+                url: "/continue-editing",
+                data: {
+                    pageTitle: 'Curate {$labelSingular} - Step \'{$stepReference}\'',
+                    stepCaption: $jsonEncodedStepCaption,
+                    stepMetadata: $jsonEncodedStepMetadata,
+                },
+                templateUrl: "crud/{$modelClassSingularId}/curate-steps/{$stepReference}.html",
+                controller: "list{$modelClassPlural}Controller",
+                resolve: {
+                    {$setRouteBasedVisibilitySettingsLevelResolveLine}
+                        routeBasedVisibilitySettings.{$modelClassSingular}_columns_by_step = '{$stepReference}';
+                    },
+                },
+                data: {pageTitle: 'Curate {$labelSingular}'}
+            })
+
+
+STEPSTATESSTART;
+
+        // Keep track of which states are already defined
+        $defined = [];
+
+        foreach ($flowSteps as $stepReference => $stepAttributes):
+
+            // Determine level of step
+            $stepHierarchy = explode(".", $stepReference);
+            $step = end($stepHierarchy);
+            $stepCaption = !empty($stepCaptions[$step]) ? $stepCaptions[$step] : ucfirst($step);
+
+            // Summarize metadata
+            $stepMetadata = compact("stepReference", "step", "stepAttributes");
+
+            // Json encode
+            $jsonEncodedStepCaption = json_encode($stepCaption);
+            $jsonEncodedStepMetadata = json_encode((object) $stepMetadata);
+
+            // Add necessary abstract states if the current step is a seb-step
+            if (count($stepHierarchy) > 1) {
+                $fullStepReference = "{$parentState}.{$modelClassPluralId}.curate.{$stepHierarchy[0]}";
+                if (!in_array($fullStepReference, $defined)) {
+                    $defined[] = $fullStepReference;
+                    $curateStepStates .= <<<STEPSTATES
+            .state('{$fullStepReference}', {
+                abstract: true,
+                url: "/{$stepHierarchy[0]}",
+                template: "<ui-view/>"
+            })
+
+
+STEPSTATES;
+                }
+            }
+
+            if (count($stepHierarchy) > 2) {
+                $fullStepReference = "{$parentState}.{$modelClassPluralId}.curate.{$stepHierarchy[0]}.{$stepHierarchy[1]}";
+                if (!in_array($fullStepReference, $defined)) {
+                    $defined[] = $fullStepReference;
+                    $curateStepStates .= <<<STEPSTATES
+            .state('{$fullStepReference}', {
+                abstract: true,
+                url: "/{$stepHierarchy[1]}",
+                template: "<ui-view/>"
+            })
+
+
+STEPSTATES;
+                }
+            }
+
+            if (count($stepHierarchy) > 3) {
+                $fullStepReference = "{$parentState}.{$modelClassPluralId}.curate.{$stepHierarchy[0]}.{$stepHierarchy[1]}.{$stepHierarchy[2]}";
+                if (!in_array($fullStepReference, $defined)) {
+                    $defined[] = $fullStepReference;
+                    $curateStepStates .= <<<STEPSTATES
+            .state('{$fullStepReference}', {
+                abstract: true,
+                url: "/{$stepHierarchy[2]}",
+                template: "<ui-view/>"
+            })
+
+
+STEPSTATES;
+                }
+            }
+
+            $curateStepStates .= <<<STEPSTATES
+            // {$jsonEncodedStepCaption}
+            .state('{$parentState}.{$modelClassPluralId}.curate.{$stepReference}', {
+                url: "/{$step}",
+                data: {
+                    pageTitle: 'Curate {$labelSingular} - Step \'{$stepReference}\'',
+                    stepCaption: $jsonEncodedStepCaption,
+                    stepMetadata: $jsonEncodedStepMetadata,
+                },
+                templateUrl: "crud/{$modelClassSingularId}/curate-steps/{$stepReference}.html",
+                controller: "list{$modelClassPlural}Controller",
+                resolve: {
+                    {$setRouteBasedVisibilitySettingsLevelResolveLine}
+                        routeBasedVisibilitySettings.{$modelClassSingular}_columns_by_step = '{$stepReference}';
+                    },
+                }
+            })
+
+
+STEPSTATES;
+
+        endforeach;
+
+    else:
+
+        // [not a workflow-item]
+
+    endif;
+
+    $states .= $curateStepStates;
+
+    $states .= <<<STATES
 
             .state('{$parentState}.{$modelClassPluralId}.create', {
                 url: "/new",
@@ -445,10 +626,14 @@ $uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $p
                 abstract: true,
                 url: "/:{$modelClassLcfirstSingular}Id",
                 resolve: {
-                    {$setRouteBasedFiltersLevelResolveLine}
+                    {$setRouteBasedContentFiltersLevelResolveLine}
                         // TODO: Generate the following dynamically based on data model
-                        routeBasedFilters.Bar_order = 'Foo.id DESC';
-                        routeBasedFilters.Bar_foo_id = \$stateParams.fooId;
+                        routeBasedContentFilters.Bar_order = 'Foo.id DESC';
+                        routeBasedContentFilters.Bar_foo_id = \$stateParams.fooId;
+                    },
+                    {$setRouteBasedVisibilitySettingsLevelResolveLine}
+                        // TODO: Adjust the below so that columns that are all the same value due to a route-based filter are hidden
+                        routeBasedVisibilitySettings.{$modelClassSingular}_hide_source_relation = '{$modelClassSingular}';
                     },
                     {$modelClassLcfirstSingular}: function (apiEndpointParam, \$stateParams, {$modelClassLcfirstSingular}Resource) {
 
@@ -489,6 +674,11 @@ $uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $p
                 data: {pageTitle: 'View {$labelSingular}'}
             })
 
+
+STATES;
+
+    $editStepStates = <<<EDITSTEPSSTATESSTART
+
             .state('{$parentState}.{$modelClassPluralId}.existing.edit', {
                 abstract: true,
                 url: "/edit",
@@ -508,9 +698,7 @@ $uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $p
             })
 
 
-STATESSTART;
-
-    $stepStates = '';
+EDITSTEPSSTATESSTART;
 
     if (in_array($modelClassSingular, array_keys(\ItemTypes::where('is_workflow_item')))):
         $stepCaptions = $model->flowStepCaptions();
@@ -519,7 +707,7 @@ STATESSTART;
         $flowStepReferences = array_keys($flowSteps);
         $firstStepReference = reset($flowStepReferences);
 
-        $stepStates = <<<STEPSTATESSTART
+        $editStepStates .= <<<STEPSTATESSTART
             // Add initial alias for "first-step" TODO: Refactor to have dynamic step logic in angular logic
             .state('{$parentState}.{$modelClassPluralId}.existing.edit.continue-editing', {
                 url: "/continue-editing",
@@ -539,15 +727,20 @@ STEPSTATESSTART;
             $stepHierarchy = explode(".", $stepReference);
             $step = end($stepHierarchy);
             $stepCaption = !empty($stepCaptions[$step]) ? $stepCaptions[$step] : ucfirst($step);
+
+            // Summarize metadata
+            $stepMetadata = compact("stepReference", "step", "stepAttributes");
+
+            // Json encode
             $jsonEncodedStepCaption = json_encode($stepCaption);
-            $htmlEncodedStepCaption = Html::encode($stepCaption);
+            $jsonEncodedStepMetadata = json_encode((object) $stepMetadata);
 
             // Add necessary abstract states if the current step is a seb-step
             if (count($stepHierarchy) > 1) {
                 $fullStepReference = "{$parentState}.{$modelClassPluralId}.existing.edit.{$stepHierarchy[0]}";
                 if (!in_array($fullStepReference, $defined)) {
                     $defined[] = $fullStepReference;
-                    $stepStates .= <<<STEPSTATES
+                    $editStepStates .= <<<STEPSTATES
             .state('{$fullStepReference}', {
                 abstract: true,
                 url: "/{$stepHierarchy[0]}",
@@ -563,7 +756,7 @@ STEPSTATES;
                 $fullStepReference = "{$parentState}.{$modelClassPluralId}.existing.edit.{$stepHierarchy[0]}.{$stepHierarchy[1]}";
                 if (!in_array($fullStepReference, $defined)) {
                     $defined[] = $fullStepReference;
-                    $stepStates .= <<<STEPSTATES
+                    $editStepStates .= <<<STEPSTATES
             .state('{$fullStepReference}', {
                 abstract: true,
                 url: "/{$stepHierarchy[1]}",
@@ -579,7 +772,7 @@ STEPSTATES;
                 $fullStepReference = "{$parentState}.{$modelClassPluralId}.existing.edit.{$stepHierarchy[0]}.{$stepHierarchy[1]}.{$stepHierarchy[2]}";
                 if (!in_array($fullStepReference, $defined)) {
                     $defined[] = $fullStepReference;
-                    $stepStates .= <<<STEPSTATES
+                    $editStepStates .= <<<STEPSTATES
             .state('{$fullStepReference}', {
                 abstract: true,
                 url: "/{$stepHierarchy[2]}",
@@ -591,7 +784,7 @@ STEPSTATES;
                 }
             }
 
-            $stepStates .= <<<STEPSTATES
+            $editStepStates .= <<<STEPSTATES
             // {$jsonEncodedStepCaption}
             .state('{$parentState}.{$modelClassPluralId}.existing.edit.{$stepReference}', {
                 url: "/{$step}",
@@ -599,6 +792,7 @@ STEPSTATES;
                 data: {
                     pageTitle: 'Edit {$labelSingular} - Step \'{$stepReference}\'',
                     stepCaption: $jsonEncodedStepCaption,
+                    stepMetadata: $jsonEncodedStepMetadata,
                 }
             })
 
@@ -621,17 +815,17 @@ STEPSTATES;
                     "recursionLevel" => $recursionLevel + 1,
                     "generator" => $generator,
                 ];
-                $stepStates .= $generator->prependActiveFieldForAttribute(
+                $editStepStates .= $generator->prependActiveFieldForAttribute(
                     "ui-router-attribute-states." . $attribute,
                     $model,
                     $params
                 );
-                $stepStates .= $generator->activeFieldForAttribute(
+                $editStepStates .= $generator->activeFieldForAttribute(
                     "ui-router-attribute-states." . $attribute,
                     $model,
                     $params
                 );
-                $stepStates .= $generator->appendActiveFieldForAttribute(
+                $editStepStates .= $generator->appendActiveFieldForAttribute(
                     "ui-router-attribute-states." . $attribute,
                     $model,
                     $params
@@ -679,7 +873,9 @@ STEPSTATES;
 
     endif;
 
-    return $statesStart . $stepStates;
+    $states .= $editStepStates;
+
+    return $states;
 
 };
 
