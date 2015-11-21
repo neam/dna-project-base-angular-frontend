@@ -528,8 +528,8 @@
         })
         .config(function ($locationProvider) {
             // enable html5Mode for pushstate ('#'-less URLs)
-            $locationProvider.html5Mode(true);
-            $locationProvider.hashPrefix('!');
+            //$locationProvider.html5Mode(true);
+            //$locationProvider.hashPrefix('!');
         })
         .run(function ($rootScope) {
             $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
