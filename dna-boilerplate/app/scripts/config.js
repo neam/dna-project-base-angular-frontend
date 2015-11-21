@@ -518,7 +518,7 @@
             })
         ;
 
-    }
+    };
 
     angular
         .module('app')

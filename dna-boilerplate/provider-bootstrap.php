@@ -10,6 +10,9 @@ $recursionLevelLimit = 2;
 // Angular UI Giiant `CallbackProvider` configuration
 // -------------------------
 
+// Input wrapper
+// TODO
+
 // Text input
 
 $textInput = function ($attribute, $model) {
@@ -511,7 +514,10 @@ CURATESTEPSSTATESSTART;
                         routeBasedVisibilitySettings.{$modelClassSingular}_columns_by_step = '{$stepReference}';
                     },
                 },
-                data: {pageTitle: 'Curate {$labelSingular}'}
+                data: {
+                    stepCaption: 'Continue editing',
+                    pageTitle: 'Curate {$labelSingular}'
+                }
             })
 
 
