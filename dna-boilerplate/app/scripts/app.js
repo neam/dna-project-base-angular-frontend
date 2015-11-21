@@ -9,7 +9,7 @@
         'angularDc',
         //'ngHandsontable',
         'simpleHandsontable',
-        'ui.ink',
+        'angular-filepicker',
         'cfp.hotkeys',                  // angular-hotkeys
         '3-way-merge',                  // 3-way-merge
         'rt.select2',                   // angular-select2
@@ -141,7 +141,7 @@
                 return allContentFilters;
 
             },
-            itemTypeSpecific: function(itemType) {
+            itemTypeSpecific: function (itemType) {
 
                 var allContentFilters = this.all();
 
@@ -189,7 +189,7 @@
                 return allVisibilitySettings;
 
             },
-            itemTypeSpecific: function(itemType) {
+            itemTypeSpecific: function (itemType) {
 
                 var allVisibilitySettings = this.all();
 
@@ -247,23 +247,132 @@
         };
     }]);
 
-    app.directive('dnaFileSelectionWidget', function () {
+    // http://stackoverflow.com/a/25344423/682317
+    app.directive('emptyToNull', function () {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                ctrl.$parsers.push(function (viewValue) {
+                    if (viewValue === "") {
+                        return null;
+                    }
+                    return viewValue;
+                });
+            }
+        };
+    });
+
+    app.directive('dnaFileSelectionWidget', function (files, fileResource, fileInstanceResource, filepickerService) {
         return {
             restrict: 'E',
             require: '?ngModel',
             scope: {
-                crud: '=',
-                label: '=',
+                file: '=',
                 ngModel: '=',
+                previewHeightPixels: '=', // Filepicker preview widget requires a fixed amount of pixels as height parameter, can't be set via css :/
+                // TODO:
+                name: '@',
                 mediaLibrary: '@', // none, select2, file-manager
                 multiple: '@', // true, false
                 existingSelection: '@', // unmodified, replace, add
                 restrictions: '@'
             },
             templateUrl: 'views/widgets/dna-file-selection-widget.html',
-            link: function (scope, element, attrs, ctrl) {
+            link: function (scope, element, attrs, ngModel) {
 
-                console.log('dnaFileSelectionWidget link', scope, element, attrs, ctrl);
+                // console.log('dnaFileSelectionWidget link', scope, element, attrs, ngModel);
+
+                scope.uploaded = [];
+
+                // Set default to 200px
+                scope.previewHeightPixels = scope.previewHeightPixels || 200;
+
+                /*
+                 scope.pickFile = pickFile;
+                 function pickFile() {
+                 filepickerService.pick(
+                 {mimetype: '* /*'},
+                 onSuccess
+                 );
+                 };
+                 */
+
+                scope.onSuccess = onSuccess;
+
+                function onSuccess(event) {
+                    console.log('event', event);
+                    createFileFromFpfile(event.fpfile);
+                };
+
+                /**
+                 * Creates a file on the server and sets the file as scope.file
+                 * @param fpfile
+                 */
+                function createFileFromFpfile(fpfile) {
+
+                    /*
+                     file_instance:
+                     uri
+                     "https://www.filepicker.io/api/file/PFQvWzg0yuUzpLNl7l2Z"
+                     data_json
+                     container: "user-data-uploads"
+                     client: "computer"
+                     id: 1
+                     isWriteable: true
+                     key: "UsQmYb1MIhbKirZTmQXC_kitten.jpg"
+                     url: "https://www.filepicker.io/api/file/PFQvWzg0yuUzpLNl7l2Z"
+
+                     file:
+                     filename: "kitten.jpg"
+                     original_filename: "kitten.jpg"
+                     mimetype: "image/jpeg"
+                     size: 32142
+                     */
+
+                    // Default behavior is to create a new file item and then replace the existing id with the id of the new file item
+                    var fileInstance = angular.extend({}, fileInstanceResource.dataSchema);
+
+                    fileInstance.attributes.storage_component_ref = 'filepicker';
+                    fileInstance.attributes.uri = fpfile.url;
+                    fileInstance.attributes.data_json = JSON.stringify(fpfile);
+
+                    var file = angular.extend({}, fileResource.dataSchema);
+
+                    file.attributes.size = fpfile.size;
+                    file.attributes.mimetype = fpfile.mimetype;
+                    file.attributes.filename = fpfile.filename;
+                    file.attributes.original_filename = fpfile.filename;
+                    file.attributes.fileInstances.push(fileInstance);
+
+                    // create a new file item
+                    files.add(file, function (createdFile) {
+                        // replace the existing id with the id of the new file item
+                        ngModel.$setViewValue(createdFile.id);
+                        ngModel.$setDirty()
+                        // update file preview
+                        scope.file = createdFile;
+                    });
+
+                };
+
+                // Preview url extraction
+                scope.previewUrl = getPreviewUrl(scope.file);
+                function getPreviewUrl(file) {
+                    if (!file || !file.absolute_url) {
+                        return null;
+                    }
+                    if (file.absolute_url.indexOf("//cdn.filepicker.io/") >= 0) {
+                        return file.absolute_url;
+                    }
+                    return null;
+                };
+
+                // Update preview-urls when ngModel changes
+                scope.$watch('file', function (newVal, oldVal) {
+                    // console.log('file change', newVal, oldVal);
+                    scope.previewUrl = getPreviewUrl(newVal);
+                });
 
             }
         };

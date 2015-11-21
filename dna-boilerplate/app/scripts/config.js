@@ -51,7 +51,7 @@
              */
             .state('root.start.features', {
                 url: "/",
-                onEnter: function(smoothScroll) {
+                onEnter: function (smoothScroll) {
                     // scroll to #content
                     var element = document.getElementById('content');
                     smoothScroll(element);
@@ -60,7 +60,7 @@
             })
             .state('root.start.pricing', {
                 url: "/",
-                onEnter: function(smoothScroll) {
+                onEnter: function (smoothScroll) {
                     // scroll to #main-plan
                     var element = document.getElementById('main-plan');
                     smoothScroll(element);
@@ -69,7 +69,7 @@
             })
             .state('root.start.processes', {
                 url: "/",
-                onEnter: function(smoothScroll) {
+                onEnter: function (smoothScroll) {
                     // scroll to #processes
                     var element = document.getElementById('processes');
                     smoothScroll(element);
@@ -78,7 +78,7 @@
             })
             .state('root.start.contact', {
                 url: "/",
-                onEnter: function(smoothScroll) {
+                onEnter: function (smoothScroll) {
                     // scroll to #faq
                     var element = document.getElementById('contact');
                     smoothScroll(element);
@@ -530,6 +530,12 @@
             // enable html5Mode for pushstate ('#'-less URLs)
             //$locationProvider.html5Mode(true);
             //$locationProvider.hashPrefix('!');
+        })
+        .config(function (filepickerProvider) {
+            filepickerProvider.setKey(env.FILEPICKER_API_KEY);
+        })
+        .run(function($rootScope) {
+            $rootScope.dnaFileSelectionWidgetPreviewHeightPixels = 500;
         })
         .run(function ($rootScope) {
             $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {

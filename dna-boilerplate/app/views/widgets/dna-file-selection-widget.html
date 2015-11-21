@@ -1,21 +1,42 @@
-<!-- The actual main input -->
+<!-- Preview for currently saved image -->
+<!--
+<pre>{{ file | json }}</pre>
+-->
+<div ng-if="file.id">
+    <p><a href="{{ file.absolute_url }}" target="_blank"><strong ng-show="file.attributes.filename">{{ file.attributes.filename }}</strong><strong ng-show="!file.attributes.filename">Existing file</strong></a><span ng-if="file.attributes.size"> (Size {{ file.attributes.size | filesize }})</span>, uploaded {{ file.attributes.created }}</p>
+    <ul>
+        <li ng-repeat="fileInstance in file.fileInstances">{{ fileInstance.filename }}</li>
+    </ul>
+    <div class="preview-container">
+        <div filepicker-preview ng-if="previewUrl" url="previewUrl"
+             style="width:100%; height:{{previewHeightPixels}}px"></div>
+    </div>
+</div>
+<div ng-if="!file.id">
+    (No file selected)
+</div>
+
+<!-- Button to replace empty/saved image with newly uploaded image -->
+<input filepicker type="filepicker-dragdrop"
+       data-fp-mimetypes="*/*" data-fp-container="modal" data-fp-multiple="false"
+       data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT"
+       on-success="onSuccess(event)">
+<!--
+<input filepicker type="filepicker-dragdrop"
+       data-fp-mimetypes="*/*" data-fp-container="modal" data-fp-multiple="true"
+       data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT"
+       on-success="onSuccess(event)">
+-->
+
+<!-- The actual input to hold the id of the chosen file -->
+<input type="hidden" ng-model="ngModel"/>
+<!--
 <div class="select2 m-b">
-    <select2 ng-model="ngModel" options="crud.relations.thumbnailMedia.select2Options">
+    <select2 ng-model="ngModel" options="crud.relations.thumbnailMedia.select2Options" empty-to-null>
         <option value="{{ngModel}}">{{label}}
         </option>
     </select2>
 </div>
-
-<input name="foo4" type="filepicker-dragdrop" ng-model="files"
-       data-fp-apikey="asdfasdfasdfasdf"
-       data-fp-mimetypes="*/*" data-fp-container="modal" data-fp-multiple="true"
-       data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT">
-
-<!--
-<input name="foo2" type="filepicker-dragdrop" ng-model="files"
-       data-fp-apikey="asdfasdfasdfasdf"
-       data-fp-mimetypes="image/*" data-fp-container="modal" data-fp-multiple="false"
-       data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT">
 -->
 
 <!--
