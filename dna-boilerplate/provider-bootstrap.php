@@ -32,11 +32,45 @@ HINT;
     $hintMarkup = !empty($hint) ? $hintMarkup : "";
 
     return <<<INPUT
-<div class="col-sm-2">
-    <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label> $hintMarkup
+<div class="row">
+    <div class="col-sm-2">
+        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label> $hintMarkup
+    </div>
+    <div class="col-sm-10">
+        <input type="text" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
+    </div>
 </div>
-<div class="col-sm-10">
-    <input type="text" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
+
+INPUT;
+
+};
+
+// Textarea input
+
+$textAreaInput = function ($attribute, $model) {
+
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
+
+    // Sanitize
+    $label = Html::encode($attributeInfo["label"]);
+    $hint = htmlspecialchars($attributeInfo["hint"]);
+
+    // Include hint markup if hint is not empty
+    $hintMarkup =<<<HINT
+<span class="badge badge-primary adoveo-badge" tooltip-placement="right" data-tooltip-html-unsafe="$hint">?</span>
+HINT;
+    $hintMarkup = !empty($hint) ? $hintMarkup : "";
+
+    return <<<INPUT
+<div class="row">
+    <div class="col-sm-2">
+        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label> $hintMarkup
+    </div>
+    <div class="col-sm-10">
+        <textarea ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
+    </div>
 </div>
 
 INPUT;
@@ -52,11 +86,13 @@ $fileSelectionWidget = function ($attribute, $model) {
     $lcfirstModelClass = lcfirst(get_class($model));
 
     return <<<INPUT
-<div class="col-sm-2">
-    <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$attributeInfo["label"]}</label>
-</div>
-<div class="col-sm-10">
-    <dna-file-selection-widget ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b"></dna-file-selection-widget>
+<div class="row">
+    <div class="col-sm-2">
+        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$attributeInfo["label"]}</label>
+    </div>
+    <div class="col-sm-10">
+        <dna-file-selection-widget preview-height-pixels="dnaFileSelectionWidgetPreviewHeightPixels" file="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-file-selection-widget>
+    </div>
 </div>
 
 INPUT;
@@ -73,30 +109,63 @@ $tristateRadioInput = function ($attribute, $model) {
     $lcfirstModelClass = lcfirst(get_class($model));
 
     return <<<INPUT
-<div>
-    <label>{$attributeInfo["label"]}</label>
-    <div class="radio">
-        <label>
-            <input icheck type="radio" ng-model="$lcfirstModelClass.attributes.$attribute"
-                   ng-value="'1'"
-                   name="$attribute"/> Yes
-        </label>
+<div class="row">
+    <div class="col-sm-2">
+        <label class="label-left control-label">{$attributeInfo["label"]}</label>
     </div>
-    <div class="radio">
-        <label>
-            <input icheck type="radio" ng-model="$lcfirstModelClass.attributes.$attribute"
-                   ng-value="'0'"
-                   name="$attribute"/> No
-        </label>
-    </div>
-    <div class="radio">
-        <label>
-            <input icheck type="radio" ng-model="$lcfirstModelClass.attributes.$attribute"
-                   ng-value="null"
-                   name="$attribute"/> Don't know
-        </label>
+    <div class="col-sm-10">
+        <div class="radio">
+            <label>
+                <input icheck type="radio" ng-model="$lcfirstModelClass.attributes.$attribute"
+                       ng-value="'1'"
+                       name="$attribute"/> Yes
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input icheck type="radio" ng-model="$lcfirstModelClass.attributes.$attribute"
+                       ng-value="'0'"
+                       name="$attribute"/> No
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input icheck type="radio" ng-model="$lcfirstModelClass.attributes.$attribute"
+                       ng-value="null"
+                       name="$attribute"/> Don't know
+            </label>
+        </div>
     </div>
 </div>
+
+INPUT;
+
+};
+
+// Boolean switch input
+
+$switchInput = function ($attribute, $model) {
+
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
+
+    return <<<INPUT
+<div class="row">
+    <div class="col-sm-2">
+        <label class="label-left control-label">{$attributeInfo["label"]}</label>
+    </div>
+    <div class="col-sm-10">
+            <label class="switch m-b">
+                <input ng-model="$lcfirstModelClass.attributes.$attribute"
+                     name="$lcfirstModelClass.attributes.$attribute"
+                     id="$lcfirstModelClass.attributes.$attribute" type="checkbox" checked
+                     name="activate" class="form-control m-b"><i></i>
+            </label>
+        </div>
+    </div>
+</div>
+
 INPUT;
 
 };
@@ -110,13 +179,20 @@ $hasOneRelationSelect2Input = function ($attribute, $model) {
     $lcfirstModelClass = lcfirst(get_class($model));
 
     return <<<INPUT
-<label for="$lcfirstModelClass.attributes.$attribute.id" class="label-left control-label">{$attributeInfo["label"]}</label>
-<div class="select2 m-b">
-    <select2 ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute.id" id="$lcfirstModelClass.attributes.$attribute.id"
-    options="{$lcfirstModelClass}Crud.relations.$attribute.select2Options">
-        <option value="{{{$lcfirstModelClass}.attributes.$attribute.id}}">{{{$lcfirstModelClass}.attributes.$attribute.item_label}}</option>
-    </select2>
+<div class="row">
+    <div class="col-sm-2">
+        <label for="$lcfirstModelClass.attributes.$attribute.id" class="label-left control-label">{$attributeInfo["label"]}</label>
+    </div>
+    <div class="col-sm-10">
+        <div class="select2 m-b">
+            <select2 empty-to-null ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute.id" id="$lcfirstModelClass.attributes.$attribute.id"
+            options="{$lcfirstModelClass}Crud.relations.$attribute.select2Options">
+                <option value="{{{$lcfirstModelClass}.attributes.$attribute.id}}">{{{$lcfirstModelClass}.attributes.$attribute.item_label}}</option>
+            </select2>
+        </div>
+    </div>
 </div>
+
 INPUT;
 
 };
@@ -133,7 +209,12 @@ $hasManyRelationEditing = function ($attribute, $model) {
     $relationAttribute = $_[0];
     $relations = $model->relations();
     if (!isset($relations[$relationAttribute])) {
-        throw new Exception("Model " . get_class($model) . " does not have a relation '$relationAttribute'");
+        $class = get_class($model);
+        return <<<INPUT
+<!-- "$attribute" - Model $class does not have a relation '$relationAttribute' -->
+
+INPUT;
+        //throw new Exception("Model " . get_class($model) . " does not have a relation '$relationAttribute'");
     }
     $relationInfo = $relations[$relationAttribute];
     $relatedModelClass = $relationInfo[1];
@@ -145,8 +226,15 @@ $hasManyRelationEditing = function ($attribute, $model) {
     $relatedModelClassPlural = Inflector::camelize($relatedModelClassPluralWords);
 
     return <<<INPUT
-<label>{$attributeInfo["label"]}</label>
-<div ng-include="'crud/$relatedModelClassSingularId/list.html'"></div>
+<div class="row">
+    <div class="col-sm-2">
+        <label class="label-left control-label">{$attributeInfo["label"]}</label>
+    </div>
+    <div class="col-sm-10">
+        <div ng-include="'crud/$relatedModelClassSingularId/compact-list.html'"></div>
+    </div>
+</div>
+
 INPUT;
 
     // <div ng-controller="list{$relatedModelClassPlural}Controller" ng-include="'crud/$relatedModelClassSingularId/curate.html'"></div>
@@ -163,6 +251,7 @@ $defaultInput = function ($attribute, $model) use ($textInput, $hasOneRelationSe
     if (!array_key_exists($attribute, $itemTypeAttributes)) {
         return <<<INPUT
 <!-- "$attribute" NO MATCHING ITEM TYPE ATTRIBUTE -->
+
 INPUT;
     }
 
@@ -173,10 +262,12 @@ INPUT;
         default:
             return <<<INPUT
 <!-- "$attribute" TYPE {$attributeInfo["type"]} TODO -->
+
 INPUT;
         case "primary-key":
             return <<<INPUT
 <!-- "$attribute" TYPE {$attributeInfo["type"]} TODO -->
+
 INPUT;
         case "ordinary":
             return $textInput($attribute, $model);
@@ -909,7 +1000,12 @@ $uiRouterStepAttributeStates['has-many-relation'] = function ($attribute, $model
     $relationAttribute = $_[0];
     $relations = $model->relations();
     if (!isset($relations[$relationAttribute])) {
-        throw new Exception("Model " . get_class($model) . " does not have a relation '$relationAttribute'");
+        $class = get_class($model);
+        return <<<INPUT
+        // "$attribute" - Model $class does not have a relation '$relationAttribute'
+
+INPUT;
+        //throw new Exception("Model " . get_class($model) . " does not have a relation '$relationAttribute'");
     }
     $relationInfo = $relations[$relationAttribute];
     $relatedModelClass = $relationInfo[1];
@@ -1009,9 +1105,11 @@ $activeFields = [
     'handsontable-column-settings.*' => $handsontableAutoDetectColumn,
     'ui-router-attribute-states.*' => $uiRouterStepAttributeStates['default-ui-router-attribute-states'],
     'ui-router-item-type-states.*' => $uiRouterItemTypeStates['item-type-template'],
-    '\.is_*' => $tristateRadioInput,
-    '\.*_enabled' => $tristateRadioInput,
+    '\.is_*' => $switchInput,
+    '\.*_enabled' => $switchInput,
     '\.*Media' => $fileSelectionWidget,
+    '\.file' => $fileSelectionWidget,
+    '\.*_message' => $textAreaInput,
     'owner' => $todo,
     'node' => $todo,
     '.*' => $defaultInput,
