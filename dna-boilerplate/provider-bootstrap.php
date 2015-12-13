@@ -69,7 +69,7 @@ HINT;
         <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label> $hintMarkup
     </div>
     <div class="col-sm-10">
-        <textarea ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
+        <textarea ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b"></textarea>
     </div>
 </div>
 
@@ -155,13 +155,12 @@ $switchInput = function ($attribute, $model) {
         <label class="label-left control-label">{$attributeInfo["label"]}</label>
     </div>
     <div class="col-sm-10">
-            <label class="switch m-b">
-                <input ng-model="$lcfirstModelClass.attributes.$attribute"
-                     name="$lcfirstModelClass.attributes.$attribute"
-                     id="$lcfirstModelClass.attributes.$attribute" type="checkbox" checked
-                     name="activate" class="form-control m-b"><i></i>
-            </label>
-        </div>
+        <label class="switch m-b">
+            <input ng-model="$lcfirstModelClass.attributes.$attribute"
+                 name="$lcfirstModelClass.attributes.$attribute"
+                 id="$lcfirstModelClass.attributes.$attribute" type="checkbox" checked
+                 name="activate" class="form-control m-b"><i></i>
+        </label>
     </div>
 </div>
 
