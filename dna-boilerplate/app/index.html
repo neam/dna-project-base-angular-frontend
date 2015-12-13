@@ -71,6 +71,9 @@
     <!-- Angular hotkeys -->
     <link rel="stylesheet" type="text/css" href="bower_components/angular-hotkeys/src/hotkeys.css">
 
+    <!-- Date Range Picker for Bootstrap -->
+    <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css"/>
+
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -206,6 +209,17 @@
 <!-- dc -->
 <script type="text/javascript" src="scripts/dc/colorbrewer.js"></script>
 <script type="text/javascript" src="scripts/dc/dc-nasdaq-controller.js"></script>
+
+<!-- Moment.js -->
+<script src="bower_components/moment/moment.js"></script>
+<script>
+    // Workaround for daterangepicker displaying "Invalid date" when start/end of the range is null
+    moment.locale(moment.locale(),{invalidDate:""});
+</script>
+
+<!-- Date Range Picker for Bootstrap -->
+<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
 
 <!-- Auth0 -->
 <script src="bower_components/angular-route/angular-route.js"></script>
