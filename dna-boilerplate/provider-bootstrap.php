@@ -99,7 +99,6 @@ INPUT;
 
 };
 
-
 // "Boolean" tri-state (0,1,NULL) radio inputs
 
 $tristateRadioInput = function ($attribute, $model) {

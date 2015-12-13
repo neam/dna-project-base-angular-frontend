@@ -534,7 +534,7 @@
         .config(function (filepickerProvider) {
             filepickerProvider.setKey(env.FILEPICKER_API_KEY);
         })
-        .run(function($rootScope) {
+        .run(function ($rootScope) {
             $rootScope.dnaFileSelectionWidgetPreviewHeightPixels = 500;
         })
         .run(function ($rootScope) {
