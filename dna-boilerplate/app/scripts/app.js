@@ -269,21 +269,18 @@
             require: '?ngModel',
             scope: {
                 file: '=',
+                files: '=',
                 ngModel: '=',
                 previewHeightPixels: '=', // Filepicker preview widget requires a fixed amount of pixels as height parameter, can't be set via css :/
+                multiple: '@', // true, false (default)
                 // TODO:
                 name: '@',
                 mediaLibrary: '@', // none, select2, file-manager
-                multiple: '@', // true, false
-                existingSelection: '@', // unmodified, replace, add
+                existingSelection: '@', // unmodified, replace (default), add
                 restrictions: '@'
             },
             templateUrl: 'views/widgets/dna-file-selection-widget.html',
             link: function (scope, element, attrs, ngModel) {
-
-                // console.log('dnaFileSelectionWidget link', scope, element, attrs, ngModel);
-
-                scope.uploaded = [];
 
                 // Set default to 200px
                 scope.previewHeightPixels = scope.previewHeightPixels || 200;
@@ -302,7 +299,13 @@
 
                 function onSuccess(event) {
                     console.log('event', event);
-                    createFileFromFpfile(event.fpfile);
+                    if (event.fpfiles) {
+                        angular.forEach(event.fpfiles, function (file, key) {
+                            createFileFromFpfile(file);
+                        });
+                    } else {
+                        createFileFromFpfile(event.fpfile);
+                    }
                 };
 
                 /**
@@ -331,13 +334,13 @@
                      */
 
                     // Default behavior is to create a new file item and then replace the existing id with the id of the new file item
-                    var fileInstance = angular.extend({}, fileInstanceResource.dataSchema);
+                    var fileInstance = angular.extend({}, fileInstanceResource.dataSchema());
 
                     fileInstance.attributes.storage_component_ref = 'filepicker';
                     fileInstance.attributes.uri = fpfile.url;
                     fileInstance.attributes.data_json = JSON.stringify(fpfile);
 
-                    var file = angular.extend({}, fileResource.dataSchema);
+                    var file = angular.extend({}, fileResource.dataSchema());
 
                     file.attributes.size = fpfile.size;
                     file.attributes.mimetype = fpfile.mimetype;
@@ -347,16 +350,24 @@
 
                     // create a new file item
                     files.add(file, function (createdFile) {
-                        // replace the existing id with the id of the new file item
-                        ngModel.$setViewValue(createdFile.id);
+                        if (scope.multiple) {
+                            // append the new id to the list of existing ids
+                            var currentValue = ngModel.$viewValue || [];
+                            currentValue.push(createdFile.id);
+                            ngModel.$setViewValue(currentValue);
+                        } else {
+                            // replace the existing id with the id of the new file item
+                            ngModel.$setViewValue(createdFile.id);
+                        }
                         ngModel.$setDirty()
-                        // update file preview
+                        // update file(s) preview
                         scope.file = createdFile;
+                        scope.files.push(createdFile);
                     });
 
                 };
 
-                // Preview url extraction
+                // Preview url(s) extraction
                 scope.previewUrl = getPreviewUrl(scope.file);
                 function getPreviewUrl(file) {
                     if (!file || !file.absolute_url) {
@@ -370,7 +381,6 @@
 
                 // Update preview-urls when ngModel changes
                 scope.$watch('file', function (newVal, oldVal) {
-                    // console.log('file change', newVal, oldVal);
                     scope.previewUrl = getPreviewUrl(newVal);
                 });
 

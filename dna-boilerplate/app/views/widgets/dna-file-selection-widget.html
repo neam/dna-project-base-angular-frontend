@@ -2,34 +2,42 @@
 <!--
 <pre>{{ file | json }}</pre>
 -->
-<div ng-if="file.id">
-    <p><a href="{{ file.absolute_url }}" target="_blank"><strong ng-show="file.attributes.filename">{{ file.attributes.filename }}</strong><strong ng-show="!file.attributes.filename">Existing file</strong></a><span ng-if="file.attributes.size"> (Size {{ file.attributes.size | filesize }})</span>, uploaded {{ file.attributes.created }}</p>
+<div ng-if="files.length > 0" class="preview" ng-class="{multiple: multiple}">
     <ul>
-        <li ng-repeat="fileInstance in file.fileInstances">{{ fileInstance.filename }}</li>
+        <li ng-repeat="file in files">
+            <p><a href="{{ file.absolute_url }}" target="_blank"><strong ng-show="file.attributes.filename">{{
+                file.attributes.filename }}</strong><strong ng-show="!file.attributes.filename">Existing
+                file</strong></a><span ng-if="file.attributes.size"> (Size {{ file.attributes.size | filesize }})</span>,
+                uploaded {{ file.attributes.created }}</p>
+            <ul>
+                <li ng-repeat="fileInstance in file.fileInstances">{{ fileInstance.filename }}</li>
+            </ul>
+            <div class="preview-container">
+                <div filepicker-preview ng-if="previewUrl" url="previewUrl"
+                     style="height:{{previewHeightPixels}}px"></div>
+            </div>
+        </li>
     </ul>
-    <div class="preview-container">
-        <div filepicker-preview ng-if="previewUrl" url="previewUrl"
-             style="width:100%; height:{{previewHeightPixels}}px"></div>
-    </div>
 </div>
 <div ng-if="!file.id">
-    (No file selected)
+    (No file<span ng-show="multiple">s</span> selected)
 </div>
 
 <!-- Button to replace empty/saved image with newly uploaded image -->
-<input filepicker type="filepicker-dragdrop"
-       data-fp-mimetypes="*/*" data-fp-container="modal" data-fp-multiple="false"
-       data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT"
-       on-success="onSuccess(event)">
-<!--
-<input filepicker type="filepicker-dragdrop"
-       data-fp-mimetypes="*/*" data-fp-container="modal" data-fp-multiple="true"
-       data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT"
-       on-success="onSuccess(event)">
--->
+<div class="pick-files">
+    <input ng-if="!multiple" filepicker type="filepicker-dragdrop"
+           data-fp-mimetypes="*/*" data-fp-container="modal" data-fp-multiple="false"
+           data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT"
+           on-success="onSuccess(event)">
+    <input ng-if="multiple" filepicker type="filepicker-dragdrop"
+           data-fp-mimetypes="*/*" data-fp-container="modal" data-fp-multiple="true"
+           data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT"
+           on-success="onSuccess(event)">
+</div>
 
 <!-- The actual input to hold the id of the chosen file -->
-<input type="hidden" ng-model="ngModel"/>
+<input ng-if="!multiple" type="hidden" ng-model="ngModel"/>
+<select ng-if="multiple" ng-model="ngModel" multiple="multiple" style="display:none;"></select>
 <!--
 <div class="select2 m-b">
     <select2 ng-model="ngModel" options="crud.relations.thumbnailMedia.select2Options" empty-to-null>
