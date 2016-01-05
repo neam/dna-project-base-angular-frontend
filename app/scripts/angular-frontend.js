@@ -12,14 +12,14 @@
     ]);
 
     /**
-     * Services whose purpose is to supply the "apiEndpoints" array and "setApiEndpoint" function
+     * Services whose purpose is to supply the "dataEnvironments" array and "setDataEnvironment" function
      */
-    module.service('ApiEndpointService', function ($q, auth, $rootScope) {
+    module.service('DataEnvironmentService', function ($q, auth, $rootScope) {
 
-        //console.log('ApiEndpointService');
+        //console.log('DataEnvironmentService');
 
-        var apiEndpoints = [];
-        apiEndpoints.available = false;
+        var dataEnvironments = [];
+        dataEnvironments.available = false;
 
         $rootScope.$on('user.login', function (event, profile) {
 
@@ -29,19 +29,19 @@
             }
 
             // Add api endpoints from user property
-            apiEndpoints.list = profile.user_metadata.api_endpoints;
-            apiEndpoints.available = true;
+            dataEnvironments.list = profile.user_metadata.api_endpoints;
+            dataEnvironments.available = true;
 
-            console.log('user.login apiEndpoints', apiEndpoints);
+            console.log('user.login dataEnvironments', dataEnvironments);
 
-            if (!activeApiEndpoint.available) {
+            if (!activeDataEnvironment.available) {
 
                 // If has default, set active
-                if (apiEndpoints.length === 1) {
-                    setApiEndpoint(apiEndpoints[0].slug);
+                if (dataEnvironments.length === 1) {
+                    setDataEnvironment(dataEnvironments[0].slug);
                 }
                 if (profile.user_metadata.default_api_endpoint_slug) {
-                    setApiEndpoint(profile.user_metadata.default_api_endpoint_slug);
+                    setDataEnvironment(profile.user_metadata.default_api_endpoint_slug);
                 }
 
             }
@@ -50,27 +50,27 @@
 
         $rootScope.$on('user.logout', function () {
 
-            var apiEndpoints = [];
-            setApiEndpoint(null);
-            apiEndpoints.available = false;
+            var dataEnvironments = [];
+            setDataEnvironment(null);
+            dataEnvironments.available = false;
 
         });
 
-        var activeApiEndpoint = $q.defer();
+        var activeDataEnvironment = $q.defer();
 
-        var setApiEndpoint = function (slug) {
+        var setDataEnvironment = function (slug) {
 
-            console.log('setApiEndpoint', slug);
+            console.log('setDataEnvironment', slug);
 
             if (!slug) {
-                activeApiEndpoint.available = null;
+                activeDataEnvironment.available = null;
                 return;
             }
 
             auth.profilePromise.then(function () {
 
-                var chosenApiEndpoint = _.find(apiEndpoints.list, function (apiEndpoint) {
-                    return apiEndpoint.slug === slug;
+                var chosenDataEnvironment = _.find(dataEnvironments.list, function (dataEnvironment) {
+                    return dataEnvironment.slug === slug;
                 });
 
                 function endsWith(str, suffix) {
@@ -81,11 +81,11 @@
                 if (endsWith(slug, "local")) {
                     env.API_BASE_URL = env.LOCAL_API_BASE_URL;
                     env.API_VERSION = env.LOCAL_API_VERSION;
-                    env.DATA = chosenApiEndpoint.DATA;
+                    env.DATA = chosenDataEnvironment.DATA;
                 } else {
-                    env.API_BASE_URL = chosenApiEndpoint.API_BASE_URL;
-                    env.API_VERSION = chosenApiEndpoint.API_VERSION;
-                    env.DATA = chosenApiEndpoint.DATA;
+                    env.API_BASE_URL = chosenDataEnvironment.API_BASE_URL;
+                    env.API_VERSION = chosenDataEnvironment.API_VERSION;
+                    env.DATA = chosenDataEnvironment.DATA;
                 }
 
                 // Offline mode: set a dummy DATA flag used offline in requests, ignored by the rest api which instead responds according to LOCAL_OFFLINE_DATA
@@ -94,37 +94,37 @@
                 }
 
                 // Add the value of the active endpoint slug to the promise for direct access in views
-                activeApiEndpoint.slug = chosenApiEndpoint.slug;
-                activeApiEndpoint.API_BASE_URL = chosenApiEndpoint.API_BASE_URL;
-                activeApiEndpoint.API_VERSION = chosenApiEndpoint.API_VERSION;
+                activeDataEnvironment.slug = chosenDataEnvironment.slug;
+                activeDataEnvironment.API_BASE_URL = chosenDataEnvironment.API_BASE_URL;
+                activeDataEnvironment.API_VERSION = chosenDataEnvironment.API_VERSION;
 
-                activeApiEndpoint.available = true;
-                activeApiEndpoint.resolve(chosenApiEndpoint);
+                activeDataEnvironment.available = true;
+                activeDataEnvironment.resolve(chosenDataEnvironment);
 
-                //console.log('chosen api endpoint: ', chosenApiEndpoint, env.API_VERSION, env.API_BASE_URL);
+                //console.log('chosen api endpoint: ', chosenDataEnvironment, env.API_VERSION, env.API_BASE_URL);
 
             });
 
 
         };
 
-        activeApiEndpoint.promise.then(function (chosenApiEndpoint) {
-            //console.log('activeApiEndpoint resolved: ', chosenApiEndpoint, env.API_VERSION, env.API_BASE_URL);
+        activeDataEnvironment.promise.then(function (chosenDataEnvironment) {
+            //console.log('activeDataEnvironment resolved: ', chosenDataEnvironment, env.API_VERSION, env.API_BASE_URL);
         });
 
         return {
-            apiEndpoints: apiEndpoints,
-            activeApiEndpoint: activeApiEndpoint,
-            setApiEndpoint: setApiEndpoint
+            dataEnvironments: dataEnvironments,
+            activeDataEnvironment: activeDataEnvironment,
+            setDataEnvironment: setDataEnvironment
         };
 
     });
 
-    module.controller('ApiEndpointController', function (ApiEndpointService, $scope) {
+    module.controller('DataEnvironmentController', function (DataEnvironmentService, $scope) {
 
-        $scope.apiEndpoints = ApiEndpointService.apiEndpoints;
-        $scope.activeApiEndpoint = ApiEndpointService.activeApiEndpoint;
-        $scope.setApiEndpoint = ApiEndpointService.setApiEndpoint;
+        $scope.dataEnvironments = DataEnvironmentService.dataEnvironments;
+        $scope.activeDataEnvironment = DataEnvironmentService.activeDataEnvironment;
+        $scope.setDataEnvironment = DataEnvironmentService.setDataEnvironment;
 
     });
 
