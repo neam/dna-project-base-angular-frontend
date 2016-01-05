@@ -18,7 +18,8 @@
 
         //console.log('DataEnvironmentService');
 
-        var dataEnvironments = [];
+        var dataEnvironments = {};
+        dataEnvironments.list = [];
         dataEnvironments.available = false;
 
         $rootScope.$on('user.login', function (event, profile) {
@@ -34,17 +35,22 @@
 
             console.log('user.login dataEnvironments', dataEnvironments);
 
-            if (!activeDataEnvironment.available) {
+            auth.profilePromise.then(function () {
 
-                // If has default, set active
-                if (dataEnvironments.length === 1) {
-                    setDataEnvironment(dataEnvironments[0].slug);
-                }
-                if (profile.user_metadata.default_api_endpoint_slug) {
-                    setDataEnvironment(profile.user_metadata.default_api_endpoint_slug);
+                if (!activeDataEnvironment.available) {
+
+                    // If has default, set active
+                    if (profile.user_metadata.default_api_endpoint_slug) {
+                        setDataEnvironment(profile.user_metadata.default_api_endpoint_slug);
+                    } else {
+                        if (dataEnvironments.length === 1) {
+                            setDataEnvironment(dataEnvironments[0].slug);
+                        }
+                    }
+
                 }
 
-            }
+            });
 
         });
 
