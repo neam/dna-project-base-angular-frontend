@@ -283,6 +283,10 @@
             templateUrl: 'views/widgets/dna-file-selection-widget.html',
             link: function (scope, element, attrs, ngModel) {
 
+                if (!scope.files) {
+                    scope.files = (scope.file && scope.file.id) ? [scope.file] : [];
+                }
+
                 // Set default to 200px
                 scope.previewHeightPixels = scope.previewHeightPixels || 200;
 
@@ -307,6 +311,18 @@
                     } else {
                         createFileFromFpfile(event.fpfile);
                     }
+                };
+
+                scope.getPreviewUrl = getPreviewUrl;
+
+                function getPreviewUrl(file) {
+                    if (!file || !file.absolute_url) {
+                        return null;
+                    }
+                    if (file.absolute_url.indexOf("//cdn.filepicker.io/") >= 0) {
+                        return file.absolute_url;
+                    }
+                    return null;
                 };
 
                 /**
@@ -363,6 +379,10 @@
                         ngModel.$setDirty()
                         // update file(s) preview
                         scope.file = createdFile;
+                        if (!scope.multiple) {
+                            scope.files.length = 0;
+                        }
+                        createdFile.previewUrl = getPreviewUrl(scope.file);
                         scope.files.push(createdFile);
                     });
 
@@ -370,15 +390,6 @@
 
                 // Preview url(s) extraction
                 scope.previewUrl = getPreviewUrl(scope.file);
-                function getPreviewUrl(file) {
-                    if (!file || !file.absolute_url) {
-                        return null;
-                    }
-                    if (file.absolute_url.indexOf("//cdn.filepicker.io/") >= 0) {
-                        return file.absolute_url;
-                    }
-                    return null;
-                };
 
                 // Update preview-urls when ngModel changes
                 scope.$watch('file', function (newVal, oldVal) {
@@ -387,7 +398,7 @@
 
             }
         };
-    })
+    });
 
     app.directive('dnaItemSelectionWidget', function () {
         return {

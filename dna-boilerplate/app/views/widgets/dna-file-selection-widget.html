@@ -13,7 +13,7 @@
                 <li ng-repeat="fileInstance in file.fileInstances">{{ fileInstance.filename }}</li>
             </ul>
             <div class="preview-container">
-                <div filepicker-preview ng-if="previewUrl" url="previewUrl"
+                <div filepicker-preview ng-if="getPreviewUrl(file)" url="getPreviewUrl(file)"
                      style="height:{{previewHeightPixels}}px"></div>
             </div>
         </li>
