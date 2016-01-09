@@ -1,4 +1,4 @@
-<div id="start" ng-controller="ApiEndpointController">
+<div id="start" ng-controller="DataEnvironmentController">
     <div id="hero">
         <!--
     <video autoplay loop>
@@ -12,14 +12,14 @@
     -->
 
         <h1><span
-                ng-show="!activeApiEndpoint.available && !auth.profilePromise" data-t="main heading">&nbsp;</span>
-            <span ng-show="!activeApiEndpoint.available && auth.profilePromise" data-t="account activation heading"></span>
-                    <span ng-show="activeApiEndpoint.available && auth.profilePromise">Good day<span
+                ng-show="!activeDataEnvironment.available && !auth.profilePromise" data-t="main heading">&nbsp;</span>
+            <span ng-show="!activeDataEnvironment.available && auth.profilePromise" data-t="account activation heading"></span>
+                    <span ng-show="activeDataEnvironment.available && auth.profilePromise">Good day<span
                             style="display:inline;" ng-show="auth.profile.gender === 'male'">, Sir</span><span
                             style="display:inline;" ng-show="auth.profile.gender === 'female'">, Ma'am</span>! {{env.SITENAME}} is ready for you!</span>
         </h1>
 
-        <div ng-show="!activeApiEndpoint.available && !auth.profilePromise">
+        <div ng-show="!activeDataEnvironment.available && !auth.profilePromise">
 
             <div>
                 <span data-t="main info"></span>
@@ -40,7 +40,7 @@
 
         </div>
 
-        <div ng-show="!activeApiEndpoint.available && auth.profilePromise">
+        <div ng-show="!activeDataEnvironment.available && auth.profilePromise">
 
             <div>
                 <span data-t="account activation info">&nbsp;</span>
@@ -56,16 +56,16 @@
 
         </div>
 
-        <div ng-show="activeApiEndpoint.available && auth.profilePromise">
+        <div ng-show="activeDataEnvironment.available && auth.profilePromise">
 
-            <a ui-sref="root.api-endpoints.existing.get-things-done.overview({apiEndpoint: activeApiEndpoint.slug})"
+            <a ui-sref="root.api-endpoints.existing.get-things-done.overview({dataEnvironment: activeDataEnvironment.slug})"
                class="btn btn-primary btn-lg" href="#">Get things done &nbsp; <i
                     class="fa fa-lg fa-long-arrow-right"></i></a></span>
 
             <!--
-            <a ui-sref="root.api-endpoints.existing.foos.create({apiEndpoint: activeApiEndpoint.slug})" href="#"
+            <a ui-sref="root.api-endpoints.existing.foos.create({dataEnvironment: activeDataEnvironment.slug})" href="#"
                class="btn btn-primary btn-lg">Create a new foo &gt;</a>
-            <span>or <a ui-sref="root.api-endpoints.existing.foos.list({apiEndpoint: activeApiEndpoint.slug})"
+            <span>or <a ui-sref="root.api-endpoints.existing.foos.list({dataEnvironment: activeDataEnvironment.slug})"
                         href="#">edit an existing one</a></span>
             -->
 
@@ -76,13 +76,13 @@
         </div>
 
         <div class="banner">
-        <div ng-show="!activeApiEndpoint.available && !auth.profilePromise">
+        <div ng-show="!activeDataEnvironment.available && !auth.profilePromise">
             <span data-t="main banner">&nbsp;<br/>&nbsp;<br/></span>
         </div>
-        <div ng-show="!activeApiEndpoint.available && auth.profilePromise">
+        <div ng-show="!activeDataEnvironment.available && auth.profilePromise">
             <span data-t="account activation banner">&nbsp;<br/>&nbsp;<br/></span>
         </div>
-        <div ng-show="activeApiEndpoint.available && auth.profilePromise">
+        <div ng-show="activeDataEnvironment.available && auth.profilePromise">
             <span>The main workflow of {{env.SITENAME}} is shown below:</span>
         </div>
         </div>
@@ -91,7 +91,7 @@
 
     <div id="content">
 
-        <div ng-show="!activeApiEndpoint.available && !auth.profilePromise">
+        <div ng-show="!activeDataEnvironment.available && !auth.profilePromise">
 
         <div class="row" ng-repeat="row in [0,1,2,3,4]">
             <div class="col-md-3">
@@ -176,9 +176,9 @@
         <div class="row">
             <div class="col-md-3">
 
-                <a ui-sref="root.api-endpoints.existing.basic-info.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i class="fa fa-building"></i></a>
+                <a ui-sref="root.api-endpoints.existing.basic-info.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i class="fa fa-building"></i></a>
 
-                <h2><a ui-sref="root.api-endpoints.existing.basic-info.overview({apiEndpoint: activeApiEndpoint.slug})" href="#">
+                <h2><a ui-sref="root.api-endpoints.existing.basic-info.overview({dataEnvironment: activeDataEnvironment.slug})" href="#">
                     <span class="nav-label">1. Decide how to use the tool</span></a></h2>
 
                 <p>
@@ -190,9 +190,9 @@
             </div>
             <div class="col-md-3">
 
-                <a ui-sref="root.api-endpoints.existing.import.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i class="fa fa-cloud-download"></i></a>
+                <a ui-sref="root.api-endpoints.existing.import.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i class="fa fa-cloud-download"></i></a>
 
-                <h2><a ui-sref="root.api-endpoints.existing.import.overview({apiEndpoint: activeApiEndpoint.slug})"
+                <h2><a ui-sref="root.api-endpoints.existing.import.overview({dataEnvironment: activeDataEnvironment.slug})"
                        href="#"><span class="nav-label">2. Import and include</span></a></h2>
 
                 <p>
@@ -205,9 +205,9 @@
             </div>
             <div class="col-md-3">
 
-                <a ui-sref="root.api-endpoints.existing.get-things-done.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i class="fa fa-calendar"></i></a>
+                <a ui-sref="root.api-endpoints.existing.get-things-done.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i class="fa fa-calendar"></i></a>
 
-                <h2><a ui-sref="root.api-endpoints.existing.get-things-done.overview({apiEndpoint: activeApiEndpoint.slug})"
+                <h2><a ui-sref="root.api-endpoints.existing.get-things-done.overview({dataEnvironment: activeDataEnvironment.slug})"
                        href="#"><span class="nav-label">3. Get things done</span></a></h2>
 
                 <p>
@@ -220,9 +220,9 @@
             </div>
             <div class="col-md-3">
 
-                <a ui-sref="root.api-endpoints.existing.up-to-date.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i class="fa fa-clock-o"></i></a>
+                <a ui-sref="root.api-endpoints.existing.up-to-date.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i class="fa fa-clock-o"></i></a>
 
-                <h2><a ui-sref="root.api-endpoints.existing.up-to-date.overview({apiEndpoint: activeApiEndpoint.slug})" href="#">
+                <h2><a ui-sref="root.api-endpoints.existing.up-to-date.overview({dataEnvironment: activeDataEnvironment.slug})" href="#">
                     <span class="nav-label">4. Stay up-to-date</span></a></h2>
 
                 <p>

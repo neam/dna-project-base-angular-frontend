@@ -268,18 +268,18 @@
              */
             .state('root.api-endpoints.existing', {
                 abstract: true,
-                url: "/:apiEndpoint",
+                url: "/:dataEnvironment",
                 template: "<ui-view/>",
                 resolve: {
                     // all child states of root.api-endpoints.existing needs information about the current api endpoint to query rest api requests against
                     // such information is stored in the route, why we need to read $stateParams and set the current api endpoint based on the route
-                    apiEndpointParam: function ($stateParams, ApiEndpointService, $rootScope) {
-                        //console.log('root.api-endpoints.existing apiEndpointParam - apiEndpointParam, $stateParams, ApiEndpointService', $stateParams, ApiEndpointService);
+                    dataEnvironmentParam: function ($stateParams, DataEnvironmentService, $rootScope) {
+                        console.log('root.api-endpoints.existing dataEnvironmentParam - dataEnvironmentParam, $stateParams, DataEnvironmentService', $stateParams, DataEnvironmentService);
 
                         // Set active endpoint based on state param
-                        ApiEndpointService.setApiEndpoint($stateParams.apiEndpoint);
+                        DataEnvironmentService.setDataEnvironment($stateParams.dataEnvironment);
 
-                        return ApiEndpointService.activeApiEndpoint.promise;
+                        return DataEnvironmentService.activeDataEnvironment.promise;
 
                     }
                 },
@@ -542,13 +542,13 @@
                 $rootScope.Intercom = window.Intercom;
             });
         })
-        .run(function ($rootScope, $state, suggestionsService, hotkeys, auth, $http, ApiEndpointService, $location) {
+        .run(function ($rootScope, $state, suggestionsService, hotkeys, auth, $http, DataEnvironmentService, $location) {
 
             // Make api endpoint variables globally available in all child views
 
-            $rootScope.apiEndpoints = ApiEndpointService.apiEndpoints;
-            $rootScope.activeApiEndpoint = ApiEndpointService.activeApiEndpoint;
-            $rootScope.setApiEndpoint = ApiEndpointService.setApiEndpoint;
+            $rootScope.dataEnvironments = DataEnvironmentService.dataEnvironments;
+            $rootScope.activeDataEnvironment = DataEnvironmentService.activeDataEnvironment;
+            $rootScope.setDataEnvironment = DataEnvironmentService.setDataEnvironment;
 
             // Make suggestions and hotkey services globally available in all views
 
@@ -582,7 +582,7 @@
 
             $rootScope.$on('user.login', function () {
 
-                ApiEndpointService.activeApiEndpoint.promise.then(function () {
+                DataEnvironmentService.activeDataEnvironment.promise.then(function () {
 
                     // update ua_session_token for rest-api so that api requests are authenticated using the same userapp user
                     // (this is a workaround for the fact that cookies are not shared across api-endpoints)
@@ -602,7 +602,7 @@
 
             $rootScope.$on('user.logout', function () {
 
-                ApiEndpointService.activeApiEndpoint.promise.then(function () {
+                DataEnvironmentService.activeDataEnvironment.promise.then(function () {
 
                     // destroy session also on rest-api so that api requests are no longer authenticated using the userapp user that was logged out
                     // (this is a workaround for the fact that cookies are not shared across api-endpoints)

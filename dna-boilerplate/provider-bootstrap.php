@@ -730,7 +730,7 @@ STEPSTATES;
                         // TODO: Adjust the below so that columns that are all the same value due to a route-based filter are hidden
                         routeBasedVisibilitySettings.{$modelClassSingular}_hide_source_relation = '{$modelClassSingular}';
                     },
-                    {$modelClassLcfirstSingular}: function (apiEndpointParam, \$stateParams, {$modelClassLcfirstSingular}Resource) {
+                    {$modelClassLcfirstSingular}: function (dataEnvironmentParam, \$stateParams, {$modelClassLcfirstSingular}Resource) {
 
                         // Hot-load from singleton collection if already available
                         // TODO

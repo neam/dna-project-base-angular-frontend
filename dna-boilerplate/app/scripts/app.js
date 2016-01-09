@@ -212,12 +212,12 @@
     /**
      * Service that intercepts requests, can be used to show general error messages on failed requests
      */
-    app.factory('appInterceptor', function ($rootScope, $q, ApiEndpointService) {
+    app.factory('appInterceptor', function ($rootScope, $q, DataEnvironmentService) {
         return {
             request: function (config) {
                 config.headers = config.headers || {};
                 // Supply header indicating which data profile we should use for the request
-                if (ApiEndpointService.activeApiEndpoint.available) {
+                if (DataEnvironmentService.activeDataEnvironment.available) {
                     config.headers['X-Data-Profile'] = env.DATA || 'clean-db';
                 }
                 //config.withCredentials = true;

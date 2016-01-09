@@ -1,39 +1,39 @@
-<ul class="nav navbar-nav" ng-show="!activeApiEndpoint.available && !auth.profilePromise">
+<ul class="nav navbar-nav" ng-show="!activeDataEnvironment.available && !auth.profilePromise">
 
     <li ui-sref-active="active" ng-show="false && !$state.includes('root.start')">
         <a ui-sref="root.start" href="#"><i class="fa fa-arrow-left"></i> <span class="nav-label">Back</span></a>
     </li>
 
     <!--
-    <li ui-sref-active="active" ng-show="!activeApiEndpoint.available">
+    <li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
         <a ui-sref="root.start.features" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label">Features</span></a>
     </li>
 
-    <li ui-sref-active="active" ng-show="!activeApiEndpoint.available">
+    <li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
         <a ui-sref="root.start.pricing" href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Pricing</span></a>
     </li>
 
-    <li ui-sref-active="active" ng-show="!activeApiEndpoint.available">
+    <li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
         <a ui-sref="root.start.processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label">Processes</span></a>
     </li>
     -->
 
-    <li ng-show="!activeApiEndpoint.available">
+    <li ng-show="!activeDataEnvironment.available">
         <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="content" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label">Features</span></a>
         <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.features" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label">Features</span></a>
     </li>
 
-    <li ng-show="!activeApiEndpoint.available">
+    <li ng-show="!activeDataEnvironment.available">
         <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="main-plan" href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Pricing</span></a>
         <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.pricing" href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Pricing</span></a>
     </li>
 
-    <li ng-show="!activeApiEndpoint.available">
+    <li ng-show="!activeDataEnvironment.available">
         <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label">Processes</span></a>
         <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label">Processes</span></a>
     </li>
 
-    <li ng-show="!activeApiEndpoint.available">
+    <li ng-show="!activeDataEnvironment.available">
         <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label">About us</span></a>
         <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label">About us</span></a>
     </li>
@@ -70,7 +70,7 @@
 
 </ul>
 
-<ul class="nav navbar-nav" ng-show="auth.profilePromise && !activeApiEndpoint.available">
+<ul class="nav navbar-nav" ng-show="auth.profilePromise && !activeDataEnvironment.available">
 
     <li ui-sref-active="active">
         <a ui-sref="root.basic-info.overview" href="#"><i
@@ -94,39 +94,39 @@
 
 </ul>
 
-<ul class="nav navbar-nav" ng-show="auth.profilePromise && activeApiEndpoint.available">
+<ul class="nav navbar-nav" ng-show="auth.profilePromise && activeDataEnvironment.available">
 
     <li ui-sref-active="active">
-        <a ui-sref="root.api-endpoints.existing.basic-info.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
+        <a ui-sref="root.api-endpoints.existing.basic-info.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
                 class="fa fa-building"></i> <span class="nav-building">1. Decide how to use the tool</span></a>
     </li>
 
     <li ui-sref-active="active">
-        <a ui-sref="root.api-endpoints.existing.import.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
+        <a ui-sref="root.api-endpoints.existing.import.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
                 class="fa fa-cloud-download"></i> <span class="nav-label">2. Import and include</span></a>
     </li>
 
     <li ui-sref-active="active">
-        <a ui-sref="root.api-endpoints.existing.get-things-done.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
+        <a ui-sref="root.api-endpoints.existing.get-things-done.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
                 class="fa fa-cloud-download"></i> <span class="nav-label">3. Get things done</span></a>
     </li>
 
     <li ui-sref-active="active">
-        <a ui-sref="root.api-endpoints.existing.up-to-date.overview({apiEndpoint: activeApiEndpoint.slug})" href="#"><i
+        <a ui-sref="root.api-endpoints.existing.up-to-date.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
                 class="fa fa-clock-o"></i> <span class="nav-label">4. Stay up-to-date</span></a>
     </li>
 
 </ul>
 
 <ul class="nav navbar-top-links navbar-right" ng-controller="LoginController">
-    <li class="dropdown" dropdown ng-show="apiEndpoints.list.length > 1">
-        <a class="dropdown-toggle" href dropdown-toggle> <span ng-show="!activeApiEndpoint.available">Choose</span><span
-                ng-show="activeApiEndpoint.available">Switch</span> account <span
+    <li class="dropdown" dropdown ng-show="dataEnvironments.list.length > 1">
+        <a class="dropdown-toggle" href dropdown-toggle> <span ng-show="!activeDataEnvironment.available">Choose</span><span
+                ng-show="activeDataEnvironment.available">Switch</span> account <span
                 class="caret"></span></a>
         <ul role="menu" class="dropdown-menu" ng-class="">
-            <li ng-repeat="apiEndpoint in apiEndpoints.list" ng-class="{active: apiEndpoint.slug == activeApiEndpoint.slug}"><a
-                    ui-sref="root.api-endpoints.existing.start({apiEndpoint: apiEndpoint.slug})" ng-click="setApiEndpoint(apiEndpoint.slug);"><i
-                    class="fa" ng-class="{'fa-check-circle-o': apiEndpoint.slug == activeApiEndpoint.slug, 'fa-circle-o': apiEndpoint.slug !== activeApiEndpoint.slug}"></i> {{apiEndpoint.slug}}</a></li>
+            <li ng-repeat="dataEnvironment in dataEnvironments.list" ng-class="{active: dataEnvironment.slug == activeDataEnvironment.slug}"><a
+                    ui-sref="root.api-endpoints.existing.start({dataEnvironment: dataEnvironment.slug})" ng-click="setDataEnvironment(dataEnvironment.slug);"><i
+                    class="fa" ng-class="{'fa-check-circle-o': dataEnvironment.slug == activeDataEnvironment.slug, 'fa-circle-o': dataEnvironment.slug !== activeDataEnvironment.slug}"></i> {{dataEnvironment.slug}}</a></li>
         </ul>
     </li>
 

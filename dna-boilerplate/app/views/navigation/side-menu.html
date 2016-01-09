@@ -30,11 +30,11 @@
 <li class="nav-title">Foo editing</li>
 
 <li ng-class="{active: $state.includes('root.api-endpoints.existing.foos.existing.edit.edit-foo')}">
-    <a ui-sref="root.api-endpoints.existing.foos.existing.edit.edit-foo.basic-info.foo-step({apiEndpoint: activeApiEndpoint.slug, fooId: $state.params.fooId})"><i class="fa fa-cog"></i> <span class="nav-label">Edit foo</span> <span
+    <a ui-sref="root.api-endpoints.existing.foos.existing.edit.edit-foo.basic-info.foo-step({dataEnvironment: activeDataEnvironment.slug, fooId: $state.params.fooId})"><i class="fa fa-cog"></i> <span class="nav-label">Edit foo</span> <span
             class="fa arrow"></span></a>
     <ul class="nav nav-second-level" ng-class="{in: $state.includes('root.api-endpoints.existing.foos.existing.edit.edit-foo')}">
-        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.foos.existing.edit.edit-foo.basic-info.foo-step({apiEndpoint: activeApiEndpoint.slug, fooId: $state.params.fooId})">Foo step</a></li>
-        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.foos.existing.edit.edit-foo.bar-step({apiEndpoint: activeApiEndpoint.slug, fooId: $state.params.fooId})">Bar step</a></li>
+        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.foos.existing.edit.edit-foo.basic-info.foo-step({dataEnvironment: activeDataEnvironment.slug, fooId: $state.params.fooId})">Foo step</a></li>
+        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.foos.existing.edit.edit-foo.bar-step({dataEnvironment: activeDataEnvironment.slug, fooId: $state.params.fooId})">Bar step</a></li>
     </ul>
 </li>
 

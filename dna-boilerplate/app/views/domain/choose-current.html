@@ -1,18 +1,18 @@
-<div ng-controller="ApiEndpointController">
+<div ng-controller="DataEnvironmentController">
 
-    <div ng-show="!apiEndpoints.available">Loading</div>
-    <div ng-show="apiEndpoints.available">
+    <div ng-show="!dataEnvironments.available">Loading</div>
+    <div ng-show="dataEnvironments.available">
 
-        <span ng-show="!activeApiEndpoint.available">Choose</span><span ng-show="activeApiEndpoint.available">Switch</span> account:
+        <span ng-show="!activeDataEnvironment.available">Choose</span><span ng-show="activeDataEnvironment.available">Switch</span> account:
 
         <ul>
-            <li ng-repeat="apiEndpoint in apiEndpoints.list">
-                <i class="fa fa-dashboard" ng-show="apiEndpoint.slug === activeApiEndpoint.slug"></i>
-                <a href="javascript:void(0);" ng-click="setApiEndpoint(apiEndpoint.slug);">{{apiEndpoint.slug}}</a>
+            <li ng-repeat="dataEnvironment in dataEnvironments.list">
+                <i class="fa fa-dashboard" ng-show="dataEnvironment.slug === activeDataEnvironment.slug"></i>
+                <a href="javascript:void(0);" ng-click="setDataEnvironment(dataEnvironment.slug);">{{dataEnvironment.slug}}</a>
             </li>
         </ul>
 
     </div>
-    <!--<div ng-show="apiEndpoints.error">Error loading api endpoints list</div>-->
+    <!--<div ng-show="dataEnvironments.error">Error loading api endpoints list</div>-->
 
 </div>
