@@ -20,6 +20,7 @@ $textInput = function ($attribute, $model) {
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
+    $attribute = str_replace("/", ".attributes.", $attribute);
 
     // Sanitize
     $label = Html::encode($attributeInfo["label"]);
@@ -52,6 +53,7 @@ $textAreaInput = function ($attribute, $model) {
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
+    $attribute = str_replace("/", ".attributes.", $attribute);
 
     // Sanitize
     $label = Html::encode($attributeInfo["label"]);
@@ -84,6 +86,7 @@ $fileSelectionWidget = function ($attribute, $model) {
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
+    $attribute = str_replace("/", ".attributes.", $attribute);
 
     return <<<INPUT
 <div class="row">
@@ -106,6 +109,7 @@ $tristateRadioInput = function ($attribute, $model) {
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
+    $attribute = str_replace("/", ".attributes.", $attribute);
 
     return <<<INPUT
 <div class="row">
@@ -148,6 +152,7 @@ $switchInput = function ($attribute, $model) {
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
+    $attribute = str_replace("/", ".attributes.", $attribute);
 
     return <<<INPUT
 <div class="row">
@@ -175,6 +180,7 @@ $hasOneRelationSelect2Input = function ($attribute, $model) {
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
+    $attribute = str_replace("/", ".attributes.", $attribute);
 
     return <<<INPUT
 <div class="row">
@@ -195,13 +201,79 @@ INPUT;
 
 };
 
-// Has-many-relation editing
+// Has-one-relation dna item selection widget
 
-$hasManyRelationEditing = function ($attribute, $model) {
+$hasOneRelationDnaItemSelectionWidget = function ($attribute, $model) {
 
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
+
+    return <<<INPUT
+<div class="row">
+    <div class="col-sm-2">
+        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$attributeInfo["label"]}</label>
+    </div>
+    <div class="col-sm-10">
+        <dna-item-selection-widget collection="{$lcfirstModelClass}Crud.relations.$attribute.relatedCollection" item="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-item-selection-widget>
+    </div>
+</div>
+
+INPUT;
+
+};
+
+// Has-many-relation dna item selection widget
+
+$hasManyRelationDnaItemSelectionWidget = function ($attribute, $model) {
+
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
+    $attribute = str_replace("/", ".attributes.", $attribute);
+
+    $_ = explode("RelatedBy", $attribute);
+    $relationAttribute = $_[0];
+    $relations = $model->relations();
+    if (!isset($relations[$relationAttribute])) {
+        $class = get_class($model);
+        return <<<INPUT
+<!-- "$attribute" - Model $class does not have a relation '$relationAttribute' -->
+
+INPUT;
+        //throw new Exception("Model " . get_class($model) . " does not have a relation '$relationAttribute'");
+    }
+    $relationInfo = $relations[$relationAttribute];
+    $relatedModelClass = $relationInfo[1];
+
+    $relatedModelClassSingular = $relatedModelClass;
+    $relatedModelClassSingularId = Inflector::camel2id($relatedModelClassSingular);
+    $relatedModelClassSingularWords = Inflector::camel2words($relatedModelClassSingular);
+    $relatedModelClassPluralWords = Inflector::pluralize($relatedModelClassSingularWords);
+    $relatedModelClassPlural = Inflector::camelize($relatedModelClassPluralWords);
+
+    return <<<INPUT
+<div class="row">
+    <div class="col-sm-2">
+        <label class="label-left control-label">{$attributeInfo["label"]}</label>
+    </div>
+    <div class="col-sm-10">
+        <dna-item-selection-widget multiple="true" view-path="crud/$relatedModelClassSingularId" collection="{$lcfirstModelClass}Crud.relations.$attribute.relatedCollection" items="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.{$attribute}_ids" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-item-selection-widget>
+    </div>
+</div>
+
+INPUT;
+
+};
+
+// Has-many-relation listing
+
+$hasManyRelationListing = function ($attribute, $model) {
+
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
+    $attribute = str_replace("/", ".attributes.", $attribute);
 
     $_ = explode("RelatedBy", $attribute);
     $relationAttribute = $_[0];
@@ -235,13 +307,11 @@ INPUT;
 
 INPUT;
 
-    // <div ng-controller="list{$relatedModelClassPlural}Controller" ng-include="'crud/$relatedModelClassSingularId/curate.html'"></div>
-
 };
 
 // Default input
 
-$defaultInput = function ($attribute, $model) use ($textInput, $hasOneRelationSelect2Input, $hasManyRelationEditing) {
+$defaultInput = function ($attribute, $model) use ($textInput, $hasOneRelationDnaItemSelectionWidget, $hasManyRelationDnaItemSelectionWidget) {
 
     $itemTypeAttributes = $model->itemTypeAttributes();
 
@@ -271,10 +341,10 @@ INPUT;
             return $textInput($attribute, $model);
             break;
         case "has-one-relation":
-            return $hasOneRelationSelect2Input($attribute, $model);
+            return $hasOneRelationDnaItemSelectionWidget($attribute, $model);
             break;
         case "has-many-relation":
-            return $hasManyRelationEditing($attribute, $model);
+            return $hasManyRelationDnaItemSelectionWidget($attribute, $model);
             break;
     }
 
@@ -287,6 +357,7 @@ $handsontableOrdinaryColumn = function ($attribute, $model) {
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
     $attribute = str_replace("hot-column.", "", $attribute);
+    if (strpos($attribute, '/') !== false) {return '';} // TODO: Add support for handsontable columns for deep/aliased attributes
     $attributeInfo["label"] = json_encode($attributeInfo["label"]);
     return <<<INPUT
             {
@@ -301,6 +372,7 @@ $handsontableCheckboxColumn = function ($attribute, $model) {
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
     $attribute = str_replace("hot-column.", "", $attribute);
+    if (strpos($attribute, '/') !== false) {return '';} // TODO: Add support for handsontable columns for deep/aliased attributes
     $attributeInfo["label"] = json_encode($attributeInfo["label"]);
     return <<<INPUT
             {
@@ -319,6 +391,7 @@ $handsontablePrimaryKeyColumn = function ($attribute, $model) {
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
     $attribute = str_replace("hot-column.", "", $attribute);
+    if (strpos($attribute, '/') !== false) {return '';} // TODO: Add support for handsontable columns for deep/aliased attributes
     $attributeInfo["label"] = json_encode($attributeInfo["label"]);
     return <<<INPUT
             {
@@ -344,6 +417,7 @@ $handsontableHasOneRelationColumn = function ($attribute, $model) {
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
     $attribute = str_replace("hot-column.", "", $attribute);
+    if (strpos($attribute, '/') !== false) {return '';} // TODO: Add support for handsontable columns for deep/aliased attributes
     $attributeInfo["label"] = json_encode($attributeInfo["label"]);
     return <<<INPUT
             {
@@ -1107,6 +1181,7 @@ $activeFields = [
     '\.*_enabled' => $switchInput,
     '\.*Media' => $fileSelectionWidget,
     '\.file' => $fileSelectionWidget,
+    '\.*_markup' => $textAreaInput,
     '\.*_message' => $textAreaInput,
     'owner' => $todo,
     'node' => $todo,

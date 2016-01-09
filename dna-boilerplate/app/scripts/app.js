@@ -389,6 +389,56 @@
         };
     })
 
+    app.directive('dnaItemSelectionWidget', function () {
+        return {
+            restrict: 'E',
+            require: '?ngModel',
+            scope: {
+                collection: '=',
+                item: '=',
+                items: '=',
+                ngModel: '=',
+                multiple: '@', // true, false (default)
+                viewPath: '@'
+            },
+            templateUrl: 'views/widgets/dna-item-selection-widget.html',
+            link: function (scope, element, attrs, ngModel) {
+
+                /*
+                 onEnter: function ($modal, $state, campaign) {
+                 var modalOptions = {
+                 templateUrl: "crud/campaign/modal-view.html",
+                 controller: "viewCampaignController",
+                 size: "lg",
+                 animation: true,
+                 resolve: {
+                 campaign: function () {
+                 return campaign;
+                 }
+                 }
+                 };
+                 modalInstance = $modal.open(modalOptions);
+                 modalInstance.result['finally'](function () {
+                 modalInstance = null;
+                 if ($state.$current.name === 'root.api-endpoints.existing.campaigns.existing.view') {
+                 $state.go('^.^.list');
+                 }
+                 if ($state.$current.name === 'root.api-endpoints.existing.campaigns.existing.edit.preview') {
+                 $state.go('^.continue-editing');
+                 }
+                 });
+                 },
+                 onExit: function () {
+                 if (modalInstance) {
+                 modalInstance.close();
+                 }
+                 },
+                 */
+
+            }
+        };
+    });
+
     /**
      * A widget to encapsulate paginated viewing and editing of a collection
      */
