@@ -356,7 +356,6 @@ $handsontableOrdinaryColumn = function ($attribute, $model) {
     $attribute = str_replace("handsontable-column-settings.", "", $attribute);
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $attribute = str_replace("hot-column.", "", $attribute);
     if (strpos($attribute, '/') !== false) {return '';} // TODO: Add support for handsontable columns for deep/aliased attributes
     $attributeInfo["label"] = json_encode($attributeInfo["label"]);
     return <<<INPUT
@@ -371,7 +370,6 @@ $handsontableCheckboxColumn = function ($attribute, $model) {
     $attribute = str_replace("handsontable-column-settings.", "", $attribute);
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $attribute = str_replace("hot-column.", "", $attribute);
     if (strpos($attribute, '/') !== false) {return '';} // TODO: Add support for handsontable columns for deep/aliased attributes
     $attributeInfo["label"] = json_encode($attributeInfo["label"]);
     return <<<INPUT
@@ -390,7 +388,6 @@ $handsontablePrimaryKeyColumn = function ($attribute, $model) {
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
-    $attribute = str_replace("hot-column.", "", $attribute);
     if (strpos($attribute, '/') !== false) {return '';} // TODO: Add support for handsontable columns for deep/aliased attributes
     $attributeInfo["label"] = json_encode($attributeInfo["label"]);
     return <<<INPUT
@@ -416,7 +413,6 @@ $handsontableHasOneRelationColumn = function ($attribute, $model) {
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
     $lcfirstModelClass = lcfirst(get_class($model));
-    $attribute = str_replace("hot-column.", "", $attribute);
     if (strpos($attribute, '/') !== false) {return '';} // TODO: Add support for handsontable columns for deep/aliased attributes
     $attributeInfo["label"] = json_encode($attributeInfo["label"]);
     return <<<INPUT
@@ -477,7 +473,7 @@ INPUT;
 
 /*
 $handsontableOrdinaryColumn = function ($attribute, $model) {
-    $attribute = str_replace("hot-column.", "", $attribute);
+    $attribute = str_replace("handsontable-column-settings.", "", $attribute);
 
     $itemTypeAttributes = $model->itemTypeAttributes();
 
@@ -517,7 +513,7 @@ INPUT;
 };
 
 $handsontableCheckboxColumn = function ($attribute, $model) {
-    $attribute = str_replace("hot-column.", "", $attribute);
+    $attribute = str_replace("handsontable-column-settings.", "", $attribute);
     return <<<INPUT
         <hot-column data="attributes.$attribute" title="'$attribute'" type="'checkbox'"
                 checked-template="true" unchecked-template="false"></hot-column>
@@ -1172,11 +1168,14 @@ $todo = function ($attribute, $model) {
 // Mapping between attribute names and CRUD form input fields
 $activeFields = [
 
+    // == handsontable-column-settings
     'handsontable-column-settings.*\.is_*' => $handsontableCheckboxColumn,
     'handsontable-column-settings.*\.*_enabled' => $handsontableCheckboxColumn,
     'handsontable-column-settings.*' => $handsontableAutoDetectColumn,
+    // == ui-router states
     'ui-router-attribute-states.*' => $uiRouterStepAttributeStates['default-ui-router-attribute-states'],
     'ui-router-item-type-states.*' => $uiRouterItemTypeStates['item-type-template'],
+    // == attributes
     '\.is_*' => $switchInput,
     '\.*_enabled' => $switchInput,
     '\.*Media' => $fileSelectionWidget,
