@@ -532,7 +532,7 @@
             //$locationProvider.hashPrefix('!');
         })
         .config(function (filepickerProvider) {
-            filepickerProvider.setKey(env.FILEPICKER_API_KEY);
+            filepickerProvider.setKey(env.FILESTACK_API_KEY);
         })
         .run(function ($rootScope) {
             $rootScope.dnaFileSelectionWidgetPreviewHeightPixels = 500;
