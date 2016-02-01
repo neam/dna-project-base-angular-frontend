@@ -62,7 +62,7 @@
     "ngImgCrop": "~0.3.2",
     "angular-ui-codemirror": "~0.2.1",
     "angles": "https://github.com/lgsilver/angles.git",
-    "angular-bootstrap-colorpicker": "https://github.com/buberdds/angular-bootstrap-colorpicker.git#~3.0.10",
+    "angular-bootstrap-colorpicker": "^3.0.23",
     "peity": "https://github.com/benpickles/peity.git#~3.0.2",
     "Chart.js": "https://github.com/nnnick/Chart.js.git#~0.2.0",
     "angular-peity": "https://github.com/projectweekend/angular-peity.git",
