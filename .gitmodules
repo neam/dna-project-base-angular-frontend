@@ -1,6 +1,7 @@
 [submodule "bower_components"]
 	path = bower_components
 	url = git@bitbucket.org:neamlabs/angular-frontend-bower_components.git
+	branch = develop
 [submodule "bower_components-git-repos/Handsontable-select2-editor"]
 	path = bower_components-git-repos/Handsontable-select2-editor
 	url = git@github.com:motin/Handsontable-select2-editor.git
