@@ -19,23 +19,24 @@
         //console.log('DataEnvironmentService');
 
         var dataEnvironments = {};
-        dataEnvironments.list = [];
-        dataEnvironments.available = false;
 
         $rootScope.$on('user.login', function (event, profile) {
 
-            // Ignore if no information is available
-            if (!profile.user_metadata || !profile.user_metadata.api_endpoints) {
-                return;
-            }
-
-            // Add api endpoints from user property
-            dataEnvironments.list = profile.user_metadata.api_endpoints;
-            dataEnvironments.available = true;
-
-            console.log('user.login dataEnvironments', dataEnvironments);
+            dataEnvironments.list = [];
+            dataEnvironments.available = false;
 
             auth.profilePromise.then(function () {
+
+                // Ignore if no information is available
+                if (!profile.user_metadata || !profile.user_metadata.api_endpoints) {
+                    return;
+                }
+
+                // Add api endpoints from user property
+                dataEnvironments.list = profile.user_metadata.api_endpoints;
+                dataEnvironments.available = true;
+
+                console.log('user.login dataEnvironments', dataEnvironments);
 
                 if (!activeDataEnvironment.available) {
 
@@ -43,7 +44,7 @@
                     if (profile.user_metadata.default_api_endpoint_slug) {
                         setDataEnvironment(profile.user_metadata.default_api_endpoint_slug);
                     } else {
-                        if (dataEnvironments.length === 1) {
+                        if (dataEnvironments.list.length === 1) {
                             setDataEnvironment(dataEnvironments[0].slug);
                         }
                     }
@@ -56,8 +57,9 @@
 
         $rootScope.$on('user.logout', function () {
 
-            var dataEnvironments = [];
+            dataEnvironments = {};
             setDataEnvironment(null);
+            dataEnvironments.list = [];
             dataEnvironments.available = false;
 
         });
@@ -110,7 +112,6 @@
                 //console.log('chosen api endpoint: ', chosenDataEnvironment, env.API_VERSION, env.API_BASE_URL);
 
             });
-
 
         };
 
