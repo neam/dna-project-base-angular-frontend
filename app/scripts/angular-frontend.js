@@ -81,6 +81,13 @@
                     return dataEnvironment.slug === slug;
                 });
 
+                if (!chosenDataEnvironment) {
+                    activeDataEnvironment.available = null;
+                    console.log('Data environment could not be set to slug: ', angular.copy(slug));
+                    console.log('dataEnvironments: ', angular.copy(dataEnvironments));
+                    return;
+                }
+
                 function endsWith(str, suffix) {
                     return str.indexOf(suffix, str.length - suffix.length) !== -1;
                 }
