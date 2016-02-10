@@ -19,24 +19,23 @@
         //console.log('DataEnvironmentService');
 
         var dataEnvironments = {};
+        dataEnvironments.list = [];
+        dataEnvironments.available = false;
 
         $rootScope.$on('user.login', function (event, profile) {
 
-            dataEnvironments.list = [];
-            dataEnvironments.available = false;
+            // Ignore if no information is available
+            if (!profile.user_metadata || !profile.user_metadata.api_endpoints) {
+                return;
+            }
+
+            // Add api endpoints from user property
+            dataEnvironments.list = profile.user_metadata.api_endpoints;
+            dataEnvironments.available = true;
+
+            console.log('user.login dataEnvironments', dataEnvironments);
 
             auth.profilePromise.then(function () {
-
-                // Ignore if no information is available
-                if (!profile.user_metadata || !profile.user_metadata.api_endpoints) {
-                    return;
-                }
-
-                // Add api endpoints from user property
-                dataEnvironments.list = profile.user_metadata.api_endpoints;
-                dataEnvironments.available = true;
-
-                console.log('user.login dataEnvironments', dataEnvironments);
 
                 if (!activeDataEnvironment.available) {
 
