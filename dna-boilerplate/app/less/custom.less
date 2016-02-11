@@ -15,7 +15,7 @@
 
 body {
 
-  background-color: #f3f3f4;
+  background-color: @sidebar-color;
 
 }
 
@@ -234,7 +234,7 @@ div.select2 .select2-container {
   .nav > li.active a,
   .nav > li a:focus {
 
-    background-color: #151515;
+    background-color: @sidebar-active;
 
   }
 
@@ -253,7 +253,7 @@ div.select2 .select2-container {
 }
 
 .dropdown-menu {
-  background: @navy;
+  background: @navbar-active-color;
 }
 
 .navbar-fixed-top, .navbar-static-top {
@@ -302,21 +302,21 @@ nav.navbar-static-top {
 
       &.active {
 
-        background: @navy;
+        background: @navbar-active-color;
         color: #fff;
 
         &:hover {
-          background: @navy;
+          background: @navbar-active-color;
           color: #fff;
         }
         &:focus {
-          background: @navy;
+          background: @navbar-active-color;
           color: #fff;
         }
 
         a {
 
-          background: @navy;
+          background: @navbar-active-color;
           color: #fff;
 
           &:hover {
@@ -324,7 +324,7 @@ nav.navbar-static-top {
             color: #fff;
           }
           &:focus {
-            background: @navy;
+            background: @navbar-active-color;
             color: #fff;
           }
 
@@ -360,7 +360,7 @@ nav.navbar-static-top {
 
 .navbar-static-side {
 
-  background: #1f1f1f;
+  background: @sidebar-color;
   height: 100%;
   width: 239px;
 
@@ -397,6 +397,7 @@ nav.navbar-static-top {
         color: #000;
         border: 1px solid #e7eaec;
         border-bottom: 0 !important;
+        font-weight:700 !important;
 
         &:hover {
 
@@ -450,7 +451,7 @@ nav.navbar-static-top {
 }
 
 .navbar-static-side {
-  background-color: #444;
+  background-color: @sidebar-color;
 
   li {
 
@@ -485,7 +486,7 @@ nav.navbar-static-top {
 
 #side-menu {
   font-size: 13px;
-  background: #444;
+  background: @sidebar-color;
   width: 239px;
 
   hr {
@@ -497,7 +498,7 @@ nav.navbar-static-top {
     font-weight: 400 !important;
   }
   li.active:hover, li.active > a:hover, li > a:hover {
-    background: #151515 !important;
+    background: @sidebar-active !important;
     color: @navy;
   }
   .nav-title {
@@ -548,21 +549,26 @@ dna-file-selection-widget {
   display: block;
 
   div.preview {
+
     ul {
+
       list-style-type: none;
-      padding-right: 0;
-      padding-left: 0;
-      margin-right: 0;
-      margin-left: 0;
+      margin: 0;
+      padding: 0;
+
       li {
+
         width: 100%;
         float: left;
         padding-right: 0;
         padding-left: 0;
         margin-right: 0;
         margin-left: 0;
+
       }
+
     }
+
   }
 
   div.preview.multiple {
@@ -611,16 +617,71 @@ dna-file-selection-widget {
     -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, .5), inset 0 0 40px @navy;
   }
 
+  float: left;
+
 }
 
-.tooltip {
+#side-menu {
+
+  .switch {
+
+  input {
+    display: none;
+  }
+
+  i {
+    display: inline-block;
+    cursor: pointer;
+    padding-right: 15px;
+    transition: all ease 0.2s;
+    -webkit-transition: all ease 0.2s;
+    border-radius: 20px;
+    box-shadow: inset 0 0 1px rgba(0, 0, 0, .5), inset 0 0 40px @white;
+  }
+
+  i:before {
+    display: block;
+    content: '';
+    width: 15px;
+    height: 15px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+  }
+
+  :checked + i {
+    padding-right: 0;
+    padding-left: 15px;
+    box-shadow: inset 0 0 1px rgba(0, 0, 0, .5), inset 0 0 40px @navy;
+    -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, .5), inset 0 0 40px @navy;
+  }
+
+  &.m-b {margin-top: 2px;}
+
+  float: right;
+
+}
+
+}
+
+.tooltip, .tooltip > .tooltip-inner {font-family: "open sans","Helvetica Neue",Helvetica,Arial,sans-serif !important;}
+.what-is-this + .tooltip.in {
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+.what-is-this + .tooltip > .tooltip-arrow {border-right-color: #ddd !important;}
+.what-is-this + .tooltip > .tooltip-inner {background-color: #f0f0f0; padding:30px; border:1px solid #ddd; max-width:none !important; font-size:13px; color:#333;}
+
+.flowmode-item .tooltip {
   width: 200px;
   font-size: 11px;
   padding: 20px;
 }
 
 .page-heading h1 {
-  font-size: 26px;
+  font-size: 24px;
+  font-weight:700;
+  color:@sidebar-color;
 }
 
 .fp__btn {
@@ -635,11 +696,71 @@ dna-file-selection-widget {
 }
 
 .pace .pace-progress {
-  background: #aed0ed !important;
+  background: @navy !important;
 }
 
 .footer {
   display: none;
+}
+
+label {
+
+  font-weight: 400;
+
+}
+
+input[type=checkbox] {
+
+  margin-right: 6px;
+
+}
+
+.label-left {
+
+  width: 160px;
+  display: inline-block;
+  text-align: right;
+  margin-right: 20px;
+  font-size: 13px;
+  color: #676a6c;
+  float: left;
+
+  &.bold {
+
+    font-weight: 700;
+
+  }
+
+  &.normal {
+
+    font-weight: 400;
+
+
+  }
+
+}
+
+button, input, optgroup, select, textarea {
+  margin: 0 4px;
+}
+
+a, a:hover {
+
+  color: @navy;
+}
+
+.project-actions {
+
+  a {
+
+    color: @navy;
+  }
+
+}
+
+/* angular colorpicker override */
+.colorpicker .dropdown-menu {
+  background-color: #fff;
 }
 
 /* App custom css */

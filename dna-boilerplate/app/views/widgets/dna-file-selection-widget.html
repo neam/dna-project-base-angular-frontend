@@ -1,41 +1,53 @@
 <!-- Preview for currently saved image -->
 <!--
-<pre>{{ file | json }}</pre>
+<pre>file: {{ file | json }}</pre>
+<pre>files: {{ files | json }}</pre>
 -->
 <div ng-if="files.length > 0" class="preview" ng-class="{multiple: multiple}">
     <ul>
         <li ng-repeat="file in files">
-            <p><a href="{{ file.absolute_url }}" target="_blank"><strong ng-show="file.attributes.filename">{{
-                file.attributes.filename }}</strong><strong ng-show="!file.attributes.filename">Existing
-                file</strong></a><span ng-if="file.attributes.size"> (Size {{ file.attributes.size | filesize }})</span>,
-                uploaded {{ file.attributes.created }}</p>
+            <p ng-if="file.absolute_url"><a href="{{ file.absolute_url }}" target="_blank"><strong ng-show="file.filename">{{
+                file.filename }}</strong><strong ng-show="!file.filename">Existing
+                file</strong></a><span ng-if="file.size"> (Size {{ file.size | filesize }})</span>,
+                uploaded {{ file.created }}</p>
+            <p ng-if="!file.absolute_url">Pending file</p>
             <ul>
                 <li ng-repeat="fileInstance in file.fileInstances">{{ fileInstance.filename }}</li>
             </ul>
-            <div class="preview-container">
-                <div filepicker-preview ng-if="getPreviewUrl(file)" url="getPreviewUrl(file)"
+            <div class="preview-container {{ preview }}" ng-if="preview !== 'none' && file.absolute_url">
+                <div filepicker-preview ng-if="preview === 'filestack' && getPreviewUrl(file)" url="getPreviewUrl(file)"
                      style="height:{{previewHeightPixels}}px"></div>
+                <div ng-if="preview === 'video-player'">
+                    <p><a href="{{ file.absolute_url }}" target="_blank">Click to open video file in new tab</a><!-- Video player preview TODO --></p>
+                </div>
+                <div ng-if="preview == 'img-tag'">
+                    <p><img ng-src="{{ file.absolute_url }}" style="max-height:{{previewHeightPixels}}px"/></p>
+                </div>
             </div>
         </li>
     </ul>
 </div>
 <div ng-if="!file.id">
-    (No file<span ng-show="multiple">s</span> selected)
+    <p>(No file<span ng-show="multiple">s</span> selected)</p>
 </div>
 
-<!-- Button to replace empty/saved image with newly uploaded image -->
+<!-- Button to replace empty/saved file(s) with newly uploaded file(s) -->
 <div class="pick-files">
-    <input ng-if="!multiple" filepicker type="filepicker-dragdrop"
-           data-fp-mimetypes="*/*" data-fp-container="modal" data-fp-multiple="false"
+    <!-- The ng-if="..." has the necessary side-effect that the attributes are evaluated when the scope variables are properly loaded -->
+    <!-- Not using "-dragdrop" since uploads to the dragdrop-pane are failing -->
+    <input ng-if="type !== 'video'" filepicker type="filepicker"
+           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{multiple}}"
+           data-fp-policy="{{policy}}" data-fp-signature="{{signature}}"
            data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT"
            on-success="onSuccess(event)">
-    <input ng-if="multiple" filepicker type="filepicker-dragdrop"
-           data-fp-mimetypes="*/*" data-fp-container="modal" data-fp-multiple="true"
-           data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT"
+    <input ng-if="type === 'video'" filepicker type="filepicker"
+           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{multiple}}"
+           data-fp-policy="{{policy}}" data-fp-signature="{{signature}}"
+           data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,URL"
            on-success="onSuccess(event)">
 </div>
 
-<!-- The actual input to hold the id of the chosen file -->
+<!-- The actual input to hold the id of the chosen file(s) -->
 <input ng-if="!multiple" type="hidden" ng-model="ngModel"/>
 <select ng-if="multiple" ng-model="ngModel" multiple="multiple" style="display:none;"></select>
 <!--

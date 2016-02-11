@@ -35,10 +35,43 @@ HINT;
     return <<<INPUT
 <div class="row">
     <div class="col-sm-2">
-        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label> $hintMarkup
+        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
         <input type="text" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
+    </div>
+</div>
+
+INPUT;
+
+};
+
+// Text input with colorpicker
+
+$textInputWithColorpicker = function ($attribute, $model) {
+
+    $itemTypeAttributes = $model->itemTypeAttributes();
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $lcfirstModelClass = lcfirst(get_class($model));
+    $attribute = str_replace("/", ".attributes.", $attribute);
+
+    // Sanitize
+    $label = Html::encode($attributeInfo["label"]);
+    $hint = htmlspecialchars($attributeInfo["hint"]);
+
+    // Include hint markup if hint is not empty
+    $hintMarkup =<<<HINT
+<span class="badge badge-primary adoveo-badge" tooltip-placement="right" data-tooltip-html-unsafe="$hint">?</span>
+HINT;
+    $hintMarkup = !empty($hint) ? $hintMarkup : "";
+
+    return <<<INPUT
+<div class="row">
+    <div class="col-sm-2">
+        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label>$hintMarkup
+    </div>
+    <div class="col-sm-10">
+        <input type="text" colorpicker placeholder="Click for color picker" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
     </div>
 </div>
 
@@ -68,7 +101,7 @@ HINT;
     return <<<INPUT
 <div class="row">
     <div class="col-sm-2">
-        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label> $hintMarkup
+        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
         <textarea ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b"></textarea>
@@ -88,10 +121,20 @@ $fileSelectionWidget = function ($attribute, $model) {
     $lcfirstModelClass = lcfirst(get_class($model));
     $attribute = str_replace("/", ".attributes.", $attribute);
 
+    // Sanitize
+    $label = Html::encode($attributeInfo["label"]);
+    $hint = htmlspecialchars($attributeInfo["hint"]);
+
+    // Include hint markup if hint is not empty
+    $hintMarkup =<<<HINT
+<span class="badge badge-primary" tooltip-placement="right" data-tooltip-html-unsafe="$hint">?</span>
+HINT;
+    $hintMarkup = !empty($hint) ? $hintMarkup : "";
+
     return <<<INPUT
 <div class="row">
     <div class="col-sm-2">
-        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$attributeInfo["label"]}</label>
+        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
         <dna-file-selection-widget preview-height-pixels="dnaFileSelectionWidgetPreviewHeightPixels" file="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-file-selection-widget>
@@ -154,10 +197,20 @@ $switchInput = function ($attribute, $model) {
     $lcfirstModelClass = lcfirst(get_class($model));
     $attribute = str_replace("/", ".attributes.", $attribute);
 
+    // Sanitize
+    $label = Html::encode($attributeInfo["label"]);
+    $hint = htmlspecialchars($attributeInfo["hint"]);
+
+    // Include hint markup if hint is not empty
+    $hintMarkup =<<<HINT
+<span class="badge badge-primary adoveo-badge" tooltip-placement="right" data-tooltip-html-unsafe="$hint">?</span>
+HINT;
+    $hintMarkup = !empty($hint) ? $hintMarkup : "";
+
     return <<<INPUT
 <div class="row">
     <div class="col-sm-2">
-        <label class="label-left control-label">{$attributeInfo["label"]}</label>
+        <label class="label-left control-label">{$label}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
         <label class="switch m-b">
@@ -1182,6 +1235,7 @@ $activeFields = [
     '\.file' => $fileSelectionWidget,
     '\.*_markup' => $textAreaInput,
     '\.*_message' => $textAreaInput,
+    '\.*_color' => $textInputWithColorpicker,
     'owner' => $todo,
     'node' => $todo,
     '.*' => $defaultInput,

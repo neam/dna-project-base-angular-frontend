@@ -78,6 +78,10 @@
     <!-- endbuild -->
 
     <!-- These assets break when built, thus excluding from build currently -->
+
+    <!-- Angular colorpicker -->
+    <link href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" rel="stylesheet">
+
     <!-- Select2 -->
     <link href="bower_components/select2/dist/css/select2.min.css" rel="stylesheet" />
 
@@ -131,6 +135,9 @@
     });
 </script>
 
+<!-- Auth0 - upstream minification issues require these to be included as-is -->
+<script src="bower_components/auth0-lock/build/auth0-lock.js"></script>
+
 <!-- build:js({.tmp,.merged-app}) scripts/vendor.js -->
 
 <!-- jQuery and Bootstrap -->
@@ -170,6 +177,9 @@
 <script src="bower_components/angulartics/dist/angulartics-ga.min.js"></script>
 <script src="bower_components/angulartics/dist/angulartics-mixpanel.min.js"></script>
 <script src="bower_components/ngSmoothScroll/lib/angular-smooth-scroll.js"></script>
+
+<!-- Angular Color Picker (angular-minicolors) -->
+<script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
 
 <!-- Angular optimizely -->
 <script src="bower_components/ng-optimizely/ng-optimizely.js"></script>
@@ -221,10 +231,9 @@
 <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
 
-<!-- Auth0 -->
+<!-- Auth0 (except auth0-lock.js which does not survive the build process) -->
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-<script src="bower_components/auth0-lock/build/auth0-lock.js"></script>
 <script src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
 <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
 <script src="bower_components/auth0-angular/build/auth0-angular.js"> </script>

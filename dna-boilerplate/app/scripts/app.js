@@ -272,8 +272,11 @@
                 file: '=',
                 files: '=',
                 ngModel: '=',
-                previewHeightPixels: '=', // Filepicker preview widget requires a fixed amount of pixels as height parameter, can't be set via css :/
+                type: '@', // 'any' (default), 'video', 'image'
+                preview: '@', // 'filestack' (default), 'none'
+                previewHeightPixels: '=', // Filestack preview widget requires a fixed amount of pixels as height parameter, can't be set via css :/
                 multiple: '@', // true, false (default)
+                mimetypes: '@', // */* (default)
                 // TODO:
                 name: '@',
                 mediaLibrary: '@', // none, select2, file-manager
@@ -287,8 +290,42 @@
                     scope.files = (scope.file && scope.file.id) ? [scope.file] : [];
                 }
 
-                // Set default to 200px
+                // Set defaults
                 scope.previewHeightPixels = scope.previewHeightPixels || 200;
+                scope.type = scope.type || 'any';
+                if (!scope.mimetypes) {
+                    switch (scope.type) {
+                        case 'image':
+                            scope.mimetypes = 'image/*';
+                            break;
+                        case 'video':
+                            scope.mimetypes = 'video/*';
+                            break;
+                        default:
+                        case 'any':
+                            scope.mimetypes = '*/*';
+                            break;
+                    }
+                }
+                if (!scope.preview) {
+                    switch (scope.type) {
+                        case 'image':
+                            scope.preview = 'img-tag';
+                            break;
+                        case 'video':
+                            scope.preview = 'video-player';
+                            break;
+                        default:
+                        case 'any':
+                            scope.preview = 'filestack';
+                            break;
+                    }
+
+                }
+
+                // Set creator policy and signature
+                scope.policy = env.FILESTACK_CREATOR_POLICY;
+                scope.signature = env.FILESTACK_CREATOR_SIGNATURE;
 
                 /*
                  scope.pickFile = pickFile;
@@ -322,6 +359,9 @@
                     if (file.absolute_url.indexOf("//cdn.filepicker.io/") >= 0) {
                         return file.absolute_url;
                     }
+                    if (file.absolute_url.indexOf("//cdn.filestackcontent.com/") >= 0) {
+                        return file.absolute_url;
+                    }
                     return null;
                 };
 
@@ -353,9 +393,12 @@
                     // Default behavior is to create a new file item and then replace the existing id with the id of the new file item
                     var fileInstance = angular.extend({}, fileInstanceResource.dataSchema());
 
-                    fileInstance.attributes.storage_component_ref = 'filepicker';
+                    fileInstance.attributes.storage_component_ref = 'filestack';
                     fileInstance.attributes.uri = fpfile.url;
-                    fileInstance.attributes.data_json = JSON.stringify(fpfile);
+                    fileInstance.attributes.data_json = JSON.stringify({
+                        fpfile: fpfile,
+                        fpkey: env.FILEPICKER_API_KEY
+                    });
 
                     var file = angular.extend({}, fileResource.dataSchema());
 
@@ -363,7 +406,7 @@
                     file.attributes.mimetype = fpfile.mimetype;
                     file.attributes.filename = fpfile.filename;
                     file.attributes.original_filename = fpfile.filename;
-                    file.attributes.fileInstances.push(fileInstance);
+                    file.attributes.filestackFileInstance = fileInstance;
 
                     // create a new file item
                     files.add(file, function (createdFile) {
@@ -376,14 +419,16 @@
                             // replace the existing id with the id of the new file item
                             ngModel.$setViewValue(createdFile.id);
                         }
-                        ngModel.$setDirty()
+                        ngModel.$setDirty();
                         // update file(s) preview
-                        scope.file = createdFile;
-                        if (!scope.multiple) {
-                            scope.files.length = 0;
-                        }
                         createdFile.previewUrl = getPreviewUrl(scope.file);
-                        scope.files.push(createdFile);
+                        if (!scope.multiple) {
+                            scope.file = createdFile;
+                            scope.files.length = 0;
+                            scope.files = [scope.file];
+                        } else {
+                            scope.files.push(createdFile);
+                        }
                     });
 
                 };

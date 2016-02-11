@@ -13,7 +13,8 @@
 
         <h1><span
                 ng-show="!activeDataEnvironment.available && !auth.profilePromise" data-t="main heading">&nbsp;</span>
-            <span ng-show="!activeDataEnvironment.available && auth.profilePromise" data-t="account activation heading"></span>
+            <span ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length === 0" data-t="account activation heading">Thank you for signing up!</span>
+            <span ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length > 0">Your account has super-powers!</span>
                     <span ng-show="activeDataEnvironment.available && auth.profilePromise">Good day<span
                             style="display:inline;" ng-show="auth.profile.gender === 'male'">, Sir</span><span
                             style="display:inline;" ng-show="auth.profile.gender === 'female'">, Ma'am</span>! {{env.SITENAME}} is ready for you!</span>
@@ -40,7 +41,7 @@
 
         </div>
 
-        <div ng-show="!activeDataEnvironment.available && auth.profilePromise">
+        <div ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length === 0">
 
             <div>
                 <span data-t="account activation info">&nbsp;</span>
@@ -52,6 +53,14 @@
 
             <div>
                 <span data-t="account activation subtext">&nbsp;</span>
+            </div>
+
+        </div>
+
+        <div ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length > 0">
+
+            <div>
+                <span>To continue, choose a database to work with in the top right corner.</span>
             </div>
 
         </div>
