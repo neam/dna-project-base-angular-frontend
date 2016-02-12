@@ -28,14 +28,16 @@
         <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.pricing" href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Pricing</span></a>
     </li>
 
+    <!--
     <li ng-show="!activeDataEnvironment.available">
         <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label">Processes</span></a>
         <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label">Processes</span></a>
     </li>
+    -->
 
     <li ng-show="!activeDataEnvironment.available">
-        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label">About us</span></a>
-        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label">About us</span></a>
+        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label">About / FAQ</span></a>
+        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label">About / FAQ</span></a>
     </li>
 
     <!--
@@ -73,7 +75,7 @@
 <ul class="nav navbar-nav" ng-show="auth.profilePromise && !activeDataEnvironment.available">
 
     <li ui-sref-active="active">
-        <a ui-sref="root.basic-info.overview" href="#"><i
+        <a ui-sref="root.get-started.introduction" href="#"><i
                 class="fa fa-building"></i> <span class="nav-building">1. Decide how to use the tool</span></a>
     </li>
 
@@ -97,7 +99,7 @@
 <ul class="nav navbar-nav" ng-show="auth.profilePromise && activeDataEnvironment.available">
 
     <li ui-sref-active="active">
-        <a ui-sref="root.api-endpoints.existing.basic-info.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
+        <a ui-sref="root.api-endpoints.existing.get-started.introduction({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
                 class="fa fa-building"></i> <span class="nav-building">1. Decide how to use the tool</span></a>
     </li>
 
@@ -114,6 +116,11 @@
     <li ui-sref-active="active">
         <a ui-sref="root.api-endpoints.existing.up-to-date.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
                 class="fa fa-clock-o"></i> <span class="nav-label">4. Stay up-to-date</span></a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="root.api-endpoints.existing.basic-info.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
+                class="fa fa-cog"></i> <span class="nav-label">Basic info</span></a>
     </li>
 
 </ul>
