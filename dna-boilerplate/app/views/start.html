@@ -12,8 +12,8 @@
     -->
 
         <h1><span
-                ng-show="!activeDataEnvironment.available && !auth.profilePromise" data-t="main heading">&nbsp;</span>
-            <span ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length === 0" data-t="account activation heading">Thank you for signing up!</span>
+                ng-show="!activeDataEnvironment.available && !auth.profilePromise">{{ optimizelyVariation.data["main heading"] }}</span>
+            <span ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length === 0">{{ optimizelyVariation.data["account activation heading"] }}</span>
             <span ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length > 0">Your account has super-powers!</span>
                     <span ng-show="activeDataEnvironment.available && auth.profilePromise">Good day<span
                             style="display:inline;" ng-show="auth.profile.gender === 'male'">, Sir</span><span
@@ -23,15 +23,15 @@
         <div ng-show="!activeDataEnvironment.available && !auth.profilePromise">
 
             <div>
-                <span data-t="main info"></span>
+                <span>{{ optimizelyVariation.data["main info"] }}</span>
             </div>
 
-            <a ui-sref="root.start.user.signup" class="btn btn-primary btn-lg" style="white-space: inherit;"><span data-t="main button text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; <i
+            <a ui-sref="root.start.user.signup" class="btn btn-primary btn-lg" style="white-space: inherit;"><span>{{ optimizelyVariation.data["main button text"] }}</span> &nbsp; <i
                         class="fa fa-lg fa-long-arrow-right"></i></a>
             <br>
 
             <div>
-                <span><!--  data-t="main subtext" --><!--<a ui-sref="root.faq">Find out how</a> or--> <a ui-sref="root.start.user.login"
+                <span><!--<a ui-sref="root.faq">Find out how</a> or--> <a ui-sref="root.start.user.login"
                                                                           class="btn btn-primary btn-sm">Log in</a> if you already have an account</span>
             </div>
 
@@ -43,15 +43,15 @@
         <div ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length === 0">
 
             <div>
-                <span data-t="account activation info">&nbsp;</span>
+                <span>{{ optimizelyVariation.data["account activation info"] }}</span>
             </div>
 
             <a ui-sref="root.start.user.request-invite"
-               class="btn btn-primary btn-lg" style="white-space: inherit;"><span data-t="account activation button text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; <i
+               class="btn btn-primary btn-lg" style="white-space: inherit;"><span>{{ optimizelyVariation.data["account activation button text"] }}</span> &nbsp; <i
                     class="fa fa-lg fa-long-arrow-right"></i></a></span>
 
             <div>
-                <span data-t="account activation subtext">&nbsp;</span>
+                <span>{{ optimizelyVariation.data["account activation subtext"] }}</span>
             </div>
 
         </div>
@@ -85,10 +85,10 @@
 
         <div class="banner">
         <div ng-show="!activeDataEnvironment.available && !auth.profilePromise">
-            <span data-t="main banner">&nbsp;<br/>&nbsp;<br/></span>
+            <span>{{ optimizelyVariation.data["main banner"] }}</span>
         </div>
         <div ng-show="!activeDataEnvironment.available && auth.profilePromise">
-            <span data-t="account activation banner">&nbsp;<br/>&nbsp;<br/></span>
+            <span>{{ optimizelyVariation.data["account activation banner"] }}&nbsp;<br/>&nbsp;<br/></span>
         </div>
         <div ng-show="activeDataEnvironment.available && auth.profilePromise">
             <span>The main workflow of {{env.SITENAME}} is shown below:</span>
@@ -101,80 +101,19 @@
 
         <div ng-show="!activeDataEnvironment.available && !auth.profilePromise">
 
-        <div class="row" ng-repeat="row in [0,1,2,3,4]">
-            <div class="col-md-3">
+        <div class="row" ng-repeat="row in [0,1,2,3,4]" ng-if="optimizelyVariation.data['inforow '+(row+1)+' shown'] === 'yes'">
+            <div class="col-md-3" ng-repeat="index in [4*row+1,4*row+2,4*row+3,4*row+4]" ng-if="optimizelyVariation.data['info '+(index)+' shown'] === 'yes'">
 
                 <a ui-sref="root.start.user.signup"
-                       href="#"><i data-t="info {{4*row+1}} class" class="fa fa-circle-thin"></i></a>
+                       href="#"><i class="fa" ng-class="optimizelyVariation.data['info '+(index)+' class']"></i></a>
 
                 <h2>
                     <a ui-sref="root.start.user.signup"
-                       href="#"><span class="nav-label" data-t="info {{4*row+1}} heading"></span></a></h2>
+                       href="#"><span class="nav-label">{{ optimizelyVariation.data["info "+(index)+" heading"] }}</span></a></h2>
 
-                <p data-t="info {{4*row+1}} subtext">
-                        &nbsp;<br/>
-                        &nbsp;<br/>
-
-
-
-                </p>
+                <p>{{ optimizelyVariation.data["info "+(index)+" subtext"] }}</p>
 
             </div>
-            <div class="col-md-3">
-
-                <a ui-sref="root.start.user.signup"
-                       href="#"><i data-t="info {{4*row+2}} class" class="fa fa-circle-thin"></i></a>
-
-                <h2>
-                    <a ui-sref="root.start.user.signup"
-                       href="#"><span class="nav-label" data-t="info {{4*row+2}} heading"></span></a></h2>
-
-                <p data-t="info {{4*row+2}} subtext">
-                        &nbsp;<br/>
-                        &nbsp;<br/>
-
-
-
-                </p>
-
-            </div>
-            <div class="col-md-3">
-
-                <a ui-sref="root.start.user.signup"
-                       href="#"><i data-t="info {{4*row+3}} class" class="fa fa-circle-thin"></i></a>
-
-                <h2><a ui-sref="root.start.user.signup"
-                       href="#">
-                    <span class="nav-label" data-t="info {{4*row+3}} heading"></span></a></h2>
-
-                <p data-t="info {{4*row+3}} subtext">
-                        &nbsp;<br/>
-                        &nbsp;<br/>
-
-
-
-                </p>
-
-            </div>
-            <div class="col-md-3">
-
-                <a ui-sref="root.start.user.signup"
-                       href="#"><i data-t="info {{4*row+4}} class" class="fa fa-circle-thin"></i></a>
-
-                <h2>
-                    <a ui-sref="root.start.user.signup"
-                       href="#">
-                        <span class="nav-label" data-t="info {{4*row+4}} heading"></span></a></h2>
-
-                <p data-t="info {{4*row+4}} subtext">
-                        &nbsp;<br/>
-                        &nbsp;<br/>
-
-
-                </p>
-
-            </div>
-
         </div>
 
         </div>
@@ -184,14 +123,14 @@
         <div class="row">
             <div class="col-md-3">
 
-                <a ui-sref="root.api-endpoints.existing.basic-info.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i class="fa fa-building"></i></a>
+                <a ui-sref="root.api-endpoints.existing.get-started.introduction({dataEnvironment: activeDataEnvironment.slug})" href="#"><i class="fa fa-building"></i></a>
 
-                <h2><a ui-sref="root.api-endpoints.existing.basic-info.overview({dataEnvironment: activeDataEnvironment.slug})" href="#">
+                <h2><a ui-sref="root.api-endpoints.existing.get-started.introduction({dataEnvironment: activeDataEnvironment.slug})" href="#">
                     <span class="nav-label">1. Decide how to use the tool</span></a></h2>
 
                 <p>
 
-                    Learn about the typical {{env.SITENAME}} workflows and decide how and during what processes you or your team best can use the tool.
+                    Get an introduction to {{env.SITENAME}} and decide what to get done.
 
                 </p>
 

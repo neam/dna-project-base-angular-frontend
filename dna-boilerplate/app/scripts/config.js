@@ -22,11 +22,9 @@
                      return metadataService.getMetadataPromise();
                      }
                      */
-                    optimizely: function (optimizely) {
-                        if (env.OFFLINE_DEV === 'true') {
-                            return true;
-                        }
-                        return optimizely.loadProject(env.OPTIMIZELY_ACCOUNT_ID /*, '$stateChangeSuccess' */);
+                    // Avoid FOUC by waiting for optimizely variation data to be available before rendering page
+                    optimizelyVariation: function (optimizelyVariation) {
+                        return optimizelyVariation.deferred.promise();
                     }
                 },
                 data: {showSideMenu: false}
@@ -541,6 +539,14 @@
             $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
                 $rootScope.Intercom = window.Intercom;
             });
+        })
+        .config(function (optimizelyProvider) {
+            optimizelyProvider.setKey(env.OPTIMIZELY_PROJECT_ID);
+            optimizelyProvider.setActivationEventName(false);
+            //optimizelyProvider.setActivationEventName('$stateChangeSuccess');
+        })
+        .run(function ($rootScope, optimizelyVariation) {
+            $rootScope.optimizelyVariation = optimizelyVariation;
         })
         .run(function ($rootScope, $state, suggestionsService, hotkeys, auth, $http, DataEnvironmentService, $location) {
 

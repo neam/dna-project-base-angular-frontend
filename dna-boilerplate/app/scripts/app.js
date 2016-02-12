@@ -50,8 +50,7 @@
                 });
 
                 status = statuses.LOADING;
-                $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/suggestions', params).
-                then(function (response) {
+                $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/suggestions', params).then(function (response) {
                     // this callback will be called asynchronously
                     // when the response is available
 
@@ -208,6 +207,55 @@
         return visibilitySettings;
 
     });
+
+    /**
+     * Service used to access data resolved via the deferred object window.optimizelyVariation
+     * This way, optimizely scripts can resolve window.optimizelyVariation in order to make that data accessible to angular templates:
+     * window.optimizelyVariation.resolve(data);
+     */
+    app.service('optimizelyVariation', function (optimizely, $window, $timeout) {
+
+        var fallbackData = {"fallback": "data"};
+
+        console.log('optimizely variation data service init');
+        var optimizelyVariation = {
+            data: null,
+            deferred: $window.optimizelyVariation
+        };
+        optimizelyVariation.deferred.done(function (data) {
+            console.log('optimizely variation data deferred done');
+            optimizelyVariation.data = data;
+            // inform angular that we have updated the data by implicitly calling $apply via $timeout
+            $timeout(function () {
+                console.log('$timeout optimizely triggered');
+            });
+        });
+
+        // Use fallback data if working offline or optimizely has not delivered the data within a certain timeframe
+        if (env.OFFLINE_DEV === 'true') {
+            optimizelyVariation.deferred.resolve(fallbackData);
+        } else {
+            optimizely.loadProject();
+            // Allow some time for optimizely data to arrive
+            $timeout(function () {
+                console.log('$timeout optimizely timeout');
+                optimizelyVariation.deferred.resolve(fallbackData);
+            }, 2000);
+        }
+
+        return optimizelyVariation;
+
+    });
+
+    /**
+     * Allows to render HTML via scope variables
+     * Source: http://stackoverflow.com/a/25513186/682317
+     */
+    app.filter("sanitize", ['$sce', function ($sce) {
+        return function (htmlCode) {
+            return $sce.trustAsHtml(htmlCode);
+        }
+    }]);
 
     /**
      * Service that intercepts requests, can be used to show general error messages on failed requests
