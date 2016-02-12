@@ -88,7 +88,7 @@
             <span>{{ optimizelyVariation.data["main banner"] }}</span>
         </div>
         <div ng-show="!activeDataEnvironment.available && auth.profilePromise">
-            <span>{{ optimizelyVariation.data["account activation banner"] }}&nbsp;<br/>&nbsp;<br/></span>
+            <span>{{ optimizelyVariation.data["account activation banner"] }}</span>
         </div>
         <div ng-show="activeDataEnvironment.available && auth.profilePromise">
             <span>The main workflow of {{env.SITENAME}} is shown below:</span>
@@ -118,7 +118,7 @@
 
         </div>
 
-        <div ng-show="auth.profilePromise">
+        <div ng-show="activeDataEnvironment.available && auth.profilePromise">
 
         <div class="row">
             <div class="col-md-3">
@@ -126,7 +126,7 @@
                 <a ui-sref="root.api-endpoints.existing.get-started.introduction({dataEnvironment: activeDataEnvironment.slug})" href="#"><i class="fa fa-building"></i></a>
 
                 <h2><a ui-sref="root.api-endpoints.existing.get-started.introduction({dataEnvironment: activeDataEnvironment.slug})" href="#">
-                    <span class="nav-label">1. Decide how to use the tool</span></a></h2>
+                    <span class="nav-label">1. Get started</span></a></h2>
 
                 <p>
 
@@ -183,6 +183,72 @@
         </div>
 
         </div>
+
+        <div ng-show="!activeDataEnvironment.available && auth.profilePromise">
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <a ui-sref="root.get-started.introduction({dataEnvironment: activeDataEnvironment.slug})" href="#"><i class="fa fa-building"></i></a>
+
+                <h2><a ui-sref="root.get-started.introduction({dataEnvironment: activeDataEnvironment.slug})" href="#">
+                    <span class="nav-label">1. Get started</span></a></h2>
+
+                <p>
+
+                    Get an introduction to {{env.SITENAME}} and decide what to get done.
+
+                </p>
+
+            </div>
+            <div class="col-md-3">
+
+                <a ui-sref="root.import.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i class="fa fa-cloud-download"></i></a>
+
+                <h2><a ui-sref="root.import.overview({dataEnvironment: activeDataEnvironment.slug})"
+                       href="#"><span class="nav-label">2. Import bank statements</span></a></h2>
+
+                <p>
+
+                    Gather bank transaction data from multiple accounts and banks into a single place.
+
+                </p>
+
+            </div>
+            <div class="col-md-3">
+
+                <a ui-sref="root.get-things-done({dataEnvironment: activeDataEnvironment.slug})" href="#"><i class="fa fa-calendar"></i></a>
+
+                <h2><a ui-sref="root.get-things-done({dataEnvironment: activeDataEnvironment.slug})"
+                       href="#"><span class="nav-label">3. Analyze spending</span></a></h2>
+
+                <p>
+
+                    {{env.SITENAME}} lets you categorize and refine the information so that insightful spending reports can be generated.
+
+                </p>
+
+            </div>
+            <div class="col-md-3">
+
+                <a ui-sref="root.up-to-date.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i class="fa fa-clock-o"></i></a>
+
+                <h2><a ui-sref="root.up-to-date.overview({dataEnvironment: activeDataEnvironment.slug})" href="#">
+                    <span class="nav-label">4. Stay up-to-date</span></a></h2>
+
+                <p>
+
+                    Set up routines, scheduled imports and reminders for convenient follow-ups at later dates.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        </div>
+
+    </div>
 
     </div>
 

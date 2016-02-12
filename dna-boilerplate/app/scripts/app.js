@@ -17,6 +17,7 @@
         'smoothScroll',                 // ngSmoothScroll
         'dcNasdaq',                     // necessary for scripts/dc/dc-nasdaq-controller.js
         //'angularJade',
+        //'section-get-started',
         //'section-basic-info',
     ]);
 
