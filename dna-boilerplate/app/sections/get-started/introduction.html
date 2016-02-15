@@ -31,12 +31,7 @@
             </div>
             <div class="ibox-content">
 
-                <p>{{env.SITENAME}} was created by people who got really fed up with manually dealing with
-                    accounting
-                    preparations year out, year in.</p>
-
-                <p>We created {{env.SITENAME}} to help you (and us) gather, structure and refine the information
-                    about business events that is required for accounting.</p>
+                <p>...</p>
 
             </div>
 
@@ -46,158 +41,17 @@
 
             <div class="ibox">
                 <div class="ibox-title">
-                    <h5>Overview of what kind of work you will be getting help with in {{env.SITENAME}}</h5>
+                    <h5>...</h5>
                 </div>
                 <div class="ibox-content">
 
-                    <h5>Import and include</h5>
+                    <h5>...</h5>
 
-                    <ul>
-                        <li>Gather bank transaction data from multiple accounts and banks into a single place
-                        </li>
-                        <li>Gather invoice and receipt data from multiple sources into a single place</li>
-                        <li>Gather trip and travel report data from multiple sources into a single place</li>
-                    </ul>
-
-                    <h5>Get things done</h5>
-
-                    <p>For each fiscal year:</p>
-
-                    <ul>
-                        <li>Determine how much work is required for accounting</li>
-                        <li>Refine information about business events as necessary</li>
-                        <li>Share relevant information with your accountant</li>
-                    </ul>
-
-                    <h5>Stay up-to-date</h5>
-
-                    <ul>
-                        <li>Set up routines, scheduled imports and reminders to help you keep everything
-                            up-to-date
-                        </li>
-                    </ul>
+                    <p>...</p>
 
                 </div>
             </div>
 
         </div>
-
-        <div class="col-lg-9">
-
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h5>Next steps</h5>
-                </div>
-                <div class="ibox-content">
-
-                    <p>To better tailor your user experience, you can</p>
-
-                    <p>
-                        <a ui-sref="root.api-endpoints.existing.get-started.what-to-get-done({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})"
-                           href="#" class="btn btn-primary btn-lg">state what you want to get done</a></p>
-
-                    <p>as well as</p>
-
-                    <p>
-                        <a ui-sref="root.api-endpoints.existing.get-started.survey({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})"
-                           href="#" class="btn btn-primary btn-lg">tell us about yourself</a></p>
-
-                    <p>Or if you are impatient, get right down to</p>
-
-                    <p>
-                        <a ui-sref="root.api-endpoints.existing.import.overview({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})"
-                           href="#" class="btn btn-primary btn-lg">start importing data</a></p>
-
-                </div>
-            </div>
-
-        </div>
-
-        <!--
-                <div class="col-lg-9">
-
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h5>Overview of how information is refined in {{env.SITENAME}}</h5>
-                        </div>
-                        <div class="ibox-content">
-
-                            <!--
-                            <pre>
-                            Gather
-                            ...the information about business events required for accounting
-
-                            bank/financial-institution exports / copy-pastes
-                                AccountBalance
-                                TransactionRow -> Whereabouts
-
-                            mailbox-dig/extraction/sync
-                                LedgerEntry.SupportingDocuments -> TransactionRow.LedgerEntryType (IncomingDirectPayment, IncomingInvoice, IncomingInvoicePayment, InternalTransfer, OneTimePurchase, OneTimeSale, OutgoingDirectPayment, OutgoingInvoice, OutgoingInvoicePayment, PurchasedSubscription, PurchasedTime)
-                                Whereabouts
-                                Trip
-
-                            economacs exports / copy-pastes
-                                LedgerAccountBalance
-                                (past) LedgerEntries + LedgerEntryRows
-
-                            evernote
-                                LedgerEntry.SupportingDocuments -> TransactionRow.LedgerEntryType (IncomingDirectPayment, IncomingInvoice, IncomingInvoicePayment, InternalTransfer, OneTimePurchase, OneTimeSale, OutgoingDirectPayment, OutgoingInvoice, OutgoingInvoicePayment, PurchasedSubscription, PurchasedTime)
-
-                            </pre>
-                            --
-
-        <pre>
-        TransactionRow
-            bank/financial-institution exports / copy-pastes
-
-        AccountBalance
-            HITs
-            bank/financial-institution exports / copy-pastes
-
-        SupportingDocuments
-            mailbox-dig/extraction/sync
-            evernote
-            photo/pdf uploads
-
-        Whereabouts
-            SupportingDocuments
-            TransactionRow
-            Neamtime spent time interpretations
-            Trip
-
-        Trip
-            mailbox-dig/extraction/sync
-            Whereabouts
-
-        Travel Reports
-            Trip
-
-        Invoice (also includes Receipts of paid services)
-            SupportingDocuments
-            invoice-program/service export/import/sync
-            NeamtimeInvoice
-
-        LedgerAccountBalance
-            economacs exports / copy-pastes
-            AccountBalance
-
-        TransactionRow.LedgerEntryType (IncomingDirectPayment, IncomingInvoice, IncomingInvoicePayment, InternalTransfer, OneTimePurchase, OneTimeSale, OutgoingDirectPayment, OutgoingInvoice, OutgoingInvoicePayment, PurchasedSubscription, PurchasedTime)
-            HITs
-            SupportingDocuments
-
-        LedgerEntries + LedgerEntryRows
-            economacs exports / copy-pastes
-            TransactionRow
-            TravelReport
-
-        </pre>
-
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        -->
 
     </div>
