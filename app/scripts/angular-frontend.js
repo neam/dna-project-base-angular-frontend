@@ -24,18 +24,18 @@
 
         $rootScope.$on('user.login', function (event, profile) {
 
+            // Ignore if no information is available
+            if (!profile.user_metadata) {
+                return;
+            }
+
+            // Add api endpoints from user property
+            dataEnvironments.list = profile.user_metadata.api_endpoints || [];
+            dataEnvironments.available = true;
+
+            console.log('user.login dataEnvironments', dataEnvironments);
+
             auth.profilePromise.then(function () {
-
-                // Ignore if no information is available
-                if (!profile.user_metadata) {
-                    return;
-                }
-
-                // Add api endpoints from user property
-                dataEnvironments.list = profile.user_metadata.api_endpoints || [];
-                dataEnvironments.available = true;
-
-                console.log('user.login dataEnvironments', dataEnvironments);
 
                 if (!activeDataEnvironment.available) {
 
@@ -55,6 +55,11 @@
                     console.log('updated auth data after login');
                 });
 
+            });
+
+            // inform angular that we have updated auth data by implicitly calling $apply via $timeout
+            $timeout(function () {
+                console.log('updated auth data after login');
             });
 
         });
