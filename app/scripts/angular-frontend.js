@@ -14,7 +14,7 @@
     /**
      * Services whose purpose is to supply the "dataEnvironments" array and "setDataEnvironment" function
      */
-    module.service('DataEnvironmentService', function ($q, auth, $rootScope) {
+    module.service('DataEnvironmentService', function ($q, auth, $rootScope, $timeout) {
 
         //console.log('DataEnvironmentService');
 
@@ -50,16 +50,25 @@
 
                 }
 
+                // inform angular that we have updated auth data by implicitly calling $apply via $timeout
+                $timeout(function () {
+                    console.log('updated auth data after login');
+                });
+
             });
 
         });
 
         $rootScope.$on('user.logout', function () {
 
-            dataEnvironments = {};
             setDataEnvironment(null);
             dataEnvironments.list = [];
             dataEnvironments.available = false;
+
+            // inform angular that we have updated auth data by implicitly calling $apply via $timeout
+            $timeout(function () {
+                console.log('updated auth data after logout');
+            });
 
         });
 
