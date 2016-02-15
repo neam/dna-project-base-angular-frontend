@@ -214,9 +214,7 @@
      * This way, optimizely scripts can resolve window.optimizelyVariation in order to make that data accessible to angular templates:
      * window.optimizelyVariation.resolve(data);
      */
-    app.service('optimizelyVariation', function (optimizely, $window, $timeout) {
-
-        var fallbackData = {"fallback": "data"};
+    app.service('optimizelyVariation', function (optimizely, optimizelyFallbackData, $window, $timeout) {
 
         console.log('optimizely variation data service init');
         var optimizelyVariation = {
@@ -228,19 +226,19 @@
             optimizelyVariation.data = data;
             // inform angular that we have updated the data by implicitly calling $apply via $timeout
             $timeout(function () {
-                console.log('$timeout optimizely triggered');
+                console.log('optimizely data in place');
             });
         });
 
         // Use fallback data if working offline or optimizely has not delivered the data within a certain timeframe
         if (env.OFFLINE_DEV === 'true') {
-            optimizelyVariation.deferred.resolve(fallbackData);
+            optimizelyVariation.deferred.resolve(optimizelyFallbackData);
         } else {
             optimizely.loadProject();
             // Allow some time for optimizely data to arrive
             $timeout(function () {
                 console.log('$timeout optimizely timeout');
-                optimizelyVariation.deferred.resolve(fallbackData);
+                optimizelyVariation.deferred.resolve(optimizelyFallbackData);
             }, 2000);
         }
 

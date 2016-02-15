@@ -112,7 +112,7 @@
             })
 
             /**
-             * WITHOUT END-POINT Section - 1. Supply basic info
+             * WITHOUT END-POINT Section - 0. Supply basic info
              */
             .state('root.basic-info', {
                 abstract: true,
@@ -127,7 +127,7 @@
                     }
                 },
                 data: {
-                    pageTitle: '1. Supply basic info',
+                    pageTitle: '0. Supply basic info',
                     showSideMenu: true
                 }
             })
@@ -136,6 +136,33 @@
                 url: "/overview",
                 templateUrl: "sections/basic-info/overview.html",
                 data: {pageTitle: 'Basic Info'}
+            })
+
+            /**
+             * WITHOUT END-POINT Section - 1. Get started
+             */
+            .state('root.get-started', {
+                abstract: true,
+                url: "/get-started",
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: "GetStartedController"
+                    },
+                    'sidebar@root': {
+                        templateUrl: "sections/get-started/navigation.html"
+                    }
+                },
+                data: {
+                    pageTitle: '1. Get started',
+                    showSideMenu: true
+                }
+            })
+
+            .state('root.get-started.introduction', {
+                url: "/overview",
+                templateUrl: "sections/get-started/introduction.html",
+                data: {pageTitle: '1. Get started - Introduction'}
             })
 
             /**
@@ -272,7 +299,7 @@
                     // all child states of root.api-endpoints.existing needs information about the current api endpoint to query rest api requests against
                     // such information is stored in the route, why we need to read $stateParams and set the current api endpoint based on the route
                     dataEnvironmentParam: function ($stateParams, DataEnvironmentService, $rootScope) {
-                        console.log('root.api-endpoints.existing dataEnvironmentParam - dataEnvironmentParam, $stateParams, DataEnvironmentService', $stateParams, DataEnvironmentService);
+                        //console.log('root.api-endpoints.existing dataEnvironmentParam - dataEnvironmentParam, $stateParams, DataEnvironmentService', $stateParams, DataEnvironmentService);
 
                         // Set active endpoint based on state param
                         DataEnvironmentService.setDataEnvironment($stateParams.dataEnvironment);
@@ -290,77 +317,8 @@
                 data: {pageTitle: 'Example view'}
             })
 
-            .state('root.api-endpoints.existing.foos', {
-                abstract: true,
-                url: "/foos",
-                template: "<ui-view/>"
-            })
-
-            .state('root.api-endpoints.existing.foos.list', {
-                url: "/list",
-                templateUrl: "crud/foo/list.html",
-                data: {pageTitle: 'List Campaigns'}
-            })
-
-            .state('root.api-endpoints.existing.foos.create', {
-                url: "/new",
-                templateUrl: "crud/foo/form.html",
-                data: {pageTitle: 'New Campaign'}
-            })
-
-            .state('root.api-endpoints.existing.foos.existing', {
-                abstract: true,
-                url: "/:fooId",
-                controller: "editFooController",
-                template: "<ui-view/>"
-            })
-
-            .state('root.api-endpoints.existing.foos.existing.view', {
-                url: "/view",
-                templateUrl: "crud/foo/view.html",
-                data: {pageTitle: 'View Campaign'}
-            })
-
-            .state('root.api-endpoints.existing.foos.existing.edit', {
-                abstract: true,
-                url: "/edit",
-                resolve: {
-                    setRouteBasedFilters: function (routeBasedFilters, $stateParams) {
-                        routeBasedFilters.Bar_order = 'Foo.id DESC';
-                        routeBasedFilters.Bar_foo_id = $stateParams.fooId;
-                    }
-                },
-                views: {
-                    '': {
-                        templateUrl: "crud/foo/form.html"
-                    },
-                    'sidebar@root': {
-                        templateUrl: "crud/foo/navigation.html"
-                    }
-                }
-            })
-
-            .state('root.api-endpoints.existing.foos.existing.edit.edit-foo', {
-                abstract: true,
-                url: "/edit-foo",
-                template: "<ui-view/>"
-            })
-
-            .state('root.api-endpoints.existing.foos.existing.edit.edit-foo.basic-info', {
-                abstract: true,
-                url: "/basic-info",
-                template: "<ui-view/>"
-            })
-
-            .state('root.api-endpoints.existing.foos.existing.edit.edit-foo.basic-info.foo-step', {
-                url: "/foo-step",
-                onEnter: function () {
-                },
-                data: {pageTitle: 'Edit Foo'}
-            })
-
             /**
-             * Section - 1. Supply basic info
+             * Section - 0. Supply basic info
              */
             .state('root.api-endpoints.existing.basic-info', {
                 abstract: true,

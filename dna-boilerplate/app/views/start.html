@@ -1,18 +1,19 @@
 <div id="start" ng-controller="DataEnvironmentController">
     <div id="hero">
         <!--
-    <video autoplay loop>
-        
-    <source src="http://static.foo.com/bgvideo/bgvideo.m4v" type="video/mp4"/>
-    <source src="http://static.foo.com/bgvideo/bgvideo.webm" type="video/webm"/>
-    <source src="http://static.foo.com/bgvideo/bgvideo.ogv" type="video/ogv"/>
-
-
-    </video>
+                <div class="video_contain">
+                    <video loop="loop" autoplay="autoplay" width="1920" height="1080" poster="{{ optimizelyVariation.data['background poster'] | trusted }}">
+                        <source type="video/mp4"
+                                src="{{ optimizelyVariation.data['background video mp4'] | trusted }}"/>
+                        <source type="video/webm"
+                                src="{{ optimizelyVariation.data['background video webm'] | trusted }}"/>
+                        <source type="video/ogg"
+                                src="{{ optimizelyVariation.data['background video ogg'] | trusted }}"/>
+                    </video>
+                </div>
     -->
 
-        <h1><span
-                ng-show="!activeDataEnvironment.available && !auth.profilePromise">{{ optimizelyVariation.data["main heading"] }}</span>
+        <h1><span ng-show="!activeDataEnvironment.available && !auth.profilePromise">{{ optimizelyVariation.data["main heading"] }}</span>
             <span ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length === 0">{{ optimizelyVariation.data["account activation heading"] }}</span>
             <span ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length > 0">Your account has super-powers!</span>
                     <span ng-show="activeDataEnvironment.available && auth.profilePromise">Good day<span
@@ -66,9 +67,14 @@
 
         <div ng-show="activeDataEnvironment.available && auth.profilePromise">
 
-            <a ui-sref="root.api-endpoints.existing.get-things-done.overview({dataEnvironment: activeDataEnvironment.slug})"
-               class="btn btn-primary btn-lg" href="#">Get things done &nbsp; <i
-                    class="fa fa-lg fa-long-arrow-right"></i></a></span>
+            <!--
+            <p>&nbsp;</p>
+
+            <p>&nbsp;</p>
+               -->
+
+            <a ui-sref="root.api-endpoints.existing.get-things-done({dataEnvironment: activeDataEnvironment.slug})"
+               class="btn btn-primary btn-lg" href="#">Get things done &nbsp; <i class="fa fa-lg fa-long-arrow-right"></i></a></span>
 
             <!--
             <a ui-sref="root.api-endpoints.existing.foos.create({dataEnvironment: activeDataEnvironment.slug})" href="#"
@@ -174,7 +180,7 @@
 
                 <p>
 
-                    Set up routines, scheduled imports and reminders to help you keep everything up-to-date.
+                    Set up routines, scheduled imports and reminders for convenient follow-ups at later dates.
 
                 </p>
 
@@ -250,7 +256,13 @@
 
     </div>
 
+    <div ng-show="!activeDataEnvironment.available && !auth.profilePromise">
+
+    <!-- pricing -->
+    <!--<div ng-include="'views/start.pricing.inc.html'"></div>-->
+
     </div>
 
+    </div>
 
 </div>

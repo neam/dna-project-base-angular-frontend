@@ -138,10 +138,13 @@
 <!-- Auth0 - upstream minification issues require these to be included as-is -->
 <script src="bower_components/auth0-lock/build/auth0-lock.js"></script>
 
+<!-- Keep the bare minimum outside of minification necessary for optimizely data to be transported successfully -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script>window.optimizelyVariation=$.Deferred();</script>
+
 <!-- build:js({.tmp,.merged-app}) scripts/vendor.js -->
 
 <!-- jQuery and Bootstrap -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
@@ -182,7 +185,6 @@
 <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
 
 <!-- Angular optimizely -->
-<script>window.optimizelyVariation=$.Deferred();</script>
 <script src="bower_components/ng-optimizely/ng-optimizely.js"></script>
 
 <!-- 3-way-merge -->
@@ -274,6 +276,9 @@
 <!-- DNA Javascript -->
 <script src="scripts/app.js"></script>
 <script src="scripts/config.js"></script>
+
+<!-- Optimizely fallback-data -->
+<script src="scripts/optimizely-fallback-data.js"></script>
 
 <!-- Sections -->
 <script src="sections/get-started/get-started.js"></script>
