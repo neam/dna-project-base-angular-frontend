@@ -311,7 +311,7 @@ INPUT;
         <label class="label-left control-label">{$attributeInfo["label"]}</label>
     </div>
     <div class="col-sm-10">
-        <dna-item-selection-widget multiple="true" view-path="crud/$relatedModelClassSingularId" collection="{$lcfirstModelClass}Crud.relations.$attribute.relatedCollection" items="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.{$attribute}_ids" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-item-selection-widget>
+        <dna-item-selection-widget multiple view-path="crud/$relatedModelClassSingularId" collection="{$lcfirstModelClass}Crud.relations.$attribute.relatedCollection" items="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.{$attribute}_ids" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-item-selection-widget>
     </div>
 </div>
 

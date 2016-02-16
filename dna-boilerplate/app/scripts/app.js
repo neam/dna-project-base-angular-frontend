@@ -322,7 +322,7 @@
                 type: '@', // 'any' (default), 'video', 'image'
                 preview: '@', // 'filestack' (default), 'none'
                 previewHeightPixels: '=', // Filestack preview widget requires a fixed amount of pixels as height parameter, can't be set via css :/
-                multiple: '@', // true, false (default)
+                multiple: '@', // '', undefined (default)
                 mimetypes: '@', // */* (default)
                 // TODO:
                 name: '@',
@@ -336,6 +336,9 @@
                 if (!scope.files) {
                     scope.files = (scope.file && scope.file.id) ? [scope.file] : [];
                 }
+
+                // Take special care of the "multiple" attribute since it is minified during the build process from 'multiple="anything"' to 'multiple'
+                scope.multiple = typeof scope.multiple !== 'undefined' ? true : false;
 
                 // Set defaults
                 scope.previewHeightPixels = scope.previewHeightPixels || 200;
@@ -501,11 +504,14 @@
                 item: '=',
                 items: '=',
                 ngModel: '=',
-                multiple: '@', // true, false (default)
                 viewPath: '@'
+                multiple: '@', // '', undefined (default)
             },
             templateUrl: 'views/widgets/dna-item-selection-widget.html',
             link: function (scope, element, attrs, ngModel) {
+
+                // Take special care of the "multiple" attribute since it is minified during the build process from 'multiple="anything"' to 'multiple'
+                scope.multiple = typeof scope.multiple !== 'undefined' ? true : false;
 
                 /*
                  onEnter: function ($modal, $state, campaign) {
