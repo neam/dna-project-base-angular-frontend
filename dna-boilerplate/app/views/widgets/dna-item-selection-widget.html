@@ -1,69 +1,21 @@
 <!--
 <pre>{{ item | json }}</pre>
 -->
-<!--
-<div ng-if="items.length > 0" class="preview" ng-class="{multiple: multiple}">
-    <ul>
-        <li ng-repeat="item in items">
-            <p><a href="{{ item.absolute_url }}" target="_blank"><strong ng-show="item.attributes.itemname">{{
-                item.attributes.itemname }}</strong><strong ng-show="!item.attributes.itemname">Existing
-                item</strong></a><span ng-if="item.attributes.size"> (Size {{ item.attributes.size | itemsize }})</span>,
-                uploaded {{ item.attributes.created }}</p>
-            <ul>
-                <li ng-repeat="itemInstance in item.itemInstances">{{ itemInstance.itemname }}</li>
-            </ul>
-            <div class="preview-container">
-                <div itempicker-preview ng-if="previewUrl" url="previewUrl"
-                     style="height:{{previewHeightPixels}}px"></div>
-            </div>
-        </li>
-    </ul>
-</div>
-<div ng-if="!item.id">
-    (No item<span ng-show="multiple">s</span> selected)
-</div>
--->
-<!-- Button to replace empty/saved item with newly selected item -->
 <div class="pick-items">
 
-    <div ng-if="!viewPath">
-        <div ng-if="item.id">Selected:
-            {{item.item_label}}
-        </div>
-        <div>
-            <!--
-            Pick new:
-
-            <!--
-            <ul>
-                <li ng-repeat="itemCandidate in collection"><a href="javascript:void(0);" ng-click="item = itemCandidate;ngModel = itemCandidate.id">{{itemCandidate.item_label}}</a></li>
-            </ul>
-            -->
-            <!--
-            <select empty-to-null ng-model="item"
-                     ng-options="item in collection track by item.id">
-            </select>
-            -->
-        </div>
-
-    </div>
-    <div ng-if="viewPath">
-
-        <div ng-include="viewPath + '/compact-list.html'"></div>
-
+    <!-- If view path and a (optionally) custom template is set, we simply delegate the item selection logic -->
+    <div ng-if="viewPath && customTemplate" ng-include="viewPath + '/' + customTemplate"></div>
+    <!-- TODO Support selection of multiple items. Meanwhile, simply show compact-list with curation options which includes ability to add, edit and remove related items -->
+    <div ng-if="multiple && viewPath && !customTemplate" ng-include="viewPath + '/compact-list.html'"></div>
+    <!-- Simple default fallback item-picker -->
+    <div ng-if="!multiple && (!viewPath || !customTemplate)">
+        <ul>
+            <li ng-if="item.id"><a href="javascript:void(0)" ng-click="selectItem(null)" class="btn btn-sm btn-info">Clear selection</a></li>
+            <li ng-repeat="itemCandidate in collection track by itemCandidate.id" style="margin: 1em; float: left;"><a href="javascript:void(0);" ng-click="selectItem(itemCandidate)" class="btn" ng-class="{'btn-default': item.id !== itemCandidate.id, 'btn-primary': item.id === itemCandidate.id}">{{itemCandidate.item_label}}</a></li>
+        </ul>
     </div>
 
 </div>
-
-<!--
-<select2 empty-to-null ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute.id" id="$lcfirstModelClass.attributes.$attribute.id"
-options="{$lcfirstModelClass}Crud.relations.$attribute.select2Options">
-<option value="{{{$lcfirstModelClass}.attributes.$attribute.id}}">{{{$lcfirstModelClass}.attributes.$attribute.item_label}}</option>
-</select2>
-
-// <div ng-controller="list{$relatedModelClassPlural}Controller" ng-include="'crud/$relatedModelClassSingularId/curate.html'"></div>
-<div ng-include="'crud/$relatedModelClassSingularId/compact-list.html'"></div>
--->
 
 <!-- The actual input to hold the id of the chosen item -->
 <input ng-if="!multiple" type="hidden" ng-model="ngModel"/>

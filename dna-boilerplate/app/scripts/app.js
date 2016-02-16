@@ -504,14 +504,21 @@
                 item: '=',
                 items: '=',
                 ngModel: '=',
-                viewPath: '@'
                 multiple: '@', // '', undefined (default)
+                viewPath: '@',
+                customTemplate: '@'
             },
             templateUrl: 'views/widgets/dna-item-selection-widget.html',
             link: function (scope, element, attrs, ngModel) {
 
                 // Take special care of the "multiple" attribute since it is minified during the build process from 'multiple="anything"' to 'multiple'
                 scope.multiple = typeof scope.multiple !== 'undefined' ? true : false;
+
+                scope.selectItem = function (selectedItem) {
+                    console.log('selected item', selectedItem);
+                    ngModel.$setViewValue(selectedItem ? selectedItem.id : null);
+                    scope.item = selectedItem ? angular.copy(selectedItem) : {id: null};
+                };
 
                 /*
                  onEnter: function ($modal, $state, campaign) {
