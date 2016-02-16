@@ -338,7 +338,8 @@
                 }
 
                 // Take special care of the "multiple" attribute since it is minified during the build process from 'multiple="anything"' to 'multiple'
-                scope.multiple = typeof scope.multiple !== 'undefined' ? true : false;
+                // The value of scope.multiple will thus be either undefined or '', so we construct a proper boolean scope variable _multiple that we can use in views
+                scope._multiple = typeof scope.multiple !== 'undefined' ? true : false;
 
                 // Set defaults
                 scope.previewHeightPixels = scope.previewHeightPixels || 200;
@@ -512,7 +513,8 @@
             link: function (scope, element, attrs, ngModel) {
 
                 // Take special care of the "multiple" attribute since it is minified during the build process from 'multiple="anything"' to 'multiple'
-                scope.multiple = typeof scope.multiple !== 'undefined' ? true : false;
+                // The value of scope.multiple will thus be either undefined or '', so we construct a proper boolean scope variable _multiple that we can use in views
+                scope._multiple = typeof scope.multiple !== 'undefined' ? true : false;
 
                 scope.selectItem = function (selectedItem) {
                     console.log('selected item', selectedItem);

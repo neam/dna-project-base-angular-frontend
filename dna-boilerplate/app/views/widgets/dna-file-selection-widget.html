@@ -3,7 +3,7 @@
 <pre>file: {{ file | json }}</pre>
 <pre>files: {{ files | json }}</pre>
 -->
-<div ng-if="files.length > 0" class="preview" ng-class="{multiple: multiple}">
+<div ng-if="files.length > 0" class="preview" ng-class="{multiple: _multiple}">
     <ul>
         <li ng-repeat="file in files">
             <p ng-if="file.absolute_url"><a href="{{ file.absolute_url }}" target="_blank"><strong ng-show="file.filename">{{
@@ -28,7 +28,7 @@
     </ul>
 </div>
 <div ng-if="!file.id">
-    <p>(No file<span ng-show="multiple">s</span> selected)</p>
+    <p>(No file<span ng-show="_multiple">s</span> selected)</p>
 </div>
 
 <!-- Button to replace empty/saved file(s) with newly uploaded file(s) -->
@@ -36,20 +36,20 @@
     <!-- The ng-if="..." has the necessary side-effect that the attributes are evaluated when the scope variables are properly loaded -->
     <!-- Not using "-dragdrop" since uploads to the dragdrop-pane are failing -->
     <input ng-if="type !== 'video'" filepicker type="filepicker"
-           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{multiple}}"
+           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{_multiple}}"
            data-fp-policy="{{policy}}" data-fp-signature="{{signature}}"
            data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT"
            on-success="onSuccess(event)">
     <input ng-if="type === 'video'" filepicker type="filepicker"
-           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{multiple}}"
+           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{_multiple}}"
            data-fp-policy="{{policy}}" data-fp-signature="{{signature}}"
            data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,URL"
            on-success="onSuccess(event)">
 </div>
 
 <!-- The actual input to hold the id of the chosen file(s) -->
-<input ng-if="!multiple" type="hidden" ng-model="ngModel"/>
-<select ng-if="multiple" ng-model="ngModel" multiple="multiple" style="display:none;"></select>
+<input ng-if="!_multiple" type="hidden" ng-model="ngModel"/>
+<select ng-if="_multiple" ng-model="ngModel" multiple="multiple" style="display:none;"></select>
 <!--
 <div class="select2 m-b">
     <select2 ng-model="ngModel" options="crud.relations.thumbnailMedia.select2Options" empty-to-null>

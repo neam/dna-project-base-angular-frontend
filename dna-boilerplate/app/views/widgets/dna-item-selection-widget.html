@@ -6,9 +6,9 @@
     <!-- If view path and a (optionally) custom template is set, we simply delegate the item selection logic -->
     <div ng-if="viewPath && customTemplate" ng-include="viewPath + '/' + customTemplate"></div>
     <!-- TODO Support selection of multiple items. Meanwhile, simply show compact-list with curation options which includes ability to add, edit and remove related items -->
-    <div ng-if="multiple && viewPath && !customTemplate" ng-include="viewPath + '/compact-list.html'"></div>
+    <div ng-if="_multiple && viewPath && !customTemplate" ng-include="viewPath + '/compact-list.html'"></div>
     <!-- Simple default fallback item-picker -->
-    <div ng-if="!multiple && (!viewPath || !customTemplate)">
+    <div ng-if="!_multiple && (!viewPath || !customTemplate)">
         <ul>
             <li ng-if="item.id"><a href="javascript:void(0)" ng-click="selectItem(null)" class="btn btn-sm btn-info">Clear selection</a></li>
             <li ng-repeat="itemCandidate in collection track by itemCandidate.id" style="margin: 1em; float: left;"><a href="javascript:void(0);" ng-click="selectItem(itemCandidate)" class="btn" ng-class="{'btn-default': item.id !== itemCandidate.id, 'btn-primary': item.id === itemCandidate.id}">{{itemCandidate.item_label}}</a></li>
@@ -18,5 +18,5 @@
 </div>
 
 <!-- The actual input to hold the id of the chosen item -->
-<input ng-if="!multiple" type="hidden" ng-model="ngModel"/>
-<select ng-if="multiple" ng-model="ngModel" multiple="multiple" style="display:none;"></select>
+<input ng-if="!_multiple" type="hidden" ng-model="ngModel"/>
+<select ng-if="_multiple" ng-model="ngModel" multiple="multiple" style="display:none;"></select>
