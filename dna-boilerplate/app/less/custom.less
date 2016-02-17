@@ -127,6 +127,10 @@ div.select2 .select2-container {
 
     }
 
+    .last {
+      margin-bottom: 4em;
+    }
+
     .banner {
 
       padding: 38px;
@@ -170,7 +174,7 @@ div.select2 .select2-container {
       text-align: center;
       width: 80%;
       margin: 0 auto;
-      margin-bottom: 0em;
+      margin-bottom: 2em;
 
     }
 
@@ -191,6 +195,14 @@ div.select2 .select2-container {
       h1 {
         padding-top: 10px;
         padding-bottom: 0px;
+      }
+      .last {
+        margin-bottom: 1em;
+      }
+    }
+    #content {
+      p {
+        margin-bottom: 4em;
       }
     }
   }
@@ -345,10 +357,14 @@ nav.navbar-static-top {
   }
 }
 
-.top-navigation #page-wrapper.side-menu-shown {
+@media (min-width: 768px) {
 
-  margin: 0 0 0 239px;
-  padding: 0;
+  .top-navigation #page-wrapper.side-menu-shown {
+
+    margin: 0 0 0 @sidebar-width;
+    padding: 0;
+
+  }
 
 }
 
@@ -364,14 +380,6 @@ nav.navbar-static-top {
 .page-heading.side-menu-shown {
   margin: 0px -15px 20px -15px;
   padding: 15px 10px 15px 10px;
-
-}
-
-.navbar-static-side {
-
-  background: @sidebar-color;
-  height: 100%;
-  width: 239px;
 
 }
 
@@ -449,6 +457,11 @@ nav.navbar-static-top {
 
 }
 
+/* Necessary to display dropdown-menus in mobile navbar collapsed mode */
+.navbar-collapse.in {
+    overflow-y: visible;
+}
+
 .top-navigation #page-wrapper.side-menu-shown .wrapper.wrapper-content, #page-wrapper.side-menu-shown .wrapper-content {
 
   padding: 0px 10px 40px;
@@ -459,8 +472,37 @@ nav.navbar-static-top {
   padding: 40px;
 }
 
+/* Display sidebar menu on top on small screens */
+@media (max-width: 768px) {
+
+  .body-small .navbar-static-side {
+
+    display: inline;
+    z-index: 101;
+    position: relative;
+    width: 100%;
+
+    .nav {
+        margin-bottom: 10px;
+    }
+
+  }
+
+}
+
+/* Show dropdown menu also on very small screens */
+@media (max-width: 350px) {
+
+  .nav.navbar-top-links li.dropdown {
+    display: inherit;
+  }
+
+}
+
 .navbar-static-side {
   background-color: @sidebar-color;
+  height: 100%;
+  width: @sidebar-width;
 
   li {
 
@@ -495,8 +537,6 @@ nav.navbar-static-top {
 
 #side-menu {
   font-size: 13px;
-  background: @sidebar-color;
-  width: 239px;
 
   hr {
     border-color: #555;
@@ -705,6 +745,11 @@ dna-file-selection-widget {
   padding: 20px;
 }
 
+.page-heading {
+  padding-left: 0;
+  margin-left: 0;
+}
+
 .page-heading h1 {
   font-size: 24px;
   font-weight:700;
@@ -800,7 +845,7 @@ a, a:hover {
   height: 100%;
 }
 
-video {
+.video_contain video {
   object-fit: inherit;
   position: absolute;
   top: 0;
@@ -811,6 +856,11 @@ video {
   min-width: 1056px;
 }
 
+.video_contain video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 @media only screen and ( max-width: 980px ) {
   video {
     margin-top: 0;
@@ -819,6 +869,13 @@ video {
   }
   .video_contain {
     width: 300%;
+  }
+}
+
+@media only screen and ( max-width: 400px ) {
+  .video_contain {
+    width: 100%;
+    right: -300px;
   }
 }
 

@@ -2,7 +2,7 @@
     <div id="hero">
         <!--
                 <div class="video_contain">
-                    <video loop="loop" autoplay="autoplay" width="1920" height="1080" poster="{{ optimizelyVariation.data['background poster'] | trusted }}">
+                    <video loop="loop" autoplay="autoplay" controls="false" width="1920" height="1080" poster="{{ optimizelyVariation.data['background poster'] | trusted }}">
                         <source type="video/mp4"
                                 src="{{ optimizelyVariation.data['background video mp4'] | trusted }}"/>
                         <source type="video/webm"
@@ -24,42 +24,39 @@
         <div ng-show="!activeDataEnvironment.available && !auth.profilePromise">
 
             <div>
-                <span>{{ optimizelyVariation.data["main info"] }}</span>
+                <span ng-bind-html="optimizelyVariation.data['main info'] | sanitize"></span>
             </div>
 
-            <a ui-sref="root.start.user.signup" class="btn btn-primary btn-lg" style="white-space: inherit;"><span>{{ optimizelyVariation.data["main button text"] }}</span> &nbsp; <i
+            <a ui-sref="root.start.user.signup" class="btn btn-primary btn-lg" style="white-space: inherit;"><span ng-bind-html="optimizelyVariation.data['main button text'] | sanitize"></span> &nbsp; <i
                         class="fa fa-lg fa-long-arrow-right"></i></a>
             <br>
 
-            <div>
+            <div class="last">
                 <span><!--<a ui-sref="root.faq">Find out how</a> or--> <a ui-sref="root.start.user.login"
                                                                           class="btn btn-primary btn-sm">Log in</a> if you already have an account</span>
             </div>
-
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
 
         </div>
 
         <div ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length === 0">
 
             <div>
-                <span>{{ optimizelyVariation.data["account activation info"] }}</span>
+                <span ng-bind-html="optimizelyVariation.data['account activation info'] | sanitize"></span>
             </div>
 
             <a ui-sref="root.start.user.request-invite"
-               class="btn btn-primary btn-lg" style="white-space: inherit;"><span>{{ optimizelyVariation.data["account activation button text"] }}</span> &nbsp; <i
+               class="btn btn-primary btn-lg" style="white-space: inherit;"><span ng-bind-html="optimizelyVariation.data['account activation button text'] | sanitize"></span> &nbsp; <i
                     class="fa fa-lg fa-long-arrow-right"></i></a></span>
 
-            <div>
-                <span>{{ optimizelyVariation.data["account activation subtext"] }}</span>
+            <div class="last">
+                <span ng-bind-html="optimizelyVariation.data['account activation subtext'] | sanitize"></span>
             </div>
 
         </div>
 
         <div ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length > 0">
 
-            <div>
+            <div class="last">
                 <span>To continue, choose a database to work with in the top right corner.</span>
             </div>
 
@@ -91,10 +88,10 @@
 
         <div class="banner">
         <div ng-show="!activeDataEnvironment.available && !auth.profilePromise">
-            <span>{{ optimizelyVariation.data["main banner"] }}</span>
+            <span ng-bind-html="optimizelyVariation.data['main banner'] | sanitize"></span>
         </div>
         <div ng-show="!activeDataEnvironment.available && auth.profilePromise">
-            <span>{{ optimizelyVariation.data["account activation banner"] }}</span>
+            <span ng-bind-html="optimizelyVariation.data['account activation banner'] | sanitize"></span>
         </div>
         <div ng-show="activeDataEnvironment.available && auth.profilePromise">
             <span>The main workflow of {{env.SITENAME}} is shown below:</span>
@@ -260,6 +257,74 @@
 
     <!-- pricing -->
     <!--<div ng-include="'views/start.pricing.inc.html'"></div>-->
+
+    <!-- .section -->
+    <div id="contact" class="section_header section fullwidth_section section_regular">
+
+        <section id="contact-heading" class="fullwidth_header text_align_center">
+            <div class="row">
+                <a ui-sref="root.start.user.signup"><h1>About / FAQ</h1></a>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- .section -->
+    <div class="section section_regular">
+
+        <div class="row">
+            <div class="column column_4_4">
+                <div class="text bg_layout_light text_align_center">
+
+                    <h2>Why did you create {{env.SITENAME}}?</h2>
+                    <div ng-bind-html="optimizelyVariation.data['faq why did you create - answer'] | sanitize"></div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column column_4_4">
+                <div class="text bg_layout_light text_align_center">
+
+                    <h2>What can I expect to get help with by using {{env.SITENAME}}?</h2>
+                    <div ng-bind-html="optimizelyVariation.data['faq what can i expect to get help with - answer'] | sanitize"></div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column column_4_4">
+                <div class="text bg_layout_light text_align_center">
+
+                    <h2>How much does it cost to use {{env.SITENAME}}?</h2>
+                    <div ng-bind-html="optimizelyVariation.data['faq how much does it cost - answer'] | sanitize"></div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column column_4_4">
+                <div class="text bg_layout_light text_align_center">
+
+                    <h2>When will you open {{env.SITENAME}} to the public?</h2>
+                    <p>As soon as we have made sure that doing so will not negatively affect our private beta users.<br/>To try out the service, just <a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}" class="btn btn-primary">sign up</a> to get an invite to the private beta!</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column column_4_4">
+                <div class="text bg_layout_light text_align_center">
+
+                    <h2>Who is behind {{env.SITENAME}}?</h2>
+                    <div ng-bind-html="optimizelyVariation.data['faq who is behind - answer'] | sanitize"></div>
+
+                    <a ng-if="auth.profilePromise" ng-click="Intercom('showNewMessage')" ui-sref-opts="{reload: true}" class="btn btn-primary btn-lg">Ask us
+                        a new question &gt;</a></span>
+
+                </div>
+            </div>
+        </div>
 
     </div>
 

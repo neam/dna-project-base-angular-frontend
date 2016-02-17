@@ -1,4 +1,4 @@
-<ul class="nav navbar-nav" ng-show="!activeDataEnvironment.available && !auth.profilePromise">
+<ul class="nav navbar-nav navbar-top-links" ng-show="!activeDataEnvironment.available && !auth.profilePromise">
 
     <li ui-sref-active="active" ng-show="false && !$state.includes('root.start')">
         <a ui-sref="root.start" href="#"><i class="fa fa-arrow-left"></i> <span class="nav-label">Back</span></a>
@@ -19,25 +19,25 @@
     -->
 
     <li ng-show="!activeDataEnvironment.available">
-        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="content" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label">Features</span></a>
-        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.features" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label">Features</span></a>
+        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="content" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label menu-visible-md">Features</span></a>
+        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.features" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label menu-visible-md">Features</span></a>
     </li>
 
     <li ng-show="!activeDataEnvironment.available">
-        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="main-plan" href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Pricing</span></a>
-        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.pricing" href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Pricing</span></a>
+        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="main-plan" href="#"><i class="fa fa-diamond"></i> <span class="nav-label menu-visible-md">Pricing</span></a>
+        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.pricing" href="#"><i class="fa fa-diamond"></i> <span class="nav-label menu-visible-md">Pricing</span></a>
     </li>
 
     <!--
     <li ng-show="!activeDataEnvironment.available">
-        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label">Processes</span></a>
-        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label">Processes</span></a>
+        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label menu-visible-md">Processes</span></a>
+        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label menu-visible-md">Processes</span></a>
     </li>
     -->
 
     <li ng-show="!activeDataEnvironment.available">
-        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label">About / FAQ</span></a>
-        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label">About / FAQ</span></a>
+        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label menu-visible-md">About / FAQ</span></a>
+        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label menu-visible-md">About / FAQ</span></a>
     </li>
 
     <!--
@@ -72,63 +72,64 @@
 
 </ul>
 
-<ul class="nav navbar-nav" ng-show="auth.profilePromise && !activeDataEnvironment.available">
+<ul class="nav navbar-nav navbar-top-links" ng-show="auth.profilePromise && !activeDataEnvironment.available">
 
     <li ui-sref-active="active">
         <a ui-sref="root.get-started.introduction" href="#"><i
-                class="fa fa-building"></i> <span class="nav-building">1. Get started</span></a>
+                class="fa fa-building"></i> <span class="nav-label menu-visible-md">1. Get started</span></a>
     </li>
 
     <li ui-sref-active="active">
         <a ui-sref="root.import.overview" href="#"><i
-                class="fa fa-cloud-download"></i> <span class="nav-label">2. Import</span></a>
+                class="fa fa-cloud-download"></i> <span class="nav-label menu-visible-md">2. Import</span></a>
     </li>
 
     <li ui-sref-active="active">
         <a ui-sref="root.get-things-done.overview" href="#"><i
-                class="fa fa-cloud-download"></i> <span class="nav-label">3. Get things done</span></a>
+                class="fa fa-calendar"></i> <span class="nav-label menu-visible-md">3. Get things done</span></a>
     </li>
 
     <li ui-sref-active="active">
         <a ui-sref="root.up-to-date.overview" href="#"><i
-                class="fa fa-clock-o"></i> <span class="nav-label">4. Stay up-to-date</span></a>
+                class="fa fa-clock-o"></i> <span class="nav-label menu-visible-md">4. Stay up-to-date</span></a>
     </li>
 
 </ul>
 
-<ul class="nav navbar-nav" ng-show="auth.profilePromise && activeDataEnvironment.available">
+<ul class="nav navbar-nav navbar-top-links" ng-show="auth.profilePromise && activeDataEnvironment.available">
 
     <li ui-sref-active="active">
         <a ui-sref="root.api-endpoints.existing.get-started.introduction({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
-                class="fa fa-building"></i> <span class="nav-building">1. Get started</span></a>
+                class="fa fa-building"></i> <span class="nav-label menu-visible-md">1. Get started</span></a>
     </li>
 
     <li ui-sref-active="active">
         <a ui-sref="root.api-endpoints.existing.import.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
-                class="fa fa-cloud-download"></i> <span class="nav-label">2. Import and include</span></a>
+                class="fa fa-cloud-download"></i> <span class="nav-label menu-visible-md">2. Import and include</span></a>
     </li>
 
     <li ui-sref-active="active">
         <a ui-sref="root.api-endpoints.existing.get-things-done.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
-                class="fa fa-cloud-download"></i> <span class="nav-label">3. Get things done</span></a>
+                class="fa fa-calendar"></i> <span class="nav-label menu-visible-md">3. Get things done</span></a>
     </li>
 
     <li ui-sref-active="active">
         <a ui-sref="root.api-endpoints.existing.up-to-date.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
-                class="fa fa-clock-o"></i> <span class="nav-label">4. Stay up-to-date</span></a>
+                class="fa fa-clock-o"></i> <span class="nav-label menu-visible-md">4. Stay up-to-date</span></a>
     </li>
 
     <li ui-sref-active="active">
         <a ui-sref="root.api-endpoints.existing.basic-info.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
-                class="fa fa-cog"></i> <span class="nav-label">Basic info</span></a>
+                class="fa fa-cog"></i> <span class="nav-label menu-visible-lg">Basic info</span></a>
     </li>
 
 </ul>
 
 <ul class="nav navbar-top-links navbar-right" ng-controller="LoginController">
     <li class="dropdown" dropdown ng-show="dataEnvironments.list.length > 1">
-        <a class="dropdown-toggle" href dropdown-toggle> <span ng-show="!activeDataEnvironment.available">Choose</span><span
-                ng-show="activeDataEnvironment.available">Switch</span> account <span
+        <a class="dropdown-toggle" href dropdown-toggle><i
+                class="fa fa-database"></i> <!--<span class="nav-label menu-visible-lg" ng-show="!activeDataEnvironment.available">Choose</span><span class="nav-label menu-visible-lg"
+                ng-show="activeDataEnvironment.available">Switch</span><span class="nav-label menu-visible-lg"> account</span> --><span
                 class="caret"></span></a>
         <ul role="menu" class="dropdown-menu" ng-class="">
             <li ng-repeat="dataEnvironment in dataEnvironments.list" ng-class="{active: dataEnvironment.slug == activeDataEnvironment.slug}"><a
@@ -142,7 +143,8 @@
     <li ng-class="{active: $state.includes('user')}" class="dropdown" dropdown ng-show="auth.profilePromise">
     -->
     <li ng-class="{active: $state.includes('user')}" class="dropdown" dropdown>
-        <a class="dropdown-toggle" href dropdown-toggle> {{auth.profile.first_name || auth.profile.name || 'User menu'}} <span class="caret"></span></a>
+        <a class="dropdown-toggle" href dropdown-toggle><i
+                class="fa fa-user"></i> <span class="nav-label menu-visible-lg">{{auth.profile.first_name || auth.profile.name || 'User menu'}}</span> <span class="caret"></span></a>
         <ul role="menu" class="dropdown-menu" ng-class="{in: $state.includes('user')}">
             <li ui-sref-active="active" ng-show="!auth.profilePromise"><a ui-sref="root.start.user.login" ui-sref-opts="{reload: true}">Log In</a></li>
             <li ui-sref-active="active" ng-show="!auth.profilePromise"><a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}">Sign Up</a></li>
