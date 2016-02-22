@@ -1,0 +1,21 @@
+<li class="nav-title">Stay up-to-date</li>
+
+<li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
+    <a ui-sref="root.up-to-date.overview" href="#"><i
+            class="fa fa-check-circle"></i> <span class="nav-label">Overview</span></a>
+</li>
+
+<li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
+    <a ui-sref="root.up-to-date.overview.request-invite" href="#"><i
+            class="fa fa-check-circle"></i> <span class="nav-label">Request invite</span></a>
+</li>
+
+<li ui-sref-active="active" ng-show="activeDataEnvironment.available">
+    <a ui-sref="root.api-endpoints.existing.up-to-date.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
+            class="fa fa-check-circle"></i> <span class="nav-label">Overview</span></a>
+</li>
+
+<li ui-sref-active="active" ng-show="activeDataEnvironment.available">
+    <a ui-sref="root.api-endpoints.existing.import.overview({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})" href="#"><i
+            class="fa fa-check-circle"></i> <span class="nav-label">How much money is in each account?</span></a>
+</li>

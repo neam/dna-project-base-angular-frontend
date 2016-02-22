@@ -127,6 +127,7 @@
                     }
                 },
                 data: {
+                    requiresLogin: true,
                     pageTitle: '0. Supply basic info',
                     showSideMenu: true
                 }
@@ -154,6 +155,7 @@
                     }
                 },
                 data: {
+                    requiresLogin: true,
                     pageTitle: '1. Get started',
                     showSideMenu: true
                 }
@@ -165,19 +167,45 @@
                 data: {pageTitle: '1. Get started - Introduction'}
             })
 
+            .state('root.get-started.what-to-get-done', {
+                url: "/what-to-get-done",
+                templateUrl: "sections/get-started/what-to-get-done.html",
+                data: {pageTitle: '1. Decide how to use the tool - What to get done'}
+            })
+
+            .state('root.get-started.survey', {
+                url: "/survey",
+                templateUrl: "sections/get-started/survey.html",
+                data: {pageTitle: '1. Decide how to use the tool - Survey'}
+            })
+
+            .state('root.get-started.introduction.request-invite', {
+                url: "/request-invite",
+                onEnter: function ($state) {
+                    Intercom('onHide', _.once(function () {
+                        $state.go('root.get-started.introduction');
+                    }));
+                    Intercom('showNewMessage', 'Hi! I would like to get Beta access to ' + env.SITENAME);
+                },
+                onExit: function () {
+                    Intercom('hide');
+                },
+                data: {pageTitle: 'request-invite'}
+            })
+
             /**
-             * WITHOUT END-POINT Section - 2. Get things done | Connect spent time with business value
+             * WITHOUT END-POINT Section - 2. Import
              */
-            .state('root.get-things-done', {
+            .state('root.import-and-inspect', {
                 abstract: true,
-                url: "/connect-spent-time-with-business-value",
+                url: "/import-and-inspect",
                 views: {
                     '': {
                         template: "<ui-view/>",
-                        controller: "GetThingsDoneController",
+                        controller: "ImportController",
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/get-things-done/navigation.html",
+                        templateUrl: "sections/import-and-inspect/navigation.html",
                     }
                 },
                 resolve: {
@@ -189,56 +217,79 @@
                      */
                 },
                 data: {
-                    pageTitle: '2. Connect spent time with business value',
+                    requiresLogin: true,
+                    pageTitle: '2. Import and inspect',
                     showSideMenu: true
                 }
 
+            })
+
+            .state('root.import-and-inspect.import', {
+                abstract: true,
+                url: "/import",
+                template: "<ui-view/>",
+            })
+
+            .state('root.import-and-inspect.import.overview', {
+                url: "/overview",
+                templateUrl: "sections/import-and-inspect/import.overview.html",
+                data: {pageTitle: 'Inspect'}
+            })
+
+            .state('root.import-and-inspect.import.overview.request-invite', {
+                url: "/request-invite",
+                onEnter: function ($state) {
+                    Intercom('onHide', _.once(function () {
+                        $state.go('root.import-and-inspect.import.overview');
+                    }));
+                    Intercom('showNewMessage', 'Hi! I would like to get Beta access to ' + env.SITENAME);
+                },
+                onExit: function () {
+                    Intercom('hide');
+                },
+                data: {pageTitle: 'request-invite'}
+            })
+
+            /**
+             * WITHOUT END-POINT Section - 3. Get things done
+             */
+            .state('root.get-things-done', {
+                abstract: true,
+                url: "/get-things-done",
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: "GetThingsDoneController",
+                    },
+                    'sidebar@root': {
+                        templateUrl: "sections/get-things-done/navigation.html"
+                    }
+                },
+                data: {
+                    requiresLogin: true,
+                    pageTitle: '3. Get things done',
+                    showSideMenu: true
+                }
             })
 
             .state('root.get-things-done.overview', {
                 url: "/overview",
-                templateUrl: "sections/get-things-done/overview.html",
-                data: {pageTitle: 'Connect spent time with business value'}
+                templateUrl: "sections/get-things-done/get-things-done.html",
+                data: {pageTitle: 'Get Things Done'}
             })
 
-            /**
-             * WITHOUT END-POINT Section - 3. Generate reports | Share | Export
-             */
-            .state('root.export', {
-                abstract: true,
-                url: "/export",
-                views: {
-                    '': {
-                        template: "<ui-view/>",
-                        controller: "ExportController",
-                    },
-                    'sidebar@root': {
-                        templateUrl: "sections/export/navigation.html"
-                    }
+            .state('root.get-things-done.overview.request-invite', {
+                url: "/request-invite",
+                onEnter: function ($state) {
+                    Intercom('onHide', _.once(function () {
+                        $state.go('root.get-things-done.overview');
+                    }));
+                    Intercom('showNewMessage', 'Hi! I would like to get Beta access to ' + env.SITENAME);
                 },
-                data: {
-                    pageTitle: '3. Generate reports',
-                    showSideMenu: true
-                }
-            })
-
-            .state('root.export.overview', {
-                url: "/overview",
-                templateUrl: "sections/export/overview.html",
-                controller: "ReportedTimeController",
-                deepStateRedirect: true,
-                resolve: {
-                    /*
-                    // Inject the metadata resolved in the root state
-                    metadata: function (metadata) {
-                        return metadata;
-                    }
-                    */
+                onExit: function () {
+                    Intercom('hide');
                 },
-                data: {
-                    pageTitle: 'Export',
-                    drillDownData: null
-                }
+                data: {pageTitle: 'request-invite'}
             })
 
             /**
@@ -257,6 +308,7 @@
                     }
                 },
                 data: {
+                    requiresLogin: true,
                     pageTitle: '4. Stay up-to-date',
                     showSideMenu: true
                 }
@@ -266,6 +318,20 @@
                 url: "/overview",
                 templateUrl: "sections/up-to-date/overview.html",
                 data: {pageTitle: 'Stay up-to-date'}
+            })
+
+            .state('root.up-to-date.overview.request-invite', {
+                url: "/request-invite",
+                onEnter: function ($state) {
+                    Intercom('onHide', _.once(function () {
+                        $state.go('root.up-to-date.overview');
+                    }));
+                    Intercom('showNewMessage', 'Hi! I would like to get Beta access to ' + env.SITENAME);
+                },
+                onExit: function () {
+                    Intercom('hide');
+                },
+                data: {pageTitle: 'request-invite'}
             })
 
             /**
@@ -341,7 +407,7 @@
                  },
                  */
                 data: {
-                    pageTitle: '1. Supply basic info',
+                    pageTitle: 'Supply basic info',
                     showSideMenu: true
                 }
             })
@@ -365,18 +431,65 @@
             })
 
             /**
-             * Section - 2. Import
+             * Section - 1. Get started
              */
-            .state('root.api-endpoints.existing.import', {
+            .state('root.api-endpoints.existing.get-started', {
                 abstract: true,
-                url: "/import",
+                url: "/get-started",
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: "GetStartedController"
+                    },
+                    'sidebar@root': {
+                        templateUrl: "sections/get-started/navigation.html"
+                    }
+                },
+                /*
+                 resolve: {
+                 // Inject the metadata resolved in the root state
+                 metadata: function (metadata) {
+                 return metadata;
+                 }
+                 },
+                 */
+                data: {
+                    pageTitle: '1. Decide how to use the tool',
+                    showSideMenu: true
+                }
+            })
+
+            .state('root.api-endpoints.existing.get-started.introduction', {
+                url: "/introduction",
+                templateUrl: "sections/get-started/introduction.html",
+                data: {pageTitle: '1. Decide how to use the tool - Introduction'}
+            })
+
+            .state('root.api-endpoints.existing.get-started.what-to-get-done', {
+                url: "/what-to-get-done",
+                templateUrl: "sections/get-started/what-to-get-done.html",
+                data: {pageTitle: '1. Decide how to use the tool - What to get done'}
+            })
+
+            .state('root.api-endpoints.existing.get-started.survey', {
+                url: "/survey",
+                templateUrl: "sections/get-started/survey.html",
+                data: {pageTitle: '1. Decide how to use the tool - Survey'}
+            })
+
+            /**
+             * Section - 2. Import and inspect
+             */
+            .state('root.api-endpoints.existing.import-and-inspect', {
+                abstract: true,
+                url: "/import-and-inspect",
                 views: {
                     '': {
                         template: "<ui-view/>",
                         controller: "ImportController",
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/import/navigation.html"
+                        templateUrl: "sections/import-and-inspect/navigation.html"
                     }
                 },
                 /*
@@ -393,10 +506,34 @@
                 }
             })
 
-            .state('root.api-endpoints.existing.import.overview', {
+            .state('root.api-endpoints.existing.import-and-inspect.import', {
+                abstract: true,
+                url: "/import",
+                template: "<ui-view/>",
+                resolve: {
+                    setRouteBasedContentFiltersLevel0: function (routeBasedContentFilters, $stateParams) {
+                        routeBasedContentFilters.ImportSession_order = 'ImportSession.created DESC';
+                        routeBasedContentFilters.InputResult_order = 'InputResult.created DESC';
+                    },
+                },
+            })
+
+            .state('root.api-endpoints.existing.import-and-inspect.import.overview', {
                 url: "/overview",
-                templateUrl: "sections/import/overview.html",
+                templateUrl: "sections/import-and-inspect/import.overview.html",
                 data: {pageTitle: 'Import'}
+            })
+
+            .state('root.api-endpoints.existing.import-and-inspect.inspect', {
+                abstract: true,
+                url: "/inspect",
+                template: "<ui-view/>",
+            })
+
+            .state('root.api-endpoints.existing.import-and-inspect.inspect.overview', {
+                url: "/overview",
+                templateUrl: "sections/import-and-inspect/inspect.overview.html",
+                data: {pageTitle: 'Inspect'}
             })
 
             /**
@@ -434,7 +571,6 @@
                 controller: "GetThingsDoneController",
                 data: {
                     pageTitle: '3. Get things done',
-                    showSideMenu: true
                 }
             })
 

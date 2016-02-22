@@ -257,36 +257,73 @@
     }]);
 
     /**
-     * Service that intercepts requests, can be used to show general error messages on failed requests
+     * Add the DATA header to API requests 0 Friendly logging of unauthorized requests
      */
-    app.factory('appInterceptor', function ($rootScope, $q, DataEnvironmentService) {
-        return {
-            request: function (config) {
-                config.headers = config.headers || {};
-                // Supply header indicating which data profile we should use for the request
-                if (DataEnvironmentService.activeDataEnvironment.available) {
-                    config.headers['X-Data-Profile'] = env.DATA || 'clean-db';
-                }
-                //config.withCredentials = true;
-                return config;
-            },
-            response: function (response) {
-                if (response.status === 401) {
-                    // handle the case where the user is not authenticated
-                    console.log('unauthorized request intercepted by authInterceptor');
-                }
-                if (response.status === 403) {
-                    // handle the case where the user is not authorized
-                    console.log('forbidden request intercepted by authInterceptor');
-                }
-                return response || $q.when(response);
-            }
-        };
-    });
+    app.factory('authInterceptor', function ($log, $q, DataEnvironmentService) {
+            return {
+                request: function (config) {
+                    config.headers = config.headers || {};
+                    // Supply header indicating which data profile we should use for the request
+                    if (DataEnvironmentService.activeDataEnvironment.available) {
+                        config.headers['X-Data-Profile'] = env.DATA || 'clean-db';
+                    }
+                    //config.withCredentials = true;
+                    return config;
+                },
+                responseError: function (response) {
+                    if (response.status === 401) {
+                        // handle the case where the user is not authenticated
+                        $log.warn('unauthorized request intercepted by authInterceptor');
+                    }
+                    if (response.status === 403) {
+                        // handle the case where the user is not authorized
+                        $log.warn('forbidden request intercepted by authInterceptor');
+                    }
+                    return $q.reject(response);
+                },
+            };
+        })
+        .config(function ($httpProvider) {
+            $httpProvider.interceptors.push('authInterceptor');
+        });
 
-    app.config(function ($httpProvider) {
-        $httpProvider.interceptors.push('appInterceptor');
-    });
+    /**
+     * Display backend errors in frontend
+     */
+    app.factory('exceptionInterceptor', function ($log, $q, debugService) {
+            return {
+                responseError: function (response) {
+                    if (response.status === 500) {
+                        debugService.renderException(response.data);
+                    }
+
+                    return $q.reject(response);
+                }
+            };
+        })
+        .config(function ($httpProvider) {
+            $httpProvider.interceptors.push('exceptionInterceptor');
+        })
+        .service('debugService', function ($log, $injector) {
+            this.renderException = function (data) {
+                return $injector.get('$modal').open({
+                    templateUrl: 'modals/debug.html',
+                    controller: 'DebugController',
+                    resolve: {
+                        data: function () {
+                            return data;
+                        }
+                    }
+                });
+            };
+        })
+        .controller('DebugController', function ($log, $scope, data, $modalInstance) {
+            $scope.data = data;
+
+            $scope.close = function () {
+                $modalInstance.dismiss();
+            };
+        });
 
     // http://stackoverflow.com/a/24519069/682317
     app.filter('trusted', ['$sce', function ($sce) {

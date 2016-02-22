@@ -36,12 +36,12 @@
     <!-- The ng-if="..." has the necessary side-effect that the attributes are evaluated when the scope variables are properly loaded -->
     <!-- Not using "-dragdrop" since uploads to the dragdrop-pane are failing -->
     <input ng-if="type !== 'video'" filepicker type="filepicker"
-           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{_multiple}}"
+           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{_multiple}}" data-fp-button-text="{{ _multiple ? 'Upload Files' : 'Upload File' }}"
            data-fp-policy="{{policy}}" data-fp-signature="{{signature}}"
            data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT"
            on-success="onSuccess(event)">
     <input ng-if="type === 'video'" filepicker type="filepicker"
-           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{_multiple}}"
+           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{_multiple}}" data-fp-button-text="{{ _multiple ? 'Upload Files' : 'Upload File' }}"
            data-fp-policy="{{policy}}" data-fp-signature="{{signature}}"
            data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,URL"
            on-success="onSuccess(event)">

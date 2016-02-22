@@ -23,10 +23,12 @@
         <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.features" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label menu-visible-md">Features</span></a>
     </li>
 
+    <!--
     <li ng-show="!activeDataEnvironment.available">
         <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="main-plan" href="#"><i class="fa fa-diamond"></i> <span class="nav-label menu-visible-md">Pricing</span></a>
         <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.pricing" href="#"><i class="fa fa-diamond"></i> <span class="nav-label menu-visible-md">Pricing</span></a>
     </li>
+    -->
 
     <!--
     <li ng-show="!activeDataEnvironment.available">
@@ -80,8 +82,8 @@
     </li>
 
     <li ui-sref-active="active">
-        <a ui-sref="root.import.overview" href="#"><i
-                class="fa fa-cloud-download"></i> <span class="nav-label menu-visible-md">2. Import</span></a>
+        <a ui-sref="root.import-and-inspect.import.overview" href="#"><i
+                class="fa fa-cloud-download"></i> <span class="nav-label menu-visible-md">2. Import and inspect</span></a>
     </li>
 
     <li ui-sref-active="active">
@@ -98,17 +100,17 @@
 
 <ul class="nav navbar-nav navbar-top-links" ng-show="auth.profilePromise && activeDataEnvironment.available">
 
-    <li ui-sref-active="active">
+    <li ng-class="{active: $state.includes('root.api-endpoints.existing.get-started')}">
         <a ui-sref="root.api-endpoints.existing.get-started.introduction({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
                 class="fa fa-building"></i> <span class="nav-label menu-visible-md">1. Get started</span></a>
     </li>
 
-    <li ui-sref-active="active">
-        <a ui-sref="root.api-endpoints.existing.import.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
-                class="fa fa-cloud-download"></i> <span class="nav-label menu-visible-md">2. Import and include</span></a>
+    <li ng-class="{active: $state.includes('root.api-endpoints.existing.import-and-inspect')}">
+        <a ui-sref="root.api-endpoints.existing.import-and-inspect.import.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
+                class="fa fa-cloud-download"></i> <span class="nav-label menu-visible-md">2. Import and inspect</span></a>
     </li>
 
-    <li ui-sref-active="active">
+    <li ng-class="{active: $state.includes('root.api-endpoints.existing.get-things-done') || $state.includes('root.api-endpoints.existing.foos.existing')}">
         <a ui-sref="root.api-endpoints.existing.get-things-done.overview({dataEnvironment: activeDataEnvironment.slug})" href="#"><i
                 class="fa fa-calendar"></i> <span class="nav-label menu-visible-md">3. Get things done</span></a>
     </li>

@@ -1,0 +1,51 @@
+<div class="wrapper wrapper-content animated fadeIn" id="inspect">
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.overview">Inspect</a>
+                        </li>
+                        <li class="active">
+                            <strong>Overview</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="ibox-content">
+
+                    <p>Keep track of bank transactions, business travel and receipts here. Inspect and refine the
+                        imported information until it is correctly understood by {{env.SITENAME}}</p>
+
+                    <div ng-include="'views/elements/active-account-required.html'"></div>
+
+                    <p>
+                        <a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.accounts({dataEnvironment: activeDataEnvironment.slug})"
+                           class="btn btn-primary btn-large"><i
+                                class="fa fa-money"></i>&nbsp; Keep track of <strong>money</strong> - bank transactions,
+                            people and businesses involved, accounts used etc</a></p>
+                    <p>
+                        <a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.business-events.overview({dataEnvironment: activeDataEnvironment.slug})"
+                           class="btn btn-primary btn-large"><i
+                                class="fa fa-calendar"></i>&nbsp; Keep track of <strong>upcoming business
+                            events</strong> that are relevant for accounting purposes but has yet to show up in the bank
+                            transaction data</a></p>
+                    <p>
+                        <a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.travels.overview({dataEnvironment: activeDataEnvironment.slug})"
+                           class="btn btn-primary btn-large"><i
+                                class="fa fa-globe"></i>&nbsp; Keep track of trips, whereabouts and business <strong>travels</strong></a>
+                    </p>
+                    <p>
+                        <a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.receipts-and-proof-of-events({dataEnvironment: activeDataEnvironment.slug})"
+                           class="btn btn-primary btn-large"><i
+                                class="fa fa-archive"></i>&nbsp; Keep track of <strong>receipts</strong>, invoices and
+                            other supporting documents</a></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

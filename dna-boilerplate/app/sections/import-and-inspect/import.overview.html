@@ -1,0 +1,117 @@
+<div class="wrapper wrapper-content animated fadeIn" id="import">
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <ol class="breadcrumb">
+                        <li>
+                            Import
+                        </li>
+                        <li class="active">
+                            <strong>Overview</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="ibox-content">
+
+                    <p>The first step into getting accounting done is to import whatever you already have in front of
+                        you or near at hand.</p>
+
+                    <div ng-show="!activeDataEnvironment.available">
+                        <div ng-include="'views/elements/active-account-required.html'"></div>
+
+                        <p>
+                            <a ui-sref=".request-invite"
+                               class="btn btn-primary btn-large"><i
+                                    class="fa fa-bank"></i>&nbsp; Upload exported bank and credit card data files</a>
+                        </p>
+                        <p>
+                            <a ui-sref=".request-invite"
+                               class="btn btn-primary btn-large"><i
+                                    class="fa fa-camera"></i>&nbsp; Upload or take photos of receipts, travel tickets,
+                                invoices etc</a></p>
+                        <p>
+                            <a ui-sref=".request-invite"
+                               class="btn btn-primary btn-large"><i
+                                    class="fa fa-envelope"></i>&nbsp; Dig through your mailbox after receipts, travel
+                                tickets,
+                                invoices and the likes</a></p>
+                        <p>
+                            <a ui-sref=".request-invite"
+                               class="btn btn-primary btn-large"><i
+                                    class="fa fa-book"></i>&nbsp; Import accounting and/or invoice data directly from
+                                your accounting and/or
+                                invoicing software</a></p>
+
+                    </div>
+
+                    <div ng-show="activeDataEnvironment.available">
+
+                        <p>
+                            <a ui-sref="root.api-endpoints.existing.import-and-inspect.import.financial-data({dataEnvironment: activeDataEnvironment.slug})"
+                               class="btn btn-primary btn-large"><i
+                                    class="fa fa-bank"></i>&nbsp; Upload exported bank and credit card data files</a>
+                        </p>
+                        <p>
+                            <a ui-sref="root.api-endpoints.existing.import-and-inspect.import.camera({dataEnvironment: activeDataEnvironment.slug})"
+                               class="btn btn-primary btn-large"><i
+                                    class="fa fa-camera"></i>&nbsp; Upload or take photos of receipts, travel tickets,
+                                invoices etc</a></p>
+                        <p>
+                            <a ui-sref="root.api-endpoints.existing.import-and-inspect.import.mailbox({dataEnvironment: activeDataEnvironment.slug})"
+                               class="btn btn-primary btn-large"><i
+                                    class="fa fa-envelope"></i>&nbsp; Dig through your mailbox after receipts, travel
+                                tickets,
+                                invoices and the likes</a></p>
+                        <p>
+                            <a ui-sref="root.api-endpoints.existing.import-and-inspect.import.from-software-or-service({dataEnvironment: activeDataEnvironment.slug})"
+                               class="btn btn-primary btn-large"><i
+                                    class="fa fa-book"></i>&nbsp; Import accounting and/or invoice data directly from
+                                your accounting and/or
+                                invoicing software</a></p>
+                        <!--
+                        <p><a ui-sref="root.api-endpoints.existing.import-and-inspect.import.evernote({dataEnvironment: activeDataEnvironment.slug})" class="btn btn-primary btn-large"><i
+                                class="fa fa-edit"></i> Connect with Evernote, in case you use it for archiving receipts and
+                            other supporting
+                            documents</a>
+                        </p>
+                        -->
+
+                        <p>Before doing the above:</p>
+
+                        <ul>
+                            <li>Gather your most important and/or most readily available receipts and invoices and take
+                                pictures of them with your mobile phone.
+                            </li>
+                            <li>Login to your internet banking service, export transaction information from all your
+                                accounts that may be relevant for accounting purposes.
+                            </li>
+                        </ul>
+
+                        <h3>General</h3>
+<pre>
+importSessions.$metadata.totalCount: {{ importSessions.$metadata.totalCount}}
+</pre>
+                        <h3>Imports</h3>
+<pre>
+inputResults.$metadata.totalCount: {{ inputResults.$metadata.totalCount}}
+    divided per content clerk-relevant content-types: ?
+        stemming from files: ?
+        not stemming from files: ?
+</pre>
+                        <h3>Mailbox-queries</h3>
+<pre>
+inboxQueries.$metadata.totalCount: {{ inboxQueries.$metadata.totalCount}}
+inboxQueryResponses.$metadata.totalCount: {{ inboxQueryResponses.$metadata.totalCount}}
+</pre>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

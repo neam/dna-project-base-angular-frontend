@@ -1,0 +1,73 @@
+<!-- Import-section side menu -->
+
+<li class="nav-title">IMPORT</li>
+
+<li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
+    <a ui-sref="root.import-and-inspect.import.overview" href="#"><i
+            class="fa fa-eye"></i> <span class="nav-label">Overview</span></a>
+</li>
+
+<li ui-sref-active="active" ng-show="activeDataEnvironment.available"><a ui-sref="root.api-endpoints.existing.import-and-inspect.import.overview({dataEnvironment: activeDataEnvironment.slug})"><i class="fa fa-eye"></i> Overview</a></li>
+<li ui-sref-active="active" ng-show="activeDataEnvironment.available"><a ui-sref="root.api-endpoints.existing.import-and-inspect.import.financial-data({dataEnvironment: activeDataEnvironment.slug})"><i class="fa fa-bank"></i> Financial data</a></li>
+<li ui-sref-active="active" ng-show="activeDataEnvironment.available"><a ui-sref="root.api-endpoints.existing.import-and-inspect.import.camera({dataEnvironment: activeDataEnvironment.slug})"><i class="fa fa-camera"></i> Photos / Webcam</a></li>
+<li ui-sref-active="active" ng-show="activeDataEnvironment.available"><a ui-sref="root.api-endpoints.existing.import-and-inspect.import.mailbox({dataEnvironment: activeDataEnvironment.slug})"><i class="fa fa-envelope"></i> Mailbox</a></li>
+<li ui-sref-active="active" ng-show="activeDataEnvironment.available"><a ui-sref="root.api-endpoints.existing.import-and-inspect.import.from-software-or-service({dataEnvironment: activeDataEnvironment.slug})"><i class="fa fa-book"></i> Accounting/Invoicing Software</a></li>
+
+<li class="nav-title">INSPECT<!-- &amp; REFINE--></li>
+
+<li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
+    <a ui-sref="root.import-and-inspect.import.overview.request-invite" href="#"><i
+            class="fa fa-check-circle"></i> <span class="nav-label">Request invite</span></a>
+</li>
+
+<li ui-sref-active="active" ng-show="activeDataEnvironment.available"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.overview({dataEnvironment: activeDataEnvironment.slug})"><i class="fa fa-eye"></i> Overview</a></li>
+
+<li ng-class="{active: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.transactions')}" ng-show="activeDataEnvironment.available">
+    <a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.accounts({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})"><i class="fa fa-money"></i> <span class="nav-label">Money</span> <span
+            class="fa arrow"></span></a>
+    <ul class="nav nav-second-level" ng-class="{in: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.transactions')}">
+        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.accounts({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Accounts</a></li>
+        <!--<li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.account-balances({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Account Balances</a></li>-->
+        <li ng-class="{active: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions')}">
+            <a
+                ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions.curate.transactions.transactions.import({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Transactions <span class="fa arrow"></span></a>
+            <ul class="nav nav-third-level" ng-class="{in: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions.curate')}">
+                <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions.curate.transactions.transactions.import({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Import</a></li>
+                <!--<li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions.curate.transactions.transactions.parse-imported({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Parse imported</a></li>-->
+                <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions.curate.transactions.transactions.reality-check({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Reality-check</a></li>
+                <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions.curate.transactions.transactions.assign-sending-and-receiving-parties({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Sending &amp; Receiving</a></li>
+                <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions.curate.transactions.transactions.ledger-entry-types({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Ledger Entry Types</a></li>
+                <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions.curate.transactions.transactions.fine-tune-ledger-accounts({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Fine-tuning</a></li>
+                <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions.curate.transactions.transactions.calculate-vat-amounts({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">VAT Calculation</a></li>
+            </ul>
+        </li>
+        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.tax-entities({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">People & Businesses</a></li>
+        <!--<li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.tax-regions({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Tax Regions</a></li>-->
+    </ul>
+</li>
+
+<li ng-class="{active: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.business-events')}" ng-show="activeDataEnvironment.available">
+    <a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.business-events.overview"><i class="fa fa-calendar"></i> <span class="nav-label">Upcoming business events</span>
+        <span class="fa arrow"></span></a>
+    <ul class="nav nav-second-level" ng-class="{in: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.business-events')}">
+        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.business-events.overview">Overview</a></li>
+        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.business-events.sent-yet-unpaid-invoices">Sent yet unpaid invoices</a></li>
+        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.business-events.received-yet-unpaid-invoices">Received unpaid invoices</a></li>
+    </ul>
+</li>
+
+<li ng-class="{active: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.travels')}" ng-show="activeDataEnvironment.available">
+    <a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.travels.overview"><i class="fa fa-globe"></i> <span class="nav-label">Travels</span>
+        <span class="fa arrow"></span></a>
+    <ul class="nav nav-second-level" ng-class="{in: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.travels')}">
+        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.travels.overview">Overview</a></li>
+        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.travels.whereabouts">Whereabouts</a></li>
+        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.travels.trips">Trips</a></li>
+        <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.travels.travel-claims">Travel Claims</a></li>
+    </ul>
+</li>
+
+<li ui-sref-active="active" ng-show="activeDataEnvironment.available">
+    <a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.receipts-and-proof-of-events({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})" href="#"><i
+            class="fa fa-archive"></i> <span class="nav-label">Receipts and proof of events</span></a>
+</li>

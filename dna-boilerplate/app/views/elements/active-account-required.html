@@ -1,1 +1,10 @@
-This section requires an active account. If you have any questions: [Chat with us]
+<div class="alert alert-warning" ng-if="!activeDataEnvironment.available">
+
+    <p>An actived account is required.</p>
+
+    <a ui-sref=".request-invite"
+       class="btn btn-primary" style="white-space: inherit;"><span
+            ng-bind-html="optimizelyVariation.data['account activation button text'] | sanitize"></span> &nbsp; <i
+            class="fa fa-lg fa-long-arrow-right"></i></a></span>
+
+</div>
