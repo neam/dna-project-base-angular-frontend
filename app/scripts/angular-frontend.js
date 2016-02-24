@@ -131,6 +131,9 @@
 
                 //console.log('chosen api endpoint: ', chosenDataEnvironment, env.API_VERSION, env.API_BASE_URL);
 
+                // Allow app to react on changes of active data environment
+                $rootScope.$broadcast('activeDataEnvironment.change', chosenDataEnvironment);
+
             });
 
         };
