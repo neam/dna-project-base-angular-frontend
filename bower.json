@@ -15,7 +15,7 @@
   ],
   "appPath": "app",
   "dependencies": {
-    "angular-resource": "~1.2.25",
+    "angular-resource": "~1.2.29",
     "lodash": "~2.4.1",
     "angulartics": "~0.17.2",
     "angular-google-chart": "https://github.com/bouil/angular-google-chart.git#gh-pages",
