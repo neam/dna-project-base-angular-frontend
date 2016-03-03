@@ -1,0 +1,62 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title debug__heading">
+            Server Error {{ data.status }}
+                <!--<small class="debug__exception">{{ data.status }}</small>-->
+        </h3>
+    </div>
+    <div class="modal-body">
+
+        <div class="debug">
+            <!--<pre>{{ data | json }}</pre>-->
+
+            <div class="debug__message">{{ data.debug.message || 'No message' }}</div>
+
+            <div class="debug__source">{{ data.debug.file }}({{ data.debug.line }})</div>
+
+            <div class="debug__trace">
+                <h5 class="debug__trace-heading">Stack Trace</h5>
+
+                <ol class="debug__trace-nav">
+                    <li class="debug__trace-item" ng-repeat="item in data.debug.trace" ng-if="item.file">
+                        <span class="debug__trace-source">{{ item.file }}({{ item.line }})</span>
+                        <span class="debug__trace-function">{{ item.class ? item.class + '::' : '' }}{{ item.function }}</span>
+                    </li>
+                </ol>
+
+            </div>
+
+        </div>
+
+        <div class="debug" ng-if="data.previous">
+
+            <hr/>
+
+            <h3>Previous:</h3>
+
+            <!--<pre>{{ data | json }}</pre>-->
+
+            <div class="debug__message">{{ data.previous.debug.message || 'No message' }}</div>
+
+            <div class="debug__source">{{ data.previous.debug.file }}({{ data.previous.debug.line }})</div>
+
+            <div class="debug__trace">
+                <h5 class="debug__trace-heading">Stack Trace</h5>
+
+                <ol class="debug__trace-nav">
+                    <li class="debug__trace-item" ng-repeat="item in data.previous.debug.trace" ng-if="item.file">
+                        <span class="debug__trace-source">{{ item.file }}({{ item.line }})</span>
+                        <span class="debug__trace-function">{{ item.class ? item.class + '::' : '' }}{{ item.function }}</span>
+                    </li>
+                </ol>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="close()">Close</button>
+    </div>
+</div>
+</div>
