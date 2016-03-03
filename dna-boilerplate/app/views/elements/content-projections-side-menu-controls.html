@@ -1,0 +1,53 @@
+<div ng-show="suggestionsService.status() !== 'inactive'">
+
+    <li class="nav-title">PREVIEW <i class="fa fa-circle-o-notch fa-spin"
+                                     ng-show="suggestionsService.status() === 'loading'"></i><i
+            class="fa fa-exclamation-circle" ng-show="suggestionsService.status() === 'error'"></i></li>
+
+    <pre>{{ suggestionsService.activeSuggestions | json }}</pre>
+
+    <!--
+    <li ng-show="suggestionsService.status() === 'active'">
+        Notice: Showing Preview
+    </li>
+    -->
+
+    <li ng-show="suggestionsService.status() === 'error'">
+        <a href="javascript:void(0);"
+           ng-click="suggestionsService.refresh()"><i
+                class="fa fa-refresh"></i>&nbsp; Retry</a>
+    </li>
+
+    <li ng-show="suggestionsService.status() === 'active'">
+        <a href="javascript:void(0);"
+           ng-click="suggestionsService.refresh()"><i
+                class="fa fa-refresh"></i>&nbsp; Refresh</a>
+    </li>
+
+    <li ng-show="suggestionsService.status() === 'active'">
+        <a href="javascript:void(0);"
+           ng-click="suggestionsService.submit()"><i
+                class="fa fa-refresh"></i>&nbsp; Submit</a>
+    </li>
+
+    <li ng-show="suggestionsService.status() === 'active'">
+        <a href="javascript:void(0);"
+           ng-click="suggestionsService.restore()"><i
+                class="fa fa-close"></i>&nbsp; Clear</a>
+    </li>
+
+</div>
+
+<div ng-show="$location.search() !== {}">
+
+    <li class="nav-title">PAGE FILTERS</li>
+
+    <pre>{{ $location.search() | json }}</pre>
+
+    <li>
+        <a href="javascript:void(0);"
+           ng-click="$event.preventDefault(); $location.search({})"><i
+                class="fa fa-close"></i>&nbsp; Clear</a>
+    </li>
+
+</div>

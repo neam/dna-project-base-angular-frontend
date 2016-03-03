@@ -38,12 +38,47 @@
         var suggestionsService = {
             status: status,
             statuses: statuses,
+            replacedResources: {},
+            activeSuggestions: [],
             suggest: function (suggestions, save) {
 
-                console.log('suggest - suggestions, save', suggestions, save);
+                console.log('suggestionsService.suggest() - suggestions, save', suggestions, save);
+
+                var self = this;
+
+                _.each(suggestions, function (value, key, list) {
+                    self.activeSuggestions.push(value);
+                });
+
+                self.query(save);
+
+            },
+            refresh: function () {
+
+                console.log('suggestionsService.refresh()');
+
+                var self = this;
+
+                self.query(false);
+
+            },
+            submit: function () {
+
+                console.log('suggestionsService.submit()');
+
+                var self = this;
+
+                self.query(true);
+
+            },
+            query: function (save) {
+
+                console.log('suggestionsService.query() - save', save);
+
+                var self = this;
 
                 var params = angular.extend({}, {
-                    'suggestions': suggestions,
+                    'suggestions': self.activeSuggestions,
                     'save': save,
                     'filters': contentFilters.all(),
                     'default_page': 1,
@@ -61,6 +96,11 @@
 
                         $injector.invoke([key, function (resource) {
 
+                            // Store previously used data for easy reset
+                            self.replacedResources[key] = angular.copy(resource);
+                            self.replacedResources[key].$metadata = angular.copy(resource.$metadata);
+
+                            // Replace with suggested data
                             resource.replace(value.items);
                             resource.$metadata = value._meta;
 
@@ -69,6 +109,7 @@
                     });
 
                     if (save) {
+                        self.activeSuggestions = [];
                         status = statuses.INACTIVE;
                     } else {
                         status = statuses.ACTIVE;
@@ -86,6 +127,27 @@
             },
             status: function () {
                 return status;
+            },
+            restore: function () {
+
+                var self = this;
+
+                self.activeSuggestions = [];
+
+                _.each(self.replacedResources, function (value, key, list) {
+
+                    $injector.invoke([key, function (resource) {
+
+                        // Restore previously used data
+                        resource.replace(value);
+                        resource.$metadata = value.$metadata;
+                        delete self.replacedResources[key];
+
+                    }]);
+
+                });
+                status = statuses.INACTIVE;
+
             }
         };
 
@@ -137,7 +199,7 @@
                     return obj;
                 }, {});
 
-                var allContentFilters = angular.merge({}, locationBasedContentFilters, routeBasedContentFilters);
+                var allContentFilters = angular.merge({}, routeBasedContentFilters, locationBasedContentFilters);
 
                 return allContentFilters;
 
@@ -264,7 +326,7 @@
                 request: function (config) {
                     config.headers = config.headers || {};
                     // Supply header indicating which data profile we should use for the request
-                    if (DataEnvironmentService.activeDataEnvironment.available) {
+                    if (DataEnvironmentService.activeDataEnvironment.available && config.url.indexOf(env.API_BASE_URL) > -1) {
                         config.headers['X-Data-Profile'] = env.DATA || 'clean-db';
                     }
                     //config.withCredentials = true;
