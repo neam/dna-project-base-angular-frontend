@@ -524,6 +524,14 @@
                 data: {pageTitle: 'Import'}
             })
 
+            .state('root.api-endpoints.existing.import-and-inspect.import.images', {
+                url: "/images",
+                templateUrl: "sections/import-and-inspect/import.images.html",
+                resolve: {
+                },
+                data: {pageTitle: 'Inspect'}
+            })
+
             .state('root.api-endpoints.existing.import-and-inspect.inspect', {
                 abstract: true,
                 url: "/inspect",
