@@ -274,7 +274,7 @@
 
             .state('root.get-things-done.overview', {
                 url: "/overview",
-                templateUrl: "sections/get-things-done/get-things-done.html",
+                templateUrl: "sections/get-things-done/overview.html",
                 data: {pageTitle: 'Get Things Done'}
             })
 
@@ -485,21 +485,27 @@
                 url: "/import-and-inspect",
                 views: {
                     '': {
-                        template: "<ui-view/>",
+                        templateUrl: "sections/import-and-inspect/wrapper.html",
                         controller: "ImportController",
                     },
                     'sidebar@root': {
                         templateUrl: "sections/import-and-inspect/navigation.html"
                     }
                 },
-                /*
-                 resolve: {
-                 // Inject the metadata resolved in the root state
-                 metadata: function (metadata) {
-                 return metadata;
-                 }
-                 },
-                 */
+                resolve: {
+                    setRouteBasedContentFiltersLevel0: function (routeBasedContentFilters, $stateParams) {
+                        routeBasedContentFilters.ImportSession_order = 'ImportSession.created DESC';
+                        routeBasedContentFilters.InputResult_order = 'InputResult.created DESC';
+
+                        // Start of with empty lists before an import session is selected
+                        routeBasedContentFilters.ImportSessionManyManyFile_import_session_id = -1;
+                        routeBasedContentFilters.Foo_Interpretation_Clue_InputResult_import_session_id = -1;
+                        routeBasedContentFilters.Interpretation_Clue_InputResult_import_session_id = -1;
+                        routeBasedContentFilters.Clue_InputResult_import_session_id = -1;
+                        routeBasedContentFilters.InputResult_import_session_id = -1;
+
+                    },
+                },
                 data: {
                     pageTitle: '2. Import',
                     showSideMenu: true
@@ -510,12 +516,6 @@
                 abstract: true,
                 url: "/import",
                 template: "<ui-view/>",
-                resolve: {
-                    setRouteBasedContentFiltersLevel0: function (routeBasedContentFilters, $stateParams) {
-                        routeBasedContentFilters.ImportSession_order = 'ImportSession.created DESC';
-                        routeBasedContentFilters.InputResult_order = 'InputResult.created DESC';
-                    },
-                },
             })
 
             .state('root.api-endpoints.existing.import-and-inspect.import.overview', {
@@ -559,14 +559,11 @@
                         templateUrl: "sections/get-things-done/navigation.html"
                     }
                 },
-                /*
-                 resolve: {
-                 // Inject the metadata resolved in the root state
-                 metadata: function (metadata) {
-                 return metadata;
-                 }
-                 },
-                 */
+                resolve: {
+                    setRouteBasedContentFiltersLevel0: function (routeBasedContentFilters, $stateParams) {
+                        routeBasedContentFilters.Foo_order = 'Foo.modified DESC';
+                    },
+                },
                 data: {
                     pageTitle: '3. Get things done',
                     showSideMenu: true
