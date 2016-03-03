@@ -1231,7 +1231,7 @@ $activeFields = [
     // == attributes
     '\.is_*' => $switchInput,
     '\.*_enabled' => $switchInput,
-    '\.*Media' => $fileSelectionWidget,
+    '\.*Media$' => $fileSelectionWidget,
     '\.file' => $fileSelectionWidget,
     '\.*_markup' => $textAreaInput,
     '\.*_message' => $textAreaInput,
