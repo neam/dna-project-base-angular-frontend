@@ -186,6 +186,16 @@ module.exports = function (grunt) {
             less: {
                 files: [
                     {
+                        cwd: '<%= paths.app %>/../bower_components/bootstrap/less/',
+                        expand: true,
+                        filter: 'isFile',
+                        src: [
+                            '**',
+                            '!.gitkeep'
+                        ],
+                        dest: '<%= paths.tmpCompile %>/../bower_components/bootstrap/less/'
+                    },
+                    {
                         cwd: '<%= paths.app %>/less/',
                         expand: true,
                         filter: 'isFile',
