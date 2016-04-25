@@ -101,7 +101,8 @@
     "ngSmoothScroll": "~2.0.0",
     "angular-filepicker": "~1.1.3",
     "filepicker-js": "git://github.com/motin/filepicker-js-bower.git#2.3.4",
-    "angular-daterangepicker": "~0.2.2"
+    "angular-daterangepicker": "~0.2.2",
+    "cal-heatmap": "~3.6.0"
   },
   "resolutions": {
     "angular": "1.5.5",
@@ -117,6 +118,7 @@
     "filepicker-js": "2.3.4",
     "filepicker-js-bower": "2.3.4",
     "angular-narrative-api": "master",
-    "angular-ui-router": "~1.0.0-alpha.3"
+    "angular-ui-router": "~1.0.0-alpha.3",
+    "cal-heatmap": "^3.6.0"
   }
 }

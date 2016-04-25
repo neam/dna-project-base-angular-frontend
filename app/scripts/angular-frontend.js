@@ -204,4 +204,25 @@
         };
     });
 
+    /**
+     * Simple cal heatmap wrapper directive which simply sends the config to CalHeatMap's init() function
+     * together with the element reference
+     */
+    module.directive('simpleCalHeatmap', function () {
+        function link(scope, el) {
+            var config = angular.copy(scope.config);
+            var element = el[0];
+            var cal = new CalHeatMap();
+            config.itemSelector = element;
+            cal.init(config);
+        }
+
+        return {
+            template: '<div id="cal-heatmap" config="config"></div>',
+            restrict: 'E',
+            link: link,
+            scope: {config: '='}
+        };
+    });
+
 })();
