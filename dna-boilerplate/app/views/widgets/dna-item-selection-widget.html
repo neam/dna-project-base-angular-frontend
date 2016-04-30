@@ -9,10 +9,44 @@
     <div ng-if="_multiple && viewPath && !customTemplate" ng-include="viewPath + '/compact-list.html'"></div>
     <!-- Simple default fallback item-picker -->
     <div ng-if="!_multiple && (!viewPath || !customTemplate)">
-        <ul>
-            <li ng-if="item.id"><a href="javascript:void(0)" ng-click="selectItem(null)" class="btn btn-sm btn-info">Clear selection</a></li>
-            <li ng-repeat="itemCandidate in collection track by itemCandidate.id" style="margin: 1em; float: left;"><a href="javascript:void(0);" ng-click="selectItem(itemCandidate)" class="btn" ng-class="{'btn-default': item.id !== itemCandidate.id, 'btn-primary': item.id === itemCandidate.id}">{{itemCandidate.item_label}}</a></li>
-        </ul>
+        <div class="container">
+            <div class="row">
+                <ul class="clear" ng-if="item.id">
+                    <li><a
+                            href="javascript:void(0);"
+                            ng-click="selectItem(item)"
+                            class="btn btn-lg"
+                            ng-class="{'btn-default': item.id !== item.id, 'btn-primary': item.id === item.id}">
+
+                        <i class="fa fa-3x pull-left"
+                           ng-class="{'fa-circle-o': item.id !== item.id, 'fa-check-circle': item.id === item.id}"></i>
+                        {{item.item_label}}
+
+                    </a>
+                    </li>
+                    <li><a href="javascript:void(0)" ng-click="selectItem(null)" class="btn btn-lg btn-info"><i class="fa fa-random fa-3x pull-left"></i> Choose another...</a></li>
+                </ul>
+                <ul class="clear" ng-if="!item.id">
+                    <li ng-repeat="itemCandidate in collection track by itemCandidate.id" ng-if="itemCandidate.attributes.clerkTaxEntityType.item_label !== 'Other'"><a
+                            href="javascript:void(0);"
+                            ng-click="selectItem(itemCandidate)"
+                            class="btn btn-lg"
+                            ng-class="{'btn-default': item.id !== itemCandidate.id, 'btn-primary': item.id === itemCandidate.id}">
+
+                        <i class="fa fa-3x pull-left"
+                           ng-class="{'fa-circle-o': item.id !== itemCandidate.id, 'fa-check-circle': item.id === itemCandidate.id}"></i>
+                        {{itemCandidate.item_label}}
+
+                    </a>
+                    </li>
+                </ul>
+                <ul class="clear" ng-if="!item.id && viewPath">
+
+                    <li><a href="javascript:void(0)" ng-controller="GeneralModalController" ng-click="open(viewPath + '/curate-modal.html', 'lg')"class="btn btn-sm btn-info"><i class="fa fa-list-alt fa-2x pull-left"></i> Don't see your option above?</a></li>
+
+                </ul>
+            </div>
+        </div>
     </div>
 
 </div>

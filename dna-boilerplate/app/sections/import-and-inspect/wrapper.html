@@ -1,3 +1,7 @@
-<div ng-include="'crud/import-session/compact-list.html'"></div>
+<div class="row ibox-content" collapse="importScope.importSessionPanelIsCollapsed">
+    <div ng-include="'crud/import-session/select-filter.html'"></div>
+</div>
 
-<ui-view ng-if="importSession"/>
+<div ng-if="uiModes.currentIsAtLeast(uiModes.modes.DEBUG)" ng-include="'crud/import-session/compact-list.html'"></div>
+
+<ui-view/>

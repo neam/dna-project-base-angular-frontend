@@ -372,6 +372,10 @@
 
                         return DataEnvironmentService.activeDataEnvironment.promise;
 
+                    },
+                    // keep track of global suggested actions
+                    resolveSuggestedActions: function(dataEnvironmentParam, suggestedActions, $rootScope) {
+                        $rootScope.suggestedActions = suggestedActions;
                     }
                 },
                 data: {pageTitle: 'Example view'}
@@ -496,14 +500,6 @@
                     setRouteBasedContentFiltersLevel0: function (routeBasedContentFilters, $stateParams) {
                         routeBasedContentFilters.ImportSession_order = 'ImportSession.created DESC';
                         routeBasedContentFilters.InputResult_order = 'InputResult.created DESC';
-
-                        // Start of with empty lists before an import session is selected
-                        routeBasedContentFilters.ImportSessionManyManyFile_import_session_id = -1;
-                        routeBasedContentFilters.Foo_Interpretation_Clue_InputResult_import_session_id = -1;
-                        routeBasedContentFilters.Interpretation_Clue_InputResult_import_session_id = -1;
-                        routeBasedContentFilters.Clue_InputResult_import_session_id = -1;
-                        routeBasedContentFilters.InputResult_import_session_id = -1;
-
                     },
                 },
                 data: {
@@ -515,6 +511,17 @@
             .state('root.api-endpoints.existing.import-and-inspect.import', {
                 abstract: true,
                 url: "/import",
+                resolve: {
+                    setRouteBasedContentFiltersLevel1: function (setRouteBasedContentFiltersLevel0, routeBasedContentFilters, $stateParams) {
+                        // Start of with empty lists before an import session is selected
+                        routeBasedContentFilters.ImportSessionManyManyFile_import_session_id = -1;
+                        routeBasedContentFilters.Foo_Interpretation_Clue_InputResult_import_session_id = null;
+                        routeBasedContentFilters.Bar_Interpretation_Clue_InputResult_import_session_id = null;
+                        routeBasedContentFilters.Interpretation_Clue_InputResult_import_session_id = -1;
+                        routeBasedContentFilters.Clue_InputResult_import_session_id = -1;
+                        routeBasedContentFilters.InputResult_import_session_id = -1;
+                    },
+                },
                 template: "<ui-view/>",
             })
 
@@ -534,7 +541,18 @@
 
             .state('root.api-endpoints.existing.import-and-inspect.inspect', {
                 abstract: true,
-                url: "/inspect",
+                url: "/organize",
+                resolve: {
+                    setRouteBasedContentFiltersLevel1: function (setRouteBasedContentFiltersLevel0, routeBasedContentFilters, $stateParams) {
+                        // Start of with full lists before an import session is selected
+                        routeBasedContentFilters.ImportSessionManyManyFile_import_session_id = null;
+                        routeBasedContentFilters.Foo_Interpretation_Clue_InputResult_import_session_id = null;
+                        routeBasedContentFilters.Bar_Interpretation_Clue_InputResult_import_session_id = null;
+                        routeBasedContentFilters.Interpretation_Clue_InputResult_import_session_id = null;
+                        routeBasedContentFilters.Clue_InputResult_import_session_id = null;
+                        routeBasedContentFilters.InputResult_import_session_id = null;
+                    },
+                },
                 template: "<ui-view/>",
             })
 
@@ -646,6 +664,9 @@
         })
         .run(function ($rootScope, optimizelyVariation) {
             $rootScope.optimizelyVariation = optimizelyVariation;
+        })
+        .run(function ($rootScope, uiModes) {
+            $rootScope.uiModes = uiModes;
         })
         .run(function ($rootScope, $state, suggestionsService, hotkeys, auth, $http, DataEnvironmentService, $location) {
 

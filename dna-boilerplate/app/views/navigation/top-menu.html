@@ -1,4 +1,4 @@
-<ul class="nav navbar-nav navbar-top-links" ng-show="!activeDataEnvironment.available && !auth.profilePromise">
+<ul class="nav navbar-nav navbar-top-links navbar-left" ng-show="!activeDataEnvironment.available && !auth.profilePromise">
 
     <li ui-sref-active="active" ng-show="false && !$state.includes('root.start')">
         <a ui-sref="root.start" href="#"><i class="fa fa-arrow-left"></i> <span class="nav-label">Back</span></a>
@@ -71,6 +71,9 @@
 
     </li>
     -->
+
+    <li ui-sref-active="active" ng-show="!auth.profilePromise"><a ui-sref="root.start.user.login" ui-sref-opts="{reload: true}"><span class="nav-label menu-visible-sm">Log in</span></a></li>
+    <li ui-sref-active="active" ng-show="!auth.profilePromise"><a ui-sref="root.start.user.signup" ui-sref-opts="{reload: true}"><span class="nav-label menu-visible-sm">Sign up</span></a></li>
 
 </ul>
 

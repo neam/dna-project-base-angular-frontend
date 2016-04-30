@@ -1,11 +1,50 @@
-// Basic Colors
-@navy: #558fc1;       // Primary color
-@dark-gray: #c2c2c2;  // Default color
-@blue: #1c84c6;       // Success color
-@lazur: #23c6c8;      // Info color
-@yellow: #f8ac59;     // Warrning color
-@red: #ED5565;        // Danger color
-@white: #ffffff;		// White
+// Basic colors
+@dark-purple:           #3a2d4d;
+@purple:                #5d3772;
+@blue:                  #1c84c6;
+@green:                 #6DB123;
+@yellow:                #f8ac59;
+@red:                   #ED5565;
+@brand-primary:         #558fc1;
+@brand-default:         #c2c2c2;
+@brand-warning:         @yellow;
+@brand-pending:         #197bb5;
+@brand-success:         @green;
+@brand-info:            @blue;
+@brand-danger:          @red;
+
+// Bootstrap overrides
+@state-info-bg:               lighten(@brand-default, 60.0%);
+@state-info-text:             darken(@brand-default, 20.0%);
+@state-info-border:           lighten(@brand-default, 50.0%);
+@state-info-bg:               lighten(@brand-info, 60.0%);
+@state-info-text:             darken(@brand-info, 20.0%);
+@state-info-border:           lighten(@brand-info, 50.0%);
+@state-warning-bg:            lighten(@brand-warning, 35.0%);
+@state-warning-text:          darken(@brand-warning, 30.0%);
+@state-warning-border:        lighten(@brand-warning, 35.0%);
+@state-pending-bg:            @brand-pending;
+@state-pending-text:          lighten(@brand-pending, 70.0%);
+@state-pending-border:        lighten(@brand-pending, 25.0%);
+@alert-border-radius:         0px;
+@btn-default-color:              @state-info-text;
+@btn-default-bg:                 @state-info-bg;
+@btn-default-border:             @state-info-border;
+@btn-info-color:                 @state-info-text;
+@btn-info-bg:                    @state-info-bg;
+@btn-info-border:                @state-info-border;
+@btn-warning-color:              @state-warning-text;
+@btn-warning-bg:                 @state-warning-bg;
+@btn-warning-border:             @state-warning-border;
+
+// Inspinia
+@navy:                  @brand-primary;   // Navy = Primary color according to inspinia overrides
+@dark-gray:             @brand-default;   // Dark gray = Default color according to inspinia overrides
+@lazur:                 @brand-info;      // Lazur = Info color according to inspinia overrides
+@yellow:                @brand-warning;   // Yellow = Warning color according to inspinia overrides
+@blue:                  @brand-success;   // Blue = Success color according to inspinia overrides
+@red:                   @brand-danger;    // Red = Danger color according to inspinia overrides
+@white:                 #ffffff;
 
 // Various colors
 @text-color: #676a6c;   // Body text
@@ -21,9 +60,10 @@
 @ibox-content-bg:#ffffff;   // IBox Background content
 
 //Sidebar
-@sidebar-width: 240px;
+@sidebar-width: 260px;
 @sidebar-color: #44464f;
 @sidebar-active: #3b3d45;
+@sidebar-active-text-color: @navy;
 
 // Boxed layout width
 @boxed-width: 1200px;

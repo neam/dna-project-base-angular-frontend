@@ -13,7 +13,7 @@
 <li ui-sref-active="active" ng-show="activeDataEnvironment.available"><a ui-sref="root.api-endpoints.existing.import-and-inspect.import.mailbox({dataEnvironment: activeDataEnvironment.slug})"><i class="fa fa-envelope"></i> Mailbox</a></li>
 <li ui-sref-active="active" ng-show="activeDataEnvironment.available"><a ui-sref="root.api-endpoints.existing.import-and-inspect.import.from-software-or-service({dataEnvironment: activeDataEnvironment.slug})"><i class="fa fa-book"></i> Accounting/Invoicing Software</a></li>
 
-<li class="nav-title">INSPECT<!-- &amp; REFINE--></li>
+<li class="nav-title">ORGANIZE<!-- &amp; REFINE--></li>
 
 <li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
     <a ui-sref="root.import-and-inspect.import.overview.request-invite" href="#"><i
@@ -22,13 +22,13 @@
 
 <li ui-sref-active="active" ng-show="activeDataEnvironment.available"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.overview({dataEnvironment: activeDataEnvironment.slug})"><i class="fa fa-eye"></i> Overview</a></li>
 
-<li ng-class="{active: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.transactions')}" ng-show="activeDataEnvironment.available">
+<li ng-class="{'active-parent': $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.transactions')}" ng-show="activeDataEnvironment.available">
     <a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.accounts({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})"><i class="fa fa-money"></i> <span class="nav-label">Money</span> <span
             class="fa arrow"></span></a>
     <ul class="nav nav-second-level" ng-class="{in: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.transactions')}">
         <li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.accounts({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Accounts</a></li>
         <!--<li ui-sref-active="active"><a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.account-balances({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Account Balances</a></li>-->
-        <li ng-class="{active: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions')}">
+        <li ng-class="{'active-parent': $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions')}">
             <a
                 ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions.curate.transactions.transactions.import({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})">Transactions <span class="fa arrow"></span></a>
             <ul class="nav nav-third-level" ng-class="{in: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.transactions.transactions.curate')}">
@@ -46,7 +46,7 @@
     </ul>
 </li>
 
-<li ng-class="{active: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.business-events')}" ng-show="activeDataEnvironment.available">
+<li ng-class="{'active-parent': $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.business-events')}" ng-show="activeDataEnvironment.available">
     <a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.business-events.overview"><i class="fa fa-calendar"></i> <span class="nav-label">Upcoming business events</span>
         <span class="fa arrow"></span></a>
     <ul class="nav nav-second-level" ng-class="{in: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.business-events')}">
@@ -56,7 +56,7 @@
     </ul>
 </li>
 
-<li ng-class="{active: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.travels')}" ng-show="activeDataEnvironment.available">
+<li ng-class="{'active-parent': $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.travels')}" ng-show="activeDataEnvironment.available">
     <a ui-sref="root.api-endpoints.existing.import-and-inspect.inspect.travels.overview"><i class="fa fa-globe"></i> <span class="nav-label">Travels</span>
         <span class="fa arrow"></span></a>
     <ul class="nav nav-second-level" ng-class="{in: $state.includes('root.api-endpoints.existing.import-and-inspect.inspect.travels')}">
@@ -73,3 +73,11 @@
 </li>
 
 <div ng-include="'views/elements/content-projections-side-menu-controls.html'"></div>
+
+<li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
+    <a ui-sref="root.import-and-inspect.import.overview.request-invite" href="#"><i
+            class="fa fa-magic"></i> <span class="nav-label">Request invite</span></a>
+</li>
+
+<div ng-include="'views/elements/ui-modes-side-menu-controls.html'"></div>
+

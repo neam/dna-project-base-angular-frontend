@@ -90,23 +90,25 @@
                             </li>
                         </ul>
 
-                        <h3>General</h3>
+                        <div ng-if="uiModes.currentIsAtLeast(uiModes.modes.DEVELOPER)">
+                            <h3>General</h3>
 <pre>
 importSessions.$metadata.totalCount: {{ importSessions.$metadata.totalCount}}
 </pre>
-                        <h3>Imports</h3>
+                            <h3>Imports</h3>
 <pre>
 inputResults.$metadata.totalCount: {{ inputResults.$metadata.totalCount}}
     divided per content clerk-relevant content-types: ?
         stemming from files: ?
         not stemming from files: ?
 </pre>
-                        <h3>Mailbox-queries</h3>
+                            <h3>Mailbox-queries</h3>
 <pre>
 inboxQueries.$metadata.totalCount: {{ inboxQueries.$metadata.totalCount}}
 inboxQueryResponses.$metadata.totalCount: {{ inboxQueryResponses.$metadata.totalCount}}
 </pre>
 
+                        </div>
                     </div>
 
                 </div>
