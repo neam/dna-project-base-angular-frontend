@@ -7,7 +7,7 @@
 
     <!-- Page wraper -->
     <!-- ng-class with current state name give you the ability to extended customization your view -->
-    <div id="page-wrapper" class="gray-bg {{$state.current.name}}" ng-class="{'side-menu-shown' : $state.current.data.showSideMenu}">
+    <div id="page-wrapper" class="{{$state.current.name}}" ng-class="{'side-menu-shown' : $state.current.data.showSideMenu}">
 
         <!-- Main view  -->
         <div ui-view></div>
@@ -20,3 +20,28 @@
 
 </div>
 <!-- End wrapper-->
+
+<!-- Suggested actions modal -->
+<div class="modal inmodal" id="suggestedActionsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeIn">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <!--<i class="fa fa-clock-o modal-icon"></i>-->
+                <h4 class="modal-title">Suggested actions</h4>
+                <small>Make sure these things get done and you are closer to being done with the fiscal administration.
+                </small>
+            </div>
+            <div class="modal-body">
+
+                <div ng-include="'crud/suggested-action/compact-list.html'"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
+        </div>
+    </div>
+</div>

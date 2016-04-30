@@ -1,0 +1,25 @@
+<div class="nav" style="position: absolute;bottom: 1em;width: 260px;">
+
+    <li>&nbsp;</li>
+
+    <li class="nav-title">Advanced mode <label class="switch m-b">
+        <input ng-click="uiModes.current != uiModes.modes.ADVANCED ? uiModes.set(uiModes.modes.ADVANCED) : uiModes.set(uiModes.modes.NORMAL);"
+               ng-checked="uiModes.current == uiModes.modes.ADVANCED"
+               type="checkbox" class="form-control m-b"><i></i>
+    </label></li>
+
+    <li ng-if="uiModes.currentIsAtLeast(uiModes.modes.ADVANCED)" class="nav-title">Developer mode <label
+            class="switch m-b">
+        <input ng-click="uiModes.current != uiModes.modes.DEVELOPER ? uiModes.set(uiModes.modes.DEVELOPER) : uiModes.set(uiModes.modes.ADVANCED);"
+               ng-checked="uiModes.current == uiModes.modes.DEVELOPER"
+               type="checkbox" class="form-control m-b"><i></i>
+    </label></li>
+
+    <li ng-if="uiModes.currentIsAtLeast(uiModes.modes.DEVELOPER)" class="nav-title">Debug mode <label
+            class="switch m-b">
+        <input ng-click="uiModes.current != uiModes.modes.DEBUG ? uiModes.set(uiModes.modes.DEBUG) : uiModes.set(uiModes.modes.DEVELOPER);"
+               ng-checked="uiModes.current == uiModes.modes.DEBUG"
+               type="checkbox" class="form-control m-b"><i></i>
+    </label></li>
+
+</div>

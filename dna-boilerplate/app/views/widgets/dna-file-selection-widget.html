@@ -28,22 +28,32 @@
     </ul>
 </div>
 <div ng-if="!file.id">
-    <p>(No file<span ng-show="_multiple">s</span> selected)</p>
+    <!--<p>(No file<span ng-show="_multiple">s</span> selected)</p>-->
 </div>
 
 <!-- Button to replace empty/saved file(s) with newly uploaded file(s) -->
 <div class="pick-files">
     <!-- The ng-if="..." has the necessary side-effect that the attributes are evaluated when the scope variables are properly loaded -->
     <!-- Not using "-dragdrop" since uploads to the dragdrop-pane are failing -->
-    <input ng-if="type !== 'video'" filepicker type="filepicker"
-           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{_multiple}}" data-fp-button-text="{{ _multiple ? 'Upload Files' : 'Upload File' }}"
+    <input ng-if="type === 'image'" filepicker type="filepicker"
+           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{_multiple}}" data-fp-button-text="{{ _multiple ? 'Upload image(s)' : 'Upload image' }}"
            data-fp-policy="{{policy}}" data-fp-signature="{{signature}}"
-           data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,IMAGE_SEARCH,URL,CONVERT"
+           data-fp-services="{{services}}"
+           on-success="onSuccess(event)">
+    <input ng-if="type === 'take-picture'" filepicker type="filepicker"
+           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{_multiple}}" data-fp-button-text="{{ _multiple ? 'Take picture(s) using your Webcam' : 'Take picture' }}"
+           data-fp-policy="{{policy}}" data-fp-signature="{{signature}}"
+           data-fp-services="{{services}}"
            on-success="onSuccess(event)">
     <input ng-if="type === 'video'" filepicker type="filepicker"
-           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{_multiple}}" data-fp-button-text="{{ _multiple ? 'Upload Files' : 'Upload File' }}"
+           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{_multiple}}" data-fp-button-text="{{ _multiple ? 'Upload video(s)' : 'Upload video' }}"
            data-fp-policy="{{policy}}" data-fp-signature="{{signature}}"
-           data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,URL"
+           data-fp-services="{{services}}"
+           on-success="onSuccess(event)">
+    <input ng-if="type === 'any'" filepicker type="filepicker"
+           data-fp-mimetypes="{{mimetypes}}" data-fp-container="modal" data-fp-multiple="{{_multiple}}" data-fp-button-text="{{ _multiple ? 'Upload file(s)' : 'Upload file' }}"
+           data-fp-policy="{{policy}}" data-fp-signature="{{signature}}"
+           data-fp-services="{{services}}"
            on-success="onSuccess(event)">
 </div>
 

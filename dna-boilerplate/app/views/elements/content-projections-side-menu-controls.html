@@ -1,44 +1,4 @@
-<div ng-show="suggestionsService.status() !== 'inactive'">
-
-    <li class="nav-title">PREVIEW <i class="fa fa-circle-o-notch fa-spin"
-                                     ng-show="suggestionsService.status() === 'loading'"></i><i
-            class="fa fa-exclamation-circle" ng-show="suggestionsService.status() === 'error'"></i></li>
-
-    <pre>{{ suggestionsService.activeSuggestions | json }}</pre>
-
-    <!--
-    <li ng-show="suggestionsService.status() === 'active'">
-        Notice: Showing Preview
-    </li>
-    -->
-
-    <li ng-show="suggestionsService.status() === 'error'">
-        <a href="javascript:void(0);"
-           ng-click="suggestionsService.refresh()"><i
-                class="fa fa-refresh"></i>&nbsp; Retry</a>
-    </li>
-
-    <li ng-show="suggestionsService.status() === 'active'">
-        <a href="javascript:void(0);"
-           ng-click="suggestionsService.refresh()"><i
-                class="fa fa-refresh"></i>&nbsp; Refresh</a>
-    </li>
-
-    <li ng-show="suggestionsService.status() === 'active'">
-        <a href="javascript:void(0);"
-           ng-click="suggestionsService.submit()"><i
-                class="fa fa-refresh"></i>&nbsp; Submit</a>
-    </li>
-
-    <li ng-show="suggestionsService.status() === 'active'">
-        <a href="javascript:void(0);"
-           ng-click="suggestionsService.restore()"><i
-                class="fa fa-close"></i>&nbsp; Clear</a>
-    </li>
-
-</div>
-
-<div ng-show="$location.search() !== {}">
+<div ng-if="uiModes.currentIsAtLeast(uiModes.modes.DEVELOPER)" ng-show="$location.search() !== {}">
 
     <li class="nav-title">PAGE FILTERS</li>
 
@@ -49,5 +9,81 @@
            ng-click="$event.preventDefault(); $location.search({})"><i
                 class="fa fa-close"></i>&nbsp; Clear</a>
     </li>
+
+</div>
+
+<div class="nav" ng-show="activeDataEnvironment.available">
+
+    <li class="nav-title">WIZARD <i class="fa fa-circle-o-notch fa-spin"
+                                    ng-show="suggestionsService.status() === 'loading'"></i><i
+            class="fa fa-exclamation-circle" ng-show="suggestionsService.status() === 'error'"></i></li>
+
+    <pre ng-show="suggestionsService.status() !== 'inactive'" ng-if="uiModes.currentIsAtLeast(uiModes.modes.DEVELOPER)">{{ suggestionsService.activeSuggestions | json }}</pre>
+
+    <!--
+    <li ng-show="suggestionsService.status() === 'active'">
+        Notice: Showing Preview
+    </li>
+    -->
+
+    <li ng-show="suggestionsService.status() !== 'inactive' && suggestionsService.status() === 'active' && suggestedActions.length > 0">
+        <a href="javascript:void(0);"
+            data-toggle="modal" data-target="#suggestedActionsModal"><i
+                class="fa fa-eye"></i> <span class="nav-label">View suggested actions <span class="badge badge-warning">{{ suggestedActions.length }}</span></span></a>
+    </li>
+
+    <li ng-show="suggestionsService.status() !== 'inactive' && suggestionsService.status() === 'error'">
+        <a href="javascript:void(0);"
+           ng-click="suggestionsService.refresh()"><i
+                class="fa fa-refresh"></i> <span class="nav-label">Retry</span></a>
+    </li>
+
+    <li ng-show="suggestionsService.status() !== 'inactive' && suggestionsService.status() === 'active'">
+        <a href="javascript:void(0);"
+           ng-click="suggestionsService.refresh()"><i
+                class="fa fa-refresh"></i> <span class="nav-label">Refresh</span></a>
+    </li>
+
+    <li ng-show="suggestionsService.status() !== 'inactive' && suggestionsService.status() === 'active' && (suggestedActions.length === 0 || uiModes.currentIsAtLeast(uiModes.modes.DEVELOPER))">
+        <a href="javascript:void(0);"
+           ng-click="suggestionsService.submit()"><i
+                class="fa fa-lock"></i> <span class="nav-label">Submit</span></a>
+    </li>
+
+    <li ng-show="suggestionsService.status() !== 'inactive' && (suggestionsService.status() === 'active' || suggestionsService.status() === 'error')">
+        <a href="javascript:void(0);"
+           ng-click="suggestionsService.restore()"><i
+                class="fa fa-close"></i> <span class="nav-label">Clear</span></a>
+    </li>
+
+    <!--
+    <li ng-show="suggestionsService.status() === 'inactive'" ng-if="uiModes.currentIsAtLeast(uiModes.modes.ADVANCED)">
+        <a href="javascript:void(0);"
+           ng-click="suggestionsService.suggest([{'generateLedgers': {'clerkFiscalYearId': $state.params.clerkFiscalYearId}}])"
+        ><i class="fa fa-magic"></i>&nbsp; Start without filling in blanks</a>
+    </li>
+    -->
+
+    <li ng-show="suggestionsService.status() === 'inactive'">
+        <a href="javascript:void(0);"
+           ng-click="suggestionsService.suggest([{'releaseWizard': {'clerkFiscalYearId': $state.params.clerkFiscalYearId}}])"
+        ><i class="fa fa-magic"></i>&nbsp; Start</a>
+    </li>
+
+    <li ng-show="suggestionsService.status() === 'error'" class="alert-based-menu-item">
+        <a ui-sref="root.api-endpoints.existing.import-and-inspect.import.overview({dataEnvironment: activeDataEnvironment.slug})"
+           href="#">
+            <div class="alert alert-warning">
+                The wizard failed to deliver wisdom. This will be discussed during the wizard's next performance
+                evaluation.
+            </div>
+        </a>
+    </li>
+
+</div>
+
+<div class="nav" ng-show="!activeDataEnvironment.available">
+
+    <li class="nav-title">WIZARD</li>
 
 </div>

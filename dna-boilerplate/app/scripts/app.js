@@ -174,6 +174,47 @@
     });
 
     /**
+     * Service used to hold information about UI filters, such as when advanced or developer modes are not enabled, to not show UI elements for advanced users or developers
+     */
+    app.service('uiModes', function () {
+
+        var modes = {
+            NORMAL: 'normal',
+            ADVANCED: 'advanced',
+            DEVELOPER: 'developer',
+            DEBUG: 'debug'
+        };
+
+        var uiModes = {
+            current: modes.NORMAL,
+            modes: modes,
+            set: function (mode) {
+                this.current = mode;
+            },
+            currentIsAtLeast: function (mode) {
+                switch (mode) {
+                    case modes.NORMAL:
+                        return true;
+                        break;
+                    case modes.ADVANCED:
+                        return (this.current == modes.DEBUG) || (this.current == modes.DEVELOPER) || (this.current == modes.ADVANCED);
+                        break;
+                    case modes.DEVELOPER:
+                        return (this.current == modes.DEBUG) || (this.current == modes.DEVELOPER);
+                        break;
+                    case modes.DEBUG:
+                        return this.current == modes.DEBUG;
+                        break;
+                }
+                return false;
+            }
+        };
+
+        return uiModes;
+
+    });
+
+    /**
      * Service used to hold information about route-based content filters, such as when visiting an item's page, only show items related to that item
      */
     app.service('routeBasedContentFilters', function () {
@@ -191,6 +232,13 @@
         return {
             all: function () {
 
+                var locationBasedContentFilters = this.locationBasedContentFilters();
+                var allContentFilters = angular.merge({}, routeBasedContentFilters, locationBasedContentFilters);
+                return allContentFilters;
+
+            },
+            locationBasedContentFilters: function () {
+
                 // Filter by cf_ namespace
                 var locationBasedContentFilters = _.reduce($location.search(), function (obj, val, key) {
                     if (key.indexOf("cf_") === 0) {
@@ -199,24 +247,36 @@
                     return obj;
                 }, {});
 
-                var allContentFilters = angular.merge({}, routeBasedContentFilters, locationBasedContentFilters);
-
-                return allContentFilters;
+                return locationBasedContentFilters;
 
             },
-            itemTypeSpecific: function (itemType) {
-
-                var allContentFilters = this.all();
+            narrowDownToItemTypeSpecific: function (itemType, contentFiltersToNarrowDown) {
 
                 // Filter on item type by item type namespace
-                return _.reduce(allContentFilters, function (obj, val, key) {
+                return _.reduce(contentFiltersToNarrowDown, function (obj, val, key) {
                     if (key.indexOf(itemType + "_") === 0) {
                         obj[key] = val;
                     }
                     return obj;
                 }, {});
 
+            },
+            itemTypeSpecific: function (itemType) {
+
+                var allContentFilters = this.all();
+                return this.narrowDownToItemTypeSpecific(itemType, allContentFilters);
+
+            },
+            itemTypeSpecificLocationBasedContentFilters: function (itemType) {
+
+                var locationBasedContentFilters = this.locationBasedContentFilters();
+                return this.narrowDownToItemTypeSpecific(itemType, locationBasedContentFilters);
+
+            },
+            trueIfNonEmpty: function (filter) {
+                return !angular.equals(filter, {});
             }
+
         };
 
     });
@@ -371,6 +431,7 @@
                 return $injector.get('$modal').open({
                     templateUrl: 'modals/debug.html',
                     controller: 'DebugController',
+                    size: "lg",
                     resolve: {
                         data: function () {
                             return data;
@@ -446,20 +507,28 @@
                 if (!scope.mimetypes) {
                     switch (scope.type) {
                         case 'image':
+                            scope.mimetypes = 'image/*,application/pdf';
+                            scope.services = 'COMPUTER,WEBCAM,EVERNOTE,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,FTP,PICASA,URL,CONVERT';
+                            break;
+                        case 'take-picture':
                             scope.mimetypes = 'image/*';
+                            scope.services = 'WEBCAM';
                             break;
                         case 'video':
                             scope.mimetypes = 'video/*';
+                            scope.services = 'COMPUTER,DROPBOX,VIDEO,GOOGLE_DRIVE,GMAIL,BOX,URL,WEBCAM';
                             break;
                         default:
                         case 'any':
                             scope.mimetypes = '*/*';
+                            scope.services = 'COMPUTER,WEBCAM,EVERNOTE,DROPBOX,GOOGLE_DRIVE,GMAIL,BOX,FTP,PICASA,URL,CONVERT';
                             break;
                     }
                 }
                 if (!scope.preview) {
                     switch (scope.type) {
                         case 'image':
+                        case 'take-picture':
                             scope.preview = 'img-tag';
                             break;
                         case 'video':
