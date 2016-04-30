@@ -209,12 +209,22 @@
      * together with the element reference
      */
     module.directive('simpleCalHeatmap', function () {
+
+        var heatmap;
+
+        function update(data) {
+            heatmap.update(data);
+        }
+
         function link(scope, el) {
             var config = angular.copy(scope.config);
             var element = el[0];
-            var cal = new CalHeatMap();
+            heatmap = new CalHeatMap();
             config.itemSelector = element;
-            cal.init(config);
+            heatmap.init(config);
+            scope.$watchCollection('config.data', function(newVal, oldVal) {
+                update(newVal);
+            });
         }
 
         return {
