@@ -21,24 +21,23 @@
                             style="display:inline;" ng-show="auth.profile.gender === 'female'">, Ma'am</span>! {{env.SITENAME}} is ready for you!</span>
         </h1>
 
-        <div ng-show="!activeDataEnvironment.available && !auth.profilePromise">
+        <div class="main-section" ng-show="!activeDataEnvironment.available && !auth.profilePromise">
 
             <div>
                 <span ng-bind-html="optimizelyVariation.data['main info'] | sanitize"></span>
             </div>
 
-            <a ui-sref="root.start.user.signup" class="btn btn-primary btn-lg" style="white-space: inherit;"><span ng-bind-html="optimizelyVariation.data['main button text'] | sanitize"></span> &nbsp; <i
-                        class="fa fa-lg fa-long-arrow-right"></i></a>
+            <a ui-sref="root.start.user.signup" class="btn btn-warning btn-rounded btn-lg" style="white-space: inherit;"><span ng-bind-html="optimizelyVariation.data['main button text'] | sanitize"></span></a>
             <br>
 
             <div class="last">
-                <span><!--<a ui-sref="root.faq">Find out how</a> or--> <a ui-sref="root.start.user.login"
-                                                                          class="btn btn-primary btn-sm">Log in</a> if you already have an account</span>
+                <span><!--<a ui-sref="root.faq">Find out how</a> or-->
+                    <a ui-sref="root.start.user.login">Log in</a> if you already have an account</span>
             </div>
 
-        </div>
+       </div>
 
-        <div ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length === 0">
+        <div class="main-section" ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length === 0">
 
             <div>
                 <span ng-bind-html="optimizelyVariation.data['account activation info'] | sanitize"></span>
@@ -54,7 +53,7 @@
 
         </div>
 
-        <div ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length > 0">
+        <div class="main-section" ng-show="!activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length > 0">
 
             <div class="last">
                 <span>To continue, choose a database to work with in the top right corner.</span>
@@ -62,7 +61,7 @@
 
         </div>
 
-        <div ng-show="activeDataEnvironment.available && auth.profilePromise">
+        <div class="main-section" ng-show="activeDataEnvironment.available && auth.profilePromise">
 
             <!--
             <p>&nbsp;</p>
@@ -70,7 +69,7 @@
             <p>&nbsp;</p>
                -->
 
-            <a ui-sref="root.api-endpoints.existing.get-things-done({dataEnvironment: activeDataEnvironment.slug})"
+            <a ui-sref="root.api-endpoints.existing.get-things-done({dataEnvironment: $root.activeDataEnvironment.slug})"
                class="btn btn-primary btn-lg" href="#">Get things done &nbsp; <i class="fa fa-lg fa-long-arrow-right"></i></a></span>
 
             <!--

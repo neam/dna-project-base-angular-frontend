@@ -97,22 +97,26 @@ div.select2 .select2-container {
 
     h1 {
 
-      font-size: 50px;
+      font-size: 42px;
       color: #fff;
       background-color: transparent;
       margin-top: 0;
-      padding-top: 90px;
-      padding-bottom: 10px;
+      padding-top: 130px;
+      padding-bottom: 0px;
       width: 100%;
-      font-weight: 100;
+      font-weight: 800;
 
     }
 
     .btn {
 
       padding: 15px 30px;
-      color: #fff;
-      background-color: @navy;
+      color: @white;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 15px;
+      text-shadow: 1px 1px 1px #444;
+
       transition: background .25s ease-in-out;
       -moz-transition: background .25s ease-in-out;
       -webkit-transition: background .25s ease-in-out;
@@ -120,8 +124,6 @@ div.select2 .select2-container {
       &:hover {
 
         text-decoration: none;
-        background: darken(@navy, 10%);
-        border-color: darken(@navy, 10%);
 
       }
 
@@ -138,7 +140,6 @@ div.select2 .select2-container {
 
       display: block;
       margin: 20px 0;
-      text-shadow: 1px 1px 1px #000;
 
     }
 
@@ -1108,6 +1109,50 @@ input::-webkit-input-placeholder, input:-moz-placeholder, input::-moz-placeholde
 /* angular colorpicker override */
 .colorpicker .dropdown-menu {
   background-color: #fff;
+}
+
+/* Cal Heatmap customization */
+
+.cal-heatmap-container {
+
+  .q0, .q0.q1 {
+    background-color: #D6CEDA;
+    fill: #D6CEDA;
+    stroke: #ededed
+  }
+
+  .q6 {
+    background-color: #641820;
+    fill: #641820
+  }
+
+  .subdomain-text {
+    fill: #292929;
+  }
+
+}
+
+/* Flex-based CSS-only ordering of elements - helper classes */
+
+.flex-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-first {
+  order: 1;
+}
+
+.flex-second {
+  order: 2;
+}
+
+.flex-second-last {
+  order: 998;
+}
+
+.flex-last {
+  order: 999;
 }
 
 /* Intro.js styling */
