@@ -11,6 +11,7 @@
         'simpleHandsontable',
         'angular-filepicker',
         'cfp.hotkeys',                  // angular-hotkeys
+        'ui.calendar',                  // angular-ui-calendar / fullcalendar
         '3-way-merge',                  // 3-way-merge
         'rt.select2',                   // angular-select2
         'daterangepicker',              // angular-daterangepicker
@@ -94,11 +95,18 @@
 
                     _.each(response.data, function (value, key, list) {
 
+                        // Ignore statusLog development-messages
+                        if (key === 'statusLog') {
+                            return;
+                        }
+
                         $injector.invoke([key, function (resource) {
 
-                            // Store previously used data for easy reset
-                            self.replacedResources[key] = angular.copy(resource);
-                            self.replacedResources[key].$metadata = angular.copy(resource.$metadata);
+                            // If first suggestions-query, store previously used data for easy reset
+                            if (!self.replacedResources[key]) {
+                                self.replacedResources[key] = angular.copy(resource);
+                                self.replacedResources[key].$metadata = angular.copy(resource.$metadata);
+                            }
 
                             // Replace with suggested data
                             resource.replace(value.items);
@@ -110,6 +118,7 @@
 
                     if (save) {
                         self.activeSuggestions = [];
+                        self.replacedResources = [];
                         status = statuses.INACTIVE;
                     } else {
                         status = statuses.ACTIVE;
@@ -152,24 +161,6 @@
         };
 
         return suggestionsService;
-
-    });
-
-    /**
-     * Service to fetch metadata from the api (not sure if still used)
-     */
-    app.factory('metadataService', function ($http) {
-
-        var factory = {};
-
-        factory.getMetadataPromise = function () {
-            return $http({
-                url: env.API_BASE_URL + '/' + env.API_VERSION + '/metadata',
-                method: 'GET'
-            });
-        };
-
-        return factory;
 
     });
 

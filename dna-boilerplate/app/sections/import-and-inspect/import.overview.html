@@ -5,7 +5,7 @@
 
             <div class="ibox">
                 <div class="ibox-title">
-                    <ol class="breadcrumb">
+                    <ol class="breadcrumb pull-left">
                         <li>
                             Import
                         </li>
@@ -13,6 +13,11 @@
                             <strong>Overview</strong>
                         </li>
                     </ol>
+                    <div class="pull-right">
+                        <a href="javascript:void(0);"
+                           ng-click="importScope.importSessionPanelIsCollapsed = !importScope.importSessionPanelIsCollapsed"
+                           class="btn btn-primary btn-sm"><i class="fa fa-bars"></i> Import sessions</a>
+                    </div>
                 </div>
                 <div class="ibox-content">
 

@@ -1,8 +1,10 @@
 <!-- Preview for currently saved image -->
-<!--
-<pre>file: {{ file | json }}</pre>
-<pre>files: {{ files | json }}</pre>
--->
+
+<div ng-if="uiModes.currentIsAtLeast(uiModes.modes.DEBUG)">
+    <pre>file: {{ file | json }}</pre>
+    <pre>files: {{ files | json }}</pre>
+</div>
+
 <div ng-if="files.length > 0" class="preview" ng-class="{multiple: _multiple}">
     <ul>
         <li ng-repeat="file in files">

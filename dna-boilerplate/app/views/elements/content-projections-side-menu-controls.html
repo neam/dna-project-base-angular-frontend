@@ -12,6 +12,14 @@
 
 </div>
 
+<div ng-if="uiModes.currentIsAtLeast(uiModes.modes.DEBUG)" ng-show="$location.search() !== {}">
+
+    <li class="nav-title">ROUTE FILTERS</li>
+
+    <pre>{{ routeBasedContentFilters | json }}</pre>
+
+</div>
+
 <div class="nav" ng-show="activeDataEnvironment.available">
 
     <li class="nav-title">WIZARD <i class="fa fa-circle-o-notch fa-spin"
@@ -26,7 +34,7 @@
     </li>
     -->
 
-    <li ng-show="suggestionsService.status() !== 'inactive' && suggestionsService.status() === 'active' && suggestedActions.length > 0">
+    <li ng-show="suggestedActions.length > 0">
         <a href="javascript:void(0);"
             data-toggle="modal" data-target="#suggestedActionsModal"><i
                 class="fa fa-eye"></i> <span class="nav-label">View suggested actions <span class="badge badge-warning">{{ suggestedActions.length }}</span></span></a>
@@ -71,7 +79,7 @@
     </li>
 
     <li ng-show="suggestionsService.status() === 'error'" class="alert-based-menu-item">
-        <a ui-sref="root.api-endpoints.existing.import-and-inspect.import.overview({dataEnvironment: activeDataEnvironment.slug})"
+        <a ui-sref="root.api-endpoints.existing.import-and-inspect.optionally-by-import-session.import.overview({dataEnvironment: activeDataEnvironment.slug})"
            href="#">
             <div class="alert alert-warning">
                 The wizard failed to deliver wisdom. This will be discussed during the wizard's next performance

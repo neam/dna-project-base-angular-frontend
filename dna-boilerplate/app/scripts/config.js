@@ -15,13 +15,6 @@
                 //templateUrl: "views/common/content_top_navigation.html",
                 //templateUrl: "views/common/content.html",
                 resolve: {
-                    // this section ensures that metadata has been queried and is available before rendering any root child-state
-                    /*
-                     metadataService: 'metadataService',
-                     metadata: function (metadataService) {
-                     return metadataService.getMetadataPromise();
-                     }
-                     */
                     // Avoid FOUC by waiting for optimizely variation data to be available before rendering page
                     optimizelyVariation: function (optimizelyVariation) {
                         return optimizelyVariation.deferred.promise();
@@ -140,7 +133,7 @@
             })
 
             /**
-             * WITHOUT END-POINT Section - 1. Get started
+             * WITHOUT END-POINT Section - Introduction
              */
             .state('root.get-started', {
                 abstract: true,
@@ -156,7 +149,7 @@
                 },
                 data: {
                     requiresLogin: true,
-                    pageTitle: '1. Get started',
+                    pageTitle: 'Introduction',
                     showSideMenu: true
                 }
             })
@@ -164,7 +157,7 @@
             .state('root.get-started.introduction', {
                 url: "/overview",
                 templateUrl: "sections/get-started/introduction.html",
-                data: {pageTitle: '1. Get started - Introduction'}
+                data: {pageTitle: 'Introduction - Introduction'}
             })
 
             .state('root.get-started.what-to-get-done', {
@@ -194,7 +187,7 @@
             })
 
             /**
-             * WITHOUT END-POINT Section - 2. Import
+             * WITHOUT END-POINT Section - 2. Import and organize
              */
             .state('root.import-and-inspect', {
                 abstract: true,
@@ -202,23 +195,16 @@
                 views: {
                     '': {
                         template: "<ui-view/>",
-                        controller: "ImportController",
+                        controller: "ImportAndOrganizeController",
                     },
                     'sidebar@root': {
                         templateUrl: "sections/import-and-inspect/navigation.html",
                     }
                 },
-                resolve: {
-                    /*
-                     // Inject the metadata resolved in the root state
-                     metadata: function (metadata) {
-                     return metadata;
-                     }
-                     */
-                },
+                resolve: {},
                 data: {
                     requiresLogin: true,
-                    pageTitle: '2. Import and inspect',
+                    pageTitle: 'Import and organize',
                     showSideMenu: true
                 }
 
@@ -241,6 +227,32 @@
                 onEnter: function ($state) {
                     Intercom('onHide', _.once(function () {
                         $state.go('root.import-and-inspect.import.overview');
+                    }));
+                    Intercom('showNewMessage', 'Hi! I would like to get Beta access to ' + env.SITENAME);
+                },
+                onExit: function () {
+                    Intercom('hide');
+                },
+                data: {pageTitle: 'request-invite'}
+            })
+
+            .state('root.import-and-inspect.inspect', {
+                abstract: true,
+                url: "/organize",
+                template: "<ui-view/>",
+            })
+
+            .state('root.import-and-inspect.inspect.overview', {
+                url: "/overview",
+                templateUrl: "sections/import-and-inspect/inspect.overview.html",
+                data: {pageTitle: 'Inspect'}
+            })
+
+            .state('root.import-and-inspect.inspect.overview.request-invite', {
+                url: "/request-invite",
+                onEnter: function ($state) {
+                    Intercom('onHide', _.once(function () {
+                        $state.go('root.import-and-inspect.inspect.overview');
                     }));
                     Intercom('showNewMessage', 'Hi! I would like to get Beta access to ' + env.SITENAME);
                 },
@@ -374,7 +386,7 @@
 
                     },
                     // keep track of global suggested actions
-                    resolveSuggestedActions: function(dataEnvironmentParam, suggestedActions, $rootScope) {
+                    resolveSuggestedActions: function (dataEnvironmentParam, suggestedActions, $rootScope) {
                         $rootScope.suggestedActions = suggestedActions;
                     }
                 },
@@ -402,14 +414,6 @@
                         templateUrl: "sections/basic-info/navigation.html"
                     }
                 },
-                /*
-                 resolve: {
-                 // Inject the metadata resolved in the root state
-                 metadata: function (metadata) {
-                 return metadata;
-                 }
-                 },
-                 */
                 data: {
                     pageTitle: 'Supply basic info',
                     showSideMenu: true
@@ -435,7 +439,7 @@
             })
 
             /**
-             * Section - 1. Get started
+             * Section - Introduction
              */
             .state('root.api-endpoints.existing.get-started', {
                 abstract: true,
@@ -449,14 +453,6 @@
                         templateUrl: "sections/get-started/navigation.html"
                     }
                 },
-                /*
-                 resolve: {
-                 // Inject the metadata resolved in the root state
-                 metadata: function (metadata) {
-                 return metadata;
-                 }
-                 },
-                 */
                 data: {
                     pageTitle: '1. Decide how to use the tool',
                     showSideMenu: true
@@ -482,7 +478,7 @@
             })
 
             /**
-             * Section - 2. Import and inspect
+             * Section - 2. Import and organize
              */
             .state('root.api-endpoints.existing.import-and-inspect', {
                 abstract: true,
@@ -490,7 +486,7 @@
                 views: {
                     '': {
                         templateUrl: "sections/import-and-inspect/wrapper.html",
-                        controller: "ImportController",
+                        controller: "ImportAndOrganizeController",
                     },
                     'sidebar@root': {
                         templateUrl: "sections/import-and-inspect/navigation.html"
@@ -508,7 +504,47 @@
                 }
             })
 
-            .state('root.api-endpoints.existing.import-and-inspect.import', {
+            .state('root.api-endpoints.existing.import-and-inspect.optionally-by-import-session', {
+                abstract: true,
+                url: "/:importSessionId",
+                params: {importSessionId: {value: 'all', dynamic: true}},
+                resolve: {
+                    setRouteBasedContentFiltersLevel1: function (setRouteBasedContentFiltersLevel0, routeBasedContentFilters, $stateParams) {
+                        // Start of with empty lists before an import session is selected
+                        var importSessionId = $stateParams.importSessionId === 'all' ? null : $stateParams.importSessionId;
+                        routeBasedContentFilters.ImportSessionManyManyFile_import_session_id = importSessionId;
+                        // NOTE: Disable ClerkAccount filter temporarily to be able to assign clerk input result metadata's clerk accounts TODO: Make this work anyway
+                        routeBasedContentFilters.Interpretation_Clue_InputResult_import_session_id = importSessionId;
+                        routeBasedContentFilters.Clue_InputResult_import_session_id = importSessionId;
+                        routeBasedContentFilters.InputResult_import_session_id = importSessionId;
+                    },
+                    currentImportSession: function (dataEnvironmentParam, $stateParams, importSessions) {
+                        return importSessions.loadItem($stateParams.importSessionId);
+                    },
+                },
+                views: {
+                    '': {
+                        template: "<ui-view/>",
+                        controller: function (routeBasedContentFilters) {
+                            this.uiOnParamsChanged = function (changedParams, $transition$) {
+                                console.log('optionally-by-import-session - routes.uiOnParamsChanged', changedParams, $transition$);
+                                var importSessionId = changedParams.importSessionId === 'all' ? null : changedParams.importSessionId;
+                                routeBasedContentFilters.ImportSessionManyManyFile_import_session_id = importSessionId;
+                                // NOTE: Disable ClerkAccount filter temporarily to be able to assign clerk input result metadata's clerk accounts TODO: Make this work anyway
+                                routeBasedContentFilters.Interpretation_Clue_InputResult_import_session_id = importSessionId;
+                                routeBasedContentFilters.Clue_InputResult_import_session_id = importSessionId;
+                                routeBasedContentFilters.InputResult_import_session_id = importSessionId;
+                                routeBasedContentFilters.DenormalizedNeamtimeInvoicedTime_Interpretation_Clue_InputResult_import_session_id = importSessionId;
+                                routeBasedContentFilters.NeamtimeTimeSpentInterpretation_Interpretation_Clue_InputResult_import_session_id = importSessionId;
+                                routeBasedContentFilters.NeamtimeSignificantTimeInterpretation_NeamtimeTimeSpentInterpretation_Interpretation_Clue_InputResult_import_session_id = importSessionId;
+                                routeBasedContentFilters.NeamtimeInvoicedTime_NeamtimeSignificantTimeInterpretation_NeamtimeTimeSpentInterpretation_Interpretation_Clue_InputResult_import_session_id = importSessionId;
+                            };
+                        },
+                    },
+                },
+            })
+
+            .state('root.api-endpoints.existing.import-and-inspect.optionally-by-import-session.import', {
                 abstract: true,
                 url: "/import",
                 resolve: {
@@ -525,21 +561,20 @@
                 template: "<ui-view/>",
             })
 
-            .state('root.api-endpoints.existing.import-and-inspect.import.overview', {
+            .state('root.api-endpoints.existing.import-and-inspect.optionally-by-import-session.import.overview', {
                 url: "/overview",
                 templateUrl: "sections/import-and-inspect/import.overview.html",
                 data: {pageTitle: 'Import'}
             })
 
-            .state('root.api-endpoints.existing.import-and-inspect.import.images', {
+            .state('root.api-endpoints.existing.import-and-inspect.optionally-by-import-session.import.images', {
                 url: "/images",
                 templateUrl: "sections/import-and-inspect/import.images.html",
-                resolve: {
-                },
+                resolve: {},
                 data: {pageTitle: 'Inspect'}
             })
 
-            .state('root.api-endpoints.existing.import-and-inspect.inspect', {
+            .state('root.api-endpoints.existing.import-and-inspect.optionally-by-import-session.inspect', {
                 abstract: true,
                 url: "/organize",
                 resolve: {
@@ -556,7 +591,7 @@
                 template: "<ui-view/>",
             })
 
-            .state('root.api-endpoints.existing.import-and-inspect.inspect.overview', {
+            .state('root.api-endpoints.existing.import-and-inspect.optionally-by-import-session.inspect.overview', {
                 url: "/overview",
                 templateUrl: "sections/import-and-inspect/inspect.overview.html",
                 data: {pageTitle: 'Inspect'}
@@ -612,14 +647,6 @@
                         templateUrl: "sections/up-to-date/navigation.html",
                     }
                 },
-                /*
-                 resolve: {
-                 // Inject the metadata resolved in the root state
-                 metadata: function (metadata) {
-                 return metadata;
-                 }
-                 },
-                 */
                 data: {
                     pageTitle: '4. Stay up-to-date',
                     showSideMenu: true
@@ -668,6 +695,9 @@
         .run(function ($rootScope, uiModes) {
             $rootScope.uiModes = uiModes;
         })
+        .run(function ($rootScope, routeBasedContentFilters) {
+            $rootScope.routeBasedContentFilters = routeBasedContentFilters;
+        })
         .run(function ($rootScope, $state, suggestionsService, hotkeys, auth, $http, DataEnvironmentService, $location) {
 
             // Make api endpoint variables globally available in all child views
@@ -712,7 +742,8 @@
 
                     // update ua_session_token for rest-api so that api requests are authenticated using the same userapp user
                     // (this is a workaround for the fact that cookies are not shared across api-endpoints)
-                    $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/auth/loginNotify', {
+                    $http
+                        .post(env.API_BASE_URL + '/' + env.API_VERSION + '/auth/loginNotify', {
                             profile: auth.profile
                         })
                         .success(function (data, status, headers, config) {
@@ -732,7 +763,8 @@
 
                     // destroy session also on rest-api so that api requests are no longer authenticated using the userapp user that was logged out
                     // (this is a workaround for the fact that cookies are not shared across api-endpoints)
-                    $http.post(env.API_BASE_URL + '/' + env.API_VERSION + '/auth/logoutNotify', {
+                    $http
+                        .post(env.API_BASE_URL + '/' + env.API_VERSION + '/auth/logoutNotify', {
                             profile: auth.profile
                         })
                         .success(function (data, status, headers, config) {

@@ -2,10 +2,37 @@
 
 <li class="nav-title">GET STARTED</li>
 
+<li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
+    <a ui-sref="root.get-started.introduction" href="#"><i
+            class="fa fa-check-circle"></i> <span class="nav-label">Introduction</span></a>
+</li>
+
 <li ui-sref-active="active" ng-show="activeDataEnvironment.available">
     <a ui-sref="root.api-endpoints.existing.get-started.introduction({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})" href="#"><i
             class="fa fa-check-circle"></i> <span class="nav-label">Introduction</span></a>
 </li>
+
+<li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
+    <a ui-sref="root.get-started.survey({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})" href="#"><i
+            class="fa fa-edit"></i> <span class="nav-label">Take the survey</span></a>
+</li>
+
+<li ui-sref-active="active" ng-show="activeDataEnvironment.available">
+    <a ui-sref="root.api-endpoints.existing.get-started.survey({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})" href="#"><i
+            class="fa fa-check-circle"></i> <span class="nav-label">Tell us about yourself</span></a>
+</li>
+
+<!--
+<li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
+    <a ui-sref="root.get-started.my-empire({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})" href="#"><i
+            class="fa fa-globe"></i> <span class="nav-label">My empire</span></a>
+</li>
+
+<li ui-sref-active="active" ng-show="activeDataEnvironment.available">
+    <a ui-sref="root.api-endpoints.existing.get-started.basic-info({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})" href="#"><i
+            class="fa fa-globe"></i> <span class="nav-label">My empire</span></a>
+</li>
+-->
 
 <!--
 <li ui-sref-active="active" ng-show="activeDataEnvironment.available">
@@ -13,30 +40,15 @@
             class="fa fa-check-circle"></i> <span class="nav-label">What to get done</span></a>
 </li>
 
-<li ui-sref-active="active" ng-show="activeDataEnvironment.available">
-    <a ui-sref="root.api-endpoints.existing.get-started.survey({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})" href="#"><i
-            class="fa fa-check-circle"></i> <span class="nav-label">Tell us about yourself</span></a>
-</li>
--->
-
-<li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
-    <a ui-sref="root.get-started.introduction" href="#"><i
-            class="fa fa-check-circle"></i> <span class="nav-label">Introduction</span></a>
-</li>
-
-<li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
-    <a ui-sref="root.get-started.introduction.request-invite" href="#"><i
-            class="fa fa-check-circle"></i> <span class="nav-label">Request invite</span></a>
-</li>
-
-<!--
 <li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
     <a ui-sref="root.get-started.what-to-get-done({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})" href="#"><i
             class="fa fa-check-circle"></i> <span class="nav-label">What to get done</span></a>
 </li>
+-->
+
+<div ng-include="'views/elements/content-projections-side-menu-controls.html'"></div>
 
 <li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
-    <a ui-sref="root.get-started.survey({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})" href="#"><i
-            class="fa fa-check-circle"></i> <span class="nav-label">Tell us about yourself</span></a>
+    <a ui-sref="root.get-started.introduction.request-invite" href="#"><i
+            class="fa fa-magic"></i> <span class="nav-label">Request invite</span></a>
 </li>
--->
