@@ -2,7 +2,6 @@
 
     var module = angular.module('auth', [
         // Auth0
-        'ngRoute',
         'ngCookies',
         'auth0',
         'angular-storage',
