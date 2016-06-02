@@ -165,7 +165,7 @@
 
     });
 
-    module.config(function (authProvider, $routeProvider, $httpProvider, jwtInterceptorProvider) {
+    module.config(function (authProvider, $httpProvider, jwtInterceptorProvider) {
 
         // Configure secure API calls
         jwtInterceptorProvider.tokenGetter = ['store', function (store) {
