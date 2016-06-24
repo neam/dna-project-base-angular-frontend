@@ -235,4 +235,46 @@
         };
     });
 
+    /**
+     * To workaround issue that dynamic params does not reload templateUrl
+     * From https://github.com/angular-ui/ui-router/issues/2831#issuecomment-228184129
+     */
+    module.service("reloadViews", function ($state, $q, $view) {
+        return function reloadViews($transition$, stateName) {
+            // Get a reference to the built state object
+            var state = $state.get(stateName).$$state();
+            // Find the node for the state in the "to path" (which has the updated parameters)
+            var node = $transition$.treeChanges().to.find(function (node) {
+                return node.state === state;
+            });
+            // The currently active ViewConfig(s) for the given state
+            // Note: viewConfigs isn't *currently* public, but I'm planning to create an accessor
+            var oldConfigs = $view.viewConfigs.filter(function (view) {
+                return view.node.state === state;
+            });
+            // Build new ViewConfigs for all the state's views using the node from the "to path"
+            var newConfigs = Object.keys(state.views)
+                .map(function (name) {
+                    return $view.createViewConfig(node, state.views[name]);
+                })
+                .reduce(function (acc, arr) {
+                    return acc.concat(arr);
+                }, []);
+            // Load the ViewConfigs (this fetches templates, etc)
+            $q.all(newConfigs.map(function (cfg) {
+                return cfg.load();
+            })).then(function () {
+                // Then deactivate the old configs and activate the new ones
+                oldConfigs.forEach(function (cfg) {
+                    return $view.deactivateViewConfig(cfg);
+                });
+                newConfigs.forEach(function (cfg) {
+                    return $view.activateViewConfig(cfg);
+                });
+                // finally, tell the ui-views to update based on the newly activated configs
+                $view.sync();
+            });
+        };
+    });
+
 })();
