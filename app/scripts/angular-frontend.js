@@ -222,7 +222,7 @@
             heatmap = new CalHeatMap();
             config.itemSelector = element;
             heatmap.init(config);
-            scope.$watchCollection('config.data', function(newVal, oldVal) {
+            scope.$watchCollection('config.data', function (newVal, oldVal) {
                 update(newVal);
             });
         }
