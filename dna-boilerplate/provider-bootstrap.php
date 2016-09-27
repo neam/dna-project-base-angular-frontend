@@ -260,7 +260,10 @@ $hasOneRelationDnaItemSelectionWidget = function ($attribute, $model) {
 
     $itemTypeAttributes = $model->itemTypeAttributes();
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
+    $modelClassSingular = get_class($model);
+    $lcfirstModelClass = lcfirst($modelClassSingular);
+    $modelClassSingularId = Inflector::camel2id($modelClassSingular);
+    $lcfirstModelClassSingularId = lcfirst($modelClassSingularId);
 
     return <<<INPUT
 <div class="row">
@@ -268,7 +271,7 @@ $hasOneRelationDnaItemSelectionWidget = function ($attribute, $model) {
         <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$attributeInfo["label"]}</label>
     </div>
     <div class="col-sm-10">
-        <dna-item-selection-widget collection="{$lcfirstModelClass}Crud.relations.$attribute.relatedCollection" item="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-item-selection-widget>
+        <dna-item-selection-widget view-path="crud/{$lcfirstModelClassSingularId}" collection="{$lcfirstModelClass}Crud.relations.$attribute.relatedCollection" item="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-item-selection-widget>
     </div>
 </div>
 
@@ -1233,6 +1236,7 @@ $activeFields = [
     '\.*_enabled' => $switchInput,
     '\.*Media$' => $fileSelectionWidget,
     '\.file' => $fileSelectionWidget,
+    '\.*File$' => $fileSelectionWidget,
     '\.*_markup' => $textAreaInput,
     '\.*_message' => $textAreaInput,
     '\.*_color' => $textInputWithColorpicker,

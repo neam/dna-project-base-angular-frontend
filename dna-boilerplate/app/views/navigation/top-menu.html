@@ -17,10 +17,13 @@
         <a ui-sref="root.start.processes" href="#"><i class="fa fa-crosshairs"></i> <span class="nav-label">Processes</span></a>
     </li>
     -->
+    <li ui-sref-active="active">
+        <a ui-sref="root.start" href="#"><span class="nav-label menu-visible-sm">Start</span></a>
+    </li>
 
     <li ng-show="!activeDataEnvironment.available">
-        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="content" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label menu-visible-md">Features</span></a>
-        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.features" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label menu-visible-md">Features</span></a>
+        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="content" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label menu-visible-sm">Features</span></a>
+        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.features" href="#"><i class="fa fa-fighter-jet"></i> <span class="nav-label menu-visible-sm">Features</span></a>
     </li>
 
     <!--
@@ -38,8 +41,8 @@
     -->
 
     <li ng-show="!activeDataEnvironment.available">
-        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label menu-visible-md">About / FAQ</span></a>
-        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.contact" href="#"><i class="fa fa-question-circle"></i> <span class="nav-label menu-visible-md">About / FAQ</span></a>
+        <a ng-if="($state.includes('root.start') || $state.includes('root.starttrailingslash'))" scroll-to="contact" href="#"><i class="fa fa-space-shuttle"></i> <span class="nav-label menu-visible-sm">About / FAQ</span></a>
+        <a ng-if="!($state.includes('root.start') || $state.includes('root.starttrailingslash'))" ui-sref="root.start.contact" href="#"><i class="fa fa-space-shuttle"></i> <span class="nav-label menu-visible-sm">About / FAQ</span></a>
     </li>
 
     <!--
@@ -67,7 +70,7 @@
     <!--
     <li ui-sref-active="active">
         <a ui-sref="root.faq" href="#"><i
-                class="fa fa-question-circle"></i> <span class="nav-label">FAQ</span> </a>
+                class="fa fa-space-shuttle"></i> <span class="nav-label">FAQ</span> </a>
 
     </li>
     -->
