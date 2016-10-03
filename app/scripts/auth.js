@@ -205,6 +205,9 @@
                     if (auth.isAuthenticated) {
                         AuthService.logout();
                     }
+                    if (env.FB_CONVERSION_PIXEL_ID !== '') {
+                        window.fbq && window.fbq(['track', 'Lead', {'content_name': 'signup'}]);
+                    }
                     AuthService.signup();
                 },
                 data: {plan: 'default', pageTitle: 'Signup'}

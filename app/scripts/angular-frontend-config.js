@@ -401,11 +401,12 @@ angular
             // Facebook conversion tracking
             var fb_conversion_data = {
                 'value': (profile.user_metadata.signup_conversion_value || '0'),
-                'currency': 'USD'
+                'currency': 'USD',
+                'content_name': 'signup'
             };
             //console.log('fb_conversion_data', fb_conversion_data);
             if (env.FB_CONVERSION_PIXEL_ID !== '') {
-                window._fbq && window._fbq.push(['track', env.FB_CONVERSION_PIXEL_ID, fb_conversion_data]);
+                window.fbq && window.fbq(['track', 'CompleteRegistration', fb_conversion_data]);
             }
 
             // Google AdWords conversion tracking
