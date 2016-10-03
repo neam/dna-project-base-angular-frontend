@@ -102,7 +102,8 @@
     "filepicker-js": "git://github.com/motin/filepicker-js-bower.git#2.3.4",
     "angular-daterangepicker": "~0.2.2",
     "cal-heatmap": "~3.6.0",
-    "intro.js": "^2.1.0"
+    "intro.js": "^2.1.0",
+    "ng-videosharing-embed": "^0.3.4"
   },
   "resolutions": {
     "angular": "1.5.5",
