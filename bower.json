@@ -103,7 +103,8 @@
     "angular-daterangepicker": "~0.2.2",
     "cal-heatmap": "~3.6.0",
     "intro.js": "^2.1.0",
-    "ng-videosharing-embed": "^0.3.4"
+    "ng-videosharing-embed": "^0.3.4",
+    "jquery.floatThead": "floatThead#^1.4.4"
   },
   "resolutions": {
     "angular": "1.5.5",
