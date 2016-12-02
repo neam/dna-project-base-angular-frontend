@@ -32,9 +32,9 @@ erb app/scripts/env.js.erb > app/scripts/env.js
 # BUILD APPLICATION
 
 if [ "$CI" == "1" ]; then
-    BUILD_CMD="grunt build --debug"
+    BUILD_CMD="grunt build --debug --verbose"
 else
-    BUILD_CMD="grunt server --debug"
+    BUILD_CMD="grunt server --debug --verbose"
 fi
 
 $BUILD_CMD
