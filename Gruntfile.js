@@ -239,6 +239,8 @@ module.exports = function (grunt) {
                             'bower_components/select2/dist/css/select2.min.css', // manually included due to breakage upon build
                             'bower_components/iCheck/skins/*/*.*', // manually included due to breakage upon build
                             'bower_components/angular-bootstrap-colorpicker/css/colorpicker.css', // manually included due to breakage upon build
+                            'bower_components/fullcalendar/dist/fullcalendar.css', // manually included due to breakage upon build
+                            'bower_components/intro.js/introjs.css', // manually included due to breakage upon build
                             'bower_components/auth0-lock/build/auth0-lock.js', // manually included due to breakage upon build
                             'bower_components/jquery/dist/jquery.min.js', // manually included due to breakage of optimizely-logic upon build
                             'scripts/dc/*.*', // for demo purposes
