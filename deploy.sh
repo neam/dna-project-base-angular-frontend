@@ -38,3 +38,11 @@ export PAGES_S3_TARGET=$DEPLOYMENT_DIR
 
 # Upload to S3
 s3cmd -v --config=/tmp/.$S3_BUCKET-s3.s3cfg --acl-public --recursive sync dist/ "$PAGES_S3_TARGET/"
+
+exit 0;
+# Purge cloudflare cache
+curl -X DELETE "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/purge_cache" \
+     -H "X-Auth-Email: user@example.com" \
+     -H "X-Auth-Key: c2547eb745079dac9320b638f5e225cf483cc5cfdda41" \
+     -H "Content-Type: application/json" \
+     --data '{"purge_everything":true}'
