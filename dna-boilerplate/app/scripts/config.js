@@ -210,6 +210,12 @@
 
             })
 
+            .state('root.import-and-inspect.overview', {
+                url: "/overview",
+                templateUrl: "sections/import-and-inspect/overview.html",
+                data: {pageTitle: 'Overview'}
+            })
+
             .state('root.import-and-inspect.import', {
                 abstract: true,
                 url: "/import",
@@ -352,6 +358,12 @@
             .state('root.api-endpoints', {
                 url: "",
                 template: "<ui-view/>",
+                resolve: {
+                    setRouteBasedContentFiltersLevel0: function (routeBasedContentFilters, $stateParams) {
+                        routeBasedContentFilters.ImportSession_product_scope = 'foo';
+                        routeBasedContentFilters.Foo_order = 'Foo.created DESC';
+                    },
+                },
                 data: {
                     requiresLogin: true
                 }
@@ -376,8 +388,15 @@
                 resolve: {
                     // all child states of root.api-endpoints.existing needs information about the current api endpoint to query rest api requests against
                     // such information is stored in the route, why we need to read $stateParams and set the current api endpoint based on the route
-                    dataEnvironmentParam: function ($stateParams, DataEnvironmentService, $rootScope) {
+                    dataEnvironmentParam: function ($stateParams, DataEnvironmentService, auth, $injector) {
                         //console.log('root.api-endpoints.existing dataEnvironmentParam - dataEnvironmentParam, $stateParams, DataEnvironmentService', $stateParams, DataEnvironmentService);
+
+                        // Workaround for case that $stateChangeStart is not fired (and thus requiresLogin is ignored) before this resolve
+                        if (!auth.isAuthenticated && !auth.refreshTokenPromise) {
+                            console.log('TODO: Throw exception since one should never set the data environment unless the user is authenticated');
+                            $injector.get('$state').go(auth.config.loginState);
+                            return;
+                        }
 
                         // Set active endpoint based on state param
                         DataEnvironmentService.setDataEnvironment($stateParams.dataEnvironment);
@@ -493,9 +512,8 @@
                     }
                 },
                 resolve: {
-                    setRouteBasedContentFiltersLevel0: function (routeBasedContentFilters, $stateParams) {
-                        routeBasedContentFilters.ImportSession_order = 'ImportSession.created DESC';
-                        routeBasedContentFilters.InputResult_order = 'InputResult.created DESC';
+                    setRouteBasedVisibilitySettingsLevel0: function (routeBasedVisibilitySettings, $stateParams) {
+                        routeBasedVisibilitySettings.ClerkSupportingDocument_columns_by_step = 'supporting-documents.relevance';
                     },
                 },
                 data: {
@@ -513,7 +531,6 @@
                         // Start of with empty lists before an import session is selected
                         var importSessionId = $stateParams.importSessionId === 'all' ? null : $stateParams.importSessionId;
                         routeBasedContentFilters.ImportSessionManyManyFile_import_session_id = importSessionId;
-                        // NOTE: Disable ClerkAccount filter temporarily to be able to assign clerk input result metadata's clerk accounts TODO: Make this work anyway
                         routeBasedContentFilters.Interpretation_Clue_InputResult_import_session_id = importSessionId;
                         routeBasedContentFilters.Clue_InputResult_import_session_id = importSessionId;
                         routeBasedContentFilters.InputResult_import_session_id = importSessionId;
@@ -528,16 +545,13 @@
                         controller: function (routeBasedContentFilters) {
                             this.uiOnParamsChanged = function (changedParams, $transition$) {
                                 console.log('optionally-by-import-session - routes.uiOnParamsChanged', changedParams, $transition$);
-                                var importSessionId = changedParams.importSessionId === 'all' ? null : changedParams.importSessionId;
-                                routeBasedContentFilters.ImportSessionManyManyFile_import_session_id = importSessionId;
-                                // NOTE: Disable ClerkAccount filter temporarily to be able to assign clerk input result metadata's clerk accounts TODO: Make this work anyway
-                                routeBasedContentFilters.Interpretation_Clue_InputResult_import_session_id = importSessionId;
-                                routeBasedContentFilters.Clue_InputResult_import_session_id = importSessionId;
-                                routeBasedContentFilters.InputResult_import_session_id = importSessionId;
-                                routeBasedContentFilters.DenormalizedNeamtimeInvoicedTime_Interpretation_Clue_InputResult_import_session_id = importSessionId;
-                                routeBasedContentFilters.NeamtimeTimeSpentInterpretation_Interpretation_Clue_InputResult_import_session_id = importSessionId;
-                                routeBasedContentFilters.NeamtimeSignificantTimeInterpretation_NeamtimeTimeSpentInterpretation_Interpretation_Clue_InputResult_import_session_id = importSessionId;
-                                routeBasedContentFilters.NeamtimeInvoicedTime_NeamtimeSignificantTimeInterpretation_NeamtimeTimeSpentInterpretation_Interpretation_Clue_InputResult_import_session_id = importSessionId;
+                                if (changedParams.importSessionId) {
+                                    var importSessionId = changedParams.importSessionId === 'all' ? null : changedParams.importSessionId;
+                                    routeBasedContentFilters.ImportSessionManyManyFile_import_session_id = importSessionId;
+                                    routeBasedContentFilters.Interpretation_Clue_InputResult_import_session_id = importSessionId;
+                                    routeBasedContentFilters.Clue_InputResult_import_session_id = importSessionId;
+                                    routeBasedContentFilters.InputResult_import_session_id = importSessionId;
+                                }
                             };
                         },
                     },
@@ -547,17 +561,6 @@
             .state('root.api-endpoints.existing.import-and-inspect.optionally-by-import-session.import', {
                 abstract: true,
                 url: "/import",
-                resolve: {
-                    setRouteBasedContentFiltersLevel1: function (setRouteBasedContentFiltersLevel0, routeBasedContentFilters, $stateParams) {
-                        // Start of with empty lists before an import session is selected
-                        routeBasedContentFilters.ImportSessionManyManyFile_import_session_id = -1;
-                        routeBasedContentFilters.Foo_Interpretation_Clue_InputResult_import_session_id = null;
-                        routeBasedContentFilters.Bar_Interpretation_Clue_InputResult_import_session_id = null;
-                        routeBasedContentFilters.Interpretation_Clue_InputResult_import_session_id = -1;
-                        routeBasedContentFilters.Clue_InputResult_import_session_id = -1;
-                        routeBasedContentFilters.InputResult_import_session_id = -1;
-                    },
-                },
                 template: "<ui-view/>",
             })
 
@@ -577,17 +580,6 @@
             .state('root.api-endpoints.existing.import-and-inspect.optionally-by-import-session.inspect', {
                 abstract: true,
                 url: "/organize",
-                resolve: {
-                    setRouteBasedContentFiltersLevel1: function (setRouteBasedContentFiltersLevel0, routeBasedContentFilters, $stateParams) {
-                        // Start of with full lists before an import session is selected
-                        routeBasedContentFilters.ImportSessionManyManyFile_import_session_id = null;
-                        routeBasedContentFilters.Foo_Interpretation_Clue_InputResult_import_session_id = null;
-                        routeBasedContentFilters.Bar_Interpretation_Clue_InputResult_import_session_id = null;
-                        routeBasedContentFilters.Interpretation_Clue_InputResult_import_session_id = null;
-                        routeBasedContentFilters.Clue_InputResult_import_session_id = null;
-                        routeBasedContentFilters.InputResult_import_session_id = null;
-                    },
-                },
                 template: "<ui-view/>",
             })
 
@@ -611,11 +603,6 @@
                     'sidebar@root': {
                         templateUrl: "sections/get-things-done/navigation.html"
                     }
-                },
-                resolve: {
-                    setRouteBasedContentFiltersLevel0: function (routeBasedContentFilters, $stateParams) {
-                        routeBasedContentFilters.Foo_order = 'Foo.modified DESC';
-                    },
                 },
                 data: {
                     pageTitle: '3. Get things done',

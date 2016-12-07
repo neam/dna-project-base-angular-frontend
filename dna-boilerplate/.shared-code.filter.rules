@@ -1,0 +1,7 @@
+exclude .git
+
+# Exclude things specifically not shared
+# exclude /foo
+
+# Exclude generated crud
+exclude /app/crud

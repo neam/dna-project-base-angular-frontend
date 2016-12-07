@@ -16,6 +16,8 @@
         'rt.select2',                   // angular-select2
         'daterangepicker',              // angular-daterangepicker
         'smoothScroll',                 // ngSmoothScroll
+        'videosharing-embed',
+        'colorpicker.module',           //Angular color picker
         'dcNasdaq',                     // necessary for scripts/dc/dc-nasdaq-controller.js
         //'angularJade',
         //'section-get-started',
@@ -25,7 +27,7 @@
     /**
      * Service to handle data-change suggestions via the angular ui
      */
-    app.service('suggestionsService', function ($http, $location, $injector, contentFilters) {
+    app.service('suggestionsService', function ($http, $location, $injector, contentFilters, activeItems) {
 
         var statuses = {
             ACTIVE: 'active',
@@ -39,7 +41,10 @@
         var suggestionsService = {
             status: status,
             statuses: statuses,
-            replacedResources: {},
+            replacedResources: {
+                collections: {},
+                items: {}
+            },
             activeSuggestions: [],
             suggest: function (suggestions, save) {
 
@@ -60,7 +65,7 @@
 
                 var self = this;
 
-                self.query(false);
+                self.query(false, true);
 
             },
             submit: function () {
@@ -72,7 +77,7 @@
                 self.query(true);
 
             },
-            query: function (save) {
+            query: function (save, refresh) {
 
                 console.log('suggestionsService.query() - save', save);
 
@@ -82,6 +87,8 @@
                     'suggestions': self.activeSuggestions,
                     'save': save,
                     'filters': contentFilters.all(),
+                    'activeItemIds': activeItems.activeItemIds(),
+                    'refresh': refresh,
                     'default_page': 1,
                     'default_limit': 100
                 });
@@ -93,24 +100,39 @@
 
                     console.log('suggestions received', response);
 
-                    _.each(response.data, function (value, key, list) {
+                    _.each(response.data.collections, function (value, key, list) {
 
-                        // Ignore statusLog development-messages
-                        if (key === 'statusLog') {
-                            return;
-                        }
-
-                        $injector.invoke([key, function (resource) {
+                        $injector.invoke([key, function (singletonCollection) {
 
                             // If first suggestions-query, store previously used data for easy reset
-                            if (!self.replacedResources[key]) {
-                                self.replacedResources[key] = angular.copy(resource);
-                                self.replacedResources[key].$metadata = angular.copy(resource.$metadata);
+                            if (!self.replacedResources.collections[key]) {
+                                self.replacedResources.collections[key] = angular.copy(singletonCollection);
+                                self.replacedResources.collections[key].$metadata = angular.copy(singletonCollection.$metadata);
                             }
 
-                            // Replace with suggested data
-                            resource.replace(value.items);
-                            resource.$metadata = value._meta;
+                            // Replace with returned data
+                            singletonCollection.replace(value.items);
+                            singletonCollection.$metadata = value._meta;
+                            singletonCollection.$resolved = true;
+                            singletonCollection.$activated = true;
+
+                        }]);
+
+                    });
+
+                    _.each(response.data.items, function (value, key, list) {
+
+                        $injector.invoke([key, function (singletonItem) {
+
+                            // If first suggestions-query, store previously used data for easy reset
+                            if (!self.replacedResources.items[key]) {
+                                self.replacedResources.items[key] = angular.copy(singletonItem);
+                            }
+
+                            // Replace with returned data
+                            singletonItem.replace(value);
+                            singletonItem.$resolved = true;
+                            singletonItem.$activated = true;
 
                         }]);
 
@@ -118,7 +140,10 @@
 
                     if (save) {
                         self.activeSuggestions = [];
-                        self.replacedResources = [];
+                        self.replacedResources = {
+                            collections: {},
+                            items: {}
+                        };
                         status = statuses.INACTIVE;
                     } else {
                         status = statuses.ACTIVE;
@@ -143,14 +168,26 @@
 
                 self.activeSuggestions = [];
 
-                _.each(self.replacedResources, function (value, key, list) {
+                _.each(self.replacedResources.collections, function (value, key, list) {
 
                     $injector.invoke([key, function (resource) {
 
                         // Restore previously used data
                         resource.replace(value);
                         resource.$metadata = value.$metadata;
-                        delete self.replacedResources[key];
+                        delete self.replacedResources.collections[key];
+
+                    }]);
+
+                });
+                _.each(self.replacedResources.items, function (value, key, list) {
+
+                    $injector.invoke([key, function (resource) {
+
+                        // Restore previously used data
+                        resource.replace(value);
+                        resource.$metadata = value.$metadata;
+                        delete self.replacedResources.items[key];
 
                     }]);
 
@@ -273,6 +310,30 @@
     });
 
     /**
+     * Service to extract information about active items
+     * Active items are stored in $state.params prefixed with "active"
+     */
+    app.service('activeItems', function ($state) {
+
+        return {
+
+            activeItemIds: function () {
+
+                var activeItemIds = _.reduce($state.params, function (obj, val, key) {
+                    if (key.indexOf("active") === 0) {
+                        obj[key.replace("active", "")] = val;
+                    }
+                    return obj;
+                }, {});
+                return activeItemIds;
+
+            },
+
+        };
+
+    });
+
+    /**
      * Service used to hold information about route-based visibility settings, such as when visiting a specific curate step, only show columns relevant to that step
      */
     app.service('routeBasedVisibilitySettings', function () {
@@ -343,6 +404,10 @@
             });
         });
 
+        // Tmp use fallback always for now, so that it is easy to test different data locally
+        //optimizelyVariation.deferred.resolve(optimizelyFallbackData);
+        //return optimizelyVariation;
+
         // Use fallback data if working offline or optimizely has not delivered the data within a certain timeframe
         if (env.OFFLINE_DEV === 'true') {
             optimizelyVariation.deferred.resolve(optimizelyFallbackData);
@@ -373,29 +438,29 @@
      * Add the DATA header to API requests 0 Friendly logging of unauthorized requests
      */
     app.factory('authInterceptor', function ($log, $q, DataEnvironmentService) {
-            return {
-                request: function (config) {
-                    config.headers = config.headers || {};
-                    // Supply header indicating which data profile we should use for the request
-                    if (DataEnvironmentService.activeDataEnvironment.available && config.url.indexOf(env.API_BASE_URL) > -1) {
-                        config.headers['X-Data-Profile'] = env.DATA || 'clean-db';
-                    }
-                    //config.withCredentials = true;
-                    return config;
-                },
-                responseError: function (response) {
-                    if (response.status === 401) {
-                        // handle the case where the user is not authenticated
-                        $log.warn('unauthorized request intercepted by authInterceptor');
-                    }
-                    if (response.status === 403) {
-                        // handle the case where the user is not authorized
-                        $log.warn('forbidden request intercepted by authInterceptor');
-                    }
-                    return $q.reject(response);
-                },
-            };
-        })
+        return {
+            request: function (config) {
+                config.headers = config.headers || {};
+                // Supply header indicating which data profile we should use for the request
+                if (DataEnvironmentService.activeDataEnvironment.available && config.url.indexOf(env.API_BASE_URL) > -1) {
+                    config.headers['X-Data-Profile'] = env.DATA || 'clean-db';
+                }
+                //config.withCredentials = true;
+                return config;
+            },
+            responseError: function (response) {
+                if (response.status === 401) {
+                    // handle the case where the user is not authenticated
+                    $log.warn('unauthorized request intercepted by authInterceptor');
+                }
+                if (response.status === 403) {
+                    // handle the case where the user is not authorized
+                    $log.warn('forbidden request intercepted by authInterceptor');
+                }
+                return $q.reject(response);
+            },
+        };
+    })
         .config(function ($httpProvider) {
             $httpProvider.interceptors.push('authInterceptor');
         });
@@ -404,16 +469,16 @@
      * Display backend errors in frontend
      */
     app.factory('exceptionInterceptor', function ($log, $q, debugService) {
-            return {
-                responseError: function (response) {
-                    if (response.status === 500) {
-                        debugService.renderException(response.data);
-                    }
-
-                    return $q.reject(response);
+        return {
+            responseError: function (response) {
+                if (response.status === 500) {
+                    debugService.renderException(response.data);
                 }
-            };
-        })
+
+                return $q.reject(response);
+            }
+        };
+    })
         .config(function ($httpProvider) {
             $httpProvider.interceptors.push('exceptionInterceptor');
         })
@@ -467,8 +532,8 @@
             restrict: 'E',
             require: '?ngModel',
             scope: {
-                file: '=',
-                files: '=',
+                file: '=?',
+                files: '=?',
                 ngModel: '=',
                 type: '@', // 'any' (default), 'video', 'image'
                 preview: '@', // 'filestack' (default), 'none'
@@ -507,7 +572,7 @@
                             break;
                         case 'video':
                             scope.mimetypes = 'video/*';
-                            scope.services = 'COMPUTER,DROPBOX,VIDEO,GOOGLE_DRIVE,GMAIL,BOX,URL,WEBCAM';
+                            scope.services = 'COMPUTER,DROPBOX,VIDEO,GOOGLE_DRIVE,GMAIL,BOX,URL';
                             break;
                         default:
                         case 'any':
