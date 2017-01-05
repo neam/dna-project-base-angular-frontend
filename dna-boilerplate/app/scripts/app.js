@@ -1,6 +1,8 @@
 (function () {
     var app = angular.module('app', [
         'angular-frontend',
+        // Other libraries are loaded dynamically in the config.js file using the library ocLazyLoad
+        /*
         'ngResource',                   // $resource
         //'modelFactory',                 // angular-model-factory
         //'multiStepForm',                // angular-multi-step-form
@@ -20,6 +22,7 @@
         //'angularJade',
         //'section-get-started',
         //'section-basic-info',
+        */
     ]);
 
     /**

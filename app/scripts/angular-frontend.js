@@ -1,14 +1,16 @@
 (function () {
 
     var module = angular.module('angular-frontend', [
-        'ui.router',                    // Routing
         'inspinia',                     // Inspinia-theme-related functionality
-        'angular-frontend-filters',     // angular-frontend-filters.js
         'auth',                         // Authentication logic summarized in auth.js
+        // Other libraries are loaded dynamically in the config.js file using the library ocLazyLoad
+        /*
+        'angular-frontend-filters',     // angular-frontend-filters.js
         'angulartics',                  // angulartics + plugins
         'angulartics.scroll',
         'angulartics.google.analytics',
         'angulartics.mixpanel',
+         */
     ]);
 
     /**
