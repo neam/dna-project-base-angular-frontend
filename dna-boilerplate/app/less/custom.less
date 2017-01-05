@@ -299,6 +299,25 @@ div.select2 .select2-container {
   }
 }
 
+/* Margin-tweaks to navbar and dropdown menus to not look weird after upgrading to inspinia 2.6*/
+
+.navbar {
+    margin-bottom: 0;
+    border: 0;
+}
+
+.dropdown-menu {
+    margin: 0;
+}
+
+.dropdown-menu>li>a {
+    margin: 0;
+}
+
+nav.navbar-static-top #navbar li.dropdown.open {
+  background-color: @navbar-active-color;
+}
+
 /* For hybrid (top+side) navigation style */
 
 .navbar-static-top, .navbar-brand {
