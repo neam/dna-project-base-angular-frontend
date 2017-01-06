@@ -8,6 +8,6 @@ class MessagesAllController {
 
 export default angular
   .module('messages.all.controller', [
-    require('commons/msg-store').name,
+    require('angular-frontend/src/commons/msg-store').name,
   ])
   .controller('MessagesAllController', MessagesAllController);

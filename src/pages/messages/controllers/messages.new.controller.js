@@ -13,6 +13,6 @@ class MessagesNewController {
 
 export default angular
   .module('messages.new.controller', [
-    require('commons/msg-store').name,
+    require('angular-frontend/src/commons/msg-store').name,
   ])
   .controller('MessagesNewController', MessagesNewController);

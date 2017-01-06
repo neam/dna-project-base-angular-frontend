@@ -7,7 +7,8 @@ var config = {
     filename: 'bundle.js',
   },
   resolve: {
-    root: __dirname + '/src/',
+    root: __dirname + '/../',
+    extensions: [ '', '.js' ]
   },
   module: {
     noParse: [],
