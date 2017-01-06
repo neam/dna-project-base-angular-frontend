@@ -12,20 +12,20 @@
             <!--<li>-->
                 <!--<span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>-->
             <!--</li>-->
-            <li class="dropdown" dropdown>
-                <a class="dropdown-toggle count-info" href dropdown-toggle>
+            <li uib-dropdown>
+                <a class="count-info" href uib-dropdown-toggle>
                     Language
                 </a>
-                <ul class="dropdown-menu animated fadeInRight m-t-xs" ng-controller="translateCtrl">
+                <ul uib-dropdown-menu class="animated fadeInRight m-t-xs" ng-controller="translateCtrl">
                     <li><a ng-click="changeLanguage('en')">English</a></li>
                     <li><a ng-click="changeLanguage('es')">Spanish</a></li>
                 </ul>
             </li>
-            <li class="dropdown" dropdown>
-                <a class="dropdown-toggle count-info" href dropdown-toggle>
+            <li uib-dropdown>
+                <a class="count-info" href uib-dropdown-toggle>
                     <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
                 </a>
-                <ul class="dropdown-menu dropdown-messages">
+                <ul class="dropdown-messages" uib-dropdown-menu>
                     <li>
                         <div class="dropdown-messages-box">
                             <a ui-sref="profile" class="pull-left">
@@ -70,18 +70,18 @@
                     <li class="divider"></li>
                     <li>
                         <div class="text-center link-block">
-                            <a ui-sref="inbox">
+                            <a ui-sref="mailbox.inbox">
                                 <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
                             </a>
                         </div>
                     </li>
                 </ul>
             </li>
-            <li class="dropdown" dropdown>
-                <a class="dropdown-toggle count-info" href dropdown-toggle>
+            <li uib-dropdown>
+                <a class="count-info" href uib-dropdown-toggle>
                     <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
                 </a>
-                <ul class="dropdown-menu dropdown-alerts">
+                <ul class="dropdown-alerts" uib-dropdown-menu>
                     <li>
                         <a ui-sref="inbox">
                             <div>
@@ -111,7 +111,7 @@
                     <li class="divider"></li>
                     <li>
                         <div class="text-center link-block">
-                            <a ui-sref="notifications_tooltips">
+                            <a ui-sref="miscellaneous.notify">
                                 <strong>See All Alerts</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
@@ -119,11 +119,14 @@
                     </li>
                 </ul>
             </li>
-
-
             <li>
-                <a href="login.html">
+                <a ui-sref="login">
                     <i class="fa fa-sign-out"></i> Log out
+                </a>
+            </li>
+            <li>
+                <a ng-click="$root.rightSidebar = !$root.rightSidebar">
+                    <i class="fa fa-tasks"></i>
                 </a>
             </li>
         </ul>
