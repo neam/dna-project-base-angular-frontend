@@ -8,19 +8,39 @@ module.exports = {
         app: ['./src/core/bootstrap.js'],
     },
     output: {
-        path: __dirname + '/build/',
+        path: __dirname + '/../angular-frontend-dna/app/build/',
         filename: 'bundle.js',
     },
     resolve: {
         root: __dirname + '/../',
+        modulesDirectories: [__dirname + '/../angular-frontend/node_modules', 'node_modules'],
+        alias: {
+            'project': __dirname + '/../angular-frontend-dna/app/',
+            'shared': __dirname + '/app/',
+            'webpack-angular-examplecode': __dirname + '/src/',
+        },
         extensions: ['', '.js']
+    },
+    resolveLoader: {
+        modulesDirectories: [__dirname + '/../angular-frontend/node_modules', 'node_modules'],
     },
     module: {
         noParse: [],
         loaders: [
             {
                 test: /\.js$/,
-                loaders: ['ng-annotate', 'babel-loader'],
+                loaders: [
+                    'ng-annotate',
+                    'babel-loader?' + JSON.stringify({
+                        presets: [
+                            'babel-preset-es2015',
+                            'babel-preset-react',
+                            'babel-preset-stage-0',
+                        ].map(require.resolve),
+                        "plugins": [
+                            "babel-plugin-add-module-exports"
+                        ].map(require.resolve)
+                    })],
                 exclude: /node_modules/
             },
             {
@@ -45,7 +65,7 @@ module.exports = {
     devServer: {
         hot: true,
         inline: true,
-        contentBase: './build/',
+        contentBase: __dirname + '/../angular-frontend-dna/app/',
         watchOptions: {poll: 1000, ignored: /node_modules/}
     }
 };
