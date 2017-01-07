@@ -234,15 +234,17 @@ module.exports = function (grunt) {
                             '*.{ico,png,txt}',
                             '.htaccess',
                             '*.html', '**/*.html', '!bower_components/**/*.html', '!scripts/**/*.html',
-                            'styles/patterns/*.*',
                             'fonts/*.*',
+                            /*
+                            'styles/patterns/*.*',
                             'bower_components/select2/dist/css/select2.min.css', // manually included due to breakage upon build
-                            'bower_components/iCheck/skins/*/*.*', // manually included due to breakage upon build
+                            'bower_components/iCheck/skins/* /*.*', // manually included due to breakage upon build
                             'bower_components/angular-bootstrap-colorpicker/css/colorpicker.css', // manually included due to breakage upon build
                             'bower_components/fullcalendar/dist/fullcalendar.css', // manually included due to breakage upon build
                             'bower_components/intro.js/introjs.css', // manually included due to breakage upon build
-                            'bower_components/auth0-lock/build/auth0-lock.js', // manually included due to breakage upon build
+                            'bower_components/auth0-lock/build/auth0-lock.min.js', // manually included due to breakage upon build
                             'bower_components/jquery/dist/jquery.min.js', // manually included due to breakage of optimizely-logic upon build
+                            */
                             'scripts/dc/*.*', // for demo purposes
                             'scripts/env.js',
                             'images/{,*/}*.*'
@@ -256,6 +258,18 @@ module.exports = function (grunt) {
                         dest: '<%= paths.dist %>/.tmp',
                         src: [
                             '**'
+                        ]
+                    },
+                    {
+                        // For lazy-loading of resources to work in production
+                        // TODO: Trim this to only the used resources to speed up
+                        // production build and deploy
+                        expand: true,
+                        dot: true,
+                        cwd: '.merged-app/',
+                        dest: '<%= paths.dist %>',
+                        src: [
+                            '**/*.{js,css}'
                         ]
                     },
                     {

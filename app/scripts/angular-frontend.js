@@ -2,7 +2,7 @@
 
     var module = angular.module('angular-frontend', [
         'inspinia',                     // Inspinia-theme-related functionality
-        'auth',                         // Authentication logic summarized in auth.js
+        'auth',                         // Authentication logic summarized in auth.js (can not easily be lazyloaded since it integrates tightly with ui-router config + authentication needs to be evaluated asap upon page load to catch recurring already authenticated users)
         // Other libraries are loaded dynamically in the config.js file using the library ocLazyLoad
         /*
         'angular-frontend-filters',     // angular-frontend-filters.js
