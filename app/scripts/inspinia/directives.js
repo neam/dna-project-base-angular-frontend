@@ -30,6 +30,7 @@
  *  - markdownEditor
  *  - resizeable
  *  - bootstrapTagsinput
+ *  - passwordMeter
  *
  */
 
@@ -67,12 +68,22 @@ function sideNavigation($timeout) {
 
             });
 
+            // Colapse menu in mobile mode after click on element
+            var menuElement = $('#side-menu a:not([href$="\\#"])');
+            menuElement.click(function(){
+                if ($(window).width() < 769) {
+                    $("body").toggleClass("mini-navbar");
+                }
+            });
+
             // Enable initial fixed sidebar
-            //var sidebar = element.parent();
-            //sidebar.slimScroll({
-            //    height: '100%',
-            //    railOpacity: 0.9,
-            //});
+            if ($("body").hasClass('fixed-sidebar')) {
+                var sidebar = element.parent();
+                sidebar.slimScroll({
+                    height: '100%',
+                    railOpacity: 0.9,
+                });
+            }
         }
     };
 };
@@ -115,7 +126,7 @@ function iboxTools($timeout) {
             $scope.showhide = function () {
                 var ibox = $element.closest('div.ibox');
                 var icon = $element.find('i:first');
-                var content = ibox.find('div.ibox-content');
+                var content = ibox.children('.ibox-content');
                 content.slideToggle(200);
                 // Toggle icon from up to down
                 icon.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
@@ -147,7 +158,7 @@ function iboxToolsFullScreen($timeout) {
             $scope.showhide = function () {
                 var ibox = $element.closest('div.ibox');
                 var icon = $element.find('i:first');
-                var content = ibox.find('div.ibox-content');
+                var content = ibox.children('.ibox-content');
                 content.slideToggle(200);
                 // Toggle icon from up to down
                 icon.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
@@ -575,6 +586,26 @@ function markdownEditor() {
 
 
 /**
+ * passwordMeter - Directive for jQuery Password Strength Meter
+ */
+function passwordMeter() {
+    return {
+        restrict: 'A',
+        scope: {
+            pwOptions: '='
+        },
+        link: function (scope, element, attrs) {
+            scope.$watch(scope.pwOptions, function(){
+                render();
+            });
+            var render = function () {
+                $(element).pwstrength(scope.pwOptions);
+            };
+        }
+    }
+};
+
+/**
  *
  * Pass all functions into module
  */
@@ -601,4 +632,5 @@ angular
     .directive('slimScroll', slimScroll)
     .directive('truncate', truncate)
     .directive('touchSpin', touchSpin)
-    .directive('markdownEditor', markdownEditor);
+    .directive('markdownEditor', markdownEditor)
+    .directive('passwordMeter', passwordMeter);

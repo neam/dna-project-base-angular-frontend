@@ -46,6 +46,7 @@
  *  - jstreeCtrl
  *  - datamapsCtrl
  *  - pdfCtrl
+ *  - passwordMeterCtrl
  *
  *
  */

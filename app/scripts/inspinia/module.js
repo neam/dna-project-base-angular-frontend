@@ -1,6 +1,5 @@
 /**
  * INSPINIA - Responsive Admin Theme
- * Copyright 2014 Webapplayers.com
  *
  */
 (function () {
@@ -10,7 +9,7 @@
         'ui.bootstrap',                 // Ui Bootstrap
         'pascalprecht.translate',       // Angular Translate
         'ngIdle',                       // Idle timer
-        'ngSanitize',                   // ngSanitize
+        'ngSanitize'                    // ngSanitize
     ])
 })();
 
