@@ -20,10 +20,13 @@
                 <div filepicker-preview ng-if="preview === 'filestack' && getPreviewUrl(file)" url="getPreviewUrl(file)"
                      style="height:{{previewHeightPixels}}px"></div>
                 <div ng-if="preview === 'video-player'">
-                    <p><a href="{{ file.absolute_url }}" target="_blank">Click to open video file in new tab</a><!-- Video player preview TODO --></p>
+                    <!-- Video player preview TODO --></p>
+                    <p><a href="{{ file.remote_absolute_url }}" target="_blank">Click to open uploaded video file in new tab</a>
+                    <p ng-if="file.remote_public_absolute_url && file.remote_public_absolute_url === file.absolute_url && file.absolute_url !== file.remote_absolute_url"><a href="{{ file.remote_public_absolute_url }}" target="_blank">This file has been published<span ng-if="devMode"> (at {{ file.absolute_url }})</span>. Click to open published video file in new tab</a>
                 </div>
                 <div ng-if="preview == 'img-tag'">
-                    <p><img ng-src="{{ file.absolute_url }}" style="max-height:{{previewHeightPixels}}px"/></p>
+                    <p><img ng-src="{{ file.remote_absolute_url }}" style="max-height:{{previewHeightPixels}}px"/></p>
+                    <p ng-if="file.remote_public_absolute_url && file.remote_public_absolute_url === file.absolute_url && file.absolute_url !== file.remote_absolute_url">This file is currently published<span ng-if="devMode"> (at {{ file.absolute_url }})</span>:<br/><img ng-src="{{ file.remote_public_absolute_url }}" style="max-height:{{previewHeightPixels}}px"/></p>
                 </div>
             </div>
         </li>

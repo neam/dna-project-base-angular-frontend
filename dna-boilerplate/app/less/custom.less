@@ -1,14 +1,32 @@
-/* Workaround for handsontable 0.16-0.19 height issue */
+/* Workaround for handsontable 0.16-0.27 height issue */
 
 .wtHolder {
   height: auto !important;
 }
 
-/* Workaround for displaced header row and overflow issues */
+/* Workaround for displaced header row and overflow issues when minified */
 
 .handsontable-container {
   position: relative;
   overflow: hidden;
+}
+
+/* Header row word wrapping and background color */
+
+.handsontable th {
+  white-space: normal !important;
+  background-color: @state-info-bg;
+}
+
+/* Handsontable without cellborders look much better, but row-seperators are still too useful too emit */
+
+.handsontable {
+  tr, tr:first-child {
+    th, td, td:first-of-type {
+      border-right: 0;
+      border-left: 0;
+    }
+  }
 }
 
 /* General base style overrides */
@@ -239,6 +257,9 @@ div.select2 .select2-container {
 @media only screen and ( max-width: 440px ) {
   #start, #basic-info {
     #hero {
+      h1 {
+        font-size: 24px;
+      }
       background-size: 200% auto !important;
       -o-background-size: 200% auto !important;
       -moz-background-size: 200% auto !important;
@@ -247,7 +268,7 @@ div.select2 .select2-container {
   }
 }
 
-@media only screen and ( max-width: 768px ) {
+@media only screen and ( min-width: 441px ) and ( max-width: 768px ) {
   #start, #basic-info {
     #hero {
       background-size: 150% auto !important;
@@ -519,8 +540,8 @@ nav.navbar-static-top {
 }
 
 .page-heading {
-  padding: 0 18px 20px;
-  margin-bottom: 28px;
+  padding: 0 18px 2px;
+  margin-bottom: 4px;
 }
 
 .page-heading.side-menu-shown {
@@ -1004,6 +1025,10 @@ input.input-primary {
 
 }
 
+.scroll-to-top-menu-choice {
+  bottom: 2em;
+}
+
 .tooltip, .tooltip > .tooltip-inner {
   font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
@@ -1041,6 +1066,20 @@ input.input-primary {
   font-size: 24px;
   font-weight: 700;
   color: @sidebar-color;
+}
+
+.pagination {
+    display: inline-block;
+    padding-left: 0px;
+    margin: 5px 0px;
+    border-radius: 4px;
+}
+
+.app-badge {
+  font-size: 8px;
+  padding: 1px 2px 1px 2px;
+  position: absolute;
+  margin: 2px;
 }
 
 .fp__btn {
@@ -1212,7 +1251,6 @@ input::-webkit-input-placeholder, input:-moz-placeholder, input::-moz-placeholde
     margin-right: auto;
     margin-left: auto;
   }
-
   .video_contain {
     width: 300%;
   }

@@ -10,27 +10,66 @@ $recursionLevelLimit = 2;
 // Angular UI Giiant `CallbackProvider` configuration
 // -------------------------
 
+// Hint helper
+$hintMarkupGenerator = function ($attributeInfo) {
+    $hint = htmlspecialchars($attributeInfo["hint"]);
+    $hintMarkup = <<<HINT
+<span class="badge badge-primary app-badge" tooltip-placement="right" data-tooltip-html-unsafe="$hint">?</span>
+HINT;
+    $hintMarkup = !empty($hint) ? $hintMarkup : "";
+    return $hintMarkup;
+};
+
+// Default value halper
+$defaultValueMarkupGenerator = function ($lcfirstModelClass, $attribute, $label) {
+
+    // Only for campaign crud currently
+    if ($lcfirstModelClass !== "campaign") {
+        return "";
+    }
+
+    // Only for campaignFlowCopy, campaignThemeConfiguration and registration label defaults currently
+    if (strpos($attribute, "campaignFlowCopy") !== false
+        || strpos($attribute, "campaignThemeConfiguration") !== false
+        || (strpos($attribute, "registration_") !== false && strpos($attribute, "_label") !== false)
+    ) {
+
+        return <<<MARKUP
+
+        <div class="row m-b" ng-if="$lcfirstModelClass.defaults.attributes.$attribute">
+            <small>The following will be used if the field above is left empty: "<span>{{ $lcfirstModelClass.defaults.attributes.$attribute }}"</span></small><br/>
+            <a href="javascript:void(0)" ng-click="$lcfirstModelClass.attributes.$attribute = $lcfirstModelClass.defaults.attributes.$attribute" class="btn btn-sm btn-primary"><i class="fa fa-copy pull-left"></i> Override</a></li>
+            <a href="javascript:void(0)" ng-click="$lcfirstModelClass.attributes.$attribute = null" class="btn btn-sm btn-primary"><i class="fa fa-chain-broken pull-left"></i> Clear field so that the default value is used</a></li>
+        </div>
+MARKUP;
+
+    }
+
+    return "";
+};
+
+
 // Input wrapper
 // TODO
 
 // Text input
 
-$textInput = function ($attribute, $model) {
+$textInput = function ($attribute, $model, $params) use ($hintMarkupGenerator, $defaultValueMarkupGenerator) {
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
     $attribute = str_replace("/", ".attributes.", $attribute);
 
     // Sanitize
     $label = Html::encode($attributeInfo["label"]);
-    $hint = htmlspecialchars($attributeInfo["hint"]);
 
     // Include hint markup if hint is not empty
-    $hintMarkup =<<<HINT
-<span class="badge badge-primary adoveo-badge" tooltip-placement="right" data-tooltip-html-unsafe="$hint">?</span>
-HINT;
-    $hintMarkup = !empty($hint) ? $hintMarkup : "";
+    $hintMarkup = $hintMarkupGenerator($attributeInfo);
+
+    // Include default value markup
+    $defaultValueMarkup = $defaultValueMarkupGenerator($lcfirstModelClass, $attribute, $label);
 
     return <<<INPUT
 <div class="row">
@@ -38,7 +77,7 @@ HINT;
         <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
-        <input type="text" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
+        <input type="text" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />$defaultValueMarkup
     </div>
 </div>
 
@@ -48,22 +87,22 @@ INPUT;
 
 // Text input with colorpicker
 
-$textInputWithColorpicker = function ($attribute, $model) {
+$textInputWithColorpicker = function ($attribute, $model, $params) use ($hintMarkupGenerator, $defaultValueMarkupGenerator) {
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
     $attribute = str_replace("/", ".attributes.", $attribute);
 
     // Sanitize
     $label = Html::encode($attributeInfo["label"]);
-    $hint = htmlspecialchars($attributeInfo["hint"]);
 
     // Include hint markup if hint is not empty
-    $hintMarkup =<<<HINT
-<span class="badge badge-primary adoveo-badge" tooltip-placement="right" data-tooltip-html-unsafe="$hint">?</span>
-HINT;
-    $hintMarkup = !empty($hint) ? $hintMarkup : "";
+    $hintMarkup = $hintMarkupGenerator($attributeInfo);
+
+    // Include default value markup
+    $defaultValueMarkup = $defaultValueMarkupGenerator($lcfirstModelClass, $attribute, $label);
 
     return <<<INPUT
 <div class="row">
@@ -71,7 +110,7 @@ HINT;
         <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
-        <input type="text" colorpicker placeholder="Click for color picker" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />
+        <input type="text" colorpicker placeholder="Click for color picker" ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b" />$defaultValueMarkup
     </div>
 </div>
 
@@ -81,22 +120,22 @@ INPUT;
 
 // Textarea input
 
-$textAreaInput = function ($attribute, $model) {
+$textAreaInput = function ($attribute, $model, $params) use ($hintMarkupGenerator, $defaultValueMarkupGenerator) {
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
     $attribute = str_replace("/", ".attributes.", $attribute);
 
     // Sanitize
     $label = Html::encode($attributeInfo["label"]);
-    $hint = htmlspecialchars($attributeInfo["hint"]);
 
     // Include hint markup if hint is not empty
-    $hintMarkup =<<<HINT
-<span class="badge badge-primary adoveo-badge" tooltip-placement="right" data-tooltip-html-unsafe="$hint">?</span>
-HINT;
-    $hintMarkup = !empty($hint) ? $hintMarkup : "";
+    $hintMarkup = $hintMarkupGenerator($attributeInfo);
+
+    // Include default value markup
+    $defaultValueMarkup = $defaultValueMarkupGenerator($lcfirstModelClass, $attribute, $label);
 
     return <<<INPUT
 <div class="row">
@@ -104,7 +143,7 @@ HINT;
         <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
-        <textarea ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b"></textarea>
+        <textarea ng-model="$lcfirstModelClass.attributes.$attribute" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute" class="form-control m-b"></textarea>$defaultValueMarkup
     </div>
 </div>
 
@@ -114,22 +153,19 @@ INPUT;
 
 // File selection widget
 
-$fileSelectionWidget = function ($attribute, $model) {
+$fileSelectionWidget = function ($attribute, $model, $params) use ($hintMarkupGenerator) {
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
     $attribute = str_replace("/", ".attributes.", $attribute);
 
     // Sanitize
     $label = Html::encode($attributeInfo["label"]);
-    $hint = htmlspecialchars($attributeInfo["hint"]);
 
     // Include hint markup if hint is not empty
-    $hintMarkup =<<<HINT
-<span class="badge badge-primary" tooltip-placement="right" data-tooltip-html-unsafe="$hint">?</span>
-HINT;
-    $hintMarkup = !empty($hint) ? $hintMarkup : "";
+    $hintMarkup = $hintMarkupGenerator($attributeInfo);
 
     return <<<INPUT
 <div class="row">
@@ -137,7 +173,79 @@ HINT;
         <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
+        <div class="well">
+            <small>
         <dna-file-selection-widget preview-height-pixels="dnaFileSelectionWidgetPreviewHeightPixels" file="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-file-selection-widget>
+            </small>
+        </div>
+    </div>
+</div>
+
+INPUT;
+
+};
+
+// Image selection widget
+
+$imageSelectionWidget = function ($attribute, $model, $params) use ($hintMarkupGenerator) {
+
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
+    $attribute = str_replace("/", ".attributes.", $attribute);
+
+    // Sanitize
+    $label = Html::encode($attributeInfo["label"]);
+
+    // Include hint markup if hint is not empty
+    $hintMarkup = $hintMarkupGenerator($attributeInfo);
+
+    return <<<INPUT
+<div class="row">
+    <div class="col-sm-2">
+        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label>$hintMarkup
+    </div>
+    <div class="col-sm-10">
+        <div class="well">
+            <small>
+        <dna-file-selection-widget type="image" preview-height-pixels="dnaFileSelectionWidgetPreviewHeightPixels" file="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-file-selection-widget>
+            </small>
+        </div>
+    </div>
+</div>
+
+INPUT;
+
+};
+
+// Video selection widget
+
+$videoSelectionWidget = function ($attribute, $model, $params) use ($hintMarkupGenerator) {
+
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
+    $attributeInfo = $itemTypeAttributes[$attribute];
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
+    $attribute = str_replace("/", ".attributes.", $attribute);
+
+    // Sanitize
+    $label = Html::encode($attributeInfo["label"]);
+
+    // Include hint markup if hint is not empty
+    $hintMarkup = $hintMarkupGenerator($attributeInfo);
+
+    return <<<INPUT
+<div class="row">
+    <div class="col-sm-2">
+        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$label}</label>$hintMarkup
+    </div>
+    <div class="col-sm-10">
+        <div class="well">
+            <small>
+        <dna-file-selection-widget type="video" preview-height-pixels="dnaFileSelectionWidgetPreviewHeightPixels" file="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-file-selection-widget>
+            </small>
+        </div>
     </div>
 </div>
 
@@ -147,17 +255,21 @@ INPUT;
 
 // "Boolean" tri-state (0,1,NULL) radio inputs
 
-$tristateRadioInput = function ($attribute, $model) {
+$tristateRadioInput = function ($attribute, $model, $params) use ($hintMarkupGenerator) {
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
     $attribute = str_replace("/", ".attributes.", $attribute);
+
+    // Include hint markup if hint is not empty
+    $hintMarkup = $hintMarkupGenerator($attributeInfo);
 
     return <<<INPUT
 <div class="row">
     <div class="col-sm-2">
-        <label class="label-left control-label">{$attributeInfo["label"]}</label>
+        <label class="label-left control-label">{$attributeInfo["label"]}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
         <div class="radio">
@@ -190,22 +302,19 @@ INPUT;
 
 // Boolean switch input
 
-$switchInput = function ($attribute, $model) {
+$switchInput = function ($attribute, $model, $params) use ($hintMarkupGenerator) {
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
     $attribute = str_replace("/", ".attributes.", $attribute);
 
     // Sanitize
     $label = Html::encode($attributeInfo["label"]);
-    $hint = htmlspecialchars($attributeInfo["hint"]);
 
     // Include hint markup if hint is not empty
-    $hintMarkup =<<<HINT
-<span class="badge badge-primary adoveo-badge" tooltip-placement="right" data-tooltip-html-unsafe="$hint">?</span>
-HINT;
-    $hintMarkup = !empty($hint) ? $hintMarkup : "";
+    $hintMarkup = $hintMarkupGenerator($attributeInfo);
 
     return <<<INPUT
 <div class="row">
@@ -228,17 +337,21 @@ INPUT;
 
 // Has-one-relation select2 input
 
-$hasOneRelationSelect2Input = function ($attribute, $model) {
+$hasOneRelationSelect2Input = function ($attribute, $model, $params) use ($hintMarkupGenerator) {
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
     $attribute = str_replace("/", ".attributes.", $attribute);
+
+    // Include hint markup if hint is not empty
+    $hintMarkup = $hintMarkupGenerator($attributeInfo);
 
     return <<<INPUT
 <div class="row">
     <div class="col-sm-2">
-        <label for="$lcfirstModelClass.attributes.$attribute.id" class="label-left control-label">{$attributeInfo["label"]}</label>
+        <label for="$lcfirstModelClass.attributes.$attribute.id" class="label-left control-label">{$attributeInfo["label"]}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
         <div class="select2 m-b">
@@ -256,19 +369,23 @@ INPUT;
 
 // Has-one-relation dna item selection widget
 
-$hasOneRelationDnaItemSelectionWidget = function ($attribute, $model) {
+$hasOneRelationDnaItemSelectionWidget = function ($attribute, $model, $params) use ($hintMarkupGenerator) {
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $modelClassSingular = get_class($model);
+    $modelClass = $params["modelClass"];
+    $modelClassSingular = $modelClass;
     $lcfirstModelClass = lcfirst($modelClassSingular);
     $modelClassSingularId = Inflector::camel2id($modelClassSingular);
     $lcfirstModelClassSingularId = lcfirst($modelClassSingularId);
 
+    // Include hint markup if hint is not empty
+    $hintMarkup = $hintMarkupGenerator($attributeInfo);
+
     return <<<INPUT
 <div class="row">
     <div class="col-sm-2">
-        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$attributeInfo["label"]}</label>
+        <label for="$lcfirstModelClass.attributes.$attribute" class="label-left control-label">{$attributeInfo["label"]}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
         <dna-item-selection-widget view-path="crud/{$lcfirstModelClassSingularId}" collection="{$lcfirstModelClass}Crud.relations.$attribute.relatedCollection" item="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.$attribute.id" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-item-selection-widget>
@@ -281,37 +398,36 @@ INPUT;
 
 // Has-many-relation dna item selection widget
 
-$hasManyRelationDnaItemSelectionWidget = function ($attribute, $model) {
+$hasManyRelationDnaItemSelectionWidget = function ($attribute, $model, $params) use ($hintMarkupGenerator) {
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
     $attribute = str_replace("/", ".attributes.", $attribute);
 
-    $_ = explode("RelatedBy", $attribute);
-    $relationAttribute = $_[0];
-    $relations = $model->relations();
-    if (!isset($relations[$relationAttribute])) {
-        $class = get_class($model);
+    if (!isset($attributeInfo["relatedModelClass"])) {
+        $class = $modelClass;
         return <<<INPUT
-<!-- "$attribute" - Model $class does not have a relation '$relationAttribute' -->
+<!-- "$attribute" - Model $class does not have a relation '$attribute' -->
 
 INPUT;
-        //throw new Exception("Model " . get_class($model) . " does not have a relation '$relationAttribute'");
+        //throw new Exception("Model " . $modelClass . " does not have a relation '$attribute'");
     }
-    $relationInfo = $relations[$relationAttribute];
-    $relatedModelClass = $relationInfo[1];
-
+    $relatedModelClass = $attributeInfo["relatedModelClass"];
     $relatedModelClassSingular = $relatedModelClass;
     $relatedModelClassSingularId = Inflector::camel2id($relatedModelClassSingular);
     $relatedModelClassSingularWords = Inflector::camel2words($relatedModelClassSingular);
     $relatedModelClassPluralWords = Inflector::pluralize($relatedModelClassSingularWords);
     $relatedModelClassPlural = Inflector::camelize($relatedModelClassPluralWords);
 
+    // Include hint markup if hint is not empty
+    $hintMarkup = $hintMarkupGenerator($attributeInfo);
+
     return <<<INPUT
 <div class="row">
     <div class="col-sm-2">
-        <label class="label-left control-label">{$attributeInfo["label"]}</label>
+        <label class="label-left control-label">{$attributeInfo["label"]}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
         <dna-item-selection-widget multiple view-path="crud/$relatedModelClassSingularId" collection="{$lcfirstModelClass}Crud.relations.$attribute.relatedCollection" items="$lcfirstModelClass.attributes.$attribute" ng-model="$lcfirstModelClass.attributes.{$attribute}_ids" name="$lcfirstModelClass.attributes.$attribute" id="$lcfirstModelClass.attributes.$attribute"></dna-item-selection-widget>
@@ -324,37 +440,36 @@ INPUT;
 
 // Has-many-relation listing
 
-$hasManyRelationListing = function ($attribute, $model) {
+$hasManyRelationListing = function ($attribute, $model, $params) use ($hintMarkupGenerator) {
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
     $attribute = str_replace("/", ".attributes.", $attribute);
 
-    $_ = explode("RelatedBy", $attribute);
-    $relationAttribute = $_[0];
-    $relations = $model->relations();
-    if (!isset($relations[$relationAttribute])) {
-        $class = get_class($model);
+    if (!isset($attributeInfo["relatedModelClass"])) {
+        $class = $modelClass;
         return <<<INPUT
-<!-- "$attribute" - Model $class does not have a relation '$relationAttribute' -->
+<!-- "$attribute" - Model $class does not have a relation '$attribute' -->
 
 INPUT;
-        //throw new Exception("Model " . get_class($model) . " does not have a relation '$relationAttribute'");
+        //throw new Exception("Model " . $modelClass . " does not have a relation '$attribute'");
     }
-    $relationInfo = $relations[$relationAttribute];
-    $relatedModelClass = $relationInfo[1];
-
+    $relatedModelClass = $attributeInfo["relatedModelClass"];
     $relatedModelClassSingular = $relatedModelClass;
     $relatedModelClassSingularId = Inflector::camel2id($relatedModelClassSingular);
     $relatedModelClassSingularWords = Inflector::camel2words($relatedModelClassSingular);
     $relatedModelClassPluralWords = Inflector::pluralize($relatedModelClassSingularWords);
     $relatedModelClassPlural = Inflector::camelize($relatedModelClassPluralWords);
 
+    // Include hint markup if hint is not empty
+    $hintMarkup = $hintMarkupGenerator($attributeInfo);
+
     return <<<INPUT
 <div class="row">
     <div class="col-sm-2">
-        <label class="label-left control-label">{$attributeInfo["label"]}</label>
+        <label class="label-left control-label">{$attributeInfo["label"]}</label>$hintMarkup
     </div>
     <div class="col-sm-10">
         <div ng-include="'crud/$relatedModelClassSingularId/compact-list.html'"></div>
@@ -367,9 +482,13 @@ INPUT;
 
 // Default input
 
-$defaultInput = function ($attribute, $model) use ($textInput, $hasOneRelationDnaItemSelectionWidget, $hasManyRelationDnaItemSelectionWidget) {
+$defaultInput = function ($attribute, $model, $params) use (
+    $textInput,
+    $hasOneRelationDnaItemSelectionWidget,
+    $hasManyRelationDnaItemSelectionWidget
+) {
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
 
     // Handle attributes that have no item type attribute information (ie for pure crud columns)
     if (!array_key_exists($attribute, $itemTypeAttributes)) {
@@ -380,7 +499,8 @@ INPUT;
     }
 
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
 
     switch ($attributeInfo["type"]) {
         default:
@@ -394,13 +514,13 @@ INPUT;
 
 INPUT;
         case "ordinary":
-            return $textInput($attribute, $model);
+            return $textInput($attribute, $model, $params);
             break;
         case "has-one-relation":
-            return $hasOneRelationDnaItemSelectionWidget($attribute, $model);
+            return $hasOneRelationDnaItemSelectionWidget($attribute, $model, $params);
             break;
         case "has-many-relation":
-            return $hasManyRelationDnaItemSelectionWidget($attribute, $model);
+            return $hasManyRelationDnaItemSelectionWidget($attribute, $model, $params);
             break;
     }
 
@@ -408,11 +528,13 @@ INPUT;
 
 // Handsontable column settings
 
-$handsontableOrdinaryColumn = function ($attribute, $model) {
+$handsontableOrdinaryColumn = function ($attribute, $model, $params) {
     $attribute = str_replace("handsontable-column-settings.", "", $attribute);
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    if (strpos($attribute, '/') !== false) {return '';} // TODO: Add support for handsontable columns for deep/aliased attributes
+    if (strpos($attribute, '/') !== false) {
+        return '';
+    } // TODO: Add support for handsontable columns for deep/aliased attributes
     $attributeInfo["label"] = json_encode($attributeInfo["label"]);
     return <<<INPUT
             {
@@ -422,11 +544,13 @@ $handsontableOrdinaryColumn = function ($attribute, $model) {
 INPUT;
 };
 
-$handsontableCheckboxColumn = function ($attribute, $model) {
+$handsontableCheckboxColumn = function ($attribute, $model, $params) {
     $attribute = str_replace("handsontable-column-settings.", "", $attribute);
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    if (strpos($attribute, '/') !== false) {return '';} // TODO: Add support for handsontable columns for deep/aliased attributes
+    if (strpos($attribute, '/') !== false) {
+        return '';
+    } // TODO: Add support for handsontable columns for deep/aliased attributes
     $attributeInfo["label"] = json_encode($attributeInfo["label"]);
     return <<<INPUT
             {
@@ -439,12 +563,15 @@ $handsontableCheckboxColumn = function ($attribute, $model) {
 INPUT;
 };
 
-$handsontablePrimaryKeyColumn = function ($attribute, $model) {
+$handsontablePrimaryKeyColumn = function ($attribute, $model, $params) {
     $attribute = str_replace("handsontable-column-settings.", "", $attribute);
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
-    if (strpos($attribute, '/') !== false) {return '';} // TODO: Add support for handsontable columns for deep/aliased attributes
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
+    if (strpos($attribute, '/') !== false) {
+        return '';
+    } // TODO: Add support for handsontable columns for deep/aliased attributes
     $attributeInfo["label"] = json_encode($attributeInfo["label"]);
     return <<<INPUT
             {
@@ -464,12 +591,15 @@ $handsontablePrimaryKeyColumn = function ($attribute, $model) {
 INPUT;
 };
 
-$handsontableHasOneRelationColumn = function ($attribute, $model) {
+$handsontableHasOneRelationColumn = function ($attribute, $model, $params) {
     $attribute = str_replace("handsontable-column-settings.", "", $attribute);
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
-    if (strpos($attribute, '/') !== false) {return '';} // TODO: Add support for handsontable columns for deep/aliased attributes
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
+    if (strpos($attribute, '/') !== false) {
+        return '';
+    } // TODO: Add support for handsontable columns for deep/aliased attributes
     $attributeInfo["label"] = json_encode($attributeInfo["label"]);
     return <<<INPUT
             {
@@ -482,14 +612,14 @@ $handsontableHasOneRelationColumn = function ($attribute, $model) {
 INPUT;
 };
 
-$handsontableAutoDetectColumn = function ($attribute, $model) use (
+$handsontableAutoDetectColumn = function ($attribute, $model, $params) use (
     $handsontableOrdinaryColumn,
     $handsontableCheckboxColumn,
     $handsontablePrimaryKeyColumn,
     $handsontableHasOneRelationColumn
 ) {
     $attribute = str_replace("handsontable-column-settings.", "", $attribute);
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
 
     // Handle attributes that have no item type attribute information (ie for pure crud columns)
     if (!array_key_exists($attribute, $itemTypeAttributes)) {
@@ -514,13 +644,13 @@ INPUT;
 INPUT;
             break;
         case "ordinary":
-            return $handsontableOrdinaryColumn($attribute, $model);
+            return $handsontableOrdinaryColumn($attribute, $model, $params);
         case "boolean":
-            return $handsontableCheckboxColumn($attribute, $model);
+            return $handsontableCheckboxColumn($attribute, $model, $params);
         case "primary-key":
-            return $handsontablePrimaryKeyColumn($attribute, $model);
+            return $handsontablePrimaryKeyColumn($attribute, $model, $params);
         case "has-one-relation":
-            return $handsontableHasOneRelationColumn($attribute, $model);
+            return $handsontableHasOneRelationColumn($attribute, $model, $params);
     }
 
 };
@@ -528,10 +658,10 @@ INPUT;
 // Handsontable inputs
 
 /*
-$handsontableOrdinaryColumn = function ($attribute, $model) {
+$handsontableOrdinaryColumn = function ($attribute, $model, $params) {
     $attribute = str_replace("handsontable-column-settings.", "", $attribute);
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
 
     // Handle attributes that have no item type attribute information (ie for pure crud columns)
     if (!array_key_exists($attribute, $itemTypeAttributes)) {
@@ -541,7 +671,8 @@ INPUT;
     }
 
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $lcfirstModelClass = lcfirst(get_class($model));
+    $modelClass = $params["modelClass"];
+    $lcfirstModelClass = lcfirst($modelClass);
 
     switch ($attributeInfo["type"]) {
         default:
@@ -568,7 +699,7 @@ INPUT;
 
 };
 
-$handsontableCheckboxColumn = function ($attribute, $model) {
+$handsontableCheckboxColumn = function ($attribute, $model, $params) {
     $attribute = str_replace("handsontable-column-settings.", "", $attribute);
     return <<<INPUT
         <hot-column data="attributes.$attribute" title="'$attribute'" type="'checkbox'"
@@ -597,7 +728,7 @@ $uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $p
 
     }
 
-    $modelClass = get_class($model);
+    $modelClass = $params["modelClass"];
 
     $modelClassSingular = $modelClass;
     $modelClassLcfirstSingular = lcfirst($modelClassSingular);
@@ -663,14 +794,19 @@ $uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $p
                 template: "<ui-view/>"
             })
 
+            ;
+
+        var views = {};
+        views['@{$rootCrudState}'] = {
+            templateUrl: "crud/{$modelClassSingularId}/list.html",
+            controller: "list{$modelClassPlural}Controller",
+        };
+
+        \$stateProvider
+
             .state('{$parentState}.{$modelClassPluralId}.list', {
                 url: "/list",
-                views: {
-                    '@{$rootCrudState}': {
-                        templateUrl: "crud/{$modelClassSingularId}/list.html",
-                        controller: "list{$modelClassPlural}Controller",
-                    }
-                },
+                views: views,
                 data: {pageTitle: 'List {$labelPlural}'}
             })
 
@@ -678,15 +814,20 @@ $uiRouterItemTypeStates['item-type-template'] = function ($attribute, $model, $p
 STATES;
 
     $curateStepStates = <<<CURATESTEPSSTATESSTART
+            ;
+
+        var views = {};
+        views['@{$rootCrudState}'] = {
+            template: "<ui-view/>",
+            controller: "list{$modelClassPlural}Controller",
+        };
+
+        \$stateProvider
+
             .state('{$parentState}.{$modelClassPluralId}.curate', {
                 abstract: true,
                 url: "/curate",
-                views: {
-                    '@{$rootCrudState}': {
-                        template: "<ui-view/>",
-                        controller: "list{$modelClassPlural}Controller",
-                    }
-                },
+                views: views,
                 data: {pageTitle: 'Curate {$labelPlural}'}
             })
 
@@ -884,14 +1025,19 @@ STEPSTATES;
              })
              */
 
+            ;
+
+        var views = {};
+        views['@{$rootCrudState}'] = {
+            controller: "edit{$modelClassSingular}Controller",
+            templateUrl: "crud/$modelClassSingularId/view.html",
+        };
+
+        \$stateProvider
+
             .state('{$parentState}.{$modelClassPluralId}.existing.view', {
                 url: "/view",
-                views: {
-                    '@{$rootCrudState}': {
-                        controller: "edit{$modelClassSingular}Controller",
-                        templateUrl: "crud/$modelClassSingularId/view.html",
-                    }
-                },
+                views: views,
                 data: {pageTitle: 'View {$labelSingular}'}
             })
 
@@ -900,18 +1046,23 @@ STATES;
 
     $editStepStates = <<<EDITSTEPSSTATESSTART
 
+            ;
+
+        var views = {};
+        views['@{$rootCrudState}'] = {
+            controller: "edit{$modelClassSingular}Controller",
+            templateUrl: "crud/{$modelClassSingularId}/form.html"
+        };
+        views['sidebar@root'] = {
+            templateUrl: "crud/{$modelClassSingularId}/navigation.html"
+        };
+
+        \$stateProvider
+
             .state('{$parentState}.{$modelClassPluralId}.existing.edit', {
                 abstract: true,
                 url: "/edit",
-                views: {
-                    '@{$rootCrudState}': {
-                        controller: "edit{$modelClassSingular}Controller",
-                        templateUrl: "crud/{$modelClassSingularId}/form.html"
-                    },
-                    'sidebar@root': {
-                        templateUrl: "crud/{$modelClassSingularId}/navigation.html"
-                    }
-                },
+                views: views,
                 data: {
                     showSideMenu: true,
                     pageTitle: 'Edit {$labelSingular}'
@@ -1035,6 +1186,8 @@ STEPSTATES;
                     "rootCrudState" => $rootCrudState,
                     "recursionLevel" => $recursionLevel + 1,
                     "generator" => $generator,
+                    "itemTypeAttributesWithAdditionalMetadata" => $params["itemTypeAttributesWithAdditionalMetadata"],
+                    "modelClass" => $params["modelClass"],
                 ];
                 $editStepStates .= $generator->prependActiveFieldForAttribute(
                     "ui-router-attribute-states." . $attribute,
@@ -1115,26 +1268,24 @@ $uiRouterStepAttributeStates['has-many-relation'] = function ($attribute, $model
     $recursionLevel = $params["recursionLevel"];
     $generator = $params["generator"];
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
     $attributeInfo = $itemTypeAttributes[$attribute];
-    $modelClassSingular = get_class($model);
+    $modelClass = $params["modelClass"];
+    $modelClassSingular = $modelClass;
     $modelClassLcfirstSingular = lcfirst($modelClassSingular);
 
-    $_ = explode("RelatedBy", $attribute);
-    $relationAttribute = $_[0];
-    $relations = $model->relations();
-    if (!isset($relations[$relationAttribute])) {
-        $class = get_class($model);
+    if (!isset($attributeInfo["relatedModelClass"])) {
+        $class = $modelClass;
         return <<<INPUT
-        // "$attribute" - Model $class does not have a relation '$relationAttribute'
+<!-- "$attribute" - Model $class does not have a relation '$attribute' -->
 
 INPUT;
-        //throw new Exception("Model " . get_class($model) . " does not have a relation '$relationAttribute'");
+        //throw new Exception("Model " . $modelClass . " does not have a relation '$attribute'");
     }
-    $relationInfo = $relations[$relationAttribute];
-    $relatedModelClass = $relationInfo[1];
+    $relatedModelClass = $attributeInfo["relatedModelClass"];
 
-    $relatedModel = $relatedModelClass::model();
+    $relatedModelClassWithNamespace = "\\propel\\models\\$relatedModelClass";
+    $relatedModel = new $relatedModelClassWithNamespace();
 
     $relatedModelClassSingular = str_replace(["Clerk", "Neamtime"], "", $relatedModelClass);
     $relatedModelClassLcfirstSingular = lcfirst($relatedModelClassSingular);
@@ -1152,7 +1303,22 @@ INPUT;
 
 STATESTART;
 
-    $relatedItemTypeStates = $uiRouterItemTypeStates['item-type-template']($attribute, $relatedModel, $params);
+    /*
+    $relatedItemTypeStates = <<<RELATEDITEMTYPESTATES
+
+        \$injector($relatedModelClassSingularId-routes, function(relatedItemTypeRoutes) {
+            relatedItemTypeRoutes(\$stateProvider, $parentState.$stepReference);
+        });
+
+RELATEDITEMTYPESTATES;
+   */
+
+    $relatedItemTypeAttributesWithAdditionalMetadata = $params["generator"]->getItemTypeAttributesWithAdditionalMetadata($relatedModel);
+    $relatedItemTypeStates = $uiRouterItemTypeStates['item-type-template'](
+        $attribute,
+        $relatedModel,
+        array_merge($params, ["modelClass" => $relatedModelClass, "itemTypeAttributesWithAdditionalMetadata" => $relatedItemTypeAttributesWithAdditionalMetadata])
+    );
 
     $stateEnd = <<<STATEEND
 
@@ -1181,7 +1347,7 @@ $uiRouterStepAttributeStates['default-ui-router-attribute-states'] = function ($
     $recursionLevel = $params["recursionLevel"];
     $generator = $params["generator"];
 
-    $itemTypeAttributes = $model->itemTypeAttributes();
+    $itemTypeAttributes = $params["itemTypeAttributesWithAdditionalMetadata"];
 
     // Handle attributes that have no item type attribute information (ie for pure crud columns)
     if (!array_key_exists($attribute, $itemTypeAttributes)) {
@@ -1203,13 +1369,13 @@ STATE;
 
 
 STATE;
-/*
-            .state('{$parentState}.$attribute', {
-                abstract: true,
-                url: "/$attribute",
-                template: "<ui-view/>"
-            })
-*/
+        /*
+                    .state('{$parentState}.$attribute', {
+                        abstract: true,
+                        url: "/$attribute",
+                        template: "<ui-view/>"
+                    })
+        */
         case "has-many-relation":
             return $uiRouterStepAttributeStates['has-many-relation']($attribute, $model, $params);
             break;
@@ -1217,7 +1383,7 @@ STATE;
 
 };
 
-$todo = function ($attribute, $model) {
+$todo = function ($attribute, $model, $params) {
     return "<!-- \"$attribute\" TODO -->";
 };
 
@@ -1238,7 +1404,9 @@ $activeFields = [
     '\.file' => $fileSelectionWidget,
     '\.*File$' => $fileSelectionWidget,
     '\.*_markup' => $textAreaInput,
+    '\.*_css' => $textAreaInput,
     '\.*_message' => $textAreaInput,
+    '\.*template$' => $textAreaInput,
     '\.*_color' => $textInputWithColorpicker,
     'owner' => $todo,
     'node' => $todo,
