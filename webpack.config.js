@@ -14,7 +14,7 @@ module.exports = {
     },
     output: {
         path: __dirname + '/dist/',
-        filename: 'bundle.js',
+        filename: 'bundle.[name].[hash].js',
     },
     resolve: {
         root: __dirname + '/../',
@@ -71,22 +71,22 @@ module.exports = {
             // todo: enable css modules for other paths / newer files - ?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]
             {
                 test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]'
+                loader: 'url?limit=10000&mimetype=application/font-woff&name=fonts/[name].[hash].[ext]'
             },
             {
                 test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=application/octet-stream&name=fonts/[name].[ext]'
+                loader: 'url?limit=10000&mimetype=application/octet-stream&name=fonts/[name].[hash].[ext]'
             },
             {
-                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file?&name=fonts/[name].[ext]'
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file?&name=fonts/[name].[hash].[ext]'
             },
             {
                 test: /\.(jpg|jpeg|gif|png)$/,
                 exclude: /node_modules/,
-                loader: 'file?limit=1024&name=images/[name].[ext]'
+                loader: 'file?limit=1024&name=images/[name].[hash].[ext]'
             },
             {
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml&name=images/[name].[hash].[ext]'
             },
             {
                 test: /\.css$/,
