@@ -11,6 +11,7 @@ module.exports = {
     devtool: 'eval',
     entry: {
         app: ['./src/core/bootstrap.js'],
+        analytics: ['shared/scripts/analytics.js'],
     },
     output: {
         path: __dirname + '/dist/',
