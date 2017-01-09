@@ -10,7 +10,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     devtool: 'eval',
     entry: {
-        app: ['./src/core/bootstrap.js'],
+        app: ['shared/init/initiate-project-index-and-angular.js'],
         analytics: ['shared/scripts/analytics.js'],
     },
     output: {
