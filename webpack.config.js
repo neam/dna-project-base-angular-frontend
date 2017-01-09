@@ -100,6 +100,7 @@ module.exports = {
         new ExtractTextPlugin('[name].[chunkhash].css' /*, {publicPath: '../'}*/),
         new webpack.HotModuleReplacementPlugin(),
         new DashboardPlugin()
+        new Visualizer()
     ],
     devServer: {
         hot: true,
