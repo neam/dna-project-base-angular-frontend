@@ -11,7 +11,7 @@ module.exports = {
     devtool: 'eval',
     entry: {
         app: ['shared/init/initiate-project-index-and-angular.js'],
-        analytics: ['shared/scripts/analytics.js'],
+        analytics: ['shared/init/analytics.js'],
     },
     output: {
         path: __dirname + '/dist/',
