@@ -4,6 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var DashboardPlugin = require('webpack-dashboard/plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var Visualizer = require('webpack-visualizer-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
@@ -106,6 +107,10 @@ module.exports = {
             template: __dirname + '/../angular-frontend-dna/app/index.html'
         }),
         new ExtractTextPlugin('[name].[chunkhash].css' /*, {publicPath: '../'}*/),
+        new CopyWebpackPlugin([
+            {from: 'app/scripts/env.js', to: 'scripts/env.js'},
+            {from: 'bower_components/**/*'},
+        ]),
         new webpack.HotModuleReplacementPlugin(),
         //new DashboardPlugin(), // TODO: Move to development-only setup or similar since webpack does not exit after build or --json when this is active
         new Visualizer()
