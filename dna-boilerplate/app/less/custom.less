@@ -202,12 +202,25 @@ div.select2 .select2-container {
     margin: 20px;
     padding: 40px 20px;
     background: #fff;
-    text-align: center;
 
-    .fa {
+    .feature-description {
 
-      font-size: 60px;
-      color: @purple;
+      text-align: center;
+
+      .fa {
+
+        font-size: 60px;
+        color: @purple;
+
+      }
+
+      p {
+
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 2em;
+
+      }
 
     }
 
@@ -220,15 +233,6 @@ div.select2 .select2-container {
       a {
         color: @text-color;
       }
-
-    }
-
-    p {
-
-      text-align: center;
-      width: 80%;
-      margin: 0 auto;
-      margin-bottom: 2em;
 
     }
 
@@ -333,10 +337,6 @@ div.select2 .select2-container {
 
 .dropdown-menu>li>a {
     margin: 0;
-}
-
-nav.navbar-static-top #navbar li.dropdown.open {
-  background-color: @navbar-active-color;
 }
 
 /* For hybrid (top+side) navigation style */
@@ -451,6 +451,7 @@ nav.navbar-static-top #navbar li.dropdown.open {
 
 }
 
+// Custom styles of the top menu items
 nav.navbar-static-top {
 
   #navbar {
@@ -463,11 +464,11 @@ nav.navbar-static-top {
       color: #fff;
 
       &:hover {
-        background: @navy;
+        background: @navbar-stripe-color;
         color: #fff;
       }
       &:focus {
-        background: @navy;
+        background: @navbar-stripe-color;
         color: #fff;
       }
 
@@ -477,11 +478,11 @@ nav.navbar-static-top {
         color: #fff;
 
         &:hover {
-          background: @navbar-active-color;
+          background: @navbar-bg-color;
           color: #fff;
         }
         &:focus {
-          background: @navbar-active-color;
+          background: @navbar-bg-color;
           color: #fff;
         }
 
@@ -489,16 +490,13 @@ nav.navbar-static-top {
 
       &.active {
 
-        background: @navbar-active-color;
+        background: @navbar-stripe-color;
         color: #fff;
+        border-left: 0;
 
         &:hover {
-          background: @navbar-active-color;
-          color: #fff;
         }
         &:focus {
-          background: @navbar-active-color;
-          color: #fff;
         }
 
         a {
@@ -702,6 +700,7 @@ nav.navbar-static-top {
 
 }
 
+// Custom styles of the side menu items
 #side-menu {
   font-size: 13px;
 
@@ -714,6 +713,7 @@ nav.navbar-static-top {
     font-weight: 400 !important;
   }
 
+  /*
   .nav > li.active,
   .nav > li.active a,
   .nav > li a:focus {
@@ -729,6 +729,57 @@ nav.navbar-static-top {
     background: @sidebar-active;
     color: @sidebar-active-text-color;
   }
+  */
+
+  /* TODO: If customization is relevant, use .navbar-default to override inspinia default styles
+  .nav > li {
+
+    &:hover {
+      background-color: @sidebar-active;
+      color: @sidebar-active-text-color;
+    }
+    &:focus {
+      background-color: @sidebar-active;
+      color: @sidebar-active-text-color;
+    }
+
+    a {
+
+      &:hover {
+        background-color: @sidebar-active;
+        color: @sidebar-active-text-color;
+      }
+      &:focus {
+        background-color: @sidebar-active;
+        color: @sidebar-active-text-color;
+      }
+
+    }
+
+    &.active {
+
+      background-color: @sidebar-active;
+      color: @sidebar-active-text-color;
+      border-left: 0;
+
+      &:hover {
+      }
+      &:focus {
+      }
+
+      a {
+
+        &:hover {
+        }
+        &:focus {
+        }
+
+      }
+
+    }
+
+  }
+  */
 
   li.active.alert-based-menu-item:hover,
   li.active.alert-based-menu-item > a:hover,

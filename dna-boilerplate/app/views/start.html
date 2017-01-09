@@ -1,4 +1,4 @@
-<div id="start" ng-controller="DataEnvironmentController">
+<div id="start" ng-controller="DataEnvironmentController" class="landing-page">
     <div id="hero">
         <!--
                 <div class="video_contain">
@@ -101,9 +101,9 @@
 
     <div id="content">
 
-        <div ng-show="!activeDataEnvironment.available && !auth.profilePromise">
+        <div ng-if="!activeDataEnvironment.available && !auth.profilePromise">
 
-        <div class="row" ng-repeat="row in [0,1,2,3,4]" ng-if="optimizelyVariation.data['inforow '+(row+1)+' shown'] === 'yes'">
+        <div class="row feature-description" ng-repeat="row in [0,1,2,3,4]" ng-if="optimizelyVariation.data['inforow '+(row+1)+' shown'] === 'yes'">
             <div class="col-md-3" ng-repeat="index in [4*row+1,4*row+2,4*row+3,4*row+4]" ng-if="optimizelyVariation.data['info '+(index)+' shown'] === 'yes'">
 
                 <a ui-sref="root.start.user.signup"

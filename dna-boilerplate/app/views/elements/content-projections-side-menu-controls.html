@@ -20,7 +20,7 @@
 
 </div>
 
-<div class="nav" ng-show="activeDataEnvironment.available">
+<div class="nav" ng-if="activeDataEnvironment.available">
 
     <li class="nav-title">WIZARD <i class="fa fa-circle-o-notch fa-spin"
                                     ng-show="suggestionsService.status() === 'loading'"></i><i

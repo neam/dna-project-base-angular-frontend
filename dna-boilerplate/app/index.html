@@ -21,6 +21,7 @@
 
     <!-- Note: ", maximum-scale=1.0, user-scalable=no" is a recommendation from Auth0 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- Page title set in pageTitle directive -->
     <title page-title></title>
@@ -52,50 +53,11 @@
     <!-- Font awesome -->
     <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- Bootstrap -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Code Mirror -->
-    <link href="bower_components/codemirror/lib/codemirror.css" rel="stylesheet">
-    <!--<link commented="bower_components/codemirror/ambiance.css" rel="stylesheet">-->
-
     <!-- Main Inspinia CSS files -->
     <link href="styles/animate.css" rel="stylesheet">
 
-    <!-- dc -->
-    <link rel="stylesheet" type="text/css" href="styles/dc.css"/>
-
-    <!-- Handsontable -->
-    <link rel="stylesheet" media="screen" href="bower_components/handsontable/dist/handsontable.full.css">
-
-    <!-- Angular hotkeys -->
-    <link rel="stylesheet" type="text/css" href="bower_components/angular-hotkeys/src/hotkeys.css">
-
-    <!-- Date Range Picker for Bootstrap -->
-    <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css"/>
-
-    <!-- Cal Heatmap -->
-    <link rel="stylesheet" type="text/css" href="bower_components/cal-heatmap/cal-heatmap.css">
-
     <!-- endbower -->
     <!-- endbuild -->
-
-    <!-- These assets break when built, thus excluding from build currently -->
-
-    <!-- Angular colorpicker -->
-    <link href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" rel="stylesheet">
-
-    <!-- Intro.js -->
-    <link href="bower_components/intro.js/introjs.css" rel="stylesheet">
-
-    <!-- Select2 -->
-    <link href="bower_components/select2/dist/css/select2.min.css" rel="stylesheet" />
-
-    <!-- iCheck -->
-    <link rel="stylesheet" type="text/css" href="bower_components/iCheck/skins/square/green.css">
-
-    <!-- Fullcalendar -->
-    <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css"/>
 
     <!-- build:css({.tmp,.merged-app}) styles/style.css -->
     <link href="styles/style.css" rel="stylesheet">
@@ -114,7 +76,7 @@
         }
     </script>
     <noscript>
-      <!-- FA-specific id hardcoded -->
+      <!-- Project-specific id hardcoded -->
       <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=[[env.FB_CONVERSION_PIXEL_ID]]&ev=PageView&noscript=1">
     </noscript>
     <!-- End Facebook Pixel Code -->
@@ -153,7 +115,7 @@
 
 <!-- ControllerAs syntax -->
 <!-- Main controller with serveral data used in Inspinia theme on diferent view -->
-<body ng-controller="MainCtrl as main" class="top-navigation">
+<body ng-controller="MainCtrl as main" class="top-navigation {{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
 
 <!-- Main view  -->
 <div ui-view></div>
@@ -172,7 +134,7 @@
 </script>
 
 <!-- Auth0 - upstream minification issues require these to be included as-is -->
-<script src="bower_components/auth0-lock/build/auth0-lock.js"></script>
+<script src="bower_components/auth0-lock/build/auth0-lock.min.js"></script>
 
 <!-- Keep the bare minimum outside of minification necessary for optimizely data to be transported successfully -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -181,104 +143,31 @@
 <!-- build:js({.tmp,.merged-app}) scripts/vendor.js -->
 
 <!-- jQuery and Bootstrap -->
-<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
 <!-- MetsiMenu -->
-<script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+<script src="bower_components/metisMenu/dist/metisMenu.js"></script>
 
 <!-- SlimScroll -->
-<script src="bower_components/slimScroll/jquery.slimscroll.min.js"></script>
-
-<!-- floatThead -->
-<script src="bower_components/jquery.floatThead/dist/jquery.floatThead.js"></script>
+<script src="bower_components/slimScroll/jquery.slimscroll.js"></script>
 
 <!-- Peace JS -->
-<script src="bower_components/PACE/pace.min.js"></script>
+<script src="bower_components/PACE/pace.js"></script>
 
-<!-- More vendor scripts -->
-<script src="bower_components/lodash/dist/lodash.min.js"></script>
-<script src="bower_components/d3/d3.min.js"></script>
-<script src="scripts/inspinia/plugins/rickshaw/rickshaw.min.js"></script>
-<script src="bower_components/crossfilter/crossfilter.min.js"></script>
-<script src="bower_components/dcjs/dc.min.js"></script>
-<script src="scripts/inspinia/plugins/sparkline/jquery.sparkline.min.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="scripts/inspinia/inspinia.js"></script>
 
-<!-- Cal Heatmap -->
-<script type="text/javascript" src="bower_components/cal-heatmap/cal-heatmap.js"></script>
-
-<!-- Angular and angular modules -->
+<!-- Main Angular scripts-->
 <script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/oclazyload/dist/ocLazyLoad.js"></script>
+<script src="bower_components/angular-translate/angular-translate.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script src="bower_components/angular-resource/angular-resource.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script src="bower_components/angular-dc/src/angular-dc.js"></script>
-<script src="scripts/dc/dc-nasdaq-controller.js"></script>
-<script src="scripts/dc/angular-jade-min.js"></script>
-<script src="scripts/inspinia/plugins/rickshaw/angular-rickshaw.js"></script>
-<script src="bower_components/angular-google-chart/ng-google-chart.js"></script>
-<script src="bower_components/angulartics/dist/angulartics.min.js"></script>
-<script src="bower_components/angulartics/dist/angulartics-scroll.min.js"></script>
-<script src="bower_components/angulartics/dist/angulartics-ga.min.js"></script>
-<script src="bower_components/angulartics/dist/angulartics-mixpanel.min.js"></script>
-<script src="bower_components/ngSmoothScroll/lib/angular-smooth-scroll.js"></script>
-<script src="bower_components/ng-videosharing-embed/build/ng-videosharing-embed.min.js"></script>
-
-<!-- Angular Color Picker (angular-minicolors) -->
-<script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
-
-<!-- Intro.js -->
-<script src="bower_components/intro.js/intro.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/ng-idle/angular-idle.js"></script>
 
 <!-- Angular optimizely -->
 <script src="bower_components/ng-optimizely/ng-optimizely.js"></script>
-
-<!-- 3-way-merge -->
-<script src="scripts/angular-3-way-merge/merge.js"></script>
-
-<!-- Select2 -->
-<script src="bower_components/select2/dist/js/select2.js"></script>
-
-<!-- Angular Select2 -->
-<script src="bower_components/angular-select2/dist/angular-select2.js"></script>
-
-<!-- Handsontable -->
-<script src="bower_components/handsontable/dist/handsontable.full.js"></script>
-<script src="bower_components/ruleJS/dist/full/ruleJS.all.full.js"></script>
-<script src="bower_components/handsontable-ruleJS/src/handsontable.formula.js"></script>
-<script type="application/javascript">
-    // Necessary for ngHandsontable to accept the "formulas" setting
-    Handsontable.DefaultSettings.prototype.formulas = {};
-</script>
-<!--
-<script commented="bower_components/ngHandsontable/dist/ngHandsontable.js"></script>
--->
-<script src="bower_components/angular-simple-handsontable/angular-simple-handsontable.js"></script>
-
-<!-- Handsontable-select2-editor -->
-<script src="bower_components/Handsontable-select2-editor/select2-editor.js"></script>
-
-<!-- iCheck -->
-<script src="bower_components/iCheck/icheck.js"></script>
-
-<!-- Angular hotkeys -->
-<script src="bower_components/mousetrap/mousetrap.js"></script>
-<script src="bower_components/angular-hotkeys/src/hotkeys.js"></script>
-
-<!-- dc -->
-<script type="text/javascript" src="scripts/dc/colorbrewer.js"></script>
-<script type="text/javascript" src="scripts/dc/dc-nasdaq-controller.js"></script>
-
-<!-- Moment.js -->
-<script src="bower_components/moment/moment.js"></script>
-<script>
-    // Workaround for daterangepicker displaying "Invalid date" when start/end of the range is null
-    moment.locale(moment.locale(),{invalidDate:""});
-</script>
-
-<!-- Date Range Picker for Bootstrap -->
-<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-<script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
 
 <!-- Auth0 (except auth0-lock.js which does not survive the build process) -->
 <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -286,26 +175,17 @@
 <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
 <script src="bower_components/auth0-angular/build/auth0-angular.js"> </script>
 
-<!-- Code Mirror -->
-<script src="bower_components/codemirror/lib/codemirror.js"></script>
-<script src="bower_components/codemirror/mode/javascript/javascript.js"></script>
-<script src="scripts/inspinia/plugins/ui-codemirror/ui-codemirror.min.js"></script>
-
-<!-- Filepicker.io -->
-<script type="text/javascript" src="bower_components/filepicker-js/filepicker.js"></script>
-<script type="text/javascript" src="bower_components/filepicker-js/filepicker_debug.js"></script>
-<script type="text/javascript" src="bower_components/angular-filepicker/dist/angular_filepicker.js"></script>
-
-<!-- Angular UI Calendar / Fullcalendar (Note: jquery, moment, and angular have to get included before fullcalendar) -->
-<script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
-<script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
-<script type="text/javascript" src="bower_components/fullcalendar/dist/gcal.js"></script>
-
 <!-- endbuild -->
 
+<!--
+ You need to include this script on any page that has a Google Map.
+ https://developers.google.com/maps/documentation/javascript/tutorial#api_key
+-->
+<!--
+<script type="text/javascript" commented="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70"></script>
+-->
+
 <!-- build:js({.tmp,.merged-app}) scripts/scripts.js -->
-<!-- Custom and plugin javascript -->
-<script src="scripts/inspinia/inspinia.js"></script>
 
 <!-- Angular App Script -->
 <script src="scripts/inspinia/module.js"></script>
@@ -313,32 +193,15 @@
 <script src="scripts/inspinia/controllers.js"></script>
 <script src="scripts/angular-frontend.js"></script>
 <script src="scripts/angular-frontend-config.js"></script>
-<script src="scripts/angular-frontend-filters.js"></script>
 <script src="scripts/auth.js"></script>
-<!--
-<script commented="bower_components/angular-translate/angular-translate.min.js"></script>
-<script commented="scripts/translations.js"></script>
--->
-<!--
-<script commented="scripts/services.js"></script>
--->
 
 <!-- DNA Javascript -->
 <script src="scripts/app.js"></script>
 <script src="scripts/config.js"></script>
+<script src="scripts/translations.js"></script>
 
 <!-- Optimizely fallback-data -->
 <script src="scripts/optimizely-fallback-data.js"></script>
-
-<!-- Sections -->
-<script src="sections/get-started/get-started.js"></script>
-<script src="sections/import-and-inspect/import.js"></script>
-<script src="sections/get-things-done/get-things-done.js"></script>
-<script src="sections/up-to-date/up-to-date.js"></script>
-<script src="sections/basic-info/basic-info.js"></script>
-
-<!-- Generated -->
-<!-- Insert includes of generated files here -->
 
 <!-- endbuild -->
 

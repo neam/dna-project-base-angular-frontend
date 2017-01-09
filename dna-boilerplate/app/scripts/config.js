@@ -652,6 +652,15 @@
     angular
         .module('app')
         .config(config)
+        .config(function (optimizelyProvider) {
+            optimizelyProvider.setKey(env.OPTIMIZELY_PROJECT_ID);
+            optimizelyProvider.setActivationEventName(false);
+            //optimizelyProvider.setActivationEventName('$stateChangeSuccess');
+        })
+        .run(function ($rootScope, optimizelyVariation) {
+            $rootScope.optimizelyVariation = optimizelyVariation;
+        })
+        /*
         .config(function (hotkeysProvider) {
             //hotkeysProvider.cheatSheetHotkey = 'k';
         })
@@ -670,14 +679,6 @@
             $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
                 $rootScope.Intercom = window.Intercom;
             });
-        })
-        .config(function (optimizelyProvider) {
-            optimizelyProvider.setKey(env.OPTIMIZELY_PROJECT_ID);
-            optimizelyProvider.setActivationEventName(false);
-            //optimizelyProvider.setActivationEventName('$stateChangeSuccess');
-        })
-        .run(function ($rootScope, optimizelyVariation) {
-            $rootScope.optimizelyVariation = optimizelyVariation;
         })
         .run(function ($rootScope, uiModes) {
             $rootScope.uiModes = uiModes;
@@ -765,6 +766,7 @@
 
             });
 
-        });
+        })
+        */;
 
 })();

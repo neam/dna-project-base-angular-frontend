@@ -1,13 +1,13 @@
 (function () {
     var app = angular.module('app', [
         'angular-frontend',
+        'ng-optimizely',                // optimizely
         // Other libraries are loaded dynamically in the config.js file using the library ocLazyLoad
         /*
         'ngResource',                   // $resource
         //'modelFactory',                 // angular-model-factory
         //'multiStepForm',                // angular-multi-step-form
         'googlechart',                  // angular-google-chart
-        'ng-optimizely',                // optimizely
         'angularDc',
         //'ngHandsontable',
         'simpleHandsontable',
