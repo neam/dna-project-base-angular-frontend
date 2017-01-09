@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Angular frontend base",
   "scripts": {
-    "start": "hs build",
+    "start": "hs dist",
     "build": "webpack -p",
     "stats": "webpack --env production --profile --json > stats.json",
     "dev": "webpack-dev-server",
