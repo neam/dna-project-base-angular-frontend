@@ -99,7 +99,7 @@ module.exports = {
         }),
         new ExtractTextPlugin('[name].[chunkhash].css' /*, {publicPath: '../'}*/),
         new webpack.HotModuleReplacementPlugin(),
-        new DashboardPlugin()
+        //new DashboardPlugin(), // TODO: Move to development-only setup or similar since webpack does not exit after build or --json when this is active
         new Visualizer()
     ],
     devServer: {
