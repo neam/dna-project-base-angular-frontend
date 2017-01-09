@@ -61,10 +61,11 @@ module.exports = {
                 test: /\.less/,
                 loader: ExtractTextPlugin.extract(
                     'style-loader',
-                    'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!less-loader'
+                    'css-loader!less-loader'
                 ),
                 exclude: /node_modules/
             },
+            // todo: enable css modules for other paths / newer files - ?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]
             {
                 test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'url?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]'
