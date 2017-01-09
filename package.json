@@ -7,10 +7,17 @@
     "build": "webpack -p",
     "dev": "webpack-dev-server",
     "devdash": "webpack-dashboard -- webpack-dev-server",
+    "build-css": "lessc app/style.less > ../angular-frontend-dna/app/styles/style.css",
+    "watch-css": "catw -w '../angular-frontend-dna/app/less/*.less' -c 'npm run build-css'",
     "test": "karma start test/karma.config.js"
   },
   "dependencies": {
-    "angular": "^1.4.1"
+    "angular": "^1.4.1",
+    "angular-bootstrap": "^0.12.2",
+    "angular-sanitize": "^1.6.1",
+    "angular-translate": "^2.13.1",
+    "ng-idle": "^1.3.2",
+    "ng-optimizely": "^2.0.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.1",
@@ -24,6 +31,8 @@
     "babel-preset-stage-0": "^6.5.0",
     "css-loader": "^0.25.0",
     "eslint": "^3.7.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
     "http-server": "^0.8.0",
     "imports-loader": "^0.7.0",
@@ -35,12 +44,15 @@
     "karma-jasmine": "^0.3.5",
     "karma-phantomjs-launcher": "^0.2.0",
     "karma-webpack": "^1.5.1",
+    "less": "^2.7.2",
+    "less-loader": "^2.2.3",
     "ng-annotate-loader": "0.1.1",
     "node-libs-browser": "^0.5.2",
     "oclazyload": "^0.6.3",
     "phantomjs": "^1.9.17",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-dashboard": "^0.2.0",
     "webpack-dev-server": "^1.16.2",
