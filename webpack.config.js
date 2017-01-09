@@ -4,6 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var DashboardPlugin = require('webpack-dashboard/plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var Visualizer = require('webpack-visualizer-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     devtool: 'eval',
@@ -94,6 +95,12 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(['dist'], {
+            root: __dirname,
+            verbose: true,
+            dry: false,
+            //exclude: ['shared.js']
+        }),
         new HtmlWebpackPlugin({
             inject: 'body',
             template: __dirname + '/../angular-frontend-dna/app/index.html'
