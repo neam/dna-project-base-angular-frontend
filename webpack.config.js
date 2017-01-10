@@ -55,18 +55,9 @@ module.exports = {
                 test: /\.json$/,
                 loader: 'json-loader'
             },
-            /* Raw loader support for *.html
-             * Returns file content as string
-             */
-            /*
-             {
-             test: /\.html$/,
-             loader: 'raw-loader'
-             },
-             */
             {
                 test: /\.html$/,
-                loader: 'raw-loader',
+                loader: 'html',
                 exclude: /(index|stats)\.html$/
             },
             /*
@@ -119,7 +110,7 @@ module.exports = {
                 test: require.resolve('angular'),
                 loader: 'exports?window.angular'
             },
-        ]
+        ],
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], {

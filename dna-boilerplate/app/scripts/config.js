@@ -17,9 +17,9 @@ let env = require('shared/scripts/env');
             .state('root', {
                 abstract: true,
                 url: "",
-                templateUrl: "views/common/content_hybrid_navigation.html",
-                //templateUrl: "views/common/content_top_navigation.html",
-                //templateUrl: "views/common/content.html",
+                template: require("project/views/common/content_hybrid_navigation.html"),
+                //template: require("project/views/common/content_top_navigation.html"),
+                //template: require("project/views/common/content.html"),
                 resolve: {
                     // Avoid FOUC by waiting for optimizely variation data to be available before rendering page
                     optimizelyVariation: function (optimizelyVariation) {
@@ -34,12 +34,12 @@ let env = require('shared/scripts/env');
              */
             .state('root.start', {
                 url: "",
-                templateUrl: "views/start.html",
+                template: require("project/views/start.html"),
                 data: {pageTitle: 'Start'}
             })
             .state('root.starttrailingslash', {
                 url: "/",
-                templateUrl: "views/start.html",
+                template: require("project/views/start.html"),
                 data: {pageTitle: 'Start'}
             })
 
@@ -106,7 +106,7 @@ let env = require('shared/scripts/env');
              */
             .state('root.faq', {
                 url: "/faq",
-                templateUrl: "views/faq.html",
+                template: require("project/views/faq.html"),
                 data: {pageTitle: 'FAQ'}
             })
 
@@ -122,7 +122,7 @@ let env = require('shared/scripts/env');
                         controller: "BasicInfoController"
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/basic-info/navigation.html"
+                        template: require("project/sections/basic-info/navigation.html")
                     }
                 },
                 data: {
@@ -134,7 +134,7 @@ let env = require('shared/scripts/env');
 
             .state('root.basic-info.overview', {
                 url: "/overview",
-                templateUrl: "sections/basic-info/overview.html",
+                template: require("project/sections/basic-info/overview.html"),
                 data: {pageTitle: 'Basic Info'}
             })
 
@@ -150,7 +150,7 @@ let env = require('shared/scripts/env');
                         controller: "GetStartedController"
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/get-started/navigation.html"
+                        template: require("project/sections/get-started/navigation.html")
                     }
                 },
                 data: {
@@ -162,19 +162,19 @@ let env = require('shared/scripts/env');
 
             .state('root.get-started.introduction', {
                 url: "/overview",
-                templateUrl: "sections/get-started/introduction.html",
+                template: require("project/sections/get-started/introduction.html"),
                 data: {pageTitle: 'Introduction - Introduction'}
             })
 
             .state('root.get-started.what-to-get-done', {
                 url: "/what-to-get-done",
-                templateUrl: "sections/get-started/what-to-get-done.html",
+                template: require("project/sections/get-started/what-to-get-done.html"),
                 data: {pageTitle: '1. Decide how to use the tool - What to get done'}
             })
 
             .state('root.get-started.survey', {
                 url: "/survey",
-                templateUrl: "sections/get-started/survey.html",
+                template: require("project/sections/get-started/survey.html"),
                 data: {pageTitle: '1. Decide how to use the tool - Survey'}
             })
 
@@ -204,7 +204,7 @@ let env = require('shared/scripts/env');
                         controller: "ImportAndOrganizeController",
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/import-and-inspect/navigation.html",
+                        template: require("project/sections/import-and-inspect/navigation.html"),
                     }
                 },
                 resolve: {},
@@ -218,7 +218,7 @@ let env = require('shared/scripts/env');
 
             .state('root.import-and-inspect.overview', {
                 url: "/overview",
-                templateUrl: "sections/import-and-inspect/overview.html",
+                template: require("project/sections/import-and-inspect/overview.html"),
                 data: {pageTitle: 'Overview'}
             })
 
@@ -230,7 +230,7 @@ let env = require('shared/scripts/env');
 
             .state('root.import-and-inspect.import.overview', {
                 url: "/overview",
-                templateUrl: "sections/import-and-inspect/import.overview.html",
+                template: require("project/sections/import-and-inspect/import.overview.html"),
                 data: {pageTitle: 'Inspect'}
             })
 
@@ -256,7 +256,7 @@ let env = require('shared/scripts/env');
 
             .state('root.import-and-inspect.inspect.overview', {
                 url: "/overview",
-                templateUrl: "sections/import-and-inspect/inspect.overview.html",
+                template: require("project/sections/import-and-inspect/inspect.overview.html"),
                 data: {pageTitle: 'Inspect'}
             })
 
@@ -286,7 +286,7 @@ let env = require('shared/scripts/env');
                         controller: "GetThingsDoneController",
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/get-things-done/navigation.html"
+                        template: require("project/sections/get-things-done/navigation.html")
                     }
                 },
                 data: {
@@ -298,7 +298,7 @@ let env = require('shared/scripts/env');
 
             .state('root.get-things-done.overview', {
                 url: "/overview",
-                templateUrl: "sections/get-things-done/overview.html",
+                template: require("project/sections/get-things-done/overview.html"),
                 data: {pageTitle: 'Get Things Done'}
             })
 
@@ -328,7 +328,7 @@ let env = require('shared/scripts/env');
                         controller: "UpToDateController",
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/up-to-date/navigation.html",
+                        template: require("project/sections/up-to-date/navigation.html"),
                     }
                 },
                 data: {
@@ -340,7 +340,7 @@ let env = require('shared/scripts/env');
 
             .state('root.up-to-date.overview', {
                 url: "/overview",
-                templateUrl: "sections/up-to-date/overview.html",
+                template: require("project/sections/up-to-date/overview.html"),
                 data: {pageTitle: 'Stay up-to-date'}
             })
 
@@ -380,7 +380,7 @@ let env = require('shared/scripts/env');
              */
             .state('root.api-endpoints.choose', {
                 url: "/choose-account",
-                templateUrl: "views/domain/choose-current.html",
+                template: require("project/views/domain/choose-current.html"),
                 data: {pageTitle: 'Example view'}
             })
 
@@ -420,7 +420,7 @@ let env = require('shared/scripts/env');
 
             .state('root.api-endpoints.existing.start', {
                 url: "/",
-                templateUrl: "views/start.html",
+                template: require("project/views/start.html"),
                 data: {pageTitle: 'Example view'}
             })
 
@@ -436,7 +436,7 @@ let env = require('shared/scripts/env');
                         controller: "BasicInfoController"
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/basic-info/navigation.html"
+                        template: require("project/sections/basic-info/navigation.html")
                     }
                 },
                 data: {
@@ -447,19 +447,19 @@ let env = require('shared/scripts/env');
 
             .state('root.api-endpoints.existing.basic-info.overview', {
                 url: "/overview",
-                templateUrl: "sections/basic-info/overview.html",
+                template: require("project/sections/basic-info/overview.html"),
                 data: {pageTitle: 'Basic Info'}
             })
 
             .state('root.api-endpoints.existing.basic-info.my-tax-entities', {
                 url: "/my-tax-entities",
-                templateUrl: "sections/basic-info/my-tax-entities.html",
+                template: require("project/sections/basic-info/my-tax-entities.html"),
                 data: {pageTitle: 'Basic Info'}
             })
 
             .state('root.api-endpoints.existing.basic-info.financials', {
                 url: "/financials",
-                templateUrl: "sections/basic-info/financials.html",
+                template: require("project/sections/basic-info/financials.html"),
                 data: {pageTitle: 'Basic Info'}
             })
 
@@ -475,7 +475,7 @@ let env = require('shared/scripts/env');
                         controller: "GetStartedController"
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/get-started/navigation.html"
+                        template: require("project/sections/get-started/navigation.html")
                     }
                 },
                 data: {
@@ -486,19 +486,19 @@ let env = require('shared/scripts/env');
 
             .state('root.api-endpoints.existing.get-started.introduction', {
                 url: "/introduction",
-                templateUrl: "sections/get-started/introduction.html",
+                template: require("project/sections/get-started/introduction.html"),
                 data: {pageTitle: '1. Decide how to use the tool - Introduction'}
             })
 
             .state('root.api-endpoints.existing.get-started.what-to-get-done', {
                 url: "/what-to-get-done",
-                templateUrl: "sections/get-started/what-to-get-done.html",
+                template: require("project/sections/get-started/what-to-get-done.html"),
                 data: {pageTitle: '1. Decide how to use the tool - What to get done'}
             })
 
             .state('root.api-endpoints.existing.get-started.survey', {
                 url: "/survey",
-                templateUrl: "sections/get-started/survey.html",
+                template: require("project/sections/get-started/survey.html"),
                 data: {pageTitle: '1. Decide how to use the tool - Survey'}
             })
 
@@ -510,11 +510,11 @@ let env = require('shared/scripts/env');
                 url: "/import-and-inspect",
                 views: {
                     '': {
-                        templateUrl: "sections/import-and-inspect/wrapper.html",
+                        template: require("project/sections/import-and-inspect/wrapper.html"),
                         controller: "ImportAndOrganizeController",
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/import-and-inspect/navigation.html"
+                        template: require("project/sections/import-and-inspect/navigation.html")
                     }
                 },
                 resolve: {
@@ -572,13 +572,13 @@ let env = require('shared/scripts/env');
 
             .state('root.api-endpoints.existing.import-and-inspect.optionally-by-import-session.import.overview', {
                 url: "/overview",
-                templateUrl: "sections/import-and-inspect/import.overview.html",
+                template: require("project/sections/import-and-inspect/import.overview.html"),
                 data: {pageTitle: 'Import'}
             })
 
             .state('root.api-endpoints.existing.import-and-inspect.optionally-by-import-session.import.images', {
                 url: "/images",
-                templateUrl: "sections/import-and-inspect/import.images.html",
+                template: require("project/sections/import-and-inspect/import.images.html"),
                 resolve: {},
                 data: {pageTitle: 'Inspect'}
             })
@@ -591,7 +591,7 @@ let env = require('shared/scripts/env');
 
             .state('root.api-endpoints.existing.import-and-inspect.optionally-by-import-session.inspect.overview', {
                 url: "/overview",
-                templateUrl: "sections/import-and-inspect/inspect.overview.html",
+                template: require("project/sections/import-and-inspect/inspect.overview.html"),
                 data: {pageTitle: 'Inspect'}
             })
 
@@ -607,7 +607,7 @@ let env = require('shared/scripts/env');
                         controller: "GetThingsDoneController",
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/get-things-done/navigation.html"
+                        template: require("project/sections/get-things-done/navigation.html")
                     }
                 },
                 data: {
@@ -618,7 +618,7 @@ let env = require('shared/scripts/env');
 
             .state('root.api-endpoints.existing.get-things-done.overview', {
                 url: "/overview",
-                templateUrl: "sections/get-things-done/overview.html",
+                template: require("project/sections/get-things-done/overview.html"),
                 controller: "GetThingsDoneController",
                 data: {
                     pageTitle: '3. Get things done',
@@ -637,7 +637,7 @@ let env = require('shared/scripts/env');
                         controller: "UpToDateController",
                     },
                     'sidebar@root': {
-                        templateUrl: "sections/up-to-date/navigation.html",
+                        template: require("project/sections/up-to-date/navigation.html"),
                     }
                 },
                 data: {
@@ -648,7 +648,7 @@ let env = require('shared/scripts/env');
 
             .state('root.api-endpoints.existing.up-to-date.overview', {
                 url: "/overview",
-                templateUrl: "sections/up-to-date/overview.html",
+                template: require("project/sections/up-to-date/overview.html"),
                 data: {pageTitle: 'Stay up-to-date'}
             })
         ;
