@@ -6,8 +6,8 @@
 
 require('oclazyload/dist/ocLazyLoad.js');
 
-let inspinia = angular.module('inspinia', [
-    require('angular-ui-router'),                    // Routing
+let deps = [
+    require('angular-ui-router').default,                    // Routing
     //'oc.lazyLoad',                  // ocLazyLoad
     (() => {
         require('angular-bootstrap');
@@ -17,7 +17,9 @@ let inspinia = angular.module('inspinia', [
     require('ng-idle'),                       // Idle timer
     require('angular-sanitize')                    // ngSanitize
     // Other libraries are loaded dynamically in the config.js file using the library ocLazyLoad
-]);
+];
+
+let inspinia = angular.module('inspinia', deps);
 
 require('./controllers');
 require('./directives');

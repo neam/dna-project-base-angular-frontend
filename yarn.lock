@@ -103,13 +103,13 @@ angular-translate@^2.13.1:
   dependencies:
     angular ">=1.2.26 <=1.6"
 
-angular-ui-router@^0.2.15:
-  version "0.2.18"
-  resolved "https://registry.yarnpkg.com/angular-ui-router/-/angular-ui-router-0.2.18.tgz#1dad70415c73d7046fd2e130df03d62fb7464360"
+angular-ui-router@~1.0.0-alpha.4:
+  version "1.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/angular-ui-router/-/angular-ui-router-1.0.0-rc.1.tgz#2d168230e8204fc8d2a93d1007ad49b9f33d09c6"
   dependencies:
-    angular "^1.0.8"
+    ui-router-core "3.1.0"
 
-"angular@>=1.2.26 <=1.6", angular@^1.0.8, angular@^1.2.0, angular@^1.4.1:
+"angular@>=1.2.26 <=1.6", angular@^1.2.0, angular@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.6.1.tgz#a7b6d763a74c157325692619e97257e69d9b6a27"
 
@@ -5177,6 +5177,10 @@ uglify-js@2.7.x, uglify-js@~2.7.3:
 uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
+
+ui-router-core@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/ui-router-core/-/ui-router-core-3.1.0.tgz#c297e8198631ab2e36892a95d0f9a92c18efbc17"
 
 uid-number@~0.0.6:
   version "0.0.6"
