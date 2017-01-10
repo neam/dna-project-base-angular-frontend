@@ -24,6 +24,7 @@ module.exports = {
             'project': __dirname + '/../angular-frontend-dna/app',
             'shared': __dirname + '/app',
             'webpack-angular-examplecode': __dirname + '/src',
+            'bower_components': __dirname + '/bower_components',
         },
         extensions: ['', '.js']
     },
@@ -50,16 +51,25 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.html$/,
-                loader: 'raw-loader',
-                exclude: /index\.html$/
-            },
-            {
                 test: /\.json$/,
                 loader: 'json-loader'
             },
+            /* Raw loader support for *.html
+             * Returns file content as string
+             */
             /*
-             * Extract and compile LESS files to external CSS file
+             {
+             test: /\.html$/,
+             loader: 'raw-loader'
+             },
+             */
+            {
+                test: /\.html$/,
+                loader: 'raw-loader',
+                exclude: /(index|stats)\.html$/
+            },
+            /*
+             * Extract and compile LESS+CSS files to external CSS file
              */
             {
                 test: /\.less/,
@@ -69,7 +79,18 @@ module.exports = {
                 ),
                 exclude: /node_modules/
             },
+            {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract(
+                    'style-loader',
+                    'css-loader'
+                ),
+                exclude: /node_modules/
+            },
             // todo: enable css modules for other paths / newer files - ?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]
+            /*
+             * Extract and include resources referenced in LESS/CSS-files in the build
+             */
             {
                 test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'url?limit=10000&mimetype=application/font-woff&name=fonts/[name].[hash].[ext]'
@@ -89,11 +110,6 @@ module.exports = {
             {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml&name=images/[name].[hash].[ext]'
             },
-            {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-                exclude: /node_modules/
-            }
         ]
     },
     plugins: [
@@ -109,7 +125,6 @@ module.exports = {
         }),
         new ExtractTextPlugin('[name].[chunkhash].css' /*, {publicPath: '../'}*/),
         new CopyWebpackPlugin([
-            {from: 'app/scripts/env.js', to: 'scripts/env.js'},
             {from: 'bower_components/**/*'},
         ]),
         new webpack.HotModuleReplacementPlugin(),
