@@ -1,3 +1,9 @@
+'use strict';
+
+let env = require('shared/scripts/env');
+
+//let foo = require("project/views/common/content_hybrid_navigation.html");
+
 (function () {
 
     /**

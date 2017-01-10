@@ -8,7 +8,8 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-    devtool: 'eval',
+    devtool: 'inline-source-map',
+    //devtool: 'eval',
     entry: {
         app: ['shared/init/initiate-project-index-and-angular.js'],
         analytics: ['shared/init/analytics.js'],
@@ -108,7 +109,15 @@ module.exports = {
                 loader: 'file?limit=1024&name=images/[name].[hash].[ext]'
             },
             {
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml&name=images/[name].[hash].[ext]'
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url?limit=10000&mimetype=image/svg+xml&name=images/[name].[hash].[ext]'
+            },
+            /*
+             * Necessary to be able to use angular 1 with webpack https://github.com/webpack/webpack/issues/2049
+             */
+            {
+                test: require.resolve('angular'),
+                loader: 'exports?window.angular'
             },
         ]
     },
@@ -118,6 +127,11 @@ module.exports = {
             verbose: true,
             dry: false,
             //exclude: ['shared.js']
+        }),
+        new webpack.ProvidePlugin({
+            'angular': 'angular',
+            '_': 'lodash',
+            '$': 'jquery', 'jQuery': 'jquery', 'window.jQuery': 'jquery',
         }),
         new HtmlWebpackPlugin({
             inject: 'body',
