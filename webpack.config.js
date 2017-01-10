@@ -19,7 +19,7 @@ module.exports = {
         filename: 'bundle.[name].[hash].js',
     },
     resolve: {
-        root: __dirname + '/../',
+        root: __dirname + '/../angular-frontend-dna/app',
         modulesDirectories: [__dirname + '/../angular-frontend/node_modules', 'node_modules'],
         alias: {
             'project': __dirname + '/../angular-frontend-dna/app',
@@ -129,12 +129,14 @@ module.exports = {
             template: __dirname + '/../angular-frontend-dna/app/index.html'
         }),
         new ExtractTextPlugin('[name].[chunkhash].css' /*, {publicPath: '../'}*/),
+        /*
         new CopyWebpackPlugin([
-            {from: 'bower_components/**/*'},
+            {from: 'bower_components/* * /*'},
         ]),
+        */
         new webpack.HotModuleReplacementPlugin(),
         //new DashboardPlugin(), // TODO: Move to development-only setup or similar since webpack does not exit after build or --json when this is active
-        new Visualizer()
+        //new Visualizer()
     ],
     devServer: {
         hot: true,
