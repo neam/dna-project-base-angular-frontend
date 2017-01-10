@@ -37,6 +37,7 @@ let app = angular
     ]);
 
 let optimizelyFallbackData = require('project/scripts/optimizely-fallback-data.js');
+require('project/scripts/previously-ng-includes.js');
 
 app
 
@@ -404,13 +405,12 @@ app
      * This way, optimizely scripts can resolve window.optimizelyVariation in order to make that data accessible to angular templates:
      * window.optimizelyVariation.resolve(data);
      */
-    /*
     .service('optimizelyVariation', function (optimizely, optimizelyFallbackData, $window, $timeout) {
 
         console.log('optimizely variation data service init');
         var optimizelyVariation = {
             data: null,
-            deferred: $window.optimizelyVariation
+            deferred: $window.optimizelyVariationDeferred
         };
         optimizelyVariation.deferred.done(function (data) {
             console.log('optimizely variation data deferred done');
@@ -440,7 +440,6 @@ app
         return optimizelyVariation;
 
     })
-    */
 
     /**
      * Allows to render HTML via scope variables

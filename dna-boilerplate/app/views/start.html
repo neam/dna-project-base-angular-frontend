@@ -254,10 +254,13 @@
 
     </div>
 
-    <div ng-show="!activeDataEnvironment.available && !auth.profilePromise">
+    <div ng-if="!activeDataEnvironment.available && !auth.profilePromise">
+
+    <!-- intro-video -->
+    <ng-include-start-intro-video ng-if="optimizelyVariation.data['video section shown'] !== 'no'"></ng-include-start-intro-video>
 
     <!-- pricing -->
-    <!--<div ng-include="'views/start.pricing.inc.html'"></div>-->
+    <ng-include-start-pricing ng-if="optimizelyVariation.data['pricing section shown'] !== 'no'"></ng-include-start-pricing>
 
     <!-- .section -->
     <div id="contact" class="section_header section fullwidth_section section_regular">

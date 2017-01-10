@@ -17,11 +17,11 @@ angular.module('source-map-exception-handler', []).config(function($provide) {
 });
 */
 
+window.optimizelyVariationDeferred=$.Deferred();
+
 let app = require('project/scripts/app');
 require('project/scripts/config');
 require('project/scripts/translations');
-
-window.optimizelyVariation=$.Deferred();
 
 // Export the angular module that represent ng-app
 export default app;

@@ -2,8 +2,6 @@
 
 let env = require('shared/scripts/env');
 
-//let foo = require("project/views/common/content_hybrid_navigation.html");
-
 (function () {
 
     /**
@@ -22,8 +20,8 @@ let env = require('shared/scripts/env');
                 //template: require("project/views/common/content.html"),
                 resolve: {
                     // Avoid FOUC by waiting for optimizely variation data to be available before rendering page
-                    optimizelyVariation: function (optimizelyVariation) {
-                        return optimizelyVariation.deferred.promise();
+                    optimizelyVariation: function ($window) {
+                        return $window.optimizelyVariationDeferred.promise();
                     }
                 },
                 data: {showSideMenu: false}
