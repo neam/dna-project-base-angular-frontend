@@ -129,11 +129,12 @@ module.exports = {
             template: __dirname + '/../angular-frontend-dna/app/index.html'
         }),
         new ExtractTextPlugin('[name].[chunkhash].css' /*, {publicPath: '../'}*/),
-        /*
         new CopyWebpackPlugin([
-            {from: 'bower_components/* * /*'},
+            {context: './../angular-frontend-dna/app', from: '*.png'},
+            {context: './../angular-frontend-dna/app', from: 'favicon.ico'},
+            {context: './../angular-frontend-dna/app', from: 'manifest.json'},
+            {context: './../angular-frontend-dna/app', from: 'browserconfig.xml'},
         ]),
-        */
         new webpack.HotModuleReplacementPlugin(),
         //new DashboardPlugin(), // TODO: Move to development-only setup or similar since webpack does not exit after build or --json when this is active
         //new Visualizer()
