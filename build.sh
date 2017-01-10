@@ -31,13 +31,13 @@ erb app/scripts/env.js.erb > app/scripts/env.js
 # =================================================
 # BUILD APPLICATION
 
-if [ "$CI" == "1" ]; then
-    BUILD_CMD="npm run build"
-else
-    BUILD_CMD="npm run build && npm start"
-fi
+npm run build
 
-$BUILD_CMD
+if [ "$CI" == "1" ]; then
+    echo "Not starting HTTP Server since in CI mode"
+else
+    npm start
+fi
 
 # =================================================
 # Test app
