@@ -169,7 +169,8 @@ module.exports = function makeWebpackConfig() {
     } else if (isProd) {
         config.devtool = 'source-map';
     } else {
-        config.devtool = 'eval-source-map';
+        config.devtool = 'inline-source-map';
+        //config.devtool = 'eval-source-map'; // Does not play nicely with chrome dev tools - sourcemaps are not understood correctly
     }
 
     // Add dev-specific plugins
