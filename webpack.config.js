@@ -134,6 +134,7 @@ module.exports = function makeWebpackConfig() {
             }),
             new webpack.ProvidePlugin({
                 'angular': 'angular',
+                'env': 'shared/scripts/env',
                 '$': 'jquery', 'jQuery': 'jquery', 'window.jQuery': 'jquery',
             }),
             new HtmlWebpackPlugin({
