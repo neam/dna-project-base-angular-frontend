@@ -152,6 +152,7 @@ module.exports = function makeWebpackConfig() {
             new Visualizer()
         ],
         devServer: {
+            port: 9000,
             hot: true,
             inline: true,
             contentBase: __dirname + '/dist/',
