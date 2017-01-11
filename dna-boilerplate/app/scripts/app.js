@@ -7,37 +7,26 @@ require('shared/scripts/angular-frontend-webpack-index-html-deps');
 let app = angular
     .module('app', [
         require('shared/scripts/angular-frontend').default.name,
-        (() => {
+        (() => { // optimizely
             require('ng-optimizely');
             return 'ng-optimizely'
-        })(),                  // optimizely
-        // Other libraries are loaded dynamically in the config.js file using the library ocLazyLoad
-        /*
-        'ngResource',                   // $resource
-        //'modelFactory',                 // angular-model-factory
-        //'multiStepForm',                // angular-multi-step-form
-        'googlechart',                  // angular-google-chart
-        'angularDc',
-        //'ngHandsontable',
-        'simpleHandsontable',
-        'angular-filepicker',
-        'cfp.hotkeys',                  // angular-hotkeys
-        'ui.calendar',                  // angular-ui-calendar / fullcalendar
-        '3-way-merge',                  // 3-way-merge
-        'rt.select2',                   // angular-select2
-        'daterangepicker',              // angular-daterangepicker
-        'smoothScroll',                 // ngSmoothScroll
-        'videosharing-embed',
-        'colorpicker.module',           //Angular color picker
-        'dcNasdaq',                     // necessary for scripts/dc/dc-nasdaq-controller.js
-        //'angularJade',
-        //'section-get-started',
-        //'section-basic-info',
-        */
+        })(),
+        /**
+         * App uses AngularUI Router to manage routing and views
+         * Each view is defined as state.
+         */
+        require('project/scripts/app.routing').name,
+        require('project/scripts/data-environment-specific.routing').name,
+        require('project/sections/basic-info/basic-info.routing').name,
+        require('project/sections/get-started/get-started.routing').name,
+        require('project/sections/get-things-done/get-things-done.routing').name,
+        require('project/sections/outsource-and-collaborate/outsource-and-collaborate.routing').name,
+        require('project/sections/share/share.routing').name,
+        require('project/sections/up-to-date/up-to-date.routing').name,
     ]);
 
 let optimizelyFallbackData = require('project/scripts/optimizely-fallback-data.js');
-require('project/scripts/previously-ng-includes.js');
+require('project/scripts/app.ng-includes.js');
 
 app
 

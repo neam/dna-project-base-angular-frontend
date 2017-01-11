@@ -8,7 +8,7 @@ require('oclazyload/dist/ocLazyLoad.js');
 
 let deps = [
     require('angular-ui-router').default,                    // Routing
-    //'oc.lazyLoad',                  // ocLazyLoad
+    'oc.lazyLoad',                  // ocLazyLoad
     (() => {
         require('angular-bootstrap');
         return 'ui.bootstrap'

@@ -292,7 +292,6 @@ var module = angular
         // Keep the user logged in after a page refresh
         var keepTheUserLoggedInAfterAPageRefresh = function () {
             var token = store.get('token');
-            console.log('Keep the user logged in after a page refresh', token);
             if (token) {
                 if (!jwtHelper.isTokenExpired(token)) {
                     if (!auth.isAuthenticated) {
