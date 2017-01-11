@@ -668,14 +668,17 @@ let env = require('shared/scripts/env');
         .config(function (hotkeysProvider) {
             //hotkeysProvider.cheatSheetHotkey = 'k';
         })
+        */
         .config(function ($locationProvider) {
             // enable html5Mode for pushstate ('#'-less URLs)
             //$locationProvider.html5Mode(true);
             //$locationProvider.hashPrefix('!');
         })
+        /*
         .config(function (filepickerProvider) {
             filepickerProvider.setKey(env.FILESTACK_API_KEY);
         })
+        */
         .run(function ($rootScope) {
             $rootScope.dnaFileSelectionWidgetPreviewHeightPixels = 500;
         })
@@ -690,22 +693,32 @@ let env = require('shared/scripts/env');
         .run(function ($rootScope, routeBasedContentFilters) {
             $rootScope.routeBasedContentFilters = routeBasedContentFilters;
         })
-        .run(function ($rootScope, $state, suggestionsService, hotkeys, auth, $http, DataEnvironmentService, $location) {
+        .run(function ($rootScope, DataEnvironmentService) {
 
             // Make api endpoint variables globally available in all child views
-
             $rootScope.dataEnvironments = DataEnvironmentService.dataEnvironments;
             $rootScope.activeDataEnvironment = DataEnvironmentService.activeDataEnvironment;
             $rootScope.setDataEnvironment = DataEnvironmentService.setDataEnvironment;
 
-            // Make suggestions and hotkey services globally available in all views
+        })
+        .run(function ($rootScope, suggestionsService) {
 
+            // Make suggestions service globally available in all views
             $rootScope.suggestionsService = suggestionsService;
-            $rootScope.hotkeys = hotkeys;
+
+        })
+        .run(function ($rootScope, auth) {
 
             // Make auto0 service available in all views
-
             $rootScope.auth = auth;
+
+        })
+        /*
+        .run(function ($rootScope, hotkeys, auth, $http, DataEnvironmentService, $location) {
+
+            // Make hotkey service globally available in all views
+
+            $rootScope.hotkeys = hotkeys;
 
             // Save $location.search() params between state changes
 

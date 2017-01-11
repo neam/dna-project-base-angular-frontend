@@ -31,7 +31,7 @@ module
         dataEnvironments.list = [];
         dataEnvironments.available = false;
 
-        $rootScope.$on('user.login', function (event, profile) {
+        var updateDataEnvironmentsListBasedOnAuthenticationState = function (profile) {
 
             // Ignore if no information is available
             if (!profile.user_metadata) {
@@ -70,6 +70,19 @@ module
             $timeout(function () {
                 console.log('updated auth data after login');
             });
+
+        };
+
+        // This is triggered by auth.js (custom hook for this purpose) after the profile is resolved after page refresh so that
+        // the list of data environments can reflect the contents of the authenticated profile after page reload
+        auth.bootstrapApplicationStateBasedOnAuthenticationState = function (profile) {
+            updateDataEnvironmentsListBasedOnAuthenticationState(profile);
+        };
+
+        $rootScope.$on('user.login', function (event, profile) {
+
+            console.log('user.login profile', profile);
+            updateDataEnvironmentsListBasedOnAuthenticationState(profile);
 
         });
 

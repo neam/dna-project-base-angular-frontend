@@ -290,8 +290,9 @@ var module = angular
 
     .run(function ($rootScope, auth, store, jwtHelper, $location) {
         // Keep the user logged in after a page refresh
-        $rootScope.$on('$locationChangeStart', function () {
+        var keepTheUserLoggedInAfterAPageRefresh = function () {
             var token = store.get('token');
+            console.log('Keep the user logged in after a page refresh', token);
             if (token) {
                 if (!jwtHelper.isTokenExpired(token)) {
                     if (!auth.isAuthenticated) {
@@ -302,6 +303,12 @@ var module = angular
                     $location.path('/');
                 }
             }
+        };
+        $rootScope.$on('$locationChangeStart', function () {
+            keepTheUserLoggedInAfterAPageRefresh();
+            auth.profilePromise.then(function (profile) {
+                auth.bootstrapApplicationStateBasedOnAuthenticationState(profile);
+            });
         })
     });
 
