@@ -292,22 +292,26 @@ var module = angular
         // Keep the user logged in after a page refresh
         var keepTheUserLoggedInAfterAPageRefresh = function () {
             var token = store.get('token');
+            var profilePromise;
             if (token) {
                 if (!jwtHelper.isTokenExpired(token)) {
                     if (!auth.isAuthenticated) {
-                        auth.authenticate(store.get('profile'), token);
+                        profilePromise = auth.authenticate(store.get('profile'), token);
                     }
                 } else {
                     // Either show the login page or use the refresh token to get a new idToken
                     $location.path('/');
                 }
             }
+            return profilePromise;
         };
         $rootScope.$on('$locationChangeStart', function () {
-            keepTheUserLoggedInAfterAPageRefresh();
-            auth.profilePromise.then(function (profile) {
-                auth.bootstrapApplicationStateBasedOnAuthenticationState(profile);
-            });
+            var profilePromise = keepTheUserLoggedInAfterAPageRefresh();
+            if (profilePromise) {
+                profilePromise.then(function (profile) {
+                    auth.bootstrapApplicationStateBasedOnAuthenticationState(profile);
+                });
+            }
         })
     });
 
