@@ -5,19 +5,16 @@ require('./inspinia/inspinia');
 let module = angular.module('angular-frontend', [
     require('./inspinia/angular-module').name,                     // Inspinia-theme-related functionality
     require('./auth').default.name,                         // Authentication logic summarized in auth.js (can not easily be lazyloaded since it integrates tightly with ui-router config + authentication needs to be evaluated asap upon page load to catch recurring already authenticated users)
+    require('./angular-frontend-config').default.name,
+    require('./angular-frontend-filters').default.name,
     // Other libraries are loaded dynamically in the config.js file using the library ocLazyLoad
     /*
-     'angular-frontend-filters',     // angular-frontend-filters.js
      'angulartics',                  // angulartics + plugins
      'angulartics.scroll',
      'angulartics.google.analytics',
      'angulartics.mixpanel',
      */
 ]);
-
-// Files without angular-modules on their own, but rather extending existing modules
-//require('./angular-frontend-config');
-//require('./angular-frontend-filters');
 
 /**
  * Services whose purpose is to supply the "dataEnvironments" array and "setDataEnvironment" function
@@ -73,15 +70,11 @@ module
 
         };
 
-        // This is triggered by auth.js (custom hook for this purpose) after the profile is resolved after page refresh so that
+        // This is also triggered by auth.js after the profile is resolved after page refresh so that
         // the list of data environments can reflect the contents of the authenticated profile after page reload
-        auth.bootstrapApplicationStateBasedOnAuthenticationState = function (profile) {
-            updateDataEnvironmentsListBasedOnAuthenticationState(profile);
-        };
-
         $rootScope.$on('user.login', function (event, profile) {
 
-            console.log('user.login profile', profile);
+            console.log('user.login / auth profile', profile);
             updateDataEnvironmentsListBasedOnAuthenticationState(profile);
 
         });

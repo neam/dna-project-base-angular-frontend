@@ -5,6 +5,7 @@ var analytics = {
 
         if (env.MIXPANEL_PROJECT_TOKEN !== '') {
 
+            // Load mixpanel script
             (function (f, b) {
                 if (!b.__SV) {
                     var a, e, i, g;
@@ -44,7 +45,13 @@ var analytics = {
                     e.parentNode.insertBefore(a, e)
                 }
             })(document, window.mixpanel || []);
-            mixpanel.init(env.MIXPANEL_PROJECT_TOKEN);
+
+            // Initiate mixpanel
+            mixpanel.init(env.MIXPANEL_PROJECT_TOKEN, {
+                loaded: function (mixpanel) {
+                    console.log('Mixpanel initiated');
+                }
+            });
 
             // Mixpanel basic link and page view tracking
             mixpanel.track_links("a", "click link", {
@@ -123,7 +130,7 @@ var analytics = {
                         var s = d.createElement('script');
                         s.type = 'text/javascript';
                         s.async = true;
-                        s.src = 'https://widget.intercom.io/widget/ufyaww65';
+                        s.src = 'https://widget.intercom.io/widget/' + env.INTERCOM_ID;
                         var x = d.getElementsByTagName('script')[0];
                         x.parentNode.insertBefore(s, x);
                     }

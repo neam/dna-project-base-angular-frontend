@@ -2,7 +2,7 @@
 
 /* Filters */
 
-angular.module('angular-frontend-filters', [])
+let module = angular.module('angular-frontend-filters', [])
 
     .filter('capitalize', function () {
         return function (input, scope) {
@@ -46,4 +46,4 @@ angular.module('angular-frontend-filters', [])
         };
     });
 
-;
+export default module;

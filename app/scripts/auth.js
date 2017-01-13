@@ -309,7 +309,8 @@ var module = angular
             var profilePromise = keepTheUserLoggedInAfterAPageRefresh();
             if (profilePromise) {
                 profilePromise.then(function (profile) {
-                    auth.bootstrapApplicationStateBasedOnAuthenticationState(profile);
+                    // currently unused
+                    //$rootScope.$broadcast('user.auth', profile);
                 });
             }
         })
