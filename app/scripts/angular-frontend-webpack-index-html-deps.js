@@ -11,7 +11,6 @@ require('bower_components/PACE/pace.js');
 
 var angularFrontend = {
     init: function () {
-        //window.optimizelyVariation=$.Deferred();
     }
 };
 
