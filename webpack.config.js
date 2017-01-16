@@ -39,6 +39,8 @@ module.exports = function makeWebpackConfig() {
                 'shared': __dirname + '/app',
                 'webpack-angular-examplecode': __dirname + '/src',
                 'bower_components': __dirname + '/bower_components',
+                "react": "preact-compat",
+                "react-dom": "preact-compat",
             },
             extensions: ['', '.js']
         },
@@ -59,10 +61,15 @@ module.exports = function makeWebpackConfig() {
                                 'babel-preset-stage-0',
                             ].map(require.resolve),
                             "plugins": [
+                                "babel-plugin-transform-react-jsx", // TODO: Enable preact directly, find a way to use the following config: ["transform-react-jsx", {"pragma": "preact.h"}],
                                 "babel-plugin-add-module-exports"
                             ].map(require.resolve)
                         })],
                     exclude: /node_modules/
+                },
+                {
+                    test: /\.rt$/,
+                    loader: "react-templates-loader?modules=amd"
                 },
                 {
                     test: /\.json$/,

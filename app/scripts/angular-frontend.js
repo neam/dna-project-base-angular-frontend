@@ -7,7 +7,8 @@ let module = angular.module('angular-frontend', [
     require('./auth').default.name,                         // Authentication logic summarized in auth.js (can not easily be lazyloaded since it integrates tightly with ui-router config + authentication needs to be evaluated asap upon page load to catch recurring already authenticated users)
     require('./angular-frontend-config').default.name,
     require('./angular-frontend-filters').default.name,
-    // Other libraries are loaded dynamically in the config.js file using the library ocLazyLoad
+    require('ngReact').name,
+    // Other libraries are loaded dynamically via the routing config using the library ocLazyLoad
     /*
      'angulartics',                  // angulartics + plugins
      'angulartics.scroll',
