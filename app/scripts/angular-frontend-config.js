@@ -586,6 +586,7 @@ let module = angular.module('angular-frontend-config', [])
             var last_login_at = new Date();
             var intercom_data = {
                 app_id: env.INTERCOM_ID,
+                user_id: profile.user_id,
                 name: profile.name,
                 email: profile.email,
                 created_at: Math.floor(created_at / 1000),
