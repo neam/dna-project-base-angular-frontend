@@ -608,13 +608,21 @@ let module = angular.module('angular-frontend-config', [])
             intercom_data[env.INTERCOM_APP_TAG + '_auth0_last_login_at'] = intercom_data.auth0_last_login_at;
             intercom_data[env.INTERCOM_APP_TAG + '_auth0_email_verified'] = intercom_data.auth0_email_verified;
             console.log('intercom_data', intercom_data);
-            if (!$window.Intercom) {
-                console.log('Intercom not properly loaded - not tracking', $window.Intercom);
-                return;
-            }
-            $window.Intercom('boot', intercom_data);
-            $rootScope.IntercomBootstrapped = true;
-            console.log('$rootScope.IntercomBootstrapped', $rootScope.IntercomBootstrapped);
+
+            // Wait until Intercom is loaded to $window, then "boot" Intercom
+            var stopWatching = $rootScope.$watch(function () {
+                return $window.Intercom;
+            }, function (Ic) {
+                console.log('Intercom watch-callback', Ic);
+                if (Ic) {
+
+                    $window.Intercom('boot', intercom_data);
+                    $rootScope.IntercomBootstrapped = true;
+                    console.log('$rootScope.IntercomBootstrapped', $rootScope.IntercomBootstrapped);
+
+                    stopWatching();
+                }
+            });
 
         };
 
