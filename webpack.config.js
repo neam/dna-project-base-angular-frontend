@@ -69,7 +69,8 @@ module.exports = function makeWebpackConfig() {
                 },
                 {
                     test: /\.rt$/,
-                    loader: "react-templates-loader?modules=amd"
+                    loader: "react-templates-loader?modules=amd",
+                    exclude: /node_modules/
                 },
                 {
                     test: /\.json$/,
