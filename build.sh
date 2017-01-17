@@ -25,6 +25,9 @@ else
     export LOCAL_API_BASE_URL="//$APPVHOST/api"
 fi
 
+# Inform env that this is a not a DEV run
+export DEV="0"
+
 # Run erb to generate the published config file
 erb app/scripts/env.js.erb > app/scripts/env.js
 
