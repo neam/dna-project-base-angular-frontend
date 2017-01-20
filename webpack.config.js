@@ -134,12 +134,6 @@ module.exports = function makeWebpackConfig() {
             ],
         },
         plugins: [
-            new CleanWebpackPlugin(['dist'], {
-                root: __dirname,
-                verbose: true,
-                dry: false,
-                //exclude: ['shared.js']
-            }),
             new webpack.ProvidePlugin({
                 'angular': 'angular',
                 '_': 'lodash',
@@ -194,6 +188,15 @@ module.exports = function makeWebpackConfig() {
     // Add build specific plugins
     if (isProd) {
         config.plugins.push(
+
+            // Start from an empty dist directory upon each build
+            new CleanWebpackPlugin(['dist'], {
+                root: __dirname,
+                verbose: true,
+                dry: false,
+                //exclude: ['shared.js']
+            }),
+
             // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
             // Only emit files when there are no errors
             new webpack.NoErrorsPlugin(),
