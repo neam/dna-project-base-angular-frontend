@@ -26,6 +26,7 @@ module.exports = function makeWebpackConfig() {
      * This is the object where all configuration gets set
      */
     var config = {
+        cache: true,
         entry: {
             app: ['shared/init/initiate-project-index-and-angular.js'],
             analytics: ['shared/init/analytics.js'],
@@ -149,6 +150,7 @@ module.exports = function makeWebpackConfig() {
                 loaders: [
                     'ng-annotate',
                     'babel-loader?' + JSON.stringify({
+                        cacheDirectory: true,
                         presets: [
                             'babel-preset-es2015',
                             'babel-preset-react',
