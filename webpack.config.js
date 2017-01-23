@@ -5,6 +5,7 @@ var DashboardPlugin = require('webpack-dashboard/plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var Visualizer = require('webpack-visualizer-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var StatsPlugin = require('stats-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 /**
@@ -153,9 +154,14 @@ module.exports = function makeWebpackConfig() {
                 {context: './../angular-frontend-dna/app', from: 'manifest.json'},
                 {context: './../angular-frontend-dna/app', from: 'browserconfig.xml'},
             ]),
+            new StatsPlugin('stats.json', {
+                chunkModules: true,
+                exclude: [/node_modules[\\\/]react/]
+            }),
             //new DashboardPlugin(), // TODO: Move to development-only setup or similar since webpack does not exit after build or --json when this is active
             new Visualizer()
         ],
+        profile: true,
         devServer: {
             port: 9000,
             hot: true,
@@ -190,7 +196,6 @@ module.exports = function makeWebpackConfig() {
     // Add build specific plugins
     if (isProd) {
         config.plugins.push(
-
             // Start from an empty dist directory upon each build
             new CleanWebpackPlugin(['dist'], {
                 root: __dirname,
