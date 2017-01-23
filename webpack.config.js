@@ -172,9 +172,9 @@ module.exports = function makeWebpackConfig() {
     if (isTest) {
         config.devtool = 'inline-source-map';
     } else if (isProd) {
-        config.devtool = 'source-map';
+        config.devtool = 'cheap-module-source-map';
     } else {
-        config.devtool = 'inline-source-map';
+        config.devtool = 'cheap-module-eval-source-map';
         //config.devtool = 'eval-source-map'; // Does not play nicely with chrome dev tools - sourcemaps are not understood correctly
     }
 
