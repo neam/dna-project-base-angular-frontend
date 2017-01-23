@@ -7,6 +7,8 @@ var Visualizer = require('webpack-visualizer-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var StatsPlugin = require('stats-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
+var HappyPack = require('happypack');
+var happyThreadPool = HappyPack.ThreadPool({size: 5});
 
 /**
  * Env
@@ -55,19 +57,7 @@ module.exports = function makeWebpackConfig() {
             loaders: [
                 {
                     test: /\.js$/,
-                    loaders: [
-                        'ng-annotate',
-                        'babel-loader?' + JSON.stringify({
-                            presets: [
-                                'babel-preset-es2015',
-                                'babel-preset-react',
-                                'babel-preset-stage-0',
-                            ].map(require.resolve),
-                            "plugins": [
-                                "babel-plugin-transform-react-jsx", // TODO: Enable preact directly, find a way to use the following config: ["transform-react-jsx", {"pragma": "preact.h"}],
-                                "babel-plugin-add-module-exports"
-                            ].map(require.resolve)
-                        })],
+                    loaders: ['happypack/loader?id=js'],
                     exclude: /node_modules/
                 },
                 {
@@ -91,7 +81,7 @@ module.exports = function makeWebpackConfig() {
                     test: /\.less/,
                     loader: ExtractTextPlugin.extract(
                         'style-loader',
-                        'css-loader!less-loader'
+                        'happypack/loader?id=less'
                     ),
                     exclude: /node_modules/
                 },
@@ -99,7 +89,7 @@ module.exports = function makeWebpackConfig() {
                     test: /\.css$/,
                     loader: ExtractTextPlugin.extract(
                         'style-loader',
-                        'css-loader'
+                        'happypack/loader?id=css'
                     ),
                     exclude: /node_modules/
                 },
@@ -154,6 +144,37 @@ module.exports = function makeWebpackConfig() {
                 {context: './../angular-frontend-dna/app', from: 'manifest.json'},
                 {context: './../angular-frontend-dna/app', from: 'browserconfig.xml'},
             ]),
+            new HappyPack({
+                id: 'js',
+                loaders: [
+                    'ng-annotate',
+                    'babel-loader?' + JSON.stringify({
+                        presets: [
+                            'babel-preset-es2015',
+                            'babel-preset-react',
+                            'babel-preset-stage-0',
+                        ].map(require.resolve),
+                        "plugins": [
+                            "babel-plugin-transform-react-jsx", // TODO: Enable preact directly, find a way to use the following config: ["transform-react-jsx", {"pragma": "preact.h"}],
+                            "babel-plugin-add-module-exports"
+                        ].map(require.resolve)
+                    })],
+                threadPool: happyThreadPool
+            }),
+            new HappyPack({
+                id: 'less',
+                loaders: [
+                    'css-loader!less-loader'
+                ],
+                threadPool: happyThreadPool
+            }),
+            new HappyPack({
+                id: 'css',
+                loaders: [
+                    'css-loader'
+                ],
+                threadPool: happyThreadPool
+            }),
             new StatsPlugin('stats.json', {
                 chunkModules: true,
                 exclude: [/node_modules[\\\/]react/]
