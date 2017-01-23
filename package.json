@@ -4,12 +4,10 @@
   "description": "Angular frontend base",
   "scripts": {
     "start": "hs dist",
-    "build": "webpack -p",
-    "stats": "webpack --env production --profile --json > stats.json",
+    "build": "webpack -p --profile",
+    "stats": "webpack -p --profile --json > stats.json",
     "dev": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "devdash": "webpack-dashboard -- webpack-dev-server",
-    "build-css": "lessc app/style.less > ../angular-frontend-dna/app/styles/style.css",
-    "watch-css": "catw -w '../angular-frontend-dna/app/less/*.less' -c 'npm run build-css'",
     "test": "karma start test/karma.config.js"
   },
   "dependencies": {

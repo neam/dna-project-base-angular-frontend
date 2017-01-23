@@ -40,7 +40,7 @@ module.exports = function makeWebpackConfig() {
             alias: {
                 'project': __dirname + '/../angular-frontend-dna/app',
                 'shared': __dirname + '/app',
-                'webpack-angular-examplecode': __dirname + '/src',
+                'webpack-angular-examplecode': __dirname + '/webpack-angular-examplecode',
                 'bower_components': __dirname + '/bower_components',
                 "react": "preact-compat",
                 "react-dom": "preact-compat",
