@@ -47,6 +47,7 @@ module.exports = function makeWebpackConfig() {
                 "react-dom": "preact-compat",
                 "moment": "bower_components/moment/moment.js",
                 "crossfilter": "bower_components/crossfilter/crossfilter.min.js",
+                "d3": "bower_components/d3/d3.js",
             },
             extensions: ['', '.js']
         },
