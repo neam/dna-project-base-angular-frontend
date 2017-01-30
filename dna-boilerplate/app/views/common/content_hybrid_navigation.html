@@ -2,7 +2,7 @@
 <div id="wrapper" class="top-navigation">
 
     <!-- Navigation -->
-    <div ng-include="'views/common/top_navigation.html'"></div>
+    <ng-include-views-common-top-navigation></ng-include-views-common-top-navigation>
     <div data-ui-view="sidebar"></div>
 
     <!-- Page wraper -->
@@ -13,7 +13,7 @@
         <div ui-view></div>
 
         <!-- Footer -->
-        <div ng-include="'views/common/footer.html'"></div>
+        <ng-include-views-common-footer></ng-include-views-common-footer>
 
     </div>
     <!-- End page wrapper-->
@@ -22,7 +22,7 @@
 <!-- End wrapper-->
 
 <!-- Suggested actions modal -->
-<div class="modal inmodal" id="suggestedActionsModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal" id="suggestedActionsModal" tabindex="-1" role="dialog" aria-hidden="true" ng-if="activeDataEnvironment.available && auth.profilePromise">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated fadeIn">
             <div class="modal-header">

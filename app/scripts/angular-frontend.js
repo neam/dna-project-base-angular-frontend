@@ -1,20 +1,27 @@
-(function () {
+'use strict';
 
-    var module = angular.module('angular-frontend', [
-        'ui.router',                    // Routing
-        'inspinia',                     // Inspinia-theme-related functionality
-        'angular-frontend-filters',     // angular-frontend-filters.js
-        'auth',                         // Authentication logic summarized in auth.js
-        'angulartics',                  // angulartics + plugins
-        'angulartics.scroll',
-        'angulartics.google.analytics',
-        'angulartics.mixpanel',
-    ]);
+require('./inspinia/inspinia');
 
-    /**
-     * Services whose purpose is to supply the "dataEnvironments" array and "setDataEnvironment" function
+let module = angular.module('angular-frontend', [
+    require('./inspinia/angular-module').name,                     // Inspinia-theme-related functionality
+    require('./auth').default.name,                         // Authentication logic summarized in auth.js (can not easily be lazyloaded since it integrates tightly with ui-router config + authentication needs to be evaluated asap upon page load to catch recurring already authenticated users)
+    require('./angular-frontend-config').default.name,
+    require('./angular-frontend-filters').default.name,
+    require('ngReact').name,
+    // Other libraries are loaded dynamically via the routing config using the library ocLazyLoad
+    /*
+     'angulartics',                  // angulartics + plugins
+     'angulartics.scroll',
+     'angulartics.google.analytics',
+     'angulartics.mixpanel',
      */
-    module.service('DataEnvironmentService', function ($q, auth, $rootScope, $timeout) {
+]);
+
+/**
+ * Services whose purpose is to supply the "dataEnvironments" array and "setDataEnvironment" function
+ */
+module
+    .service('DataEnvironmentService', function ($q, auth, $rootScope, $timeout) {
 
         //console.log('DataEnvironmentService');
 
@@ -22,7 +29,7 @@
         dataEnvironments.list = [];
         dataEnvironments.available = false;
 
-        $rootScope.$on('user.login', function (event, profile) {
+        var updateDataEnvironmentsListBasedOnAuthenticationState = function (profile) {
 
             // Ignore if no information is available
             if (!profile.user_metadata) {
@@ -61,6 +68,15 @@
             $timeout(function () {
                 console.log('updated auth data after login');
             });
+
+        };
+
+        // This is also triggered by auth.js after the profile is resolved after page refresh so that
+        // the list of data environments can reflect the contents of the authenticated profile after page reload
+        $rootScope.$on('user.login', function (event, profile) {
+
+            console.log('user.login / auth profile', profile);
+            updateDataEnvironmentsListBasedOnAuthenticationState(profile);
 
         });
 
@@ -150,7 +166,8 @@
 
     });
 
-    module.controller('DataEnvironmentController', function (DataEnvironmentService, $scope) {
+module
+    .controller('DataEnvironmentController', function (DataEnvironmentService, $scope) {
 
         $scope.dataEnvironments = DataEnvironmentService.dataEnvironments;
         $scope.activeDataEnvironment = DataEnvironmentService.activeDataEnvironment;
@@ -158,12 +175,13 @@
 
     });
 
-    /**
-     * open(template, size)
-     * for instance:
-     * open('modals/foo.html', 'lg')
-     */
-    module.controller('GeneralModalController', function ($scope, $modal, $log) {
+/**
+ * open(template, size)
+ * for instance:
+ * open('modals/foo.html', 'lg')
+ */
+module
+    .controller('GeneralModalController', function ($scope, $modal, $log) {
 
         $scope.open = function (template, size, params) {
 
@@ -189,9 +207,10 @@
 
     });
 
-    // Please note that $modalInstance represents a modal window (instance) dependency.
-    // It is not the same as the $modal service used above.
-    module.controller('GeneralModalInstanceController', function ($scope, $modalInstance /*, items */) {
+// Please note that $modalInstance represents a modal window (instance) dependency.
+// It is not the same as the $modal service used above.
+module
+    .controller('GeneralModalInstanceController', function ($scope, $modalInstance /*, items */) {
 
         //$scope.items = items;
 
@@ -204,42 +223,12 @@
         };
     });
 
-    /**
-     * Simple cal heatmap wrapper directive which simply sends the config to CalHeatMap's init() function
-     * together with the element reference
-     */
-    module.directive('simpleCalHeatmap', function () {
-
-        var heatmap;
-
-        function update(data) {
-            heatmap.update(data);
-        }
-
-        function link(scope, el) {
-            var config = angular.copy(scope.config);
-            var element = el[0];
-            heatmap = new CalHeatMap();
-            config.itemSelector = element;
-            heatmap.init(config);
-            scope.$watchCollection('config.data', function (newVal, oldVal) {
-                update(newVal);
-            });
-        }
-
-        return {
-            template: '<div id="cal-heatmap" config="config"></div>',
-            restrict: 'E',
-            link: link,
-            scope: {config: '='}
-        };
-    });
-
-    /**
-     * To workaround issue that dynamic params does not reload templateUrl
-     * From https://github.com/angular-ui/ui-router/issues/2831#issuecomment-228184129
-     */
-    module.service("reloadViews", function ($state, $q, $view) {
+/**
+ * To workaround issue that dynamic params does not reload templateUrl
+ * From https://github.com/angular-ui/ui-router/issues/2831#issuecomment-228184129
+ */
+module
+    .service("reloadViews", function ($state, $q, $view) {
         return function reloadViews($transition$, stateName) {
             // Get a reference to the built state object
             var state = $state.get(stateName).$$state();
@@ -277,4 +266,4 @@
         };
     });
 
-})();
+export default module;

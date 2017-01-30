@@ -28,8 +28,11 @@ fi
 # Local api base url
 export LOCAL_API_BASE_URL="//$APPVHOST/api"
 
+# Inform env that this is a DEV run
+export DEV="1"
+
 # Run erb to generate the published config file
 erb app/scripts/env.js.erb > app/scripts/env.js
 
 # Run grunt development server task
-grunt live --debug
+npm run dev

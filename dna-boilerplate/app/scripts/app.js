@@ -1,33 +1,39 @@
-(function () {
-    var app = angular.module('app', [
-        'angular-frontend',
-        'ngResource',                   // $resource
-        //'modelFactory',                 // angular-model-factory
-        //'multiStepForm',                // angular-multi-step-form
-        'googlechart',                  // angular-google-chart
-        'ng-optimizely',                // optimizely
-        'angularDc',
-        //'ngHandsontable',
-        'simpleHandsontable',
-        'angular-filepicker',
-        'cfp.hotkeys',                  // angular-hotkeys
-        'ui.calendar',                  // angular-ui-calendar / fullcalendar
-        '3-way-merge',                  // 3-way-merge
-        'rt.select2',                   // angular-select2
-        'daterangepicker',              // angular-daterangepicker
-        'smoothScroll',                 // ngSmoothScroll
-        'videosharing-embed',
-        'colorpicker.module',           //Angular color picker
-        'dcNasdaq',                     // necessary for scripts/dc/dc-nasdaq-controller.js
-        //'angularJade',
-        //'section-get-started',
-        //'section-basic-info',
+'use strict';
+
+let env = require('shared/scripts/env');
+
+require('shared/scripts/angular-frontend-webpack-index-html-deps');
+
+let app = angular
+    .module('app', [
+        require('shared/scripts/angular-frontend').default.name,
+        (() => { // optimizely
+            require('ng-optimizely');
+            return 'ng-optimizely'
+        })(),
+        /**
+         * App uses AngularUI Router to manage routing and views
+         * Each view is defined as state.
+         */
+        require('project/scripts/app.routing').name,
+        require('project/scripts/data-environment-specific.routing').name,
+        require('project/sections/basic-info/basic-info.routing').name,
+        require('project/sections/get-started/get-started.routing').name,
+        require('project/sections/get-things-done/get-things-done.routing').name,
+        require('project/sections/outsource-and-collaborate/outsource-and-collaborate.routing').name,
+        require('project/sections/share/share.routing').name,
+        require('project/sections/up-to-date/up-to-date.routing').name,
     ]);
 
-    /**
-     * Service to handle data-change suggestions via the angular ui
-     */
-    app.service('suggestionsService', function ($http, $location, $injector, contentFilters, activeItems) {
+let optimizelyFallbackData = require('project/scripts/optimizely-fallback-data.js');
+require('project/scripts/app.ng-includes.js');
+
+app
+
+/**
+ * Service to handle data-change suggestions via the angular ui
+ */
+    .service('suggestionsService', function ($http, $location, $injector, contentFilters, activeItems) {
 
         var statuses = {
             ACTIVE: 'active',
@@ -199,12 +205,12 @@
 
         return suggestionsService;
 
-    });
+    })
 
     /**
      * Service used to hold information about UI filters, such as when advanced or developer modes are not enabled, to not show UI elements for advanced users or developers
      */
-    app.service('uiModes', function () {
+    .service('uiModes', function () {
 
         var modes = {
             NORMAL: 'normal',
@@ -240,22 +246,22 @@
 
         return uiModes;
 
-    });
+    })
 
     /**
      * Service used to hold information about route-based content filters, such as when visiting an item's page, only show items related to that item
      */
-    app.service('routeBasedContentFilters', function () {
+    .service('routeBasedContentFilters', function () {
 
         return {};
 
-    });
+    })
 
     /**
      * Service to extract information about current content filters
      * Content filters are stored in $location.search (prefixed with cf_) and the service routeBasedContentFilters
      */
-    app.service('contentFilters', function ($location, routeBasedContentFilters) {
+    .service('contentFilters', function ($location, routeBasedContentFilters) {
 
         return {
             all: function () {
@@ -307,13 +313,13 @@
 
         };
 
-    });
+    })
 
     /**
      * Service to extract information about active items
      * Active items are stored in $state.params prefixed with "active"
      */
-    app.service('activeItems', function ($state) {
+    .service('activeItems', function ($state) {
 
         return {
 
@@ -331,22 +337,22 @@
 
         };
 
-    });
+    })
 
     /**
      * Service used to hold information about route-based visibility settings, such as when visiting a specific curate step, only show columns relevant to that step
      */
-    app.service('routeBasedVisibilitySettings', function () {
+    .service('routeBasedVisibilitySettings', function () {
 
         return {};
 
-    });
+    })
 
     /**
      * Service to extract information about current visibility settings
      * Content visibility settings are stored in $location.search (prefixed with vs_) and the service routeBasedVisibilitySettings
      */
-    app.service('visibilitySettings', function ($location, routeBasedVisibilitySettings) {
+    .service('visibilitySettings', function ($location, routeBasedVisibilitySettings) {
 
         var visibilitySettings = {
             all: function () {
@@ -381,19 +387,19 @@
 
         return visibilitySettings;
 
-    });
+    })
 
     /**
      * Service used to access data resolved via the deferred object window.optimizelyVariation
      * This way, optimizely scripts can resolve window.optimizelyVariation in order to make that data accessible to angular templates:
      * window.optimizelyVariation.resolve(data);
      */
-    app.service('optimizelyVariation', function (optimizely, optimizelyFallbackData, $window, $timeout) {
+    .service('optimizelyVariation', function (optimizely, optimizelyFallbackData, $window, $timeout) {
 
         console.log('optimizely variation data service init');
         var optimizelyVariation = {
             data: null,
-            deferred: $window.optimizelyVariation
+            deferred: $window.optimizelyVariationDeferred
         };
         optimizelyVariation.deferred.done(function (data) {
             console.log('optimizely variation data deferred done');
@@ -422,22 +428,22 @@
 
         return optimizelyVariation;
 
-    });
+    })
 
     /**
      * Allows to render HTML via scope variables
      * Source: http://stackoverflow.com/a/25513186/682317
      */
-    app.filter("sanitize", ['$sce', function ($sce) {
+    .filter("sanitize", ['$sce', function ($sce) {
         return function (htmlCode) {
             return $sce.trustAsHtml(htmlCode);
         }
-    }]);
+    }])
 
     /**
      * Add the DATA header to API requests 0 Friendly logging of unauthorized requests
      */
-    app.factory('authInterceptor', function ($log, $q, DataEnvironmentService) {
+    .factory('authInterceptor', function ($log, $q, DataEnvironmentService) {
         return {
             request: function (config) {
                 config.headers = config.headers || {};
@@ -461,16 +467,20 @@
             },
         };
     })
-        .config(function ($httpProvider) {
-            $httpProvider.interceptors.push('authInterceptor');
-        });
+    .config(function ($httpProvider) {
+        $httpProvider.interceptors.push('authInterceptor');
+    })
 
     /**
      * Display backend errors in frontend
      */
-    app.factory('exceptionInterceptor', function ($log, $q, debugService) {
+    .factory('exceptionInterceptor', function ($log, $q, debugService) {
         return {
             responseError: function (response) {
+
+                // TODO: Only show and exception popup if the error came from our own servers
+                console.log('TODO: Only show and exception popup if the error came from our own servers', response);
+
                 if (response.status === 500) {
                     debugService.renderException(response.data);
                 }
@@ -479,40 +489,40 @@
             }
         };
     })
-        .config(function ($httpProvider) {
-            $httpProvider.interceptors.push('exceptionInterceptor');
-        })
-        .service('debugService', function ($log, $injector) {
-            this.renderException = function (data) {
-                return $injector.get('$modal').open({
-                    templateUrl: 'modals/debug.html',
-                    controller: 'DebugController',
-                    size: "lg",
-                    resolve: {
-                        data: function () {
-                            return data;
-                        }
+    .config(function ($httpProvider) {
+        $httpProvider.interceptors.push('exceptionInterceptor');
+    })
+    .service('debugService', function ($log, $injector) {
+        this.renderException = function (data) {
+            return $injector.get('$modal').open({
+                templateUrl: 'modals/debug.html',
+                controller: 'DebugController',
+                size: "lg",
+                resolve: {
+                    data: function () {
+                        return data;
                     }
-                });
-            };
-        })
-        .controller('DebugController', function ($log, $scope, data, $modalInstance) {
-            $scope.data = data;
+                }
+            });
+        };
+    })
+    .controller('DebugController', function ($log, $scope, data, $modalInstance) {
+        $scope.data = data;
 
-            $scope.close = function () {
-                $modalInstance.dismiss();
-            };
-        });
+        $scope.close = function () {
+            $modalInstance.dismiss();
+        };
+    })
 
     // http://stackoverflow.com/a/24519069/682317
-    app.filter('trusted', ['$sce', function ($sce) {
+    .filter('trusted', ['$sce', function ($sce) {
         return function (url) {
             return $sce.trustAsResourceUrl(url);
         };
-    }]);
+    }])
 
     // http://stackoverflow.com/a/25344423/682317
-    app.directive('emptyToNull', function () {
+    .directive('emptyToNull', function () {
         return {
             restrict: 'A',
             require: 'ngModel',
@@ -525,9 +535,9 @@
                 });
             }
         };
-    });
+    })
 
-    app.directive('dnaFileSelectionWidget', function (files, fileResource, fileInstanceResource, filepickerService) {
+    .directive('dnaFileSelectionWidget', function (files, fileResource, fileInstanceResource, filepickerService) {
         return {
             restrict: 'E',
             require: '?ngModel',
@@ -718,9 +728,9 @@
 
             }
         };
-    });
+    })
 
-    app.directive('dnaItemSelectionWidget', function () {
+    .directive('dnaItemSelectionWidget', function () {
         return {
             restrict: 'E',
             require: '?ngModel',
@@ -779,12 +789,12 @@
 
             }
         };
-    });
+    })
 
     /**
      * A widget to encapsulate paginated viewing and editing of a collection
      */
-    app.directive('dnaCollectionCurationWidget', function () {
+    .directive('dnaCollectionCurationWidget', function () {
         return {
             restrict: 'E',
             require: '?collection',
@@ -801,6 +811,6 @@
 
             }
         };
-    })
+    });
 
-})();
+export default app;

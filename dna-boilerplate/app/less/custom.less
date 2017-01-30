@@ -35,6 +35,8 @@ body {
 
   font-size: 14px;
   font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
 }
 
@@ -202,12 +204,25 @@ div.select2 .select2-container {
     margin: 20px;
     padding: 40px 20px;
     background: #fff;
-    text-align: center;
 
-    .fa {
+    .feature-description {
 
-      font-size: 60px;
-      color: @purple;
+      text-align: center;
+
+      .fa {
+
+        font-size: 60px;
+        color: @purple;
+
+      }
+
+      p {
+
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 2em;
+
+      }
 
     }
 
@@ -220,15 +235,6 @@ div.select2 .select2-container {
       a {
         color: @text-color;
       }
-
-    }
-
-    p {
-
-      text-align: center;
-      width: 80%;
-      margin: 0 auto;
-      margin-bottom: 2em;
 
     }
 
@@ -320,6 +326,21 @@ div.select2 .select2-container {
   }
 }
 
+/* Margin-tweaks to navbar and dropdown menus to not look weird after upgrading to inspinia 2.6*/
+
+.navbar {
+    margin-bottom: 0;
+    border: 0;
+}
+
+.dropdown-menu {
+    margin: 0;
+}
+
+.dropdown-menu>li>a {
+    margin: 0;
+}
+
 /* For hybrid (top+side) navigation style */
 
 .navbar-static-top, .navbar-brand {
@@ -332,7 +353,8 @@ div.select2 .select2-container {
 
     a {
 
-      padding: 20px 20px;
+      padding: 22px 20px;
+      padding-bottom: 20px;
 
     }
   }
@@ -361,6 +383,10 @@ div.select2 .select2-container {
   .navbar-brand {
 
     background: @navbar-bg-color;
+    // https://placeholdit.imgix.net/~text?txtsize=60&bg=transparent&txtclr=ffffff&txt=logo&w=460&h=130&fm=png
+    background-image: url('../images/logo.png');
+    background-size: 257px 70px;
+    background-repeat: no-repeat;
     padding: 0px 0px;
     width: 230px;
     margin-left: 7px;
@@ -432,6 +458,7 @@ div.select2 .select2-container {
 
 }
 
+// Custom styles of the top menu items
 nav.navbar-static-top {
 
   #navbar {
@@ -444,11 +471,11 @@ nav.navbar-static-top {
       color: #fff;
 
       &:hover {
-        background: @navy;
+        background: @navbar-stripe-color;
         color: #fff;
       }
       &:focus {
-        background: @navy;
+        background: @navbar-stripe-color;
         color: #fff;
       }
 
@@ -458,11 +485,11 @@ nav.navbar-static-top {
         color: #fff;
 
         &:hover {
-          background: @navbar-active-color;
+          background: @navbar-bg-color;
           color: #fff;
         }
         &:focus {
-          background: @navbar-active-color;
+          background: @navbar-bg-color;
           color: #fff;
         }
 
@@ -470,16 +497,13 @@ nav.navbar-static-top {
 
       &.active {
 
-        background: @navbar-active-color;
+        background: @navbar-stripe-color;
         color: #fff;
+        border-left: 0;
 
         &:hover {
-          background: @navbar-active-color;
-          color: #fff;
         }
         &:focus {
-          background: @navbar-active-color;
-          color: #fff;
         }
 
         a {
@@ -605,6 +629,10 @@ nav.navbar-static-top {
 
 }
 
+.navbar-top-links li:last-child {
+    margin-right: 20px;
+}
+
 /* Necessary to display dropdown-menus in mobile navbar collapsed mode */
 .navbar-collapse.in {
   overflow-y: visible;
@@ -683,6 +711,7 @@ nav.navbar-static-top {
 
 }
 
+// Custom styles of the side menu items
 #side-menu {
   font-size: 13px;
 
@@ -695,6 +724,7 @@ nav.navbar-static-top {
     font-weight: 400 !important;
   }
 
+  /*
   .nav > li.active,
   .nav > li.active a,
   .nav > li a:focus {
@@ -710,6 +740,57 @@ nav.navbar-static-top {
     background: @sidebar-active;
     color: @sidebar-active-text-color;
   }
+  */
+
+  /* TODO: If customization is relevant, use .navbar-default to override inspinia default styles
+  .nav > li {
+
+    &:hover {
+      background-color: @sidebar-active;
+      color: @sidebar-active-text-color;
+    }
+    &:focus {
+      background-color: @sidebar-active;
+      color: @sidebar-active-text-color;
+    }
+
+    a {
+
+      &:hover {
+        background-color: @sidebar-active;
+        color: @sidebar-active-text-color;
+      }
+      &:focus {
+        background-color: @sidebar-active;
+        color: @sidebar-active-text-color;
+      }
+
+    }
+
+    &.active {
+
+      background-color: @sidebar-active;
+      color: @sidebar-active-text-color;
+      border-left: 0;
+
+      &:hover {
+      }
+      &:focus {
+      }
+
+      a {
+
+        &:hover {
+        }
+        &:focus {
+        }
+
+      }
+
+    }
+
+  }
+  */
 
   li.active.alert-based-menu-item:hover,
   li.active.alert-based-menu-item > a:hover,
@@ -745,7 +826,7 @@ nav.navbar-static-top {
 
   .nav-header-wrapper {
 
-    background: url(../images/foo.jpg) center center no-repeat;
+    /* background: url(../images/foo.jpg) center center no-repeat; */
     display: block;
     min-height: 100px;
     background-size: 110% auto;

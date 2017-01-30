@@ -25,19 +25,22 @@ else
     export LOCAL_API_BASE_URL="//$APPVHOST/api"
 fi
 
+# Inform env that this is a not a DEV run
+export DEV="0"
+
 # Run erb to generate the published config file
 erb app/scripts/env.js.erb > app/scripts/env.js
 
 # =================================================
 # BUILD APPLICATION
 
-if [ "$CI" == "1" ]; then
-    BUILD_CMD="grunt build --debug --verbose"
-else
-    BUILD_CMD="grunt server --debug --verbose"
-fi
+npm run build
 
-$BUILD_CMD
+if [ "$CI" == "1" ]; then
+    echo "Not starting HTTP Server since in CI mode"
+else
+    npm start
+fi
 
 # =================================================
 # Test app

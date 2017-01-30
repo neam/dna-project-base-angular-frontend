@@ -3,7 +3,7 @@
 #set -x
 
 if [ $# -lt 1 ]; then
-    echo "Invalid arguments: APPVHOST missing"
+    echo "Invalid arguments: DEPLOYMENT_TARGET missing"
     exit 1
 fi
 
@@ -14,14 +14,14 @@ set -o errexit
 source .deploy-secrets
 
 # General
-APPVHOST=$1
+DEPLOYMENT_TARGET=$1
 
 # Deploy to production/root by specifying "root", "prod" or "live" as deploy destination
-if [[ "$APPVHOST" == root ]] || [[ "$APPVHOST" == prod ]] || [[ "$APPVHOST" == live ]]; then
+if [[ "$DEPLOYMENT_TARGET" == root ]] || [[ "$DEPLOYMENT_TARGET" == prod ]] || [[ "$DEPLOYMENT_TARGET" == live ]]; then
     DEPLOYMENT_DIR="s3://$S3_BUCKET"
 else
-    DEPLOYMENT_DIR="s3://$S3_BUCKET/stage/$APPVHOST"
-    #ASSET_URL="http://$S3_BUCKET/stage/$APPVHOST/"
+    DEPLOYMENT_DIR="s3://$DEPLOYMENT_TARGET.$S3_BUCKET"
+    #ASSET_URL="http://$DEPLOYMENT_TARGET.$S3_BUCKET"
 fi
 
 # =================================================

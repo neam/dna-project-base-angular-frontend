@@ -4,12 +4,12 @@
 
 <li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
     <a ui-sref="root.get-started.introduction" href="#"><i
-            class="fa fa-check-circle"></i> <span class="nav-label">Introduction</span></a>
+            class="fa fa-question-circle"></i> <span class="nav-label">Introduction</span></a>
 </li>
 
 <li ui-sref-active="active" ng-show="activeDataEnvironment.available">
     <a ui-sref="root.api-endpoints.existing.get-started.introduction({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})" href="#"><i
-            class="fa fa-check-circle"></i> <span class="nav-label">Introduction</span></a>
+            class="fa fa-question-circle"></i> <span class="nav-label">Introduction</span></a>
 </li>
 
 <li ui-sref-active="active" ng-show="!activeDataEnvironment.available">
@@ -19,7 +19,7 @@
 
 <li ui-sref-active="active" ng-show="activeDataEnvironment.available">
     <a ui-sref="root.api-endpoints.existing.get-started.survey({dataEnvironment: activeDataEnvironment.slug, clerkFiscalYearId: $state.params.clerkFiscalYearId})" href="#"><i
-            class="fa fa-check-circle"></i> <span class="nav-label">Tell us about yourself</span></a>
+            class="fa fa-edit"></i> <span class="nav-label">Take the survey</span></a>
 </li>
 
 <!--

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html>
 
 <head>
 
@@ -21,6 +21,7 @@
 
     <!-- Note: ", maximum-scale=1.0, user-scalable=no" is a recommendation from Auth0 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- Page title set in pageTitle directive -->
     <title page-title></title>
@@ -35,312 +36,37 @@
     <meta property="og:locale" content="en_us"/>
     <meta property="og:image" content="https://static.example.com/media/og-image.png">
 
-    <!-- Config from environment variables -->
-    <script src="scripts/env.js"></script>
-
-    <!-- start Mixpanel --><script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
-    for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
-    mixpanel.init(env.MIXPANEL_PROJECT_TOKEN);</script><!-- end Mixpanel -->
-
-    <!-- Google Open Sans -->
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-
-    <!-- build:css({.tmp,.merged-app}) styles/vendor.css -->
-
-    <!-- bower:css -->
-
-    <!-- Font awesome -->
-    <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
-
-    <!-- Bootstrap -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Code Mirror -->
-    <link href="bower_components/codemirror/lib/codemirror.css" rel="stylesheet">
-    <!--<link commented="bower_components/codemirror/ambiance.css" rel="stylesheet">-->
-
-    <!-- Main Inspinia CSS files -->
-    <link href="styles/animate.css" rel="stylesheet">
-
-    <!-- dc -->
-    <link rel="stylesheet" type="text/css" href="styles/dc.css"/>
-
-    <!-- Handsontable -->
-    <link rel="stylesheet" media="screen" href="bower_components/handsontable/dist/handsontable.full.css">
-
-    <!-- Angular hotkeys -->
-    <link rel="stylesheet" type="text/css" href="bower_components/angular-hotkeys/src/hotkeys.css">
-
-    <!-- Date Range Picker for Bootstrap -->
-    <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css"/>
-
-    <!-- Cal Heatmap -->
-    <link rel="stylesheet" type="text/css" href="bower_components/cal-heatmap/cal-heatmap.css">
-
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- These assets break when built, thus excluding from build currently -->
-
-    <!-- Angular colorpicker -->
-    <link href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" rel="stylesheet">
-
-    <!-- Intro.js -->
-    <link href="bower_components/intro.js/introjs.css" rel="stylesheet">
-
-    <!-- Select2 -->
-    <link href="bower_components/select2/dist/css/select2.min.css" rel="stylesheet" />
-
-    <!-- iCheck -->
-    <link rel="stylesheet" type="text/css" href="bower_components/iCheck/skins/square/green.css">
-
-    <!-- Fullcalendar -->
-    <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css"/>
-
-    <!-- build:css({.tmp,.merged-app}) styles/style.css -->
-    <link href="styles/style.css" rel="stylesheet">
-    <!-- endbuild -->
-
-    <!-- Facebook Pixel Code -->
-    <script>
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-              document,'script','//connect.facebook.net/en_US/fbevents.js');
-        if (env.FB_CONVERSION_PIXEL_ID !== '') {
-            fbq('init', env.FB_CONVERSION_PIXEL_ID);
-            fbq('track', 'PageView');
-        }
-    </script>
+    <!-- Facebook noscript Pixel Code -->
     <noscript>
-      <!-- FA-specific id hardcoded -->
+      <!-- Project-specific id hardcoded -->
       <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=[[env.FB_CONVERSION_PIXEL_ID]]&ev=PageView&noscript=1">
     </noscript>
-    <!-- End Facebook Pixel Code -->
 
     <!-- Google AdWords Conversion Code -->
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" charset="utf-8"></script>
 
-    <!-- Google Analytics -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', env.GA_TRACKING_ID, 'auto');
-      ga('send', 'pageview');
-
-    </script>
-
-    <!-- Intercom.io -->
-    <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/ufyaww65';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
-
-    <!-- Hotjar Tracking Code -->
-    <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:env.HOTJAR_SITE_ID,hjsv:5};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
-    </script>
+    <!-- Note: Other common analytics invocations are made in shared/scripts/analytics.js based on .config -->
 
 </head>
 
 <!-- ControllerAs syntax -->
 <!-- Main controller with serveral data used in Inspinia theme on diferent view -->
-<body ng-controller="MainCtrl as main" class="top-navigation">
+<body ng-controller="MainCtrl as main" class="top-navigation {{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
 
 <!-- Main view  -->
-<div ui-view></div>
+<div ui-view>
 
-<!-- Mixpanel basic link and page view tracking -->
-<script type="text/javascript">
-    mixpanel.track_links("a", "click link", {
-        "app": "manager",
-        "referrer": document.referrer
-    });
-    mixpanel.track('page viewed', {
-        "app": "manager",
-        'page name' : document.title,
-        'url' : window.location.pathname
-    });
-</script>
+    Loading...
 
-<!-- Auth0 - upstream minification issues require these to be included as-is -->
-<script src="bower_components/auth0-lock/build/auth0-lock.js"></script>
+</div>
 
-<!-- Keep the bare minimum outside of minification necessary for optimizely data to be transported successfully -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script>window.optimizelyVariation=$.Deferred();</script>
-
-<!-- build:js({.tmp,.merged-app}) scripts/vendor.js -->
-
-<!-- jQuery and Bootstrap -->
-<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<!-- MetsiMenu -->
-<script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-<!-- SlimScroll -->
-<script src="bower_components/slimScroll/jquery.slimscroll.min.js"></script>
-
-<!-- floatThead -->
-<script src="bower_components/jquery.floatThead/dist/jquery.floatThead.js"></script>
-
-<!-- Peace JS -->
-<script src="bower_components/PACE/pace.min.js"></script>
-
-<!-- More vendor scripts -->
-<script src="bower_components/lodash/dist/lodash.min.js"></script>
-<script src="bower_components/d3/d3.min.js"></script>
-<script src="scripts/inspinia/plugins/rickshaw/rickshaw.min.js"></script>
-<script src="bower_components/crossfilter/crossfilter.min.js"></script>
-<script src="bower_components/dcjs/dc.min.js"></script>
-<script src="scripts/inspinia/plugins/sparkline/jquery.sparkline.min.js"></script>
-
-<!-- Cal Heatmap -->
-<script type="text/javascript" src="bower_components/cal-heatmap/cal-heatmap.js"></script>
-
-<!-- Angular and angular modules -->
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script src="bower_components/angular-resource/angular-resource.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script src="bower_components/angular-dc/src/angular-dc.js"></script>
-<script src="scripts/dc/dc-nasdaq-controller.js"></script>
-<script src="scripts/dc/angular-jade-min.js"></script>
-<script src="scripts/inspinia/plugins/rickshaw/angular-rickshaw.js"></script>
-<script src="bower_components/angular-google-chart/ng-google-chart.js"></script>
-<script src="bower_components/angulartics/dist/angulartics.min.js"></script>
-<script src="bower_components/angulartics/dist/angulartics-scroll.min.js"></script>
-<script src="bower_components/angulartics/dist/angulartics-ga.min.js"></script>
-<script src="bower_components/angulartics/dist/angulartics-mixpanel.min.js"></script>
-<script src="bower_components/ngSmoothScroll/lib/angular-smooth-scroll.js"></script>
-<script src="bower_components/ng-videosharing-embed/build/ng-videosharing-embed.min.js"></script>
-
-<!-- Angular Color Picker (angular-minicolors) -->
-<script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
-
-<!-- Intro.js -->
-<script src="bower_components/intro.js/intro.js"></script>
-
-<!-- Angular optimizely -->
-<script src="bower_components/ng-optimizely/ng-optimizely.js"></script>
-
-<!-- 3-way-merge -->
-<script src="scripts/angular-3-way-merge/merge.js"></script>
-
-<!-- Select2 -->
-<script src="bower_components/select2/dist/js/select2.js"></script>
-
-<!-- Angular Select2 -->
-<script src="bower_components/angular-select2/dist/angular-select2.js"></script>
-
-<!-- Handsontable -->
-<script src="bower_components/handsontable/dist/handsontable.full.js"></script>
-<script src="bower_components/ruleJS/dist/full/ruleJS.all.full.js"></script>
-<script src="bower_components/handsontable-ruleJS/src/handsontable.formula.js"></script>
-<script type="application/javascript">
-    // Necessary for ngHandsontable to accept the "formulas" setting
-    Handsontable.DefaultSettings.prototype.formulas = {};
-</script>
 <!--
-<script commented="bower_components/ngHandsontable/dist/ngHandsontable.js"></script>
--->
-<script src="bower_components/angular-simple-handsontable/angular-simple-handsontable.js"></script>
-
-<!-- Handsontable-select2-editor -->
-<script src="bower_components/Handsontable-select2-editor/select2-editor.js"></script>
-
-<!-- iCheck -->
-<script src="bower_components/iCheck/icheck.js"></script>
-
-<!-- Angular hotkeys -->
-<script src="bower_components/mousetrap/mousetrap.js"></script>
-<script src="bower_components/angular-hotkeys/src/hotkeys.js"></script>
-
-<!-- dc -->
-<script type="text/javascript" src="scripts/dc/colorbrewer.js"></script>
-<script type="text/javascript" src="scripts/dc/dc-nasdaq-controller.js"></script>
-
-<!-- Moment.js -->
-<script src="bower_components/moment/moment.js"></script>
-<script>
-    // Workaround for daterangepicker displaying "Invalid date" when start/end of the range is null
-    moment.locale(moment.locale(),{invalidDate:""});
-</script>
-
-<!-- Date Range Picker for Bootstrap -->
-<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-<script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
-
-<!-- Auth0 (except auth0-lock.js which does not survive the build process) -->
-<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-<script src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
-<script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
-<script src="bower_components/auth0-angular/build/auth0-angular.js"> </script>
-
-<!-- Code Mirror -->
-<script src="bower_components/codemirror/lib/codemirror.js"></script>
-<script src="bower_components/codemirror/mode/javascript/javascript.js"></script>
-<script src="scripts/inspinia/plugins/ui-codemirror/ui-codemirror.min.js"></script>
-
-<!-- Filepicker.io -->
-<script type="text/javascript" src="bower_components/filepicker-js/filepicker.js"></script>
-<script type="text/javascript" src="bower_components/filepicker-js/filepicker_debug.js"></script>
-<script type="text/javascript" src="bower_components/angular-filepicker/dist/angular_filepicker.js"></script>
-
-<!-- Angular UI Calendar / Fullcalendar (Note: jquery, moment, and angular have to get included before fullcalendar) -->
-<script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
-<script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
-<script type="text/javascript" src="bower_components/fullcalendar/dist/gcal.js"></script>
-
-<!-- endbuild -->
-
-<!-- build:js({.tmp,.merged-app}) scripts/scripts.js -->
-<!-- Custom and plugin javascript -->
-<script src="scripts/inspinia/inspinia.js"></script>
-
-<!-- Angular App Script -->
-<script src="scripts/inspinia/module.js"></script>
-<script src="scripts/inspinia/directives.js"></script>
-<script src="scripts/inspinia/controllers.js"></script>
-<script src="scripts/angular-frontend.js"></script>
-<script src="scripts/angular-frontend-config.js"></script>
-<script src="scripts/angular-frontend-filters.js"></script>
-<script src="scripts/auth.js"></script>
-<!--
-<script commented="bower_components/angular-translate/angular-translate.min.js"></script>
-<script commented="scripts/translations.js"></script>
+ You need to include this script on any page that has a Google Map.
+ https://developers.google.com/maps/documentation/javascript/tutorial#api_key
 -->
 <!--
-<script commented="scripts/services.js"></script>
+<script type="text/javascript" commented="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70"></script>
 -->
-
-<!-- DNA Javascript -->
-<script src="scripts/app.js"></script>
-<script src="scripts/config.js"></script>
-
-<!-- Optimizely fallback-data -->
-<script src="scripts/optimizely-fallback-data.js"></script>
-
-<!-- Sections -->
-<script src="sections/get-started/get-started.js"></script>
-<script src="sections/import-and-inspect/import.js"></script>
-<script src="sections/get-things-done/get-things-done.js"></script>
-<script src="sections/up-to-date/up-to-date.js"></script>
-<script src="sections/basic-info/basic-info.js"></script>
-
-<!-- Generated -->
-<!-- Insert includes of generated files here -->
-
-<!-- endbuild -->
 
 </body>
 </html>
