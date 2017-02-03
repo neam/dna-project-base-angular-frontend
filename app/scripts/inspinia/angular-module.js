@@ -7,7 +7,7 @@
 require('oclazyload/dist/ocLazyLoad.js');
 
 let deps = [
-    require('angular-ui-router').default,                    // Routing
+    require('shared/scripts/ui-router-polyfill-wrapper').default.name,                    // Routing
     'oc.lazyLoad',                  // ocLazyLoad
     (() => {
         require('angular-bootstrap');
