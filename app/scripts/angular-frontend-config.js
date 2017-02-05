@@ -399,6 +399,20 @@ let module = angular.module('angular-frontend-config', [])
         $rootScope.env = env;
     })
 
+    .run(function ($rootScope, $state) {
+
+        $rootScope.$on('$stateChangeStart', function () {
+            $rootScope.stateIsLoading = true;
+        });
+        $rootScope.$on('$stateChangeSuccess', function () {
+            $rootScope.stateIsLoading = false;
+        });
+        $rootScope.$on('$stateChangeError', function () {
+            $rootScope.stateIsLoading = false;
+        });
+
+    })
+
     .run(function ($rootScope, $state, $location, AuthService, $window) {
         var updateTrackersAtSignup = function (profile) {
 
