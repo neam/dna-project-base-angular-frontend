@@ -16,7 +16,6 @@
   "appPath": "app",
   "dependencies": {
     "angular-resource": "~1.2.29",
-    "lodash": "~2.4.1",
     "angulartics": "~0.17.2",
     "angular-google-chart": "https://github.com/bouil/angular-google-chart.git#gh-pages",
     "angular-dc": "git@github.com:motin/angular-dc.git#awaiting-prs",
@@ -120,6 +119,7 @@
     "moment": "~2.14.1",
     "handsontable": "~0.27.0",
     "filepicker-js": "2.3.4",
-    "angular-ui-router": "~1.0.0-alpha.4"
+    "angular-ui-router": "~1.0.0-alpha.4",
+    "lodash": "~2"
   }
 }
