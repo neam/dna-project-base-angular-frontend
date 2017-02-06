@@ -207,7 +207,8 @@ module.exports = function makeWebpackConfig() {
     } else if (isProd) {
         config.devtool = 'cheap-module-source-map';
     } else {
-        config.devtool = 'cheap-module-eval-source-map';
+        config.devtool = 'cheap-modules-source-map';
+        //config.devtool = 'cheap-module-eval-source-map'; // Ends up with "eval at <anonymous> " instead of the source file in Chrome
         //config.devtool = 'eval-source-map'; // Does not play nicely with chrome dev tools - sourcemaps are not understood correctly
     }
 
