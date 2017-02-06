@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Angular frontend base",
   "scripts": {
-    "start": "hs dist",
+    "start": "hs -p 9000 dist",
     "build": "webpack -p --profile",
     "stats": "webpack -p --profile --json > stats.json",
     "dev": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
