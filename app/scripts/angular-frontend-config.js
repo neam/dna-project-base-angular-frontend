@@ -14,7 +14,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
     IdleProvider.idle(5); // in seconds
     IdleProvider.timeout(120); // in seconds
 
-    $urlRouterProvider.otherwise("/dashboards/dashboard_1");
+    //$urlRouterProvider.otherwise("");
 
     $ocLazyLoadProvider.config({
         // Set to true if you want to see what and when is dynamically loaded
