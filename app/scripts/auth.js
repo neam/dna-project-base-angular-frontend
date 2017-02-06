@@ -288,7 +288,7 @@ var module = angular
         auth.hookEvents();
     })
 
-    .run(function ($rootScope, auth, store, jwtHelper, $location) {
+    .run(function ($rootScope, auth, store, jwtHelper, $location, $state) {
         // Keep the user logged in after a page refresh
         var keepTheUserLoggedInAfterAPageRefresh = function () {
             var token = store.get('token');
@@ -299,8 +299,11 @@ var module = angular
                         profilePromise = auth.authenticate(store.get('profile'), token);
                     }
                 } else {
+                    // We have a jwt token (meaning that a login was made here before) but the token has expired
+                    console.log('no active jwt token', token, $state.current);
                     // Either show the login page or use the refresh token to get a new idToken
-                    $location.path('/');
+                    // TODO: Make sure to return to the attempted-to-access state after login
+                    //$state.go('root.start.user.login');
                 }
             }
             return profilePromise;
