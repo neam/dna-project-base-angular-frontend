@@ -153,6 +153,10 @@ var module = angular
             env.AUTH0_DOMAIN = '127.0.0.1:3000';
             env.AUTH0_CLIENT_ID = 'auth0mockapiclientid';
             window.auth0mockdata = {
+                // Note: This data is not used directly - it is only here for version control
+                // To update the data used by the app, copy the profile data below and create a new jwt token
+                // on https://jwt.io/ then update the idToken field with the new data
+                // After that, log out and log in again for the new profile data to be available to the app
                 profile: {
                     "name": "John Doe",
                     "given_name": "John",
@@ -172,7 +176,8 @@ var module = angular
                         "api_endpoints": [{"slug": "local"}],
                         "default_api_endpoint_slug": "local",
                         "original_mixpanel_distinct_id": "mock-original_mixpanel_distinct_id",
-                        "signup_tracked": true
+                        "signup_tracked": true,
+                        "beta_channel": "private-beta"
                     },
                     "email": "john.doe@example.com",
                     "app_metadata": {"r0": {"permissions": {"example": {"superuser": 0, "groups": []}}}},
@@ -190,7 +195,7 @@ var module = angular
                     "created_at": "2015-09-03T10:10:43.432Z",
                     "global_client_id": "foobar"
                 },
-                idToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJnaXZlbl9uYW1lIjoiSm9obiIsImZhbWlseV9uYW1lIjoiRG9lIiwiZ2VuZGVyIjoibWFsZSIsInBpY3R1cmUiOiJodHRwOi8vcGxhY2Vob2xkLml0LzE1MHgxNTAiLCJhZ2VfcmFuZ2UiOnsibWluIjoyMX0sImRldmljZXMiOlt7ImhhcmR3YXJlIjoiaVBob25lIiwib3MiOiJpT1MifV0sInVwZGF0ZWRfdGltZSI6IjIwMTUtMDktMDdUMDg6NTU6NDYrMDAwMCIsImluc3RhbGxlZCI6dHJ1ZSwiaXNfdmVyaWZpZWQiOmZhbHNlLCJsb2NhbGUiOiJlbl9VUyIsIm5hbWVfZm9ybWF0Ijoie2ZpcnN0fSB7bGFzdH0iLCJ2ZXJpZmllZCI6dHJ1ZSwibmlja25hbWUiOiJhdXRoMG1vY2thcGkiLCJ1c2VyX21ldGFkYXRhIjp7ImFwaV9lbmRwb2ludHMiOlt7InNsdWciOiJsb2NhbCJ9XSwiZGVmYXVsdF9hcGlfZW5kcG9pbnRfc2x1ZyI6ImxvY2FsIiwib3JpZ2luYWxfbWl4cGFuZWxfZGlzdGluY3RfaWQiOiJtb2NrLW9yaWdpbmFsX21peHBhbmVsX2Rpc3RpbmN0X2lkIiwic2lnbnVwX3RyYWNrZWQiOnRydWV9LCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwiYXBwX21ldGFkYXRhIjp7InIwIjp7InBlcm1pc3Npb25zIjp7ImV4YW1wbGUiOnsic3VwZXJ1c2VyIjowLCJncm91cHMiOltdfX19fSwiZW1haWxfdmVyaWZpZWQiOnRydWUsImNsaWVudElEIjoiZm9vYmFyIiwidXBkYXRlZF9hdCI6IjIwMTUtMDktMDlUMDc6MjU6MzkuNDI5WiIsInVzZXJfaWQiOiJhdXRoMG1vY2thcGl8MTIzMTIzMTIzMTIzMTIzMTIzIiwiaWRlbnRpdGllcyI6W3siYWNjZXNzX3Rva2VuIjoiZm9vYmFyIiwicHJvdmlkZXIiOiJhdXRoMG1vY2thcGkiLCJ1c2VyX2lkIjoiMTIzMTIzMTIzMTIzMTIzMTIzIiwiY29ubmVjdGlvbiI6ImF1dGgwbW9ja2FwaSIsImlzU29jaWFsIjp0cnVlfV0sImNyZWF0ZWRfYXQiOiIyMDE1LTA5LTAzVDEwOjEwOjQzLjQzMloiLCJnbG9iYWxfY2xpZW50X2lkIjoiZm9vYmFyIn0._HkQuZs6Y6N38biAnksnWg3Ayf3qnE2hwBkeMKfxbiE'
+                idToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJnaXZlbl9uYW1lIjoiSm9obiIsImZhbWlseV9uYW1lIjoiRG9lIiwiZ2VuZGVyIjoibWFsZSIsInBpY3R1cmUiOiJodHRwOi8vcGxhY2Vob2xkLml0LzE1MHgxNTAiLCJhZ2VfcmFuZ2UiOnsibWluIjoyMX0sImRldmljZXMiOlt7ImhhcmR3YXJlIjoiaVBob25lIiwib3MiOiJpT1MifV0sInVwZGF0ZWRfdGltZSI6IjIwMTUtMDktMDdUMDg6NTU6NDYrMDAwMCIsImluc3RhbGxlZCI6dHJ1ZSwiaXNfdmVyaWZpZWQiOmZhbHNlLCJsb2NhbGUiOiJlbl9VUyIsIm5hbWVfZm9ybWF0Ijoie2ZpcnN0fSB7bGFzdH0iLCJ2ZXJpZmllZCI6dHJ1ZSwibmlja25hbWUiOiJhdXRoMG1vY2thcGkiLCJ1c2VyX21ldGFkYXRhIjp7ImFwaV9lbmRwb2ludHMiOlt7InNsdWciOiJsb2NhbCJ9XSwiZGVmYXVsdF9hcGlfZW5kcG9pbnRfc2x1ZyI6ImxvY2FsIiwib3JpZ2luYWxfbWl4cGFuZWxfZGlzdGluY3RfaWQiOiJtb2NrLW9yaWdpbmFsX21peHBhbmVsX2Rpc3RpbmN0X2lkIiwic2lnbnVwX3RyYWNrZWQiOnRydWUsImJldGFfY2hhbm5lbCI6InByaXZhdGUtYmV0YSJ9LCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwiYXBwX21ldGFkYXRhIjp7InIwIjp7InBlcm1pc3Npb25zIjp7ImV4YW1wbGUiOnsic3VwZXJ1c2VyIjowLCJncm91cHMiOltdfX19fSwiZW1haWxfdmVyaWZpZWQiOnRydWUsImNsaWVudElEIjoiZm9vYmFyIiwidXBkYXRlZF9hdCI6IjIwMTUtMDktMDlUMDc6MjU6MzkuNDI5WiIsInVzZXJfaWQiOiJhdXRoMG1vY2thcGl8MTIzMTIzMTIzMTIzMTIzMTIzIiwiaWRlbnRpdGllcyI6W3siYWNjZXNzX3Rva2VuIjoiZm9vYmFyIiwicHJvdmlkZXIiOiJhdXRoMG1vY2thcGkiLCJ1c2VyX2lkIjoiMTIzMTIzMTIzMTIzMTIzMTIzIiwiY29ubmVjdGlvbiI6ImF1dGgwbW9ja2FwaSIsImlzU29jaWFsIjp0cnVlfV0sImNyZWF0ZWRfYXQiOiIyMDE1LTA5LTAzVDEwOjEwOjQzLjQzMloiLCJnbG9iYWxfY2xpZW50X2lkIjoiZm9vYmFyIn0.lqxhhnDGBmtcsvWxkG4nXO9zsa0RAYc6l7R9NZudews'
             };
         }
 
