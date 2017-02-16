@@ -472,12 +472,7 @@ let module = angular.module('angular-frontend-config', [])
                 profile.user_metadata.signup_tracked = true;
 
                 // Store property so that we don't track signup again for this user
-                var updatedAttributes = {"user_metadata": {"signup_tracked": true}};
-                AuthService.updateProfile(profile, updatedAttributes, function () {
-                }, function (error) {
-                    // Handle error/result
-                    console.log('save signup_tracked callback', error);
-                });
+                AuthService.quickUpdateProfileByProp('user_metadata.signup_tracked', true);
 
             }
 
@@ -546,12 +541,10 @@ let module = angular.module('angular-frontend-config', [])
 
                     // Store property so that we don't run alias again for this user
                     var updatedAttributes = {"user_metadata": {"original_mixpanel_distinct_id": current_mixpanel_distinct_id}};
-                    AuthService.updateProfile(profile, updatedAttributes, function () {
+
+                    AuthService.quickUpdateProfileByProp('user_metadata.original_mixpanel_distinct_id', current_mixpanel_distinct_id, function (updatedProfile) {
                         // Continue flow
                         ready(profile);
-                    }, function (error) {
-                        // Handle error/result
-                        console.log('save original_mixpanel_distinct_id callback', error);
                     });
 
                 });

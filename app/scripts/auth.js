@@ -8,6 +8,8 @@ require('bower_components/a0-angular-storage/dist/angular-storage.js');
 require('bower_components/angular-jwt/dist/angular-jwt.js');
 require('bower_components/auth0-angular/build/auth0-angular.js');
 
+let setDepth = require('shared/scripts/util.setDepth.js');
+
 var module = angular
     .module('auth', [
         // Auth0
@@ -124,9 +126,61 @@ var module = angular
             store.remove('token');
             goAfterLogin();
         };
-        AuthService.updateProfile = function (profile, updatedAttributes, success, error) {
-            var url = 'https://' + env.AUTH0_DOMAIN + '/api/v2/users/' + profile.user_id;
-            $http.patch(url, updatedAttributes).then(success, error);
+
+        /**
+         * Use to update several profile attributes at once
+         * @param updatedAttributes
+         * @param success
+         * @param error
+         */
+        AuthService.updateProfile = function (updatedAttributes, success, error) {
+
+            // Default success/error handlers
+            if (!success) {
+                success = function (updatedProfile, res) {
+                    console.log('updateProfile success', updatedProfile, res)
+                };
+            }
+            if (!error) {
+                error = function (error) {
+                    console.log('updateProfile error', error)
+                };
+            }
+
+            let patchAuth0UserProfile = function (profile, updatedAttributes, success, error) {
+                let url = 'https://' + env.AUTH0_DOMAIN + '/api/v2/users/' + profile.user_id;
+                $http.patch(url, updatedAttributes).then(success, error);
+            };
+
+            // Mock for offline dev
+            if (env.OFFLINE_DEV === 'true') {
+                patchAuth0UserProfile = function (profile, updatedAttributes, success, error) {
+                    let updatedProfile = angular.merge(profile, updatedAttributes);
+                    success(updatedProfile, {'offline': 'mockup'});
+                };
+            }
+
+            auth.profilePromise.then(function (profile) {
+                patchAuth0UserProfile(profile, updatedAttributes, function (res) {
+
+                    console.log('profile path res', res);
+
+                    // TODO: Return the updated profile in the success callback
+
+                    // TODO: Refresh token or similar so that the api gets the updated profile information
+
+                    success(res);
+
+                }, error);
+
+            });
+        };
+
+        AuthService.quickUpdateProfileByProp = function (prop, value) {
+            let updatedAttributes = {};
+            setDepth(updatedAttributes, prop, value);
+            console.log('quickUpdateProfileByProp', prop, value, updatedAttributes);
+            AuthService.updateProfile(updatedAttributes);
         };
 
         // Events
