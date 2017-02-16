@@ -415,6 +415,18 @@ let module = angular.module('angular-frontend-config', [])
 
     })
 
+    /**
+     * Works around sourcemap-issue regarding angular stack traces in the Chrome console
+     * https://github.com/angular/angular.js/issues/15590#issuecomment-278302504
+     */
+    .factory('$exceptionHandler', () => {
+        'ngInject';
+
+        return (...params) => {
+            console.error(...params);
+        };
+    })
+
     .run(function ($rootScope, $state, $location, AuthService, $window) {
         var updateTrackersAtSignup = function (profile) {
 
