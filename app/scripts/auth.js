@@ -156,21 +156,23 @@ var module = angular
             // Mock for offline dev
             if (env.OFFLINE_DEV === 'true') {
                 patchAuth0UserProfile = function (profile, updatedAttributes, success, error) {
-                    let updatedProfile = angular.merge(profile, updatedAttributes);
-                    success(updatedProfile, {'offline': 'mockup'});
+                    let updatedProfile = angular.merge({}, profile, updatedAttributes);
+                    success({data: updatedProfile}, {'offline': 'mockup'});
                 };
             }
 
             auth.profilePromise.then(function (profile) {
                 patchAuth0UserProfile(profile, updatedAttributes, function (res) {
 
-                    console.log('profile path res', res);
+                    // Update the current profile information used by the app
+                    let updatedProfile = res.data;
+                    angular.merge(profile, updatedProfile);
 
-                    // TODO: Return the updated profile in the success callback
+                    // Refresh token or similar so that the api gets the updated profile information
+                    // TODO
 
-                    // TODO: Refresh token or similar so that the api gets the updated profile information
-
-                    success(res);
+                    // Return the updated profile in the success callback
+                    success(updatedProfile, res);
 
                 }, error);
 
