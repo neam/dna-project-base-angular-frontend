@@ -9,6 +9,7 @@ require('bower_components/angular-jwt/dist/angular-jwt.js');
 require('bower_components/auth0-angular/build/auth0-angular.js');
 
 let setDepth = require('shared/scripts/util.setDepth.js');
+let IntercomUserDataHelper = require('shared/scripts/class.IntercomUserDataHelper.js');
 
 var module = angular
     .module('auth', [
@@ -129,7 +130,7 @@ var module = angular
         };
 
         /**
-         * Use to update several profile attributes at once
+         * Use to update one or several profile attributes at once
          * @param updatedAttributes
          * @param success
          * @param error
@@ -167,6 +168,10 @@ var module = angular
                     // Update the current profile information used by the app
                     let updatedProfile = res.data;
                     angular.merge(profile, updatedProfile);
+
+                    // Sync metadata with intercom so that it remains somewhat up to date (only the first 10 updates per
+                    // page load are accepted by intercom, the rest will be synced upon page refresh)
+                    IntercomUserDataHelper.syncAuth0ProfileData(updatedProfile);
 
                     // Refresh token or similar so that the api gets the updated profile information
                     // TODO

@@ -1,5 +1,7 @@
 'use strict';
 
+let IntercomUserDataHelper = require('shared/scripts/class.IntercomUserDataHelper.js');
+
 /**
  * INSPINIA - Responsive Admin Theme
  *
@@ -589,33 +591,7 @@ let module = angular.module('angular-frontend-config', [])
         var updateIntercomAtLogin = function (profile) {
 
             // Intercom
-            var created_at = new Date(profile.created_at);
-            var last_login_at = new Date();
-            var intercom_data = {
-                app_id: env.INTERCOM_ID,
-                user_id: profile.user_id,
-                name: profile.name,
-                email: profile.email,
-                created_at: Math.floor(created_at / 1000),
-                "signup_plan": profile.user_metadata.signup_plan,
-                "picture": profile.picture,
-                "original_mixpanel_distinct_id": profile.user_metadata.original_mixpanel_distinct_id,
-                "auth0_user_id": profile.user_id,
-                "auth0_updated_at": profile.updated_at,
-                "auth0_given_name": profile.given_name,
-                "auth0_family_name": profile.family_name,
-                "auth0_last_login_at": last_login_at,
-                "auth0_email_verified": profile.email_verified
-            };
-            // Replicate data into app-specific data for multi-app tracking/detection
-            intercom_data[env.INTERCOM_APP_TAG + '_original_mixpanel_distinct_id'] = intercom_data.original_mixpanel_distinct_id;
-            intercom_data[env.INTERCOM_APP_TAG + '_auth0_user_id'] = intercom_data.auth0_user_id;
-            intercom_data[env.INTERCOM_APP_TAG + '_auth0_updated_at'] = intercom_data.auth0_updated_at;
-            intercom_data[env.INTERCOM_APP_TAG + '_auth0_given_name'] = intercom_data.auth0_given_name;
-            intercom_data[env.INTERCOM_APP_TAG + '_auth0_family_name'] = intercom_data.auth0_family_name;
-            intercom_data[env.INTERCOM_APP_TAG + '_auth0_last_login_at'] = intercom_data.auth0_last_login_at;
-            intercom_data[env.INTERCOM_APP_TAG + '_auth0_email_verified'] = intercom_data.auth0_email_verified;
-            console.log('intercom_data', intercom_data);
+            var intercom_data = IntercomUserDataHelper.intercomUserDataFromAuth0ProfileData(profile);
 
             // Wait until Intercom is loaded to $window, then "boot" Intercom
             var stopWatching = $rootScope.$watch(function () {
