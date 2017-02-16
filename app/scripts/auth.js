@@ -124,6 +124,7 @@ var module = angular
             auth.signout();
             store.remove('profile');
             store.remove('token');
+            Intercom('shutdown');
             goAfterLogin();
         };
 
