@@ -164,7 +164,10 @@ module
         return {
             dataEnvironments: dataEnvironments,
             activeDataEnvironment: activeDataEnvironment,
-            setDataEnvironment: setDataEnvironment
+            setDataEnvironment: setDataEnvironment,
+            needsToChooseActiveDataEnvironment: function() {
+                return !activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length > 0;
+            }
         };
 
     });
@@ -175,6 +178,7 @@ module
         $scope.dataEnvironments = DataEnvironmentService.dataEnvironments;
         $scope.activeDataEnvironment = DataEnvironmentService.activeDataEnvironment;
         $scope.setDataEnvironment = DataEnvironmentService.setDataEnvironment;
+        $scope.needsToChooseActiveDataEnvironment = DataEnvironmentService.needsToChooseActiveDataEnvironment;
 
     });
 
