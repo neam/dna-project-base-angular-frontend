@@ -49,14 +49,20 @@ var module = angular
 
         var onLogin = function () {
             auth.profilePromise.then(function (profile) {
-                AuthService.loggedInPromise.resolve();
+                $rootScope.$broadcast('user.login', profile);
+            });
+        };
+
+        var onAuthenticated = function () {
+            auth.profilePromise.then(function (profile) {
+                AuthService.authenticatedPromise.resolve();
 
                 // Ensure there it a user metadata attribute
                 if (!profile.user_metadata) {
                     profile.user_metadata = {};
                 }
 
-                $rootScope.$broadcast('user.login', profile);
+                $rootScope.$broadcast('user.authenticated', profile);
             });
         };
 
@@ -66,7 +72,7 @@ var module = angular
         };
 
         var onLogout = function () {
-            //AuthService.loggedInPromise.reject(err);
+            //AuthService.authenticatedPromise.reject(err);
             $rootScope.$broadcast('user.logout');
         };
 
@@ -74,7 +80,7 @@ var module = angular
 
         AuthService.goAfterLogin = goAfterLogin;
 
-        AuthService.loggedInPromise = $q.defer();
+        AuthService.authenticatedPromise = $q.defer();
 
         var onSigninSignupSuccess = function (profile, token, accessToken, state, refreshToken) {
             // Success callback
@@ -192,7 +198,7 @@ var module = angular
         };
 
         // Events
-        $rootScope.$on('auth0.authenticated', onLogin);
+        $rootScope.$on('auth0.authenticated', onAuthenticated);
         $rootScope.$on('auth0.signup', onSignup);
         $rootScope.$on('auth0.logout', onLogout);
 
@@ -380,7 +386,7 @@ var module = angular
             if (profilePromise) {
                 profilePromise.then(function (profile) {
                     // currently unused
-                    //$rootScope.$broadcast('user.auth', profile);
+                    //$rootScope.$broadcast('user.re-authenticated', profile);
                 });
             }
         })

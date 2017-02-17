@@ -73,9 +73,9 @@ module
 
         // This is also triggered by auth.js after the profile is resolved after page refresh so that
         // the list of data environments can reflect the contents of the authenticated profile after page reload
-        $rootScope.$on('user.login', function (event, profile) {
+        $rootScope.$on('user.authenticated', function (event, profile) {
 
-            console.log('user.login / auth profile', profile);
+            console.log('user.authenticated profile', profile);
             updateDataEnvironmentsListBasedOnAuthenticationState(profile);
 
             // Set relevant beta channel

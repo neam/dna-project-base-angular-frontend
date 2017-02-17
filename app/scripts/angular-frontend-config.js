@@ -526,7 +526,6 @@ let module = angular.module('angular-frontend-config', [])
                 "auth0_nickname": profile.nickname,
                 "auth0_last_login_at": last_login_at,
                 "auth0_email_verified": profile.email_verified
-
             };
             console.log('mixpanel_data', mixpanel_data);
             $window.mixpanel.people.set(mixpanel_data);
@@ -600,7 +599,7 @@ let module = angular.module('angular-frontend-config', [])
 
     .run(function ($rootScope, $state, $location, AuthService, $window) {
 
-        var updateIntercomAtLogin = function (profile) {
+        var updateIntercomAtAuthenticated = function (profile) {
 
             // Intercom
             var intercom_data = IntercomUserDataHelper.intercomUserDataFromAuth0ProfileData(profile);
@@ -622,11 +621,11 @@ let module = angular.module('angular-frontend-config', [])
 
         };
 
-        $rootScope.$on('user.login', function (event, profile) {
+        $rootScope.$on('user.authenticated', function (event, profile) {
 
-            console.log('user.login Intercom-trigger in angular-frontend-config', event);
+            console.log('user.authenticated Intercom-trigger in angular-frontend-config', event);
 
-            updateIntercomAtLogin(profile);
+            updateIntercomAtAuthenticated(profile);
 
         });
 
