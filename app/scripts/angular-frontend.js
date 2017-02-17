@@ -40,7 +40,7 @@ module
             dataEnvironments.list = profile.user_metadata.api_endpoints || [];
             dataEnvironments.available = true;
 
-            console.log('user.login dataEnvironments', dataEnvironments);
+            console.log('updateDataEnvironmentsListBasedOnAuthenticationState dataEnvironments', dataEnvironments);
 
             auth.profilePromise.then(function () {
 
@@ -71,13 +71,16 @@ module
 
         };
 
-        // This is also triggered by auth.js after the profile is resolved after page refresh so that
+        // Update the list of data environments upon login
+        $rootScope.$on('user.login', function (event, profile) {
+            console.log('user.login profile', profile);
+            updateDataEnvironmentsListBasedOnAuthenticationState(profile);
+        });
+        // This is triggered by auth.js after the profile is resolved after page refresh so that
         // the list of data environments can reflect the contents of the authenticated profile after page reload
         $rootScope.$on('user.authenticated', function (event, profile) {
-
             console.log('user.authenticated profile', profile);
             updateDataEnvironmentsListBasedOnAuthenticationState(profile);
-
         });
 
         $rootScope.$on('user.logout', function () {
