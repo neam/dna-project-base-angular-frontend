@@ -49,6 +49,13 @@ var module = angular
 
         var onLogin = function () {
             auth.profilePromise.then(function (profile) {
+
+                // Ensure there it a user metadata attribute
+                if (!profile.user_metadata) {
+                    profile.user_metadata = {};
+                }
+
+                AuthService.authenticatedDefer.resolve(profile);
                 $rootScope.$broadcast('user.login', profile);
             });
         };
