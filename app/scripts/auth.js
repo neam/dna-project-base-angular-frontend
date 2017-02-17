@@ -55,13 +55,13 @@ var module = angular
 
         var onAuthenticated = function () {
             auth.profilePromise.then(function (profile) {
-                AuthService.authenticatedPromise.resolve();
 
                 // Ensure there it a user metadata attribute
                 if (!profile.user_metadata) {
                     profile.user_metadata = {};
                 }
 
+                AuthService.authenticatedDefer.resolve(profile);
                 $rootScope.$broadcast('user.authenticated', profile);
             });
         };
@@ -72,7 +72,6 @@ var module = angular
         };
 
         var onLogout = function () {
-            //AuthService.authenticatedPromise.reject(err);
             $rootScope.$broadcast('user.logout');
         };
 
@@ -80,7 +79,12 @@ var module = angular
 
         AuthService.goAfterLogin = goAfterLogin;
 
-        AuthService.authenticatedPromise = $q.defer();
+        /**
+         * This is a defer that is available at app boot time (unlike auth.profilePromise which is only
+         * available after we have asked auth0 to authenticate an existing token or similar)
+         * so that the app can use it without being worried of if auth.profilePromise is available yet
+         */
+        AuthService.authenticatedDefer = $q.defer();
 
         var onSigninSignupSuccess = function (profile, token, accessToken, state, refreshToken) {
             // Success callback
