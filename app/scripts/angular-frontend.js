@@ -21,7 +21,7 @@ let module = angular.module('angular-frontend', [
  * Services whose purpose is to supply the "dataEnvironments" array and "setDataEnvironment" function
  */
 module
-    .service('DataEnvironmentService', function ($q, auth, $rootScope, $timeout, restrictUi) {
+    .service('DataEnvironmentService', function ($q, auth, $rootScope, $timeout) {
 
         //console.log('DataEnvironmentService');
 
@@ -77,12 +77,6 @@ module
 
             console.log('user.authenticated profile', profile);
             updateDataEnvironmentsListBasedOnAuthenticationState(profile);
-
-            // Set relevant beta channel
-            // TODO: Refactor this into separate code since it is not related to data environments
-            if (profile.user_metadata.beta_channel) {
-                restrictUi.setFeatureStabilityLevel(profile.user_metadata.beta_channel);
-            }
 
         });
 

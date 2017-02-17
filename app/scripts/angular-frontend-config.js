@@ -1,6 +1,6 @@
 'use strict';
 
-let IntercomUserDataHelper = require('shared/scripts/class.IntercomUserDataHelper.js');
+let IntercomUserDataHelper = require('project/scripts/class.IntercomUserDataHelper.js');
 
 /**
  * INSPINIA - Responsive Admin Theme

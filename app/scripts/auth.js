@@ -9,7 +9,7 @@ require('bower_components/angular-jwt/dist/angular-jwt.js');
 require('bower_components/auth0-angular/build/auth0-angular.js');
 
 let setDepth = require('shared/scripts/util.setDepth.js');
-let IntercomUserDataHelper = require('shared/scripts/class.IntercomUserDataHelper.js');
+let IntercomUserDataHelper = require('project/scripts/class.IntercomUserDataHelper.js');
 
 var module = angular
     .module('auth', [
