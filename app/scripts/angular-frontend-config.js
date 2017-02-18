@@ -599,7 +599,7 @@ let module = angular.module('angular-frontend-config', [])
 
     .run(function ($rootScope, $state, $location, AuthService, $window) {
 
-        var updateIntercomAtAuthenticated = function (profile) {
+        var updateIntercomAtLoginOrAuthenticated = function (profile) {
 
             // Intercom
             var intercom_data = IntercomUserDataHelper.intercomUserDataFromAuth0ProfileData(profile);
@@ -621,12 +621,13 @@ let module = angular.module('angular-frontend-config', [])
 
         };
 
+        $rootScope.$on('user.login', function (event, profile) {
+            console.log('user.login Intercom-trigger in angular-frontend-config', event);
+            updateIntercomAtLoginOrAuthenticated(profile);
+        });
         $rootScope.$on('user.authenticated', function (event, profile) {
-
             console.log('user.authenticated Intercom-trigger in angular-frontend-config', event);
-
-            updateIntercomAtAuthenticated(profile);
-
+            updateIntercomAtLoginOrAuthenticated(profile);
         });
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
