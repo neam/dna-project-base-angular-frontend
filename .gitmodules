@@ -14,3 +14,6 @@
 [submodule "bower_components-git-repos/ng-optimizely"]
 	path = bower_components-git-repos/ng-optimizely
 	url = git@github.com:neam/ng-optimizely.git
+[submodule "app/lib/vizabi"]
+	path = app/lib/vizabi
+	url = git@github.com:vizabi/vizabi.git
