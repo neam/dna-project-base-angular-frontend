@@ -165,7 +165,7 @@ module
             dataEnvironments: dataEnvironments,
             activeDataEnvironment: activeDataEnvironment,
             setDataEnvironment: setDataEnvironment,
-            needsToChooseActiveDataEnvironment: function() {
+            needsToChooseActiveDataEnvironment: function () {
                 return !activeDataEnvironment.available && auth.profilePromise && dataEnvironments.available && dataEnvironments.list.length > 0;
             }
         };
@@ -188,14 +188,15 @@ module
  * open('modals/foo.html', 'lg')
  */
 module
-    .controller('GeneralModalController', function ($scope, $modal, $log) {
+    .service('GeneralModalControllerService', function ($modal, $log) {
 
-        $scope.open = function (template, size, params) {
+        let service = {};
+        service.openWithinScope = function ($scope, template, size, params) {
 
             $scope.params = params;
             var modalInstance = $modal.open({
                 animation: true,
-                templateUrl: template,
+                template: template,
                 controller: 'GeneralModalInstanceController',
                 size: size,
                 resolve: {
@@ -211,7 +212,78 @@ module
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
+        return service;
 
+    })
+    .controller('GeneralModalController', function ($scope, GeneralModalControllerService) {
+
+        $scope.open = function (template, size, params) {
+            GeneralModalControllerService.openWithinScope($scope, template, size, params);
+        };
+
+    });
+
+// Please note that $modalInstance represents a modal window (instance) dependency.
+// It is not the same as the $modal service used above.
+module
+    .controller('GeneralModalInstanceController', function ($scope, $modalInstance /*, items */) {
+
+        //$scope.items = items;
+
+        $scope.ok = function () {
+            $modalInstance.close(/*$scope.selected.item*/);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    });
+
+/**
+ */
+module
+    .service('GloballyAccessibleModalsService', function ($q, $rootScope) {
+
+        let service = {
+            modalElements: {},
+            deferredModalElementById: function (id) {
+
+                let self = this;
+                let defer = $q.defer();
+
+                if (self.modalElements[id]) {
+                    defer.resolve(self.modalElements[id]);
+                } else {
+                    $rootScope.self = self;
+                    let stopWatching = $rootScope.$watch(function () {
+                        return self.modalElements;
+                    }, function (modalElements) {
+                        let desiredModalElement = modalElements[id];
+                        if (desiredModalElement) {
+                            defer.resolve(desiredModalElement);
+                            stopWatching();
+                        }
+                    });
+                }
+
+                return defer;
+
+            }
+        };
+        return service;
+
+    })
+    .directive('globallyAccessibleModal', function (GloballyAccessibleModalsService) {
+        return {
+            restrict: 'A',
+            transclude: true,
+            scope: {},
+            template: '<ng-transclude/>',
+            link: function (scope, element, attrs) {
+                console.log('foo foo', attrs, GloballyAccessibleModalsService);
+                GloballyAccessibleModalsService.modalElements[attrs.id] = element;
+            }
+        };
     });
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
