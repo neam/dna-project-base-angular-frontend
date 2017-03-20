@@ -280,7 +280,7 @@ module
             scope: {},
             template: '<ng-transclude/>',
             link: function (scope, element, attrs) {
-                console.log('foo foo', attrs, GloballyAccessibleModalsService);
+                console.log('globallyAccessibleModal link', attrs, GloballyAccessibleModalsService);
                 GloballyAccessibleModalsService.modalElements[attrs.id] = element;
             }
         };
