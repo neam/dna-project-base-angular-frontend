@@ -262,7 +262,7 @@ var module = angular
         // Routes for auth
             .state('root.start.user', {
                 abstract: true,
-                url: "/user",
+                url: "user",
             })
             .state('root.start.user.login', {
                 url: "/login",
