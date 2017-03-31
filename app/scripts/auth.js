@@ -20,7 +20,7 @@ var module = angular
         'angular-jwt'
     ])
 
-    .service('authService', function ($http, $q, auth, store, $state, $rootScope) {
+    .service('authService', function ($q, auth, store, $state, $rootScope) {
 
         // Keep track of previous state so that we can send the user back to their previous state on login success of failure
         $rootScope.previousState;
@@ -146,13 +146,26 @@ var module = angular
             goAfterLogin();
         };
 
+        // Events
+        $rootScope.$on('auth0.authenticated', onAuthenticated);
+        $rootScope.$on('auth0.signup', onSignup);
+        $rootScope.$on('auth0.logout', onLogout);
+
+        return authService;
+
+    })
+
+    .service('authProfileUpdateService', function ($http, auth) {
+
+        let authProfileUpdateService = {};
+
         /**
          * Use to update one or several profile attributes at once
          * @param updatedAttributes
          * @param success
          * @param error
          */
-        authService.updateProfile = function (updatedAttributes, success, error) {
+        authProfileUpdateService.updateProfile = function (updatedAttributes, success, error) {
 
             // Default success/error handlers
             if (!success) {
@@ -201,19 +214,14 @@ var module = angular
             });
         };
 
-        authService.quickUpdateProfileByProp = function (prop, value) {
+        authProfileUpdateService.quickUpdateProfileByProp = function (prop, value) {
             let updatedAttributes = {};
             setDepth(updatedAttributes, prop, value);
             console.log('quickUpdateProfileByProp', prop, value, updatedAttributes);
-            authService.updateProfile(updatedAttributes);
+            authProfileUpdateService.updateProfile(updatedAttributes);
         };
 
-        // Events
-        $rootScope.$on('auth0.authenticated', onAuthenticated);
-        $rootScope.$on('auth0.signup', onSignup);
-        $rootScope.$on('auth0.logout', onLogout);
-
-        return authService;
+        return authProfileUpdateService;
 
     })
 
