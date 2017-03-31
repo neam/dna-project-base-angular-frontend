@@ -45,6 +45,7 @@ module.exports = function makeWebpackConfig() {
                 'bower_components': __dirname + '/bower_components',
                 'react': 'preact-compat',
                 'react-dom': 'preact-compat',
+                'preact-compat/lib/ReactCSSTransitionGroup': 'preact-css-transition-group',
                 'moment': 'bower_components/moment/moment',
                 'crossfilter': 'bower_components/crossfilter/crossfilter',
                 'd3': 'bower_components/d3/d3',
