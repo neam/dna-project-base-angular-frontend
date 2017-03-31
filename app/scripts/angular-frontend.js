@@ -21,7 +21,11 @@ let module = angular.module('angular-frontend', [
  * Services whose purpose is to supply the "dataEnvironments" array and "setDataEnvironment" function
  */
 module
-    .service('DataEnvironmentService', function ($q, auth, $rootScope, $timeout) {
+    .service('activeDataEnvironment', function ($q) {
+        let activeDataEnvironment = $q.defer();
+        return activeDataEnvironment;
+    })
+    .service('DataEnvironmentService', function ($q, auth, $rootScope, $timeout, activeDataEnvironment) {
 
         //console.log('DataEnvironmentService');
 
@@ -95,8 +99,6 @@ module
             });
 
         });
-
-        var activeDataEnvironment = $q.defer();
 
         var setDataEnvironment = function (slug) {
 
