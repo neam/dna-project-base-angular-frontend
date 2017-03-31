@@ -20,7 +20,7 @@ var module = angular
         'angular-jwt'
     ])
 
-    .service('AuthService', function ($http, $q, auth, store, $state, $rootScope) {
+    .service('authService', function ($http, $q, auth, store, $state, $rootScope) {
 
         // Keep track of previous state so that we can send the user back to their previous state on login success of failure
         $rootScope.previousState;
@@ -55,7 +55,7 @@ var module = angular
                     profile.user_metadata = {};
                 }
 
-                AuthService.authenticatedDefer.resolve(profile);
+                authService.authenticatedDefer.resolve(profile);
                 $rootScope.$broadcast('user.login', profile);
             });
         };
@@ -68,7 +68,7 @@ var module = angular
                     profile.user_metadata = {};
                 }
 
-                AuthService.authenticatedDefer.resolve(profile);
+                authService.authenticatedDefer.resolve(profile);
                 $rootScope.$broadcast('user.authenticated', profile);
             });
         };
@@ -82,16 +82,16 @@ var module = angular
             $rootScope.$broadcast('user.logout');
         };
 
-        var AuthService = {};
+        var authService = {};
 
-        AuthService.goAfterLogin = goAfterLogin;
+        authService.goAfterLogin = goAfterLogin;
 
         /**
          * This is a defer that is available at app boot time (unlike auth.profilePromise which is only
          * available after we have asked auth0 to authenticate an existing token or similar)
          * so that the app can use it without being worried of if auth.profilePromise is available yet
          */
-        AuthService.authenticatedDefer = $q.defer();
+        authService.authenticatedDefer = $q.defer();
 
         var onSigninSignupSuccess = function (profile, token, accessToken, state, refreshToken) {
             // Success callback
@@ -101,7 +101,7 @@ var module = angular
             goAfterLogin();
         };
 
-        AuthService.login = function () {
+        authService.login = function () {
             auth.config.auth0lib.once('hidden', goAfterLogin);
             auth.signin({
                 sso: false,
@@ -110,11 +110,11 @@ var module = angular
                 }
             }, onSigninSignupSuccess, function (err) {
                 // Error callback
-                console.log('AuthService error callback signin');
+                console.log('authService error callback signin');
                 goAfterLogin();
             });
         };
-        AuthService.signup = function () {
+        authService.signup = function () {
             auth.config.auth0lib.once('hidden', goAfterLogin);
             auth.signup({
                 sso: false,
@@ -123,22 +123,22 @@ var module = angular
                 }
             }, onSigninSignupSuccess, function (err) {
                 // Error callback
-                console.log('AuthService error callback signup');
+                console.log('authService error callback signup');
                 goAfterLogin();
             });
         };
-        AuthService.reset = function () {
+        authService.reset = function () {
             auth.config.auth0lib.once('hidden', goAfterLogin);
             auth.reset({}, function () {
                 // Success callback
                 $state.go(env.DEFAULT_UI_STATE);
             }, function (err) {
                 // Error callback
-                console.log('AuthService error callback reset');
+                console.log('authService error callback reset');
                 $state.go(env.DEFAULT_UI_STATE);
             });
         };
-        AuthService.logout = function () {
+        authService.logout = function () {
             auth.signout();
             store.remove('profile');
             store.remove('token');
@@ -152,7 +152,7 @@ var module = angular
          * @param success
          * @param error
          */
-        AuthService.updateProfile = function (updatedAttributes, success, error) {
+        authService.updateProfile = function (updatedAttributes, success, error) {
 
             // Default success/error handlers
             if (!success) {
@@ -201,11 +201,11 @@ var module = angular
             });
         };
 
-        AuthService.quickUpdateProfileByProp = function (prop, value) {
+        authService.quickUpdateProfileByProp = function (prop, value) {
             let updatedAttributes = {};
             setDepth(updatedAttributes, prop, value);
             console.log('quickUpdateProfileByProp', prop, value, updatedAttributes);
-            AuthService.updateProfile(updatedAttributes);
+            authService.updateProfile(updatedAttributes);
         };
 
         // Events
@@ -213,13 +213,13 @@ var module = angular
         $rootScope.$on('auth0.signup', onSignup);
         $rootScope.$on('auth0.logout', onLogout);
 
-        return AuthService;
+        return authService;
 
     })
 
-    .controller('LoginController', function ($scope, AuthService) {
-        $scope.login = AuthService.login;
-        $scope.logout = AuthService.logout;
+    .controller('LoginController', function ($scope, authService) {
+        $scope.login = authService.login;
+        $scope.logout = authService.logout;
     })
 
     /**
@@ -266,12 +266,12 @@ var module = angular
             })
             .state('root.start.user.login', {
                 url: "/login",
-                onEnter: function (auth, AuthService) {
+                onEnter: function (auth, authService) {
                     console.log('user.login state');
                     if (!auth.isAuthenticated) {
-                        AuthService.login();
+                        authService.login();
                     } else {
-                        AuthService.goAfterLogin();
+                        authService.goAfterLogin();
                     }
                 },
                 //templateUrl: "views/userapp/login.html",
@@ -279,43 +279,43 @@ var module = angular
             })
             .state('root.start.user.signup', {
                 url: "/signup",
-                onEnter: function (auth, AuthService) {
+                onEnter: function (auth, authService) {
                     console.log('user.signup state');
                     if (auth.isAuthenticated) {
-                        AuthService.logout();
+                        authService.logout();
                     }
                     if (env.FB_CONVERSION_PIXEL_ID !== '') {
                         window.fbq && window.fbq(['track', 'Lead', {'content_name': 'signup'}]);
                     }
-                    AuthService.signup();
+                    authService.signup();
                 },
                 data: {plan: 'default', pageTitle: 'Signup'}
             })
             .state('root.start.user.logout', {
                 url: "/logout",
-                onEnter: function (AuthService) {
+                onEnter: function (authService) {
                     console.log('user.logout state');
-                    AuthService.logout();
+                    authService.logout();
                 },
                 data: {pageTitle: 'Logout'}
             })
             .state('root.start.user.reset-password', {
                 url: "/reset-password",
-                onEnter: function (AuthService) {
+                onEnter: function (authService) {
                     console.log('user.reset-password state');
-                    AuthService.reset();
+                    authService.reset();
                 },
                 data: {pageTitle: 'reset-password'}
             })
             .state('root.start.user.contact', {
                 url: "/contact",
-                onEnter: function (AuthService) {
+                onEnter: function (authService) {
                     Intercom('onHide', _.once(function () {
-                        AuthService.goAfterLogin();
+                        authService.goAfterLogin();
                     }));
                     Intercom('show');
                 },
-                onExit: function (AuthService) {
+                onExit: function (authService) {
                     Intercom('hide');
                 },
                 data: {pageTitle: 'contact'}
