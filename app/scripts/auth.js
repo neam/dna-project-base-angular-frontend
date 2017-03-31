@@ -35,8 +35,8 @@ let module = angular
         let auth = {
             hookEvents: function () {
 
-                 // Put the authService on $rootScope so that many views can check auth status through it
-                 $rootScope.authService = authService;
+                // Put the authService on $rootScope so that many views can check auth status through it
+                $rootScope.authService = authService;
 
                 // Register the event listeners that react on lock events
                 authService.registerEventListeners();
@@ -56,7 +56,13 @@ let module = angular
 
             profilePromise: authService.authenticatedDefer.promise,
 
+            profile: {},
+
         };
+
+        auth.profilePromise.then(function (profile) {
+            auth.profile = profile;
+        });
 
         return auth;
 
@@ -99,7 +105,7 @@ let module = angular
         authService.authenticatedDefer = $q.defer();
 
         // Our own definition of authenticated includes that we also have the user's profile information
-        authService.isAuthenticatedWithProfileData =  false;
+        authService.isAuthenticatedWithProfileData = false;
 
         authService.onAuthenticated = function (profile) {
             // Ensure there is a user metadata attribute
@@ -119,12 +125,12 @@ let module = angular
 
         authService.goAfterLogin = goAfterLogin;
 
-        let onSigninSignupSuccess = function (profile, idToken, accessToken, state, refreshToken) {
+        let onAuthenticationAndSigninAndSignupSuccess = function (profile, idToken, accessToken /*, state, refreshToken*/) {
             // Success callback
             store.set('profile', profile);
             store.set('id_token', idToken);
+            store.set('access_token', accessToken);
             authService.onAuthenticated(profile);
-            goAfterLogin();
         };
 
         authService.login = function () {
@@ -146,10 +152,25 @@ let module = angular
             // Logging out just requires removing the user's
             // id token and profile
             store.remove('id_token');
+            store.remove('access_token');
             store.remove('profile');
             authManager.unauthenticate();
             Intercom('shutdown');
             authService.onLogout();
+        };
+
+        authService.authenticatedCallback = function (authResult) {
+
+            authManager.authenticate();
+
+            lock.getUserInfo(authResult.accessToken, function (error, profile) {
+                if (!error) {
+                    onAuthenticationAndSigninAndSignupSuccess(profile, authResult.idToken, authResult.accessToken /*, authResult.state, authResult.refreshToken*/);
+                } else {
+                    console.error('lock.getUserInfo error', error);
+                }
+            });
+
         };
 
         // Events
@@ -160,17 +181,8 @@ let module = angular
             // Set up the logic for when a user authenticates
             lock.on('authenticated', function (authResult) {
                 console.log('lock authenticated', authResult);
-                localStorage.setItem('id_token', authResult.idToken);
-                authManager.authenticate();
-
-                lock.getUserInfo(authResult.accessToken, function (error, profile) {
-                    if (!error) {
-                        onSigninSignupSuccess(profile, authResult.idToken, authResult.accessToken, authResult.state, authResult.refreshToken);
-                    } else {
-                        console.error('lock.getUserInfo error', error);
-                    }
-                });
-
+                authService.authenticatedCallback(authResult);
+                goAfterLogin();
             });
 
             lock.on('authorization_error', function (err) {
@@ -456,14 +468,19 @@ let module = angular
 
         // Keep the user logged in after a page refresh
         $rootScope.$on('$locationChangeStart', function () {
+            const idToken = authManager.getToken();
+            const accessToken = store.get('access_token');
             // Silly method name "isAuthenticated" should actually be called idTokenIsNotExpired() or similar
             // since it does not return the value of isAuthenticated
             if (authManager.isAuthenticated() && !authService.isAuthenticatedWithProfileData) {
-                let profile = store.get('profile');
-                authService.onAuthenticated(profile);
+                console.log('token re-authenticated', authResult);
+                //let profile = store.get('profile');
+                let authResult = {
+                    idToken: idToken,
+                    accessToken: accessToken,
+                };
+                authService.authenticatedCallback(authResult);
             } else {
-
-                const idToken = authManager.getToken();
                 if (idToken) {
                     // We have a jwt id token (meaning that a login was made here before) but the id token has expired
                     console.log('no active jwt idToken', idToken, $state.current);
