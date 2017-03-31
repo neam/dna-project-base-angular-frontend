@@ -471,7 +471,7 @@ let module = angular.module('angular-frontend-config', [])
             }
 
         };
-        $rootScope.$on('user.login', function (event, profile) {
+        $rootScope.$on('authenticated', function (event, profile) {
 
             console.log('user.login updateTrackersAtSignup-trigger in angular-frontend-config', event);
 
@@ -569,7 +569,7 @@ let module = angular.module('angular-frontend-config', [])
 
         };
 
-        $rootScope.$on('user.login', function (event, profile) {
+        $rootScope.$on('authenticated', function (event, profile) {
 
             console.log('user.login Mixpanel-trigger in angular-frontend-config', event);
 
@@ -621,11 +621,11 @@ let module = angular.module('angular-frontend-config', [])
 
         };
 
-        $rootScope.$on('user.login', function (event, profile) {
+        $rootScope.$on('authenticated', function (event, profile) {
             console.log('user.login Intercom-trigger in angular-frontend-config', event);
             updateIntercomAtLoginOrAuthenticated(profile);
         });
-        $rootScope.$on('user.authenticated', function (event, profile) {
+        $rootScope.$on('authenticated', function (event, profile) {
             console.log('user.authenticated Intercom-trigger in angular-frontend-config', event);
             updateIntercomAtLoginOrAuthenticated(profile);
         });

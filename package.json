@@ -13,10 +13,12 @@
   "dependencies": {
     "angular": "^1.6.3",
     "angular-bootstrap": "^0.12.2",
+    "angular-cookies": "^1.6.4",
     "angular-jwt": "^0.1.9",
     "angular-lock": "^2.0.2",
     "angular-sanitize": "^1.6.1",
     "angular-scroll": "^1.0.0",
+    "angular-storage": "^0.0.15",
     "angular-translate": "^2.13.1",
     "angular-ui-router": "~1.0.0-rc.1",
     "auth0-js": "^8.5.0",

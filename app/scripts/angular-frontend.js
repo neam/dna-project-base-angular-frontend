@@ -76,18 +76,14 @@ module
         };
 
         // Update the list of data environments upon login
-        $rootScope.$on('user.login', function (event, profile) {
-            console.log('user.login profile', profile);
-            updateDataEnvironmentsListBasedOnAuthenticationState(profile);
-        });
         // This is triggered by auth.js after the profile is resolved after page refresh so that
         // the list of data environments can reflect the contents of the authenticated profile after page reload
-        $rootScope.$on('user.authenticated', function (event, profile) {
+        $rootScope.$on('authenticated', function (event, profile) {
             console.log('user.authenticated profile', profile);
             updateDataEnvironmentsListBasedOnAuthenticationState(profile);
         });
 
-        $rootScope.$on('user.logout', function () {
+        $rootScope.$on('unauthenticated', function () {
 
             setDataEnvironment(null);
             dataEnvironments.list = [];
