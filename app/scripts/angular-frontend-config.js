@@ -427,7 +427,7 @@ let module = angular.module('angular-frontend-config', [])
         };
     })
 
-    .run(function ($rootScope, $state, $location, AuthService, $window) {
+    .run(function ($rootScope, $state, $location, authProfileUpdateService, $window) {
         var updateTrackersAtSignup = function (profile) {
 
             //console.log('user.signup');
@@ -471,7 +471,7 @@ let module = angular.module('angular-frontend-config', [])
             }
 
         };
-        $rootScope.$on('user.login', function (event, profile) {
+        $rootScope.$on('authenticated', function (event, profile) {
 
             console.log('user.login updateTrackersAtSignup-trigger in angular-frontend-config', event);
 
@@ -486,14 +486,14 @@ let module = angular.module('angular-frontend-config', [])
                 profile.user_metadata.signup_tracked = true;
 
                 // Store property so that we don't track signup again for this user
-                AuthService.quickUpdateProfileByProp('user_metadata.signup_tracked', true);
+                authProfileUpdateService.quickUpdateProfileByProp('user_metadata.signup_tracked', true);
 
             }
 
         });
     })
 
-    .run(function ($rootScope, $state, $location, AuthService, $window) {
+    .run(function ($rootScope, $state, $location, authProfileUpdateService, $window) {
         /**
          user_id: A unique identifier of the user per identity provider, same for all apps (e.g.: google-oauth2|103547991597142817347). ALWAYS GENERATED                // Notice that the primary user_id is referring to the first identity the user authenticated with (Google in the example). Also, all user properties will continue to be those of the primary identity.
          name: The full name of the user (e.g.: John Foo). ALWAYS GENERATED
@@ -555,7 +555,7 @@ let module = angular.module('angular-frontend-config', [])
                     // Store property so that we don't run alias again for this user
                     var updatedAttributes = {"user_metadata": {"original_mixpanel_distinct_id": current_mixpanel_distinct_id}};
 
-                    AuthService.quickUpdateProfileByProp('user_metadata.original_mixpanel_distinct_id', current_mixpanel_distinct_id, function (updatedProfile) {
+                    authProfileUpdateService.quickUpdateProfileByProp('user_metadata.original_mixpanel_distinct_id', current_mixpanel_distinct_id, function (updatedProfile) {
                         // Continue flow
                         ready(profile);
                     });
@@ -569,7 +569,7 @@ let module = angular.module('angular-frontend-config', [])
 
         };
 
-        $rootScope.$on('user.login', function (event, profile) {
+        $rootScope.$on('authenticated', function (event, profile) {
 
             console.log('user.login Mixpanel-trigger in angular-frontend-config', event);
 
@@ -597,7 +597,7 @@ let module = angular.module('angular-frontend-config', [])
         });
     })
 
-    .run(function ($rootScope, $state, $location, AuthService, $window) {
+    .run(function ($rootScope, $state, $location, $window) {
 
         var updateIntercomAtLoginOrAuthenticated = function (profile) {
 
@@ -621,11 +621,11 @@ let module = angular.module('angular-frontend-config', [])
 
         };
 
-        $rootScope.$on('user.login', function (event, profile) {
+        $rootScope.$on('authenticated', function (event, profile) {
             console.log('user.login Intercom-trigger in angular-frontend-config', event);
             updateIntercomAtLoginOrAuthenticated(profile);
         });
-        $rootScope.$on('user.authenticated', function (event, profile) {
+        $rootScope.$on('authenticated', function (event, profile) {
             console.log('user.authenticated Intercom-trigger in angular-frontend-config', event);
             updateIntercomAtLoginOrAuthenticated(profile);
         });

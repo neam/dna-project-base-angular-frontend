@@ -21,7 +21,11 @@ let module = angular.module('angular-frontend', [
  * Services whose purpose is to supply the "dataEnvironments" array and "setDataEnvironment" function
  */
 module
-    .service('DataEnvironmentService', function ($q, auth, $rootScope, $timeout) {
+    .service('activeDataEnvironment', function ($q) {
+        let activeDataEnvironment = $q.defer();
+        return activeDataEnvironment;
+    })
+    .service('DataEnvironmentService', function ($q, auth, $rootScope, $timeout, activeDataEnvironment) {
 
         //console.log('DataEnvironmentService');
 
@@ -72,18 +76,14 @@ module
         };
 
         // Update the list of data environments upon login
-        $rootScope.$on('user.login', function (event, profile) {
-            console.log('user.login profile', profile);
-            updateDataEnvironmentsListBasedOnAuthenticationState(profile);
-        });
         // This is triggered by auth.js after the profile is resolved after page refresh so that
         // the list of data environments can reflect the contents of the authenticated profile after page reload
-        $rootScope.$on('user.authenticated', function (event, profile) {
+        $rootScope.$on('authenticated', function (event, profile) {
             console.log('user.authenticated profile', profile);
             updateDataEnvironmentsListBasedOnAuthenticationState(profile);
         });
 
-        $rootScope.$on('user.logout', function () {
+        $rootScope.$on('unauthenticated', function () {
 
             setDataEnvironment(null);
             dataEnvironments.list = [];
@@ -95,8 +95,6 @@ module
             });
 
         });
-
-        var activeDataEnvironment = $q.defer();
 
         var setDataEnvironment = function (slug) {
 
