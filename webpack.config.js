@@ -43,12 +43,12 @@ module.exports = function makeWebpackConfig() {
                 'shared': __dirname + '/app',
                 'webpack-angular-examplecode': __dirname + '/webpack-angular-examplecode',
                 'bower_components': __dirname + '/bower_components',
-                "react": "preact-compat",
-                "react-dom": "preact-compat",
-                "moment": "bower_components/moment/moment",
-                "crossfilter": "bower_components/crossfilter/crossfilter",
-                "d3": "bower_components/d3/d3",
-                "dc": "bower_components/dcjs/dc",
+                'react': 'preact-compat',
+                'react-dom': 'preact-compat',
+                'moment': 'bower_components/moment/moment',
+                'crossfilter': 'bower_components/crossfilter/crossfilter',
+                'd3': 'bower_components/d3/d3',
+                'dc': 'bower_components/dcjs/dc',
             },
             extensions: ['', '.js']
         },
@@ -65,7 +65,7 @@ module.exports = function makeWebpackConfig() {
                 },
                 {
                     test: /\.rt$/,
-                    loader: "react-templates-loader?modules=amd",
+                    loader: 'react-templates-loader?modules=amd',
                     exclude: /node_modules/
                 },
                 {
@@ -158,9 +158,9 @@ module.exports = function makeWebpackConfig() {
                             'babel-preset-react',
                             'babel-preset-stage-0',
                         ].map(require.resolve),
-                        "plugins": [
-                            "babel-plugin-transform-react-jsx", // TODO: Enable preact directly, find a way to use the following config: ["transform-react-jsx", {"pragma": "preact.h"}],
-                            "babel-plugin-add-module-exports"
+                        'plugins': [
+                            'babel-plugin-transform-react-jsx', // TODO: Enable preact directly, find a way to use the following config: ['transform-react-jsx', {'pragma': 'preact.h'}],
+                            'babel-plugin-add-module-exports'
                         ].map(require.resolve)
                     })],
                 threadPool: happyThreadPool
