@@ -323,7 +323,12 @@ let module = angular
                 // Return the saved id token
                 return store.get('id_token');
             }],
-            whiteListedDomains: [new RegExp('.+\.' + env.AUTH0_JWT_WHITELISTED_DOMAIN + '$', 'i'), 'localhost', '127.0.0.1'],
+            whiteListedDomains: [
+                new RegExp('.+\.' + env.AUTH0_JWT_WHITELISTED_DOMAIN + '$', 'i'),
+                new RegExp('.+\.auth0\.com$', 'i'),
+                'localhost',
+                '127.0.0.1'
+            ],
 
             // Configure redirect to login route when trying to request a route that requires login
             unauthenticatedRedirector: ['$state', function ($state) {

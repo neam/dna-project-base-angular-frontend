@@ -427,7 +427,7 @@ let module = angular.module('angular-frontend-config', [])
         };
     })
 
-    .run(function ($rootScope, $state, $location, authService, $window) {
+    .run(function ($rootScope, $state, $location, authProfileUpdateService, $window) {
         var updateTrackersAtSignup = function (profile) {
 
             //console.log('user.signup');
@@ -486,14 +486,14 @@ let module = angular.module('angular-frontend-config', [])
                 profile.user_metadata.signup_tracked = true;
 
                 // Store property so that we don't track signup again for this user
-                authService.quickUpdateProfileByProp('user_metadata.signup_tracked', true);
+                authProfileUpdateService.quickUpdateProfileByProp('user_metadata.signup_tracked', true);
 
             }
 
         });
     })
 
-    .run(function ($rootScope, $state, $location, authService, $window) {
+    .run(function ($rootScope, $state, $location, authProfileUpdateService, $window) {
         /**
          user_id: A unique identifier of the user per identity provider, same for all apps (e.g.: google-oauth2|103547991597142817347). ALWAYS GENERATED                // Notice that the primary user_id is referring to the first identity the user authenticated with (Google in the example). Also, all user properties will continue to be those of the primary identity.
          name: The full name of the user (e.g.: John Foo). ALWAYS GENERATED
@@ -555,7 +555,7 @@ let module = angular.module('angular-frontend-config', [])
                     // Store property so that we don't run alias again for this user
                     var updatedAttributes = {"user_metadata": {"original_mixpanel_distinct_id": current_mixpanel_distinct_id}};
 
-                    authService.quickUpdateProfileByProp('user_metadata.original_mixpanel_distinct_id', current_mixpanel_distinct_id, function (updatedProfile) {
+                    authProfileUpdateService.quickUpdateProfileByProp('user_metadata.original_mixpanel_distinct_id', current_mixpanel_distinct_id, function (updatedProfile) {
                         // Continue flow
                         ready(profile);
                     });
@@ -597,7 +597,7 @@ let module = angular.module('angular-frontend-config', [])
         });
     })
 
-    .run(function ($rootScope, $state, $location, authService, $window) {
+    .run(function ($rootScope, $state, $location, $window) {
 
         var updateIntercomAtLoginOrAuthenticated = function (profile) {
 
