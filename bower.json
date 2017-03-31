@@ -97,8 +97,7 @@
     "cal-heatmap": "~3.6.0",
     "intro.js": "^2.1.0",
     "ng-videosharing-embed": "^0.3.4",
-    "jquery.floatThead": "floatThead#^1.4.4",
-    "angular-state-loader": "^0.3.0"
+    "jquery.floatThead": "floatThead#^1.4.4"
   },
   "resolutions": {
     "jquery": "2.1.3",
