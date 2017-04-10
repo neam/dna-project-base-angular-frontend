@@ -491,6 +491,9 @@ let module = angular
         $rootScope.$on('$locationChangeStart', function () {
             const idToken = authManager.getToken();
             const accessToken = store.get('access_token');
+            if (authService.isAuthenticatedWithProfileData) {
+                return;
+            }
             // Silly method name "isAuthenticated" should actually be called idTokenIsNotExpired() or similar
             // since it does not return the value of isAuthenticated
             if (authManager.isAuthenticated() && !authService.isAuthenticatedWithProfileData) {
@@ -499,12 +502,12 @@ let module = angular
                     idToken: idToken,
                     accessToken: accessToken,
                 };
-                console.log('token re-authenticated', authResult);
+                console.log('Valid token in storage, loading profile data...', authResult);
                 authService.authenticatedCallback(authResult);
             } else {
                 if (idToken) {
                     // We have a jwt id token (meaning that a login was made here before) but the id token has expired
-                    console.log('no active jwt idToken', idToken, $state.current);
+                    console.log('no active jwt idToken', idToken, $state.current, authManager.isAuthenticated(), authService.isAuthenticatedWithProfileData);
                     // Either show the login page or use the refresh id token to get a new idToken
                     // TODO: Make sure to return to the attempted-to-access state after login
                     //$state.go(loginState);
