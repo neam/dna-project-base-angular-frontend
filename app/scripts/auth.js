@@ -35,8 +35,9 @@ let module = angular
         let auth = {
             hookEvents: function () {
 
-                // Put the authService on $rootScope so that many views can check auth status through it
+                // Put the authService and auth on $rootScope so that many views can check auth status through it
                 $rootScope.authService = authService;
+                $rootScope.auth = this;
 
                 // Register the event listeners that react on lock events
                 authService.registerEventListeners();
