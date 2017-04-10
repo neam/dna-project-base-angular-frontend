@@ -20,6 +20,9 @@ let IntercomUserDataHelper = require('project/scripts/class.IntercomUserDataHelp
 // Here include the URL to redirect to if the user tries to access a resource when not authenticated.
 const loginState = 'root.start.user.login';
 
+// Used to support offline login
+let auth0mockdata = {};
+
 let module = angular
     .module('auth', [
         // Auth0
@@ -135,6 +138,16 @@ let module = angular
         };
 
         authService.login = function () {
+            // Mock for offline dev
+            if (env.OFFLINE_DEV === 'true') {
+                let authResult = {
+                    idToken: auth0mockdata.idToken,
+                    accessToken: auth0mockdata.accessToken,
+                };
+                authService.authenticatedCallback(authResult);
+                return;
+            }
+
             lock.show({
                 initialScreen: 'login'
             });
@@ -163,6 +176,13 @@ let module = angular
         authService.authenticatedCallback = function (authResult) {
 
             authManager.authenticate();
+
+            // Mock for offline dev
+            if (env.OFFLINE_DEV === 'true') {
+                let profile = auth0mockdata.profile;
+                onAuthenticationAndSigninAndSignupSuccess(profile, authResult.idToken, authResult.accessToken /*, authResult.state, authResult.refreshToken*/);
+                return;
+            }
 
             lock.getUserInfo(authResult.accessToken, function (error, profile) {
                 if (!error) {
@@ -282,7 +302,7 @@ let module = angular
         if (env.OFFLINE_DEV === 'true') {
             env.AUTH0_DOMAIN = '127.0.0.1:3000';
             env.AUTH0_CLIENT_ID = 'auth0mockapiclientid';
-            window.auth0mockdata = require('project/scripts/misc/auth0mockdata.js');
+            auth0mockdata = require('project/scripts/misc/auth0mockdata.js');
         }
 
         // Configure Auth0
@@ -474,12 +494,12 @@ let module = angular
             // Silly method name "isAuthenticated" should actually be called idTokenIsNotExpired() or similar
             // since it does not return the value of isAuthenticated
             if (authManager.isAuthenticated() && !authService.isAuthenticatedWithProfileData) {
-                console.log('token re-authenticated', authResult);
                 //let profile = store.get('profile');
                 let authResult = {
                     idToken: idToken,
                     accessToken: accessToken,
                 };
+                console.log('token re-authenticated', authResult);
                 authService.authenticatedCallback(authResult);
             } else {
                 if (idToken) {
