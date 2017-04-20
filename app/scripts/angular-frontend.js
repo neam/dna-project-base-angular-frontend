@@ -46,27 +46,14 @@ module
 
             console.log('updateDataEnvironmentsListBasedOnAuthenticationState dataEnvironments', dataEnvironments);
 
-            auth.profilePromise.then(function () {
-
-                if (!activeDataEnvironment.available) {
-
-                    // If has default, set active
-                    if (profile.user_metadata.default_api_endpoint_slug) {
-                        setDataEnvironment(profile.user_metadata.default_api_endpoint_slug);
-                    } else {
-                        if (dataEnvironments.list.length === 1) {
-                            setDataEnvironment(dataEnvironments[0].slug);
-                        }
-                    }
-
+            // If has default, set active
+            if (profile.user_metadata.default_api_endpoint_slug) {
+                setDataEnvironment(profile.user_metadata.default_api_endpoint_slug);
+            } else {
+                if (dataEnvironments.list.length === 1) {
+                    setDataEnvironment(dataEnvironments.list[0].slug);
                 }
-
-                // inform angular that we have updated auth data by implicitly calling $apply via $timeout
-                $timeout(function () {
-                    console.log('updated auth data after login');
-                });
-
-            });
+            }
 
             // inform angular that we have updated auth data by implicitly calling $apply via $timeout
             $timeout(function () {
