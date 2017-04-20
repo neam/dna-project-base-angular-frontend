@@ -21,6 +21,7 @@
     "angular-storage": "^0.0.15",
     "angular-translate": "^2.13.1",
     "angular-ui-router": "~1.0.0-rc.1",
+    "angular-ui-sortable": "^0.17.1",
     "auth0-js": "^8.5.0",
     "auth0-lock": "^10.14.0",
     "bootstrap": "^3.3.7",

@@ -131,6 +131,10 @@ angular-ui-router@~1.0.0-rc.1:
   dependencies:
     ui-router-core "3.1.0"
 
+angular-ui-sortable@^0.17.1:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/angular-ui-sortable/-/angular-ui-sortable-0.17.1.tgz#5d41aa911c5045e2080e11a7ca93659c29cb66b8"
+
 "angular@>=1.2.26 <=1.6", angular@^1.2.0, angular@^1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.6.3.tgz#5d34b799234e8fa17c6a3a14e0258733935f43e7"
