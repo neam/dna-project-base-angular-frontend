@@ -62,5 +62,10 @@
   }
 }
 
+// Add missing ng-cloak angular style
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 // Magic number for Happypack cache to invalidate (increment upon each change that involves changes to less files): 1
 
